@@ -11,6 +11,7 @@ export enum ArticleType {
  * An interface representing an article.
  */
 export interface IArticle {
+    id: number
     title: string
     subtitle: string
     content: string
@@ -18,6 +19,7 @@ export interface IArticle {
     articleType: ArticleType
     publishedAt: string
     lastEditedAt: string
+    media: string[]
 }
 
 /**
@@ -36,6 +38,7 @@ export default class Article implements IArticle {
     constructor(obj: Partial<IArticle>);
 
     constructor(obj?: Partial<IArticle>) {
+        this.id = obj?.id ?? 0
         this.title = obj?.title ?? "Default Title"
         this.articleType = obj?.articleType ?? ArticleType.news
         this.subtitle = obj?.subtitle ?? ""
@@ -43,13 +46,16 @@ export default class Article implements IArticle {
         this.publisher = new User(obj?.publisher ?? {})
         this.publishedAt = (obj?.publishedAt ? new Date(obj.publishedAt) : new Date()).toISOString()
         this.lastEditedAt = (obj?.lastEditedAt ? new Date(obj.lastEditedAt) : new Date()).toISOString()
+        this.media = obj?.media ?? []
     }
 
-    title: string;
-    articleType: ArticleType;
-    content: string;
-    publisher: IUser;
-    subtitle: string;
-    publishedAt: string;
-    lastEditedAt: string;
+    id: number
+    title: string
+    articleType: ArticleType
+    content: string
+    publisher: IUser
+    subtitle: string
+    publishedAt: string
+    lastEditedAt: string
+    media: string[]
 }
