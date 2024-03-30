@@ -1,0 +1,16 @@
+{
+  "name": "aapc-types",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Types definitions for the AAPC website.",
+  "scripts": {
+    "run": "tsc && node ./dist/main.js",
+    "test": "vitest run",
+    "coverage": "vitest run --coverage"
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "^1.4.0",
+    "typescript": "^5.4.3",
+    "vitest": "^1.4.0"
+  }
+}
