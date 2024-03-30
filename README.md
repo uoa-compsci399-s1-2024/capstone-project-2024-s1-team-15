@@ -8,13 +8,13 @@ behind the AAPC an intuitive Content Management System (CMS) for them to control
 
 ### Our Infrastructure
 
-![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
-![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
-![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
-![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
-![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
-![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
-![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
+[![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html)
+[![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/en/learn/getting-started/introduction-to-nodejs)
+[![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)](https://expressjs.com/)
+[![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
+[![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)](https://aws.amazon.com/cloudfront/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
 
 Our frontend app will utilize Next.js's powerful server-side rendering features to supercharge the user experience, as well as TailwindCSS's
 unique approach to styling to provide an efficient, and aesthetically pleasing website.
@@ -27,7 +27,7 @@ Both apps will be written using TypeScript to ensure type safety and maintainabi
 ## Team Members
 - **Hunter Chen** - Tech Lead / Full-stack Developer
 - **Logan Park** - Project Manager
-- **Arnav Shekaran** - ?
+- **Arnav Shekaran** - Designer / Developer
 - **Gautham Gunasheelan** - ?
 - **Stanley Wu** - ?
 - **Samuel Kim** - ?
@@ -47,3 +47,11 @@ pollen data for the day but this may be in a 'freemium' type view
 
 ## Project Clients
 Amy Chan
+
+## Git Setup
+### Branches
+* `main`: this branch is automatically deployed to ...put link here... and is shared with clients
+* `dev`: this branch is automatically deployed to ...put link here... so we can develop and test improvements before sharing with clients
+* feature branches: whenever we work on a new feature, we can make a seperate branch so that we can see what code changes this feature includes. These changes can be double checked by other teammates before being merged to `dev` branch using a pull request.
+
+
