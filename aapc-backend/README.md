@@ -8,6 +8,13 @@
 Our backend app will be implemented using Express.js, with the NoSQL database being hosted on MongoDB, and authentication /
 CDN services being delegated to Amazon Web Services (AWS).
 
+## Install Dependencies
+
+Install dependencies using `npm`:
+```bash
+npm i
+```
+
 ## Starting the Development Server
 
 ```bash
@@ -18,9 +25,14 @@ The default port is configured to `3000`.
 
 Ping the Express API through [http://localhost:3000](http://localhost:3000).
 
-## Building the Application
+## Building for Production
 
 ```bash
 npm run build
+```
+
+Optionally, start the production server using:
+
+```bash
 npm run start
 ```

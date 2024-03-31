@@ -7,9 +7,9 @@ import { IArticle } from "aapc-types/src/Article";
 import { Nullable } from "../../util/types";
 
 export default class MemoryRepository implements IRepository {
-    users: User[]
-    news: Article[]
-    researches: Article[]
+    private readonly users: User[]
+    private readonly news: Article[]
+    private readonly researches: Article[]
 
     constructor() {
         this.users = []
@@ -35,28 +35,34 @@ export default class MemoryRepository implements IRepository {
     }
 
     async getAllNews(): Promise<Article[]> {
-        throw new Error("Method not implemented.");
+        return this.news
     }
 
     async getNewsById(id: number): Promise<Nullable<Article>> {
-        throw new Error("Method not implemented.");
+        for (const i of this.news) {
+            if (i.id === id) return i
+        }
+        return null
     }
 
     async getAllResearch(): Promise<Article[]> {
-        throw new Error("Method not implemented.");
+        return this.researches
     }
 
     async getResearchById(id: number): Promise<Nullable<Article>> {
-        throw new Error("Method not implemented.");
+        for (const i of this.researches) {
+            if (i.id === id) return i
+        }
+        return null
     }
 
     async getAllUsers(): Promise<User[]> {
-        throw new Error("Method not implemented.");
+        return this.users
     }
 
     async getUserByUsername(username: string): Promise<Nullable<User>> {
-        for (const u of this.users) {
-            if (u.username === username) return u
+        for (const j of this.users) {
+            if (j.username === username) return j
         }
         return null
     }

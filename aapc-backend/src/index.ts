@@ -1,8 +1,7 @@
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
-import newsRouter from "./routes/news";
-import researchRouter from "./routes/research";
-import MemoryRepository from "./repositories/memory/MemoryRepository";
+import { newsRouter, newsURL } from "./routes/news.router";
+import { researchRouter, researchURL } from "./routes/research.router";
 
 dotenv.config()
 
@@ -13,8 +12,8 @@ app.get("/", (req: Request, res: Response) => {
     res.json({ message: "ok" })
 })
 
-app.use("/content/news", newsRouter)
-app.use("/content/research", researchRouter)
+app.use(`/content/${newsURL}`, newsRouter)
+app.use(`/content/${researchURL}`, researchRouter)
 
 
 app.listen(port, () => {
