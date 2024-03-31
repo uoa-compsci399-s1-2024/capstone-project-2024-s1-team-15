@@ -3,9 +3,9 @@
   "version": "0.2.0",
   "private": true,
   "description": "Types definitions for the AAPC website.",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/main.js",
+  "module": "./dist/main.mjs",
+  "types": "./dist/main.d.ts",
   "files": [
     "dist"
   ],
