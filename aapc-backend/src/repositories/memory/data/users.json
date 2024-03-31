@@ -1,0 +1,23 @@
+[
+  {
+    "username": "kche617",
+    "email": "user1@gmail.com",
+    "displayName": "John Doe",
+    "verified": true,
+    "registeredAt": "2024-03-31T13:41:32.096Z"
+  },
+  {
+    "username": "huzz",
+    "email": "user2@gmail.com",
+    "displayName": "Hunter Chen",
+    "verified": true,
+    "registeredAt": "2024-03-30T13:41:32.096Z"
+  },
+  {
+    "username": "foobar",
+    "email": "user3@gmail.com",
+    "displayName": "Foo Bar",
+    "verified": false,
+    "registeredAt": "2024-03-29T13:41:32.096Z"
+  }
+]

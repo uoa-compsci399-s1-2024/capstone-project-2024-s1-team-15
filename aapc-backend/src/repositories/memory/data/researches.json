@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "title": "Research Title 1",
+    "subtitle": "Subtitle 1",
+    "content": "Super Meaningful Content",
+    "articleType": 1,
+    "publisher": "huzz",
+    "publishedAt": "2024-03-31T13:41:32.096Z",
+    "lastEditedAt": "2024-03-31T13:41:32.096Z",
+    "media": [
+      "a",
+      "b"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Research Title 2",
+    "subtitle": "Subtitle 2",
+    "content": "Super Meaningful Content",
+    "articleType": 1,
+    "publisher": "huzz",
+    "publishedAt": "2024-03-31T13:31:32.096Z",
+    "lastEditedAt": "2024-03-31T13:31:32.096Z",
+    "media": [
+      "c",
+      "d"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Research Title 3",
+    "subtitle": "Subtitle 1",
+    "content": "Super Meaningful Content",
+    "articleType": 1,
+    "publisher": "kche617",
+    "publishedAt": "2024-03-31T13:21:32.096Z",
+    "lastEditedAt": "2024-03-31T13:21:32.096Z",
+    "media": [
+      "e",
+      "f"
+    ]
+  }
+]
