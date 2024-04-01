@@ -1,9 +1,8 @@
-import { Article, User } from "aapc-types";
+import { Article, User, IArticle } from "aapc-types";
 import IRepository from "../IRepository";
 import users from "./data/users.json"
 import news from "./data/news.json"
 import researches from "./data/researches.json"
-import { IArticle } from "aapc-types/src/Article";
 import { Nullable } from "../../util/types";
 
 export default class MemoryRepository implements IRepository {

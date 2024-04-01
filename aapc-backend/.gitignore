@@ -19,3 +19,4 @@
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+.vercel

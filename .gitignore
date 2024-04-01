@@ -1,5 +1,7 @@
 .idea
+*/.env.*
 */.env
+!*/.env.example
 */node_modules
 
 ### JetBrains ###
@@ -138,7 +140,7 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # local env files
-.env*.local
+*/.env.*
 
 # vercel
 .vercel
