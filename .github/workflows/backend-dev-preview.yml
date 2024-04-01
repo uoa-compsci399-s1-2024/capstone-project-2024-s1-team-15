@@ -13,6 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: cd backend
+      - run: ls
       - run: npm start .
       - name: Install Vercel CLI
         run: npm install --global vercel@canary
