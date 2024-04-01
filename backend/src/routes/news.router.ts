@@ -1,8 +1,15 @@
 import express, { Router } from "express";
-import { getAllNews, getNewsById } from "../controllers/news.controller";
+import NewsController from "../controllers/news.controller";
 
-export const newsRouter: Router = express.Router()
-export const newsURL = "news"
+export default class NewsRouter {
+    static url = "/content/news"
 
-newsRouter.get("/", getAllNews)
-newsRouter.get("/:id", getNewsById)
+    static router (): Router {
+        const router = express.Router()
+
+        router.get("/", NewsController.getAllNews)
+        router.get("/:id", NewsController.getNewsById)
+
+        return router
+    }
+}

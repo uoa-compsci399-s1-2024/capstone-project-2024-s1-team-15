@@ -1,8 +1,15 @@
 import express, { Router } from "express";
-import { getAllResearch, getResearchById } from "../controllers/research.controller";
+import ResearchController from "../controllers/research.controller";
 
-export const researchRouter: Router = express.Router()
-export const researchURL = "research"
+export default class ResearchRouter {
+    static url = "/content/research"
 
-researchRouter.get("/", getAllResearch)
-researchRouter.get("/:id", getResearchById)
+    static router(): Router {
+        const router = express.Router()
+
+        router.get("/", ResearchController.getAllResearch)
+        router.get("/:id", ResearchController.getResearchById)
+
+        return router
+    }
+}

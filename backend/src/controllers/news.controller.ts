@@ -1,20 +1,21 @@
 import { RequestHandler } from "express";
 import { DB } from "../repositories/repository";
+import { BadRequestError, NotFoundError } from "../errors/HTTPErrors";
 
-export const getAllNews: RequestHandler = async (_, res, next) => {
-    try {
-        res.status(200).json(await DB.getAllNews())
-    } catch (err) {
-        console.error(err)
-        next(err)
+export default class NewsController {
+    static getAllNews: RequestHandler = async (req, res, next) => {
+        res.json(await DB.getAllNews())
     }
-}
 
-export const getNewsById: RequestHandler = async (req, res, next) => {
-    try {
-        res.status(200).json(await DB.getNewsById(Number(req.params.id)))
-    } catch (err) {
-        console.error(err)
-        next(err)
+    static getNewsById: RequestHandler = async (req, res, next) => {
+        if (!("id" in req.params)) throw new BadRequestError()
+        const id: number = Number(req.params.id)
+        if (isNaN(id)) throw new BadRequestError()
+
+        const n = await DB.getNewsById(id)
+        if (!n) throw new NotFoundError(`News article with id ${req.params.id} does not exist.`)
+
+        res.json(await DB.getNewsById(id))
+        next()
     }
 }

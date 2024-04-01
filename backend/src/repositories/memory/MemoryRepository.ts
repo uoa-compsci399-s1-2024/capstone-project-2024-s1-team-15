@@ -1,9 +1,11 @@
-import { Article, User, IArticle } from "@aapc/types";
+import { Article, IArticle, User } from "@aapc/types";
 import IRepository from "../IRepository";
 import users from "./data/users.json"
 import news from "./data/news.json"
 import researches from "./data/researches.json"
 import { Nullable } from "../../util/types";
+
+// interface IArticleInput extends Omit<IArticle, "id" | "lastEditedAt" | "publishedAt" | "publisher"> {}
 
 export default class MemoryRepository implements IRepository {
     private readonly users: User[]
