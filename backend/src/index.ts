@@ -15,6 +15,7 @@ app.get("/", (req: Request, res: Response) => {
 app.use(`/content/${newsURL}`, newsRouter)
 app.use(`/content/${researchURL}`, researchRouter)
 
+
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`)
 })
