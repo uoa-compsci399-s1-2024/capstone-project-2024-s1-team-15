@@ -10,18 +10,17 @@ on:
 jobs:
   types-publish:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./types
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
           registry-url: 'https://registry.npmjs.org'
-      - name: Install Dependencies
-        run: npm ci
-      - name: Build package artifacts
-        run: npm run build
-      - name: Publish to npm
-        run: npm publish --access public
+      - name: Build & Publish
+        working-directory: ./types
+        run: |
+          npm ci
+          npm run build
+          npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
