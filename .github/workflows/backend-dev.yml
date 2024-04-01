@@ -10,7 +10,7 @@ on:
       - 'backend/**'
 
 jobs:
-  backend-deploy-dev:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
