@@ -1,4 +1,4 @@
-import { Article, User, IArticle } from "aapc-types";
+import { Article, User, IArticle } from "@aapc/types";
 import IRepository from "../IRepository";
 import users from "./data/users.json"
 import news from "./data/news.json"
