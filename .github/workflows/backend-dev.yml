@@ -10,10 +10,11 @@ on:
       - 'backend/**'
 
 jobs:
-  Deploy-Development:
+  backend-deploy-development:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - run: cd backend
       - name: Install Vercel CLI
         run: npm install --global vercel@canary
       - name: Pull Vercel Environment Information
