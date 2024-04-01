@@ -33,6 +33,39 @@ export default class MemoryRepository implements IRepository {
         })
     }
 
+    async createNews(a: Article): Promise<Article> {
+        this.news.push(a)
+        return a
+    }
+    async editNews(id: number, a: Article): Promise<Article> {
+        if ( a.id !== id ) throw new TypeError("News edit ID mismatch")
+        for (let i = 0; i < this.news.length; i++) {
+            if (this.news[i].id === id) { this.news[i] = a; break }
+        }
+        return a
+    }
+    deleteNews(id: number): Promise<Article> {
+        throw new Error("Method not implemented.");
+    }
+    createResearch(a: Article): Promise<Article> {
+        throw new Error("Method not implemented.");
+    }
+    editResearch(id: number, a: Article): Promise<Article> {
+        throw new Error("Method not implemented.");
+    }
+    deleteResearch(id: number): Promise<Article> {
+        throw new Error("Method not implemented.");
+    }
+    createUser(u: User): Promise<User> {
+        throw new Error("Method not implemented.");
+    }
+    editUser(u: User): Promise<User> {
+        throw new Error("Method not implemented.");
+    }
+    deleteUser(u: User): Promise<User> {
+        throw new Error("Method not implemented.");
+    }
+
     async getAllNews(): Promise<Article[]> {
         return this.news
     }
