@@ -10,11 +10,11 @@ on:
 jobs:
   backend-deploy-development-preview:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend
     steps:
       - uses: actions/checkout@v2
-      - run: cd backend
-      - run: ls
-      - run: npm start .
       - name: Install Vercel CLI
         run: npm install --global vercel@canary
       - name: Pull Vercel Environment Information

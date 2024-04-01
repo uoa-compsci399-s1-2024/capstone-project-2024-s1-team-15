@@ -12,6 +12,9 @@ on:
 jobs:
   backend-deploy-production:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend
     steps:
       - uses: actions/checkout@v2
       - run: cd backend
