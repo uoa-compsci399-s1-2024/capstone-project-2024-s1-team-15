@@ -1,0 +1,24 @@
+name: Types - Publish to npm
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'types/**'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Install Dependencies
+        run: npm ci
+      - name: Build package artifacts
+        run: npm run build
+      - name: Publish to npm
+        run: npm publish --access public
