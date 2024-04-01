@@ -1,7 +1,6 @@
 {
-  "name": "aapc-types",
-  "version": "0.2.0",
-  "private": true,
+  "name": "@aapc/types",
+  "version": "0.2.1",
   "description": "Types definitions for the AAPC website.",
   "main": "./dist/main.js",
   "module": "./dist/main.mjs",

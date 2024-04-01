@@ -1,4 +1,4 @@
-import { Article, User } from "aapc-types";
+import { Article, User } from "@aapc/types";
 import { Nullable } from "../util/types";
 
 export default interface IRepository {
