@@ -4,7 +4,7 @@ import { BadRequestError, NotFoundError } from "../errors/HTTPErrors";
 
 export default class ResearchController {
     static getAllResearch: RequestHandler = async (req, res, next) => {
-        res.json(await DB.getAllResearch())
+        res.json(await DB.getAllResearch({ maxResults: 5, sort: { field: "publishedAt" } }))
     }
 
     static getResearchById: RequestHandler = async (req, res, next) => {

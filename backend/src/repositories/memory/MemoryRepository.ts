@@ -3,9 +3,9 @@ import IRepository from "../IRepository";
 import users from "./data/users.json"
 import news from "./data/news.json"
 import researches from "./data/researches.json"
-import { Nullable } from "../../util/types";
-
-// interface IArticleInput extends Omit<IArticle, "id" | "lastEditedAt" | "publishedAt" | "publisher"> {}
+import { ArrayResultOptions, Nullable } from "../../util/helper.types";
+import ArticleSorter, { ArticleSortFields } from "./sorters/ArticleSorter";
+import { UserSortFields } from "./sorters/UserSorter";
 
 export default class MemoryRepository implements IRepository {
     private readonly users: User[]
@@ -35,41 +35,21 @@ export default class MemoryRepository implements IRepository {
         })
     }
 
-    async createNews(a: Article): Promise<Article> {
-        this.news.push(a)
-        return a
-    }
-    async editNews(id: number, a: Article): Promise<Article> {
-        if ( a.id !== id ) throw new TypeError("News edit ID mismatch")
-        for (let i = 0; i < this.news.length; i++) {
-            if (this.news[i].id === id) { this.news[i] = a; break }
+    async handleArticleArrayResultOptions (arr: Article[], options: ArrayResultOptions<ArticleSortFields>): Promise<Article[]> {
+        if (options.sort) {
+            arr = new ArticleSorter(options.sort.field, options.sort.descending?? false).sort(arr)
         }
-        return a
-    }
-    deleteNews(id: number): Promise<Article> {
-        throw new Error("Method not implemented.");
-    }
-    createResearch(a: Article): Promise<Article> {
-        throw new Error("Method not implemented.");
-    }
-    editResearch(id: number, a: Article): Promise<Article> {
-        throw new Error("Method not implemented.");
-    }
-    deleteResearch(id: number): Promise<Article> {
-        throw new Error("Method not implemented.");
-    }
-    createUser(u: User): Promise<User> {
-        throw new Error("Method not implemented.");
-    }
-    editUser(u: User): Promise<User> {
-        throw new Error("Method not implemented.");
-    }
-    deleteUser(u: User): Promise<User> {
-        throw new Error("Method not implemented.");
+        const start = options.startFrom ?? 0
+        const end = options.maxResults? start + options.maxResults : arr.length
+        return arr.slice(start, end)
     }
 
-    async getAllNews(): Promise<Article[]> {
-        return this.news
+    async getAllNews(options?: ArrayResultOptions<ArticleSortFields>): Promise<Article[]> {
+        let r = this.news
+        if (options) {
+            r = await this.handleArticleArrayResultOptions(r, options)
+        }
+        return r
     }
 
     async getNewsById(id: number): Promise<Nullable<Article>> {
@@ -79,8 +59,37 @@ export default class MemoryRepository implements IRepository {
         return null
     }
 
-    async getAllResearch(): Promise<Article[]> {
-        return this.researches
+    async searchNewsByTitle(title: string, options?: ArrayResultOptions<ArticleSortFields>): Promise<Article[]> {
+        throw new Error("Method not implemented.");
+    }
+
+    async createNews(a: Article): Promise<Article> {
+        this.news.push(a)
+        return a
+    }
+
+    async editNews(id: number, a: Article): Promise<Article> {
+        if (a.id !== id) throw new TypeError("News edit ID mismatch")
+        for (let i = 0; i < this.news.length; i++) {
+            if (this.news[i].id === id) {
+                this.news[i] = a;
+                break
+            }
+        }
+        return a
+    }
+
+    async deleteNews(id: number): Promise<void> {
+        throw new Error("Method not implemented.");
+    }
+
+
+    async getAllResearch(options?: ArrayResultOptions<ArticleSortFields>): Promise<Article[]> {
+        let r = this.researches
+        if (options) {
+            r = await this.handleArticleArrayResultOptions(r, options)
+        }
+        return r
     }
 
     async getResearchById(id: number): Promise<Nullable<Article>> {
@@ -90,8 +99,25 @@ export default class MemoryRepository implements IRepository {
         return null
     }
 
-    async getAllUsers(): Promise<User[]> {
-        return this.users
+    async searchResearchByTitle(title: string, options?: ArrayResultOptions<ArticleSortFields>): Promise<Article[]> {
+        throw new Error("Method not implemented.");
+    }
+
+    async createResearch(a: Article): Promise<Article> {
+        throw new Error("Method not implemented.");
+    }
+
+    async editResearch(id: number, a: Article): Promise<Article> {
+        throw new Error("Method not implemented.");
+    }
+
+    async deleteResearch(id: number): Promise<void> {
+        throw new Error("Method not implemented.");
+    }
+
+
+    async getAllUsers(options?: ArrayResultOptions<UserSortFields>): Promise<User[]> {
+        throw new Error("Not implemented yet")
     }
 
     async getUserByUsername(username: string): Promise<Nullable<User>> {
@@ -99,5 +125,21 @@ export default class MemoryRepository implements IRepository {
             if (j.username === username) return j
         }
         return null
+    }
+
+    async searchUserByUsername(username: string, options?: ArrayResultOptions<UserSortFields>): Promise<User[]> {
+        throw new Error("Method not implemented.");
+    }
+
+    async createUser(u: User): Promise<User> {
+        throw new Error("Method not implemented.");
+    }
+
+    async editUser(username: string, u: User): Promise<User> {
+        throw new Error("Method not implemented.");
+    }
+
+    async deleteUser(username: string): Promise<void> {
+        throw new Error("Method not implemented.");
     }
 }

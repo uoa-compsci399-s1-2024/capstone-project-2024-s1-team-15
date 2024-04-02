@@ -4,7 +4,7 @@ import { BadRequestError, NotFoundError } from "../errors/HTTPErrors";
 
 export default class NewsController {
     static getAllNews: RequestHandler = async (req, res, next) => {
-        res.json(await DB.getAllNews())
+        res.json(await DB.getAllNews({ maxResults: 5, sort: { field: "publishedAt" }}))
     }
 
     static getNewsById: RequestHandler = async (req, res, next) => {
