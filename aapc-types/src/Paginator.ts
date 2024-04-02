@@ -1,7 +1,7 @@
 export interface IPaginator<T extends {}> {
     data: T[]
-    prevPage: number | null
-    nextPage: number | null
+    prevPage: number
+    nextPage: number
     currentPage: number
     lastPage: number
     resultsPerPage: number
@@ -30,15 +30,15 @@ export default class Paginator<T extends {}> implements IPaginator<T> {
         }
         this.resultsPerPage = obj?.resultsPerPage ?? 15
         this.totalResults = obj?.totalResults ?? this.data.length
-        this.prevPage = obj?.prevPage ?? null
-        this.nextPage = obj?.nextPage ?? null
+        this.prevPage = obj?.prevPage ?? -1
+        this.nextPage = obj?.nextPage ?? -1
         this.currentPage = obj?.currentPage ?? 1
         this.lastPage = obj?.lastPage ?? Math.ceil(this.totalResults / this.resultsPerPage)
     }
 
     data: T[]
-    prevPage: number | null
-    nextPage: number | null
+    prevPage: number
+    nextPage: number
     currentPage: number
     lastPage: number
     resultsPerPage: number
