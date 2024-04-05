@@ -8,3 +8,8 @@ export interface ArrayResultOptions<T extends string> {
         descending?: boolean
     }
 }
+
+export interface ArrayResult<T> {
+    totalResults: number
+    results: T[]
+}

@@ -1,5 +1,6 @@
 import express, { Router } from "express";
 import NewsController from "../controllers/news.controller";
+import expressAsyncHandler from "express-async-handler";
 
 export default class NewsRouter {
     static url = "/content/news"
@@ -7,8 +8,12 @@ export default class NewsRouter {
     static router (): Router {
         const router = express.Router()
 
-        router.get("/", NewsController.getAllNews)
-        router.get("/:id", NewsController.getNewsById)
+        router.get("/", expressAsyncHandler(NewsController.getNews))
+        router.post("/", expressAsyncHandler(NewsController.createNews))
+
+        router.get("/:id", expressAsyncHandler(NewsController.getNewsById))
+        router.put("/:id", expressAsyncHandler(NewsController.editNews))
+        router.delete("/:id", expressAsyncHandler(NewsController.deleteNews))
 
         return router
     }

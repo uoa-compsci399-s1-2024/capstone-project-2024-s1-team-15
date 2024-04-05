@@ -8,7 +8,7 @@ export default class ArticleSorter implements Sorter<Article, ArticleSortFields>
     field: ArticleSortFields
     descending: boolean
 
-    constructor(field: ArticleSortFields, descending: boolean = false) {
+    constructor(field: ArticleSortFields = "publishedAt", descending: boolean = false) {
         this.field = field
         this.descending = descending
     }

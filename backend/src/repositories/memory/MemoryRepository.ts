@@ -3,7 +3,7 @@ import IRepository from "../IRepository";
 import users from "./data/users.json"
 import news from "./data/news.json"
 import researches from "./data/researches.json"
-import { ArrayResultOptions, Nullable } from "../../util/helper.types";
+import { ArrayResult, ArrayResultOptions, Nullable } from "../../util/helper.types";
 import ArticleSorter, { ArticleSortFields } from "./sorters/ArticleSorter";
 import UserSorter, { UserSortFields } from "./sorters/UserSorter";
 import Sorter from "./sorters/Sorter";
@@ -36,36 +36,40 @@ export default class MemoryRepository implements IRepository {
         })
     }
 
-    async handleArrayResultOptions<K, T extends Sorter<K, any>> (sorter: (new(field: any, descending?: boolean) => T), arr: K[], options:ArrayResultOptions<string>): Promise<K[]> {
+    async handleArrayResultOptions<K, T extends Sorter<K, any>> (sorter: (new(field: any, descending?: boolean) => T), arr: K[], options: ArrayResultOptions<string>): Promise<ArrayResult<K>> {
+        const totalResults = arr.length
         if (options.sort) {
             arr = new sorter(options.sort.field, options.sort.descending?? false).sort(arr)
         }
         const start = options.startFrom ?? 0
         const end = options.maxResults ? start + options.maxResults : arr.length
-        return arr.slice(start, end)
+        return {
+            totalResults: totalResults,
+            results: arr.slice(start, end)
+        }
     }
 
-    async getAllNews(options?: ArrayResultOptions<ArticleSortFields>): Promise<Article[]> {
+    async getAllNews(options?: ArrayResultOptions<ArticleSortFields>): Promise<ArrayResult<Article>> {
         let r = structuredClone(this.news)
         if (options) {
-            r = await this.handleArrayResultOptions(ArticleSorter, r, options)
+            return await this.handleArrayResultOptions(ArticleSorter, r, options)
         }
-        return r
+        return { totalResults: r.length, results: r }
     }
 
     async getNewsById(id: number): Promise<Nullable<Article>> {
-        this.news.forEach((i) => {
-            if (i.id === id) return i
-        })
+        for (const a of this.news) {
+            if (a.id === id) { return a }
+        }
         return null
     }
 
-    async searchNewsByTitle(title: string, options?: ArrayResultOptions<ArticleSortFields>): Promise<Article[]> {
-        let r = this.news.filter(a => a.title.includes(title))
+    async searchNewsByTitle(title: string, options?: ArrayResultOptions<ArticleSortFields>): Promise<ArrayResult<Article>> {
+        let r = this.news.filter(a => a.title.toLowerCase().includes(title.toLowerCase()))
         if (options) {
-            r = await this.handleArrayResultOptions(ArticleSorter, r, options)
+            return await this.handleArrayResultOptions(ArticleSorter, r, options)
         }
-        return r
+        return { totalResults: r.length, results: r }
     }
 
     async createNews(a: Article): Promise<Article> {
@@ -88,32 +92,34 @@ export default class MemoryRepository implements IRepository {
         for (let i = 0; i < this.news.length; i++) {
             if (this.news[i].id === id) {
                 this.news.splice(i, 1)
+                return
             }
         }
+        throw new TypeError(`No news with ID ${id}.`)
     }
 
 
-    async getAllResearch(options?: ArrayResultOptions<ArticleSortFields>): Promise<Article[]> {
+    async getAllResearch(options?: ArrayResultOptions<ArticleSortFields>): Promise<ArrayResult<Article>> {
         let r = structuredClone(this.researches)
         if (options) {
-            r = await this.handleArrayResultOptions<Article, ArticleSorter>(ArticleSorter, r, options)
+            return await this.handleArrayResultOptions(ArticleSorter, r, options)
         }
-        return r
+        return { totalResults: r.length, results: r }
     }
 
     async getResearchById(id: number): Promise<Nullable<Article>> {
-        this.researches.forEach(i => {
-            if (i.id === id) return i
-        })
+        for (const a of this.researches) {
+            if (a.id === id) return a
+        }
         return null
     }
 
-    async searchResearchByTitle(title: string, options?: ArrayResultOptions<ArticleSortFields>): Promise<Article[]> {
-        let r = this.researches.filter(a => a.title.includes(title))
+    async searchResearchByTitle(title: string, options?: ArrayResultOptions<ArticleSortFields>): Promise<ArrayResult<Article>> {
+        let r = this.researches.filter(a => a.title.toLowerCase().includes(title.toLowerCase()))
         if (options) {
-            r = await this.handleArrayResultOptions(ArticleSorter, r, options)
+            return await this.handleArrayResultOptions(ArticleSorter, r, options)
         }
-        return r
+        return { totalResults: r.length, results: r }
     }
 
     async createResearch(a: Article): Promise<Article> {
@@ -142,27 +148,27 @@ export default class MemoryRepository implements IRepository {
     }
 
 
-    async getAllUsers(options?: ArrayResultOptions<UserSortFields>): Promise<User[]> {
+    async getAllUsers(options?: ArrayResultOptions<UserSortFields>): Promise<ArrayResult<User>> {
         let r = structuredClone(this.users)
         if (options) {
-            r = await this.handleArrayResultOptions(UserSorter, r, options)
+            return await this.handleArrayResultOptions(UserSorter, r, options)
         }
-        return r
+        return { totalResults: r.length, results: r }
     }
 
     async getUserByUsername(username: string): Promise<Nullable<User>> {
-        this.users.forEach(u => {
+        for (const u of this.users) {
             if (u.username === username) return u
-        })
+        }
         return null
     }
 
-    async searchUserByUsername(username: string, options?: ArrayResultOptions<UserSortFields>): Promise<User[]> {
-        let r = this.users.filter(a => a.username.includes(username))
+    async searchUserByUsername(username: string, options?: ArrayResultOptions<UserSortFields>): Promise<ArrayResult<User>> {
+        let r = this.users.filter(a => a.username.toLowerCase().includes(username.toLowerCase()))
         if (options) {
-            r = await this.handleArrayResultOptions(UserSorter, r, options)
+            return await this.handleArrayResultOptions(UserSorter, r, options)
         }
-        return r
+        return { totalResults: r.length, results: r }
     }
 
     async createUser(u: User): Promise<User> {

@@ -1,14 +1,14 @@
 import { Article, User } from "@aapc/types";
-import { ArrayResultOptions, Nullable } from "../util/helper.types";
+import { ArrayResult, ArrayResultOptions, Nullable } from "../util/helper.types";
 import ArticleSorter, { ArticleSortFields } from "./memory/sorters/ArticleSorter";
 import UserSorter, { UserSortFields } from "./memory/sorters/UserSorter";
 
 export default interface IRepository {
-    getAllNews(options?: ArrayResultOptions<ArticleSortFields>): Promise<Article[]>  // TODO: somehow return length
+    getAllNews(options?: ArrayResultOptions<ArticleSortFields>): Promise<ArrayResult<Article>>
 
     getNewsById(id: number): Promise<Nullable<Article>>
 
-    searchNewsByTitle(title: string, options?: ArrayResultOptions<ArticleSortFields>): Promise<Article[]>
+    searchNewsByTitle(title: string, options?: ArrayResultOptions<ArticleSortFields>): Promise<ArrayResult<Article>>
 
     createNews(a: Article): Promise<Article>
 
@@ -17,11 +17,11 @@ export default interface IRepository {
     deleteNews(id: number): Promise<void>
 
 
-    getAllResearch(options?: ArrayResultOptions<ArticleSortFields>): Promise<Article[]>
+    getAllResearch(options?: ArrayResultOptions<ArticleSortFields>): Promise<ArrayResult<Article>>
 
     getResearchById(id: number): Promise<Nullable<Article>>
 
-    searchResearchByTitle(title: string, options?: ArrayResultOptions<ArticleSortFields>): Promise<Article[]>
+    searchResearchByTitle(title: string, options?: ArrayResultOptions<ArticleSortFields>): Promise<ArrayResult<Article>>
 
     createResearch(a: Article): Promise<Article>
 
@@ -30,11 +30,11 @@ export default interface IRepository {
     deleteResearch(id: number): Promise<void>
 
 
-    getAllUsers(options?: ArrayResultOptions<UserSortFields>): Promise<User[]>
+    getAllUsers(options?: ArrayResultOptions<UserSortFields>): Promise<ArrayResult<User>>
 
     getUserByUsername(username: string): Promise<Nullable<User>>
 
-    searchUserByUsername(username: string, options?: ArrayResultOptions<UserSortFields>): Promise<User[]>
+    searchUserByUsername(username: string, options?: ArrayResultOptions<UserSortFields>): Promise<ArrayResult<User>>
 
     createUser(u: User): Promise<User>
 

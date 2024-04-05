@@ -1,5 +1,6 @@
 import express, { Router } from "express";
 import ResearchController from "../controllers/research.controller";
+import expressAsyncHandler from "express-async-handler";
 
 export default class ResearchRouter {
     static url = "/content/research"
@@ -7,8 +8,8 @@ export default class ResearchRouter {
     static router(): Router {
         const router = express.Router()
 
-        router.get("/", ResearchController.getAllResearch)
-        router.get("/:id", ResearchController.getResearchById)
+        router.get("/", expressAsyncHandler(ResearchController.getAllResearch))
+        router.get("/:id", expressAsyncHandler(ResearchController.getResearchById))
 
         return router
     }
