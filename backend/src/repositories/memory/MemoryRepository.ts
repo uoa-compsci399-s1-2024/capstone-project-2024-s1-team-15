@@ -5,7 +5,7 @@ import news from "./data/news.json"
 import researches from "./data/researches.json"
 import { ArrayResultOptions, Nullable } from "../../util/helper.types";
 import ArticleSorter, { ArticleSortFields } from "./sorters/ArticleSorter";
-import { UserSortFields } from "./sorters/UserSorter";
+import UserSorter, { UserSortFields } from "./sorters/UserSorter";
 import Sorter from "./sorters/Sorter";
 
 export default class MemoryRepository implements IRepository {
@@ -46,22 +46,26 @@ export default class MemoryRepository implements IRepository {
     }
 
     async getAllNews(options?: ArrayResultOptions<ArticleSortFields>): Promise<Article[]> {
-        let r = this.news
+        let r = structuredClone(this.news)
         if (options) {
-            r = await this.handleArrayResultOptions<Article, ArticleSorter>(ArticleSorter, r, options)
+            r = await this.handleArrayResultOptions(ArticleSorter, r, options)
         }
         return r
     }
 
     async getNewsById(id: number): Promise<Nullable<Article>> {
-        for (const i of this.news) {
+        this.news.forEach((i) => {
             if (i.id === id) return i
-        }
+        })
         return null
     }
 
     async searchNewsByTitle(title: string, options?: ArrayResultOptions<ArticleSortFields>): Promise<Article[]> {
-        throw new Error("Method not implemented.");
+        let r = this.news.filter(a => a.title.includes(title))
+        if (options) {
+            r = await this.handleArrayResultOptions(ArticleSorter, r, options)
+        }
+        return r
     }
 
     async createNews(a: Article): Promise<Article> {
@@ -81,12 +85,16 @@ export default class MemoryRepository implements IRepository {
     }
 
     async deleteNews(id: number): Promise<void> {
-        throw new Error("Method not implemented.");
+        for (let i = 0; i < this.news.length; i++) {
+            if (this.news[i].id === id) {
+                this.news.splice(i, 1)
+            }
+        }
     }
 
 
     async getAllResearch(options?: ArrayResultOptions<ArticleSortFields>): Promise<Article[]> {
-        let r = this.researches
+        let r = structuredClone(this.researches)
         if (options) {
             r = await this.handleArrayResultOptions<Article, ArticleSorter>(ArticleSorter, r, options)
         }
@@ -94,53 +102,91 @@ export default class MemoryRepository implements IRepository {
     }
 
     async getResearchById(id: number): Promise<Nullable<Article>> {
-        for (const i of this.researches) {
+        this.researches.forEach(i => {
             if (i.id === id) return i
-        }
+        })
         return null
     }
 
     async searchResearchByTitle(title: string, options?: ArrayResultOptions<ArticleSortFields>): Promise<Article[]> {
-        throw new Error("Method not implemented.");
+        let r = this.researches.filter(a => a.title.includes(title))
+        if (options) {
+            r = await this.handleArrayResultOptions(ArticleSorter, r, options)
+        }
+        return r
     }
 
     async createResearch(a: Article): Promise<Article> {
-        throw new Error("Method not implemented.");
+        this.researches.push(a)
+        return a
     }
 
     async editResearch(id: number, a: Article): Promise<Article> {
-        throw new Error("Method not implemented.");
+        if (a.id !== id) throw new TypeError("Research edit ID mismatch")
+        for (let i = 0; i < this.researches.length; i++) {
+            if (this.researches[i].id === id) {
+                this.researches[i] = a
+                break
+            }
+        }
+        return a
     }
 
     async deleteResearch(id: number): Promise<void> {
-        throw new Error("Method not implemented.");
+        for (let i = 0; i < this.researches.length; i++) {
+            if (this.researches[i].id === id) {
+                this.researches.splice(i, 1)
+                return
+            }
+        }
     }
 
 
     async getAllUsers(options?: ArrayResultOptions<UserSortFields>): Promise<User[]> {
-        throw new Error("Not implemented yet")
+        let r = structuredClone(this.users)
+        if (options) {
+            r = await this.handleArrayResultOptions(UserSorter, r, options)
+        }
+        return r
     }
 
     async getUserByUsername(username: string): Promise<Nullable<User>> {
-        for (const j of this.users) {
-            if (j.username === username) return j
-        }
+        this.users.forEach(u => {
+            if (u.username === username) return u
+        })
         return null
     }
 
     async searchUserByUsername(username: string, options?: ArrayResultOptions<UserSortFields>): Promise<User[]> {
-        throw new Error("Method not implemented.");
+        let r = this.users.filter(a => a.username.includes(username))
+        if (options) {
+            r = await this.handleArrayResultOptions(UserSorter, r, options)
+        }
+        return r
     }
 
     async createUser(u: User): Promise<User> {
-        throw new Error("Method not implemented.");
+        this.users.push(u)
+        return u
     }
 
     async editUser(username: string, u: User): Promise<User> {
-        throw new Error("Method not implemented.");
+        if (username !== u.username) throw new TypeError("User edit ID mismatch")
+        for (let i = 0; i < this.users.length; i++) {
+            if (this.users[i].username === username) {
+                this.users[i] = u
+                break
+            }
+        }
+        return u
     }
 
     async deleteUser(username: string): Promise<void> {
-        throw new Error("Method not implemented.");
+        for (let i = 0; i < this.users.length; i++) {
+            if (this.users[i].username === username) {
+                this.users.splice(i, 1)
+                return
+            }
+        }
     }
 }
