@@ -6,6 +6,7 @@ import researches from "./data/researches.json"
 import { ArrayResultOptions, Nullable } from "../../util/helper.types";
 import ArticleSorter, { ArticleSortFields } from "./sorters/ArticleSorter";
 import { UserSortFields } from "./sorters/UserSorter";
+import Sorter from "./sorters/Sorter";
 
 export default class MemoryRepository implements IRepository {
     private readonly users: User[]
@@ -35,19 +36,19 @@ export default class MemoryRepository implements IRepository {
         })
     }
 
-    async handleArticleArrayResultOptions (arr: Article[], options: ArrayResultOptions<ArticleSortFields>): Promise<Article[]> {
+    async handleArrayResultOptions<K, T extends Sorter<K, any>> (sorter: (new(field: any, descending?: boolean) => T), arr: K[], options:ArrayResultOptions<string>): Promise<K[]> {
         if (options.sort) {
-            arr = new ArticleSorter(options.sort.field, options.sort.descending?? false).sort(arr)
+            arr = new sorter(options.sort.field, options.sort.descending?? false).sort(arr)
         }
         const start = options.startFrom ?? 0
-        const end = options.maxResults? start + options.maxResults : arr.length
+        const end = options.maxResults ? start + options.maxResults : arr.length
         return arr.slice(start, end)
     }
 
     async getAllNews(options?: ArrayResultOptions<ArticleSortFields>): Promise<Article[]> {
         let r = this.news
         if (options) {
-            r = await this.handleArticleArrayResultOptions(r, options)
+            r = await this.handleArrayResultOptions<Article, ArticleSorter>(ArticleSorter, r, options)
         }
         return r
     }
@@ -87,7 +88,7 @@ export default class MemoryRepository implements IRepository {
     async getAllResearch(options?: ArrayResultOptions<ArticleSortFields>): Promise<Article[]> {
         let r = this.researches
         if (options) {
-            r = await this.handleArticleArrayResultOptions(r, options)
+            r = await this.handleArrayResultOptions<Article, ArticleSorter>(ArticleSorter, r, options)
         }
         return r
     }
