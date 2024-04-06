@@ -13,3 +13,9 @@ export interface ArrayResult<T> {
     totalResults: number
     results: T[]
 }
+
+
+export interface InputValidationError<T> {
+    field: keyof T
+    message: string
+}
