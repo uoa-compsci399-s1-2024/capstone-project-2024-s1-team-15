@@ -24,12 +24,13 @@ export default class NewsController {
             data: r.results
         })
         res.json(paginator)
+        next()
     }
 
     static getNewsById: RequestHandler = async (req, res, next) => {
         if (!("id" in req.params)) throw new BadRequestError()
-        const id: number = Number(req.params.id)
-        if (isNaN(id)) throw new BadRequestError()
+        const id: string = String(req.params.id)
+
         const a = await DB.getNewsById(id)
         if (a === null) throw new NotFoundError(`News article with id ${req.params.id} does not exist.`)
         res.json(a)
@@ -44,8 +45,8 @@ export default class NewsController {
 
     static editNews: RequestHandler = async (req, res, next) => {
         if (!("id" in req.params)) throw new BadRequestError()
-        const id: number = Number(req.params.id)
-        if (isNaN(id)) throw new BadRequestError()
+        const id: string = String(req.params.id)
+
         res.json(id)
         // TODO: implement this
         next()
@@ -53,8 +54,7 @@ export default class NewsController {
 
     static deleteNews: RequestHandler = async (req, res, next) => {
         if (!("id" in req.params)) throw new BadRequestError()
-        const id: number = Number(req.params.id)
-        if (isNaN(id)) throw new BadRequestError()
+        const id: string = String(req.params.id)
         try {
             await DB.deleteNews(id)
         } catch (e) {

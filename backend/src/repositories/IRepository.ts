@@ -6,28 +6,28 @@ import UserSorter, { UserSortFields } from "./memory/sorters/UserSorter";
 export default interface IRepository {
     getAllNews(options?: ArrayResultOptions<ArticleSortFields>): Promise<ArrayResult<Article>>
 
-    getNewsById(id: number): Promise<Nullable<Article>>
+    getNewsById(id: string): Promise<Nullable<Article>>
 
     searchNewsByTitle(title: string, options?: ArrayResultOptions<ArticleSortFields>): Promise<ArrayResult<Article>>
 
     createNews(a: Article): Promise<Article>
 
-    editNews(id: number, a: Article): Promise<Article>
+    editNews(id: string, a: Article): Promise<Article>
 
-    deleteNews(id: number): Promise<void>
+    deleteNews(id: string): Promise<void>
 
 
     getAllResearch(options?: ArrayResultOptions<ArticleSortFields>): Promise<ArrayResult<Article>>
 
-    getResearchById(id: number): Promise<Nullable<Article>>
+    getResearchById(id: string): Promise<Nullable<Article>>
 
     searchResearchByTitle(title: string, options?: ArrayResultOptions<ArticleSortFields>): Promise<ArrayResult<Article>>
 
     createResearch(a: Article): Promise<Article>
 
-    editResearch(id: number, a: Article): Promise<Article>
+    editResearch(id: string, a: Article): Promise<Article>
 
-    deleteResearch(id: number): Promise<void>
+    deleteResearch(id: string): Promise<void>
 
 
     getAllUsers(options?: ArrayResultOptions<UserSortFields>): Promise<ArrayResult<User>>

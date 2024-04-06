@@ -5,11 +5,15 @@ import expressAsyncHandler from "express-async-handler";
 export default class ResearchRouter {
     static url = "/content/research"
 
-    static router(): Router {
+    static router (): Router {
         const router = express.Router()
 
-        router.get("/", expressAsyncHandler(ResearchController.getAllResearch))
+        router.get("/", expressAsyncHandler(ResearchController.getResearch))
+        router.post("/", expressAsyncHandler(ResearchController.createResearch))
+
         router.get("/:id", expressAsyncHandler(ResearchController.getResearchById))
+        router.put("/:id", expressAsyncHandler(ResearchController.editResearch))
+        router.delete("/:id", expressAsyncHandler(ResearchController.deleteResearch))
 
         return router
     }

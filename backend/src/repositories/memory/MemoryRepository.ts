@@ -57,7 +57,7 @@ export default class MemoryRepository implements IRepository {
         return { totalResults: r.length, results: r }
     }
 
-    async getNewsById(id: number): Promise<Nullable<Article>> {
+    async getNewsById(id: string): Promise<Nullable<Article>> {
         for (const a of this.news) {
             if (a.id === id) { return a }
         }
@@ -77,7 +77,7 @@ export default class MemoryRepository implements IRepository {
         return a
     }
 
-    async editNews(id: number, a: Article): Promise<Article> {
+    async editNews(id: string, a: Article): Promise<Article> {
         if (a.id !== id) throw new TypeError("News edit ID mismatch")
         for (let i = 0; i < this.news.length; i++) {
             if (this.news[i].id === id) {
@@ -88,7 +88,7 @@ export default class MemoryRepository implements IRepository {
         return a
     }
 
-    async deleteNews(id: number): Promise<void> {
+    async deleteNews(id: string): Promise<void> {
         for (let i = 0; i < this.news.length; i++) {
             if (this.news[i].id === id) {
                 this.news.splice(i, 1)
@@ -107,7 +107,7 @@ export default class MemoryRepository implements IRepository {
         return { totalResults: r.length, results: r }
     }
 
-    async getResearchById(id: number): Promise<Nullable<Article>> {
+    async getResearchById(id: string): Promise<Nullable<Article>> {
         for (const a of this.researches) {
             if (a.id === id) return a
         }
@@ -127,7 +127,7 @@ export default class MemoryRepository implements IRepository {
         return a
     }
 
-    async editResearch(id: number, a: Article): Promise<Article> {
+    async editResearch(id: string, a: Article): Promise<Article> {
         if (a.id !== id) throw new TypeError("Research edit ID mismatch")
         for (let i = 0; i < this.researches.length; i++) {
             if (this.researches[i].id === id) {
@@ -138,7 +138,7 @@ export default class MemoryRepository implements IRepository {
         return a
     }
 
-    async deleteResearch(id: number): Promise<void> {
+    async deleteResearch(id: string): Promise<void> {
         for (let i = 0; i < this.researches.length; i++) {
             if (this.researches[i].id === id) {
                 this.researches.splice(i, 1)

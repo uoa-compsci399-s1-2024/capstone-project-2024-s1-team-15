@@ -1,6 +1,6 @@
 [
   {
-    "id": 1,
+    "id": "1",
     "title": "News Title 1",
     "subtitle": "Subtitle 1",
     "content": "Meaningful Content",
@@ -14,7 +14,7 @@
     ]
   },
   {
-    "id": 2,
+    "id": "2",
     "title": "News Title 2",
     "subtitle": "Subtitle 2",
     "content": "Meaningful Content",
@@ -28,7 +28,7 @@
     ]
   },
   {
-    "id": 3,
+    "id": "3",
     "title": "News Title 3",
     "subtitle": "Subtitle 1",
     "content": "Meaningful Content",
