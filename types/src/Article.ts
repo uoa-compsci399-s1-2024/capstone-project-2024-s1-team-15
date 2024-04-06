@@ -11,7 +11,7 @@ export enum ArticleType {
  * An interface representing an article.
  */
 export interface IArticle {
-    id: number
+    id: string
     title: string
     subtitle: string
     content: string
@@ -38,7 +38,7 @@ export default class Article implements IArticle {
     constructor(obj: Partial<IArticle>);
 
     constructor(obj?: Partial<IArticle>) {
-        this.id = obj?.id ?? 0
+        this.id = obj?.id ?? ""
         this.title = obj?.title ?? "Default Title"
         this.articleType = obj?.articleType ?? ArticleType.news
         this.subtitle = obj?.subtitle ?? ""
@@ -49,7 +49,7 @@ export default class Article implements IArticle {
         this.media = obj?.media ?? []
     }
 
-    id: number
+    id: string
     title: string
     articleType: ArticleType
     content: string
