@@ -1,8 +1,20 @@
 import express, { Router } from "express";
-import { getAllResearch, getResearchById } from "../controllers/research.controller";
+import ResearchController from "../controllers/research.controller";
+import expressAsyncHandler from "express-async-handler";
 
-export const researchRouter: Router = express.Router()
-export const researchURL = "research"
+export default class ResearchRouter {
+    static url = "/content/research"
 
-researchRouter.get("/", getAllResearch)
-researchRouter.get("/:id", getResearchById)
+    static router (): Router {
+        const router = express.Router()
+
+        router.get("/", expressAsyncHandler(ResearchController.getResearch))
+        router.post("/", expressAsyncHandler(ResearchController.createResearch))
+
+        router.get("/:id", expressAsyncHandler(ResearchController.getResearchById))
+        router.put("/:id", expressAsyncHandler(ResearchController.editResearch))
+        router.delete("/:id", expressAsyncHandler(ResearchController.deleteResearch))
+
+        return router
+    }
+}

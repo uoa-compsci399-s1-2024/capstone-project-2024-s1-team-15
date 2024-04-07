@@ -1,19 +1,21 @@
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
-import { newsRouter, newsURL } from "./routes/news.router";
-import { researchRouter, researchURL } from "./routes/research.router";
+import NewsRouter from "./routes/news.router";
+import ResearchRouter from "./routes/research.router";
 
 dotenv.config()
 
 const app: Express = express()
 const port = process.env.PORT || 3000
 
+app.use(express.json())
+
 app.get("/", (req: Request, res: Response) => {
     res.json({ message: "ok" })
 })
 
-app.use(`/content/${newsURL}`, newsRouter)
-app.use(`/content/${researchURL}`, researchRouter)
+app.use(NewsRouter.url, NewsRouter.router())
+app.use(ResearchRouter.url, ResearchRouter.router())
 
 
 app.listen(port, () => {
