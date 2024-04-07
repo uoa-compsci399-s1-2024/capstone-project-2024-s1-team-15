@@ -1,9 +1,10 @@
 import { RequestHandler } from "express";
 import { DB } from "../repositories/repository";
 import { BadRequestError, NotFoundError } from "../errors/HTTPErrors";
-import { Article, Paginator } from "@aapc/types";
-import { DEFAULT_PER_PAGE } from "../util/const";
+import { Article, ArticleType, Paginator } from "@aapc/types";
+import { DEFAULT_PER_PAGE, DUMMY_USER } from "../util/const";
 import { ArrayResult } from "../util/helper.types";
+import { ArticleIn } from "../util/input.types";
 
 export default class NewsController {
     static getNews: RequestHandler = async (req, res, next) => {
@@ -38,17 +39,34 @@ export default class NewsController {
     }
 
     static createNews: RequestHandler = async (req, res, next) => {
-        res.json(req.body)
-        // TODO: implement this
+        // TODO: use auth headers to auto fill user
+        try {
+            const n = new ArticleIn(req.body).toArticle(ArticleType.news, DUMMY_USER)
+            await DB.createNews(n)
+            res.json(n)
+        } catch (e: any) {
+            throw new BadRequestError(e.message)
+        }
         next()
     }
 
     static editNews: RequestHandler = async (req, res, next) => {
         if (!("id" in req.params)) throw new BadRequestError()
         const id: string = String(req.params.id)
-
-        res.json(id)
-        // TODO: implement this
+        const currentArticle = await DB.getNewsById(id)
+        if (currentArticle === null) throw new NotFoundError(`News article with id ${id} does not exist.`)
+        try {
+            const n = new ArticleIn(req.body).toArticle(currentArticle.articleType, currentArticle.publisher)
+            currentArticle.lastEditedAt = new Date().toISOString()
+            currentArticle.title = n.title
+            currentArticle.content = n.content
+            currentArticle.subtitle = n.subtitle
+            currentArticle.media = n.media
+            await DB.editNews(id, currentArticle)
+            res.json(currentArticle)
+        } catch (e: any) {
+            throw new BadRequestError(e.message)
+        }
         next()
     }
 

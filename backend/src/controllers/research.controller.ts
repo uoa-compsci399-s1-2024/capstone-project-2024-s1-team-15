@@ -1,9 +1,10 @@
 import { RequestHandler } from "express";
 import { DB } from "../repositories/repository";
 import { BadRequestError, NotFoundError } from "../errors/HTTPErrors";
-import { DEFAULT_PER_PAGE } from "../util/const";
+import { DEFAULT_PER_PAGE, DUMMY_USER } from "../util/const";
 import { ArrayResult } from "../util/helper.types";
-import { Article, Paginator } from "@aapc/types";
+import { Article, ArticleType, Paginator, User } from "@aapc/types";
+import { ArticleIn } from "../util/input.types";
 
 export default class ResearchController {
     static getResearch: RequestHandler = async (req, res, next) => {
@@ -38,17 +39,34 @@ export default class ResearchController {
     }
 
     static createResearch: RequestHandler = async (req, res, next) => {
-        res.json(req.body)
-        // TODO: implement this
+        // TODO: use auth headers to auto fill user
+        try {
+            const r = new ArticleIn(req.body).toArticle(ArticleType.research, DUMMY_USER)
+            await DB.createResearch(r)
+            res.json(r)
+        } catch (e: any) {
+            throw new BadRequestError(e.message)
+        }
         next()
     }
 
     static editResearch: RequestHandler = async (req, res, next) => {
         if (!("id" in req.params)) throw new BadRequestError()
         const id: string = String(req.params.id)
-
-        res.json(id)
-        // TODO: implement this
+        const currentArticle = await DB.getResearchById(id)
+        if (currentArticle === null) throw new NotFoundError(`Research article with id ${id} does not exist.`)
+        try {
+            const r = new ArticleIn(req.body).toArticle(currentArticle.articleType, currentArticle.publisher)
+            currentArticle.lastEditedAt = new Date().toISOString()
+            currentArticle.title = r.title
+            currentArticle.content = r.content
+            currentArticle.subtitle = r.subtitle
+            currentArticle.media = r.media
+            await DB.editResearch(id, currentArticle)
+            res.json(currentArticle)
+        } catch (e: any) {
+            throw new BadRequestError(e.message)
+        }
         next()
     }
 
