@@ -2,9 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-
 h1 {
-    @apply text-4xl font-bold mb-6 mt-12
+    @apply text-4xl font-extrabold tracking-tight mb-8 mt-12 text-black
 }
 
 a {

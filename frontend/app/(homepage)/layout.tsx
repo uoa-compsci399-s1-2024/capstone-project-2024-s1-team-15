@@ -8,9 +8,6 @@ export const metadata = {
 export default function HomepageLayout({ children, }: { children: React.ReactNode }) {
     return (
         <div>
-            <div className={"absolute right-12 -z-50"}>
-                <p className={"opacity-55 text-sm text-orange-500"}>Home Layout</p>
-            </div>
             {children}
         </div>
     )
