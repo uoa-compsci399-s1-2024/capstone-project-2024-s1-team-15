@@ -14,7 +14,7 @@ export default async function AllResearchPage () {
     return (
         <div>
             <h1>All Research</h1>
-            <div className={"my-8"}><ButtonLink href={"/research/create"} text={"Create Research Article"}/></div>
+            <div className={"my-8"}><ButtonLink href={"/research/create"} text={"Publish News"}/></div>
             <div className={"space-y-12"}>
                 {researchCards}
             </div>

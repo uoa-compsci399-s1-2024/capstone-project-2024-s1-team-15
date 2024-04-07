@@ -20,7 +20,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <html lang="en">
         <body className={inter.variable}>
             <Nav/>
-            <div className={"w-[1080px] px-6 mx-auto"}>
+            <div className={"w-[900px] px-6 mx-auto pb-12"}>
                 {children}
             </div>
         </body>

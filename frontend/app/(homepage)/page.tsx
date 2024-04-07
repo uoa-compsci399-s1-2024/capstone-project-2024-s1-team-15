@@ -8,7 +8,10 @@ export default async function Home() {
             <h1>Home</h1>
             <div className={"space-y-2"}>
                 <ButtonLink href={"/news"} text={"View All News"}/>
+                <ButtonLink href={"/news/publish"} text={"Publish News"}/>
+                <div className={"h-4 w-12"}></div>
                 <ButtonLink href={"/research"} text={"View All Research"}/>
+                <ButtonLink href={"/research/publish"} text={"Publish Research"}/>
             </div>
         </div>
     )
