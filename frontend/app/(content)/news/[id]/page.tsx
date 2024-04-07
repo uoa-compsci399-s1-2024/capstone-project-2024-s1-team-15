@@ -11,6 +11,8 @@ export default async function NewsPage({ params }: { params: { id: number } }) {
     return (
         <div>
             <h1>{article.title}</h1>
+            <h2 className={"italic text-xl font-light text-gray-500 mb-8 mt-4"}>{article.subtitle}</h2>
+            <p className={"text-lg mb-8"}>{article.content}</p>
             <Link href={`/news/${article.id}/edit`}>Edit</Link>
         </div>
     )
