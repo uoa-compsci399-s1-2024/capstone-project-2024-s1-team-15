@@ -1,6 +1,15 @@
 import { Article, ArticleType, IArticle, IUser, User } from "@aapc/types";
 import { InputValidationError } from "./helper.types";
 
+function getRandomID (length: number = 8) {
+    let result = ''
+    const characters = 'abcdefghijklmnopqrstuvwxyz0123456789-_'
+    for (let i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * characters.length))
+    }
+    return result
+}
+
 export interface IArticleIn extends Omit<IArticle, "id" | "lastEditedAt" | "publishedAt" | "publisher" | "articleType"> {}
 
 export interface IUserIn extends Omit<IUser, "verified" | "registeredAt"> {}
@@ -38,7 +47,7 @@ export class ArticleIn extends Validator<IArticleIn> implements IArticleIn {
 
     toArticle (articleType: ArticleType, publisher: User, articleID?: string): Article {
         return new Article({
-            id: articleID ?? "abc", // TODO: implement id
+            id: articleID ?? getRandomID(), // TODO: implement id checks
             title: this.title,
             subtitle: this.subtitle,
             content: this.content,
