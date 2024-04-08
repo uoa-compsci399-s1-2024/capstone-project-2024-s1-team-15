@@ -8,13 +8,31 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['var(--font-inter)']
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            fontSize: '1.1rem',
+            lineHeight: '1.65rem',
+          },
+        },
+      },
+      colors: {
+        primary: "#059669",
+        secondary: "#9CA3AF"
+      },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'),
+  ],
+  darkMode: 'selector',
 };
 export default config;

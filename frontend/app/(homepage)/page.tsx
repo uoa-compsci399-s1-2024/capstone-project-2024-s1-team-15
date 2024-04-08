@@ -1,21 +1,20 @@
 import React from "react";
 import Link from "next/link";
+import ButtonLink from "@/app/components/ButtonLink";
+import { getMetadata } from "@/app/util";
 
-export default function Home() {
+export const metadata = getMetadata()
+
+export default async function Home() {
     return (
         <div>
             <h1>Home</h1>
-            <div className={`space-y-2`}>
-                <p>
-                    <Link href={'/news/1'}>View News 1</Link><br/>
-                    <Link href={'/news/1'}>View News 2</Link><br/>
-                    <Link href={'/research/1'}>View Research 1</Link><br/>
-                    <Link href={'/research/1'}>View Research 2</Link>
-                </p>
-                <p>
-                    <Link href={'/news/create'}>Add News</Link><br/>
-                    <Link href={'/research/create'}>Add Research</Link>
-                </p>
+            <div className={"space-y-2"}>
+                <ButtonLink href={"/news"} text={"View All News"}/>
+                <ButtonLink href={"/news/publish"} text={"Publish News"}/>
+                <div className={"h-4 w-12"}></div>
+                <ButtonLink href={"/research"} text={"View All Research"}/>
+                <ButtonLink href={"/research/publish"} text={"Publish Research"}/>
             </div>
         </div>
     )
