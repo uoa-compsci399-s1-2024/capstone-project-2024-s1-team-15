@@ -8,6 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['var(--font-inter)']
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
@@ -20,7 +23,11 @@ const config: Config = {
             lineHeight: '1.65rem',
           },
         },
-      }
+      },
+      colors: {
+        primary: "#059669",
+        secondary: "#9CA3AF"
+      },
     },
   },
   plugins: [

@@ -10,7 +10,7 @@ import { ImList2, ImListNumbered, ImParagraphLeft, ImQuotesLeft } from "react-ic
 const boldButton = (editor: Editor) => (
     <button title={"Bold (Ctrl+B)"} onClick={() => editor.chain().focus().toggleBold().run()}
             className={editor.isActive('bold') ? 'active' : ''}>
-        <b className={"font-black"}>B</b>
+        <b className={"font-bold"}>B</b>
     </button>
 )
 const italicButton = (editor: Editor) => (

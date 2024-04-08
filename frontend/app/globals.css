@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 h1 {
-    @apply text-4xl font-extrabold tracking-tight mb-8 mt-12 text-black
+    @apply text-4xl font-bold tracking-tight mb-8 mt-12
 }
 
 a {
@@ -21,7 +21,7 @@ a {
 #editor button {
     @apply h-8 w-8 rounded-md bg-green-600 bg-opacity-15
     border-2 border-green-600 border-opacity-0 transition-all
-    text-sm font-bold tracking-tight text-black
+    text-sm font-medium tracking-tight text-black
     hover:border-opacity-100 flex items-center justify-center
 }
 

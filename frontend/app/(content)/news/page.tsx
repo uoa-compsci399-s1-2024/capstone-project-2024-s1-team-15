@@ -4,6 +4,9 @@ import { API_URI } from "@/app/consts";
 import ArticleCard from "@/app/components/ArticleCard";
 import Link from "next/link";
 import ButtonLink from "@/app/components/ButtonLink";
+import { getMetadata } from "@/app/util";
+
+export const metadata = getMetadata("All News")
 
 export default async function AllNewsPage () {
     const news = new Paginator(Article, await(await fetch(API_URI + "/content/news?pp=1000", { method: "get" })).json())

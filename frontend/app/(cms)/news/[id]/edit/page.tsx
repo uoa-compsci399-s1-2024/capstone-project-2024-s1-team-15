@@ -1,5 +1,8 @@
 import React from "react";
 import Link from "next/link";
+import { getMetadata } from "@/app/util";
+
+export const metadata = getMetadata("All News")
 
 export default function EditNewsPage({ params }: { params: { id: number } }) {
     return (
