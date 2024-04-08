@@ -39,19 +39,23 @@ export default function ArticleForm ({ articleType, actionType, article }: { art
     return (
         <>
             <p className={"form-label"}>Title</p>
-            <textarea id={"title"} className={"form-input"} onChange={updateTitle}
-                      placeholder={"Enter title here... (required)"}>
-                {article?.title}
-            </textarea>
+            <textarea id={"title"}
+                      className={"form-input"}
+                      onChange={updateTitle}
+                      placeholder={"Enter title here... (required)"}
+                      defaultValue={article?.title}
+            />
 
             <p className={"form-label"}>Subtitle</p>
-            <textarea id={"subtitle"} className={"form-input"} onChange={updateSubtitle}
-                      placeholder={"Enter subtitle here... (optional)"}>
-                {article?.subtitle}
-            </textarea>
+            <textarea id={"subtitle"}
+                      className={"form-input"}
+                      onChange={updateSubtitle}
+                      placeholder={"Enter subtitle here... (optional)"}
+                      defaultValue={article?.subtitle}
+            />
 
             <p className={"form-label"}>Content</p>
-            <ContentEditor setEditorContent={setEditorContent}/>
+            <ContentEditor setEditorContent={setEditorContent} content={article?.content} />
 
             <div className={""}>
                 <button className={"button px-6 py-2 mt-8 text-lg"}>Publish {articleType === ArticleType.news? "News" : "Research"}</button>
