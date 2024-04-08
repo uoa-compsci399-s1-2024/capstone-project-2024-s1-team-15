@@ -1,10 +1,8 @@
+"use client"
+
 import React, { useState } from "react";
-import Link from "next/link";
-import { getMetadata } from "@/app/util";
 import { Article } from "@aapc/types";
 import { API_URI } from "@/app/consts";
-
-export const metadata = getMetadata("All News")
 
 export default function EditNewsPage({ params }: { params: { id: number } }) {
     const [article, setArticle] = useState<Article>()

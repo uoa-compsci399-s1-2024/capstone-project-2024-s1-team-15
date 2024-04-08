@@ -1,7 +1,6 @@
 "use client"
 
 import React, { useState } from "react";
-import Link from "next/link";
 import { API_URI } from "@/app/consts";
 import { Article, ArticleType } from "@aapc/types";
 import ArticleForm from "@/app/components/ArticleForm";
