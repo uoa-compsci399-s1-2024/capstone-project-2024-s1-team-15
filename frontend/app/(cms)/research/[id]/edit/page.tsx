@@ -1,21 +1,22 @@
-import React from "react";
+"use client"
+
+import React, { useState } from "react";
 import Link from "next/link";
 import { API_URI } from "@/app/consts";
-import { Article } from "@aapc/types";
-
-export async function getMetadata({ params }: { params: { id: number } }) {
-    const req = await fetch(API_URI + `/content/news/${params.id}`, { method: "get" })
-    if (req.status === 404) {
-        return <p>Not Found</p>
-    }
-    const article = new Article(await req.json())
-}
+import { Article, ArticleType } from "@aapc/types";
+import ArticleForm from "@/app/components/ArticleForm";
 
 export default function EditResearchPage({ params }: { params: { id: number } }) {
+    const [ article, setArticle ] = useState<Article>()
+    fetch(`${API_URI}/content/research/${params.id}`, { method: "get" }).then(r => {
+        r.json().then(r => setArticle(new Article(r)))
+    })
+
     return (
         <div>
             <h1>Editing Research {params.id}</h1>
-            <Link href={`/research/${params.id}`}>Return</Link>
+            {/*<ArticleForm articleType={ArticleType.research} article={article}/>*/}
+            <p>Not Implemented Yet</p>
         </div>
     )
 }

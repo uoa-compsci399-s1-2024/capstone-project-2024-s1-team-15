@@ -8,7 +8,7 @@ export default function CreateNewsPage() {
     return (
         <div>
             <h1>Publish a News Article</h1>
-            <ArticleForm articleType={ArticleType.news}/>
+            <ArticleForm articleType={ArticleType.news} actionType={"create"}/>
         </div>
     )
 }
