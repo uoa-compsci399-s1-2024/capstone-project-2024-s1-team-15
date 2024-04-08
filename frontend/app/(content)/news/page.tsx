@@ -18,7 +18,7 @@ export default async function AllNewsPage () {
     return (
         <div>
             <h1>All News</h1>
-            <div className={"my-8"}><ButtonLink href={"/news/create"} text={"Publish News"}/></div>
+            <div className={"my-8"}><ButtonLink href={"/news/publish"} text={"Publish News"}/></div>
             <div className={"space-y-12"}>
                 {newsCards}
             </div>
