@@ -107,7 +107,6 @@ function MenuBar ({ editor }: { editor: Editor }): React.JSX.Element {
                 {bulletListButton(editor)}
                 {orderedListButton(editor)}
             </div>
-            <hr className={"mb-4"}/>
         </div>
     )
 }
@@ -138,8 +137,6 @@ function BubbleBar({ editor }: { editor: Editor }): React.JSX.Element {
 }
 
 export default function ContentEditor ({ setEditorContent, content = "" }: { setEditorContent: Dispatch<SetStateAction<string>>, content?: string }): React.JSX.Element {
-    // const content = "<h2>Lorem ipsum dolor sit amet</h2><p>Praesent sit amet ligula nec ante facilisis molestie. <strong>Sed tincidunt tortor a malesuada interdum.</strong> In imperdiet dolor at dolor <u>posuere</u>, dictum bibendum lacus ultricies. Curabitur eu neque in nisi tempor luctus a ac sapien. <strong><em>Nulla facilisi.</em></strong></p><blockquote><p>Quisque in dui vitae libero efficitur maximus.</p></blockquote><p>Sed nec nisl in massa <em>consectetur venenatis.</em> Vestibulum in tellus vestibulum, cursus lectus gravida, volutpat tellus.</p><h3>Pellentesque auctor elit ligula, at posuere sem lobortis at</h3><p>Maecenas aliquet venenatis nisl a ullamcorper. Maecenas dignissim massa lacus. Mauris euismod odio non risus pharetra suscipit. <em>Cras bibendum, felis ac lacinia egestas, turpis neque sodales leo, et tempus nisl metus et purus. </em></p><ul><li><p>Curabitur vel condimentum orci. </p></li><li><p>Phasellus euismod nisi eu orci egestas dignissim vitae id massa. </p></li><li><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p></li></ul><p>In fermentum nibh et ipsum dapibus, <strong><u>quis auctor tortor pellentesque. In hac habitasse platea dictumst.</u></strong> Nunc nibh nisi, consequat ac aliquam vitae, pharetra posuere elit. Duis finibus, purus eget tempor consectetur, urna turpis congue turpis, commodo aliquam quam metus sed elit. Pellentesque sodales faucibus neque et iaculis. Fusce consectetur fermentum nisl, at dictum tortor tristique vel. Curabitur elementum faucibus nisi vitae malesuada.</p><h2>Vestibulum blandit id felis in tincidunt</h2><p>Suspendisse faucibus tempor tortor, sed tempor dolor bibendum tempor. Nulla varius est et ligula iaculis, at ullamcorper nisl porta. <strong>Nulla at tristique lacus. Nunc iaculis iaculis nulla vel lacinia. Quisque dictum nibh et facilisis luctus. Etiam facilisis leo lectus, egestas iaculis ante bibendum at.</strong></p>"
-
     const editor = useEditor({
         extensions: [
             StarterKit, Underline
@@ -147,7 +144,7 @@ export default function ContentEditor ({ setEditorContent, content = "" }: { set
         content: content,
         editorProps: {
             attributes: {
-                class: "prose prose-slate dark:prose-invert max-w-full bg-gray-500 bg-opacity-5 rounded-xl min-h-48 p-6 shadow-inner"
+                class: "prose prose-slate dark:prose-invert max-w-full bg-gray-500 bg-opacity-5 rounded-xl min-h-48 p-6 shadow-inner overflow-scroll max-h-[620px]"
             }
         },
         onUpdate ({ editor }) {
@@ -157,7 +154,7 @@ export default function ContentEditor ({ setEditorContent, content = "" }: { set
     if (!editor) return <></>
 
     return (
-        <div id={"editor"} className={"w-full p-4 form-field"}>
+        <div id={"editor"} className={"w-full p-4 form-field overflow-hidden"}>
             <MenuBar editor={editor} />
             <EditorContent editor={editor} />
             {/*<FloatingMenu editor={editor}><FloatingBar editor={editor}/></FloatingMenu>*/}
