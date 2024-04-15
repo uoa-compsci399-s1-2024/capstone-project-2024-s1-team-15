@@ -50,8 +50,8 @@ Amy Chan
 
 ## Git Setup
 ### Branches
-* `main`: this branch is automatically deployed to ...put link here... and is shared with clients
-* `dev`: this branch is automatically deployed to ...put link here... so we can develop and test improvements before sharing with clients
 * feature branches: whenever we work on a new feature, we can make a seperate branch so that we can see what code changes this feature includes. These changes can be double checked by other teammates before being merged to `dev` branch using a pull request.
+* `dev`: this branch is automatically deployed to [dev.aapc-nz.org](https://dev.aapc-nz.org/) so we can develop and test improvements before sharing with clients
+* `main`: this branch is automatically deployed to [aapc-nz.org](https://aapc-nz.org/) and is shared with clients
 
 
