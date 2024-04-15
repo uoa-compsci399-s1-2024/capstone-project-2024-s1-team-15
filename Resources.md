@@ -12,3 +12,5 @@
 ### Stanley Wu - Designer / Front-End Developer
 
 ### Samuel Kim - Designer / Front-End Developer
+    15th April:
+        updated
