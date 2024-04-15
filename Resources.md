@@ -3,7 +3,8 @@
 
 ### Hunter Chen - Tech Lead / Full-stack Developer
 
-### Logan Park - Project Manager
+### Logan Park - Project Manager / Designer
+    Mobile Hi Fidel
 
 ### Arnav Shekaran - Designer / Developer
 
