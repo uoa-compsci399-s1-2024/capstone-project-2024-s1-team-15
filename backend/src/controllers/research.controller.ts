@@ -3,13 +3,19 @@ import { DB } from "../repositories/repository";
 import { BadRequestError, NotFoundError } from "../errors/HTTPErrors";
 import { DEFAULT_PER_PAGE, DUMMY_USER } from "../util/const";
 import { ArrayResult } from "../util/helper.types";
-import { Article, ArticleType, Paginator, User } from "@aapc/types";
+import { Article, ArticleType, Paginator } from "@aapc/types";
 import { ArticleIn } from "../util/input.types";
 
 export default class ResearchController {
     static getResearch: RequestHandler = async (req, res, next) => {
-        const perPage = Number(req.query.pp ?? DEFAULT_PER_PAGE)
+        const url = new URL(`${req.protocol}://${req.get('host')}${req.originalUrl}`)
+
+        // Get query parameter p from URL
         const page: number = Number(req.query.p ?? 1)
+
+        // Get query parameter pp from URL
+        const perPage = Number(req.query.pp ?? DEFAULT_PER_PAGE)
+
         const startFrom = (page - 1) * perPage
         const searchTitle = String(req.query.title ?? "")
         let r: ArrayResult<Article>
@@ -24,6 +30,14 @@ export default class ResearchController {
             totalResults: r.totalResults,
             data: r.results
         })
+        if (page < paginator.lastPage) {
+            url.searchParams.set("p", String(page + 1))
+            paginator.nextPageLocation = url.href
+        }
+        if (page > 1) {
+            url.searchParams.set("p", String(page - 1))
+            paginator.prevPageLocation = url.href
+        }
         res.json(paginator)
         next()
     }
