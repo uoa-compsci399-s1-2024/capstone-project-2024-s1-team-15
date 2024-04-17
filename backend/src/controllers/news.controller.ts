@@ -8,10 +8,16 @@ import { ArticleIn } from "../util/input.types";
 
 export default class NewsController {
     static getNews: RequestHandler = async (req, res, next) => {
-        const perPage = Number(req.query.pp?? DEFAULT_PER_PAGE)
-        const page: number = Number(req.query.p?? 1)
+        const url = new URL(`${req.protocol}://${req.get('host')}${req.originalUrl}`)
+
+        // Get query parameter p from URL
+        const page: number = Number(req.query.p ?? 1)
+
+        // Get query parameter pp from URL
+        const perPage = Number(req.query.pp ?? DEFAULT_PER_PAGE)
+
         const startFrom = (page - 1) * perPage
-        const searchTitle = String(req.query.title?? "")
+        const searchTitle = String(req.query.title ?? "")
         let r: ArrayResult<Article>
         if (searchTitle === "") {
             r = await DB.getAllNews({ startFrom: startFrom, maxResults: perPage })
@@ -24,6 +30,14 @@ export default class NewsController {
             totalResults: r.totalResults,
             data: r.results
         })
+        if (page < paginator.lastPage) {
+            url.searchParams.set("p", String(page + 1))
+            paginator.nextPageLocation = url.href
+        }
+        if (page > 1) {
+            url.searchParams.set("p", String(page - 1))
+            paginator.prevPageLocation = url.href
+        }
         res.json(paginator)
         next()
     }
@@ -43,7 +57,7 @@ export default class NewsController {
         try {
             const n = new ArticleIn(req.body).toArticle(ArticleType.news, DUMMY_USER)
             await DB.createNews(n)
-            res.json(n)
+            res.status(201).send()
         } catch (e: any) {
             throw new BadRequestError(e.message)
         }
@@ -63,7 +77,7 @@ export default class NewsController {
             currentArticle.subtitle = n.subtitle
             currentArticle.media = n.media
             await DB.editNews(id, currentArticle)
-            res.json(currentArticle)
+            res.status(204).send()
         } catch (e: any) {
             throw new BadRequestError(e.message)
         }
