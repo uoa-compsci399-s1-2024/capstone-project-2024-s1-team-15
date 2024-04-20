@@ -1,22 +1,22 @@
-let uri;
+let apiUri;
 
 switch (process.env.ENV) {
     case "LOCAL": {
-        uri = "http://localhost:3000"
+        apiUri = "http://localhost:3000"
         break
     }
     case "DEV": {
-        uri = "https://dev-api.aapc-nz.org"
+        apiUri = "https://dev-api.aapc-nz.org"
         break
     }
     case "PROD": {
-        uri = "https://api.aapc-nz.org"
+        apiUri = "https://api.aapc-nz.org"
         break
     }
     default: {
-        uri = "http://localhost:3000"
+        apiUri = "http://localhost:3000"
     }
 }
 
-export const API_URI = uri
+export const API_URI = apiUri
 export const WEBSITE_NAME = "Aotearoa Airborne Pollen Collective"
