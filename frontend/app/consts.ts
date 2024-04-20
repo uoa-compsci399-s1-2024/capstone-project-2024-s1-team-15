@@ -1,2 +1,2 @@
-export const API_URI = "https://dev-api.aapc-nz.org"
+export const API_URI = "http://localhost:3000"
 export const WEBSITE_NAME = "Aotearoa Airborne Pollen Collective"
