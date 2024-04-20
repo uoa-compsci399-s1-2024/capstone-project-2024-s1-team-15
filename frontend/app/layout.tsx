@@ -3,8 +3,8 @@ import localFont from 'next/font/local';
 import "./globals.css";
 import React from "react";
 import Nav from "@/app/components/Nav";
-import { WEBSITE_NAME } from "@/app/consts";
 import { getMetadata } from "@/app/util";
+import Footer from "@/app/components/Footer";
 
 const inter = localFont({
     src: './public/Inter.ttf',
@@ -22,6 +22,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <div className={"w-[900px] px-6 mx-auto pb-12"}>
                 {children}
             </div>
+            <Footer/>
         </body>
         </html>
     )

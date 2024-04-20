@@ -4,9 +4,9 @@
   "private": true,
   "description": "The frontend of the AAPC website.",
   "scripts": {
-    "dev": "next dev -p 8080",
+    "dev": "next dev -p 3001",
     "build": "next build",
-    "start": "next start -p 8080",
+    "start": "next start -p 3001",
     "lint": "next lint"
   },
   "dependencies": {

@@ -3,9 +3,9 @@ import Link from "next/link";
 
 export default function Nav (): React.JSX.Element {
     return (
-        <div>
+        <nav>
             <div className={"h-48 w-full fixed bg-gradient-to-b from-white z-40"}></div>
-            <nav className={`fixed h-28 w-full bg-gradient-to-b from-green-100 flex justify-center items-center z-50`}>
+            <div className={`fixed h-28 w-full bg-gradient-to-b from-green-100 flex justify-center items-center z-50`}>
                 <Link href={"/"}>
                     <div className={"py-6 px-12 flex-col flex justify-center items-center"}>
                         <span className={"font-bold text-2xl text-black tracking-tight"}>Aotearoa Airborne Pollen Collective</span>
@@ -15,8 +15,8 @@ export default function Nav (): React.JSX.Element {
                         </div>
                     </div>
                 </Link>
-            </nav>
+            </div>
             <div className={`h-28`}></div>
-        </div>
+        </nav>
     )
 }
