@@ -14,6 +14,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Create env File
+        working-directory: ./backend
+        run: |
+          touch .env
+          echo ENV=PROD >> .env
+          echo PORT=3000 >> .env
       - name: Install Vercel CLI
         working-directory: ./backend
         run: |

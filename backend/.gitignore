@@ -13,9 +13,6 @@
 .DS_Store
 *.pem
 
-# local env files
-.env*.local
-
 # typescript
 *.tsbuildinfo
 next-env.d.ts

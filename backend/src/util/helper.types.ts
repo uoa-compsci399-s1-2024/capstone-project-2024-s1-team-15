@@ -14,7 +14,6 @@ export interface ArrayResult<T> {
     results: T[]
 }
 
-
 export interface InputValidationError<T> {
     field: keyof T
     message: string
