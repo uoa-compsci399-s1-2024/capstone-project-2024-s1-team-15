@@ -3,8 +3,8 @@ import { DB } from "../repositories/repository";
 import { BadRequestError, NotFoundError } from "../errors/HTTPErrors";
 import { Article, ArticleType, Paginator } from "@aapc/types";
 import { DEFAULT_PER_PAGE, DUMMY_USER } from "../util/const";
-import { ArrayResult } from "../util/helper.types";
-import { ArticleIn } from "../util/input.types";
+import { ArrayResult } from "../util/types/util.types";
+import { ArticleIn } from "../util/types/input.types";
 
 export default class NewsController {
     static getNews: RequestHandler = async (req, res, next) => {

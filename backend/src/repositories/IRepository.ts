@@ -1,7 +1,7 @@
 import { Article, User } from "@aapc/types";
-import { ArrayResult, ArrayResultOptions, Nullable } from "../util/helper.types";
-import ArticleSorter, { ArticleSortFields } from "./memory/sorters/ArticleSorter";
-import UserSorter, { UserSortFields } from "./memory/sorters/UserSorter";
+import { ArrayResult, ArrayResultOptions, Nullable } from "../util/types/util.types";
+import { ArticleSortFields } from "./memory/sorters/ArticleSorter";
+import { UserSortFields } from "./memory/sorters/UserSorter";
 
 export default interface IRepository {
     getAllNews(options?: ArrayResultOptions<ArticleSortFields>): Promise<ArrayResult<Article>>

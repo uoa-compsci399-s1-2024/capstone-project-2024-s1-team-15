@@ -1,13 +1,9 @@
 import { Article, ArticleType, IArticle, IUser, User } from "@aapc/types";
-import { InputValidationError } from "./helper.types";
+import { getRandomID } from "../functions";
 
-function getRandomID (length: number = 8) {
-    let result = ''
-    const characters = 'abcdefghijklmnopqrstuvwxyz0123456789-_'
-    for (let i = 0; i < length; i++) {
-        result += characters.charAt(Math.floor(Math.random() * characters.length))
-    }
-    return result
+export interface InputValidationError<T> {
+    field: keyof T
+    message: string
 }
 
 export interface IArticleIn extends Omit<IArticle, "id" | "lastEditedAt" | "publishedAt" | "publisher" | "articleType"> {}
