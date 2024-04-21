@@ -1,12 +1,14 @@
 export type Nullable<T> = T | null
 
-export interface ArrayResultOptions<T extends string> {
+export interface ArrayResultOptions<T extends SortOptions<any, string>> {
     startFrom?: number
     maxResults?: number
-    sort?: {
-        field: T
-        descending?: boolean
-    }
+    sort?: T[]
+}
+
+export interface SortOptions<K, T extends keyof K> {
+    field: T
+    descending?: boolean
 }
 
 export interface ArrayResult<T> {
