@@ -9,6 +9,7 @@ const app: Express = express()
 const port = process.env.PORT || 3000
 
 app.use(express.json())
+app.use(require("cors")())
 
 app.get("/", (req: Request, res: Response) => {
     res.json({ message: "ok", environment: (process.env.ENV?? "local").toLowerCase() })
