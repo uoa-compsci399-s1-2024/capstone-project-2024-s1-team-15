@@ -11,7 +11,7 @@ const port = process.env.PORT || 3000
 app.use(express.json())
 
 app.get("/", (req: Request, res: Response) => {
-    res.json({ message: "ok", environment: (process.env.ENV?? "unknown").toLowerCase() })
+    res.json({ message: "ok", environment: (process.env.ENV?? "local").toLowerCase() })
 })
 
 app.use(NewsRouter.url, NewsRouter.router())

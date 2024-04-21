@@ -3,7 +3,7 @@ import IRepository from "../IRepository";
 import users from "./data/users.json"
 import news from "./data/news.json"
 import researches from "./data/researches.json"
-import { ArrayResult, ArrayResultOptions, Nullable } from "../../util/helper.types";
+import { ArrayResult, ArrayResultOptions, Nullable } from "../../util/types/util.types";
 import ArticleSorter, { ArticleSortFields } from "./sorters/ArticleSorter";
 import UserSorter, { UserSortFields } from "./sorters/UserSorter";
 import Sorter from "./sorters/Sorter";
