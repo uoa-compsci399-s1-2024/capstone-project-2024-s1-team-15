@@ -3,18 +3,18 @@ import news from "./data/news.json"
 import researches from "./data/researches.json"
 
 import { Article, IArticle, User } from "@aapc/types";
-import IRepository, { BaseRepository } from "../IRepository";
+import IRepository from "../IRepository";
 import { ArrayResult, ArrayResultOptions, Nullable, SortOptions } from "../../util/types/util.types";
-import { ArticleSortFields } from "../sorters/article.sorter";
-import { UserSortFields } from "../sorters/user.sorter";
+import { ArticleSortFields } from "./sorters/article.sorter";
+import { UserSortFields } from "./sorters/user.sorter";
+import { Sorter } from "./sorters/Sorter";
 
-export default class MemoryRepository extends BaseRepository implements IRepository {
+export default class MemoryRepository implements IRepository {
     private readonly users: User[]
     private readonly news: Article[]
     private readonly researches: Article[]
 
     constructor() {
-        super()
         this.users = []
         users.forEach(i => {
             this.users.push(new User(i))
@@ -35,6 +35,22 @@ export default class MemoryRepository extends BaseRepository implements IReposit
                 this.researches.push(new Article(j))
             })
         })
+    }
+
+    handleArrayResultOptions<T, K extends SortOptions<T, any>>(
+        arr: T[],
+        options?: ArrayResultOptions<K>,
+        sorter?: Sorter<T, K>
+    ): T[] {
+        let start, end
+        if (options) {
+            start = options.startFrom ?? 0
+            end = options.maxResults ? (options.maxResults + start) : undefined
+            if (sorter) {
+                sorter(arr, options.sort)
+            }
+        }
+        return arr.slice(start, end)
     }
 
     async getAllNews(options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>): Promise<ArrayResult<Article>> {
