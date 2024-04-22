@@ -8,6 +8,8 @@
 Our backend app will be implemented using Express.js, with the NoSQL database being hosted on MongoDB, and authentication /
 CDN services being delegated to Amazon Web Services (AWS).
 
+# Starting the Local Server
+
 ## Install Dependencies
 
 Install dependencies using `npm`:
@@ -21,18 +23,31 @@ npm i
 npm run dev
 ```
 
-The default port is configured to `3000`.
+The default port is configured to `3000`. The environment is `LOCAL` by default, and will use the `MemoryRepository`.
 
-Ping the Express API through [http://localhost:3000](http://localhost:3000).
+Ping the Express API through [http://localhost:3000](http://localhost:3000). You should see the following response:
 
-## Building for Production
 
-```bash
-npm run build
+```json
+{
+    "message": "ok"
+    "environment": "local"
+}
 ```
 
-Optionally, start the production server using:
+# Deployment Rules
 
-```bash
-npm run start
-```
+- Any changes pushed to github on **any** branch will be deployed to Vercel Development Preview. This is not public.
+- Any changes pushed on the `dev` branch will be deployed to the **development** environment (`dev-api.aapc-nz.org`).
+- Any changes pushed on the `main` branch will be deployed to the **production** environment (`api.aapc-nz.org`).
+
+# Environments
+
+### `LOCAL`
+When running the backend locally, the `ENV` will be `LOCAL` and use the `MemoryRepository` with data from the local JSON files.
+
+### `DEV`
+On `dev-api.aapc-nz.org` (the dev environment), the `ENV` will be `DEV` and use the `MongoRepository` with data from the **Development** MongoDB Atlas cluster.
+
+### `PROD`
+On `api.aapc-nz.org` (the prod environment), the `ENV` will be `PROD` and use the `MongoRepository` with data from the **Production** MongoDB Atlas cluster.
