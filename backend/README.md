@@ -10,6 +10,11 @@ CDN services being delegated to Amazon Web Services (AWS).
 
 # Starting the Local Server
 
+Change directory to the backend (only if you are currently in the root directory):
+```bash
+cd backend
+```
+
 ## Install Dependencies
 
 Install dependencies using `npm`:
@@ -38,8 +43,8 @@ Ping the Express API through [http://localhost:3000](http://localhost:3000). You
 # Deployment Rules
 
 - Any changes pushed to github on **any** branch will be deployed to Vercel Development Preview. This is not public.
-- Any changes pushed on the `dev` branch will be deployed to the **development** environment (`dev-api.aapc-nz.org`).
-- Any changes pushed on the `main` branch will be deployed to the **production** environment (`api.aapc-nz.org`).
+- Any changes pushed on the `dev` branch will be deployed to the **development** environment ([https://dev-api.aapc-nz.org](https://dev-api.aapc-nz.org)).
+- Any changes pushed on the `main` branch will be deployed to the **production** environment ([https://api.aapc-nz.org](https://api.aapc-nz.org)).
 
 # Environments
 
@@ -47,7 +52,7 @@ Ping the Express API through [http://localhost:3000](http://localhost:3000). You
 When running the backend locally, the `ENV` will be `LOCAL` and use the `MemoryRepository` with data from the local JSON files.
 
 ### `DEV`
-On `dev-api.aapc-nz.org` (the dev environment), the `ENV` will be `DEV` and use the `MongoRepository` with data from the **Development** MongoDB Atlas cluster.
+On [https://dev-api.aapc-nz.org](https://dev-api.aapc-nz.org) (the dev environment), the `ENV` will be `DEV` and use the `MongoRepository` with data from the **Development** MongoDB Atlas cluster.
 
 ### `PROD`
-On `api.aapc-nz.org` (the prod environment), the `ENV` will be `PROD` and use the `MongoRepository` with data from the **Production** MongoDB Atlas cluster.
+On [https://api.aapc-nz.org](https://api.aapc-nz.org) (the prod environment), the `ENV` will be `PROD` and use the `MongoRepository` with data from the **Production** MongoDB Atlas cluster.
