@@ -3,7 +3,7 @@ import { Article, ArticleType, User } from "@aapc/types";
 import { ArrayResult, ArrayResultOptions, Nullable, SortOptions } from "../../util/types/util.types";
 import { ArticleSortFields } from "../sorters/article.sorter";
 import { UserSortFields } from "../sorters/user.sorter";
-import { Collection, Db, Filter, MongoClient, ServerApiVersion } from "mongodb";
+import { Collection, Db, Document, Filter, FindCursor, MongoClient, ServerApiVersion, WithId } from "mongodb";
 
 export default class MongoRepository extends BaseRepository implements IRepository {
     private readonly db: Db
@@ -60,16 +60,32 @@ export default class MongoRepository extends BaseRepository implements IReposito
         throw Error()
     }
 
+    async fetchMongoDocuments (f: FindCursor<WithId<Document>>, options?: ArrayResultOptions<SortOptions<any, string>>): Promise<WithId<Document>[]> {
+        const a: WithId<Document>[] = []
+        if (options) {
+            for await (const document of f.skip(options.startFrom?? 0).limit(options.maxResults?? Infinity)) {
+                a.push(document)
+            }
+        } else {
+            for await (const document of f) {
+                a.push(document)
+            }
+        }
+        return a
+    }
+
     async getAllNews(options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>): Promise<ArrayResult<Article>> {
         const r: Article[] = []
         const q: Filter<any> = { articleType: ArticleType.news }
-        const result = this.articles.find(q)
         const rC = await this.articles.countDocuments(q)
-        for await (const document of result) {
+        const result = await this.fetchMongoDocuments(this.articles.find(q), options)
+
+        for (const document of result) {
             const a = new Article(<object>document)
             a.publisher = await this.getUserByUsername(document.publisher) ?? new User()
             r.push(a)
         }
+
         return {
             totalResults: rC,
             results: this.handleArrayResultOptions(r, options)
@@ -79,13 +95,15 @@ export default class MongoRepository extends BaseRepository implements IReposito
     async getAllResearch(options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>): Promise<ArrayResult<Article>> {
         const r: Article[] = []
         const q: Filter<any> = { articleType: ArticleType.research }
-        const result = this.articles.find(q)
         const rC = await this.articles.countDocuments(q)
-        for await (const document of result) {
+        const result = await this.fetchMongoDocuments(this.articles.find(q), options)
+
+        for (const document of result) {
             const a = new Article(<object>document)
             a.publisher = await this.getUserByUsername(document.publisher) ?? new User()
             r.push(a)
         }
+
         return {
             totalResults: rC,
             results: this.handleArrayResultOptions(r, options)
@@ -94,12 +112,14 @@ export default class MongoRepository extends BaseRepository implements IReposito
 
     async getAllUsers(options?: ArrayResultOptions<SortOptions<User, UserSortFields>>): Promise<ArrayResult<User>> {
         const r: User[] = []
-        const result = this.users.find()
         const rC = await this.users.countDocuments()
-        for await (const document of result) {
+        const result = await this.fetchMongoDocuments(this.users.find(), options)
+
+        for (const document of result) {
             const u = new User(<object>document)
             r.push(u)
         }
+
         return {
             totalResults: rC,
             results: this.handleArrayResultOptions(r, options)

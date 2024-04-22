@@ -12,7 +12,10 @@ app.use(express.json())
 app.use(require("cors")())
 
 app.get("/", (req: Request, res: Response) => {
-    res.json({ message: "ok", environment: (process.env.ENV?? "local").toLowerCase() })
+    res.json({
+        message: "ok",
+        environment: (process.env.ENV?? "local").toLowerCase()
+    })
 })
 
 app.use(NewsRouter.url, NewsRouter.router())
