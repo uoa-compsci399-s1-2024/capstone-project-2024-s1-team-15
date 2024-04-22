@@ -52,7 +52,7 @@ Ping the Express API through [http://localhost:3000](http://localhost:3000). You
 When running the backend locally, the `ENV` will be `LOCAL` and use the `MemoryRepository` with data from the local JSON files.
 
 ### `DEV`
-On [https://dev-api.aapc-nz.org](https://dev-api.aapc-nz.org) (the dev environment), the `ENV` will be `DEV` and use the `MongoRepository` with data from the **Development** MongoDB Atlas cluster.
+On [https://dev-api.aapc-nz.org](https://dev-api.aapc-nz.org) (the **development** environment), the `ENV` will be `DEV` and use the `MongoRepository` with data from the **Development** MongoDB Atlas cluster.
 
 ### `PROD`
-On [https://api.aapc-nz.org](https://api.aapc-nz.org) (the prod environment), the `ENV` will be `PROD` and use the `MongoRepository` with data from the **Production** MongoDB Atlas cluster.
+On [https://api.aapc-nz.org](https://api.aapc-nz.org) (the **production** environment), the `ENV` will be `PROD` and use the `MongoRepository` with data from the **Production** MongoDB Atlas cluster.
