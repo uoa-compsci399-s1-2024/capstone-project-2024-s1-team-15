@@ -19,8 +19,8 @@ describe("Authentication", () => {
           })
       );
 
-      cy.visit(URLS.LOGIN_URL);
-      cy.url().should("eq", URLS.LOGIN_URL);
+      cy.visit(URLS.LOGIN);
+      cy.url().should("eq", URLS.LOGIN);
       cy.get("button")
         .contains("Logout", { matchCase: false })
         .should("not.exist");
