@@ -31,7 +31,7 @@ export const ROUTES = {
   LOGIN: "/login",
   FORGOT_PASSWORD: "/forgot-password",
 
-  REDIRECT_AFTER_LOGIN: "/",
+  REDIRECT_AFTER_LOGIN: "/news/publish",
 };
 
 export const URLS = Object.fromEntries(
