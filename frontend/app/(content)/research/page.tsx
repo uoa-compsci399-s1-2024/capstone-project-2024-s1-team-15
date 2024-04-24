@@ -5,7 +5,10 @@ import ArticleCard from "@/app/components/ArticleCard";
 import ButtonLink from "@/app/components/ButtonLink";
 import { getMetadata } from "@/app/util";
 
-export const metadata = getMetadata("All Research")
+// 👇 so npm run build passes (don't attempt to static render this page)
+export const dynamic = "force-dynamic";
+
+export const metadata = getMetadata("All Research");
 
 export default async function AllResearchPage () {
     const research = new Paginator(Article, await(await fetch(API_URI + "/content/research?pp=1000", { method: "get" })).json())
