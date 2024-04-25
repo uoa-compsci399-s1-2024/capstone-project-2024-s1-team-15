@@ -15,7 +15,7 @@ app.use(require("cors")())
 app.get("/", (req: Request, res: Response) => {
     res.json({
         message: "ok",
-        environment: (process.env.ENV?? "local").toLowerCase()
+        environment: (process.env.ENV ?? "local").toLowerCase(),
     })
 })
 
