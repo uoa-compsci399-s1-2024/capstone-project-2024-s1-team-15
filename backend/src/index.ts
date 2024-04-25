@@ -2,6 +2,7 @@ import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import NewsRouter from "./routes/news.router";
 import ResearchRouter from "./routes/research.router";
+import AuthRouter from "./routes/auth.router";
 
 dotenv.config()
 
@@ -17,7 +18,7 @@ app.get("/", (req: Request, res: Response) => {
 
 app.use(NewsRouter.url, NewsRouter.router())
 app.use(ResearchRouter.url, ResearchRouter.router())
-
+app.use(AuthRouter.url, AuthRouter.router())
 
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`)
