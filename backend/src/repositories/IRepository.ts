@@ -1,14 +1,17 @@
-import { Article, User } from "@aapc/types";
-import { ArrayResult, ArrayResultOptions, Nullable, SortOptions } from "../util/types/util.types";
-import { ArticleSortFields } from "./memory/sorters/article.sorter";
-import { UserSortFields } from "./memory/sorters/user.sorter";
+import { Article, User } from "@aapc/types"
+import { ArrayResult, ArrayResultOptions, Nullable, SortOptions } from "../util/types/util.types"
+import { ArticleSortFields } from "./memory/sorters/article.sorter"
+import { UserSortFields } from "./memory/sorters/user.sorter"
 
 export default interface IRepository {
     getAllNews(options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>): Promise<ArrayResult<Article>>
 
     getNewsById(id: string): Promise<Nullable<Article>>
 
-    searchNewsByTitle(title: string, options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>): Promise<ArrayResult<Article>>
+    searchNewsByTitle(
+        title: string,
+        options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>
+    ): Promise<ArrayResult<Article>>
 
     createNews(a: Article): Promise<Article>
 
@@ -16,12 +19,14 @@ export default interface IRepository {
 
     deleteNews(id: string): Promise<void>
 
-
     getAllResearch(options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>): Promise<ArrayResult<Article>>
 
     getResearchById(id: string): Promise<Nullable<Article>>
 
-    searchResearchByTitle(title: string, options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>): Promise<ArrayResult<Article>>
+    searchResearchByTitle(
+        title: string,
+        options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>
+    ): Promise<ArrayResult<Article>>
 
     createResearch(a: Article): Promise<Article>
 
@@ -29,12 +34,14 @@ export default interface IRepository {
 
     deleteResearch(id: string): Promise<void>
 
-
     getAllUsers(options?: ArrayResultOptions<SortOptions<User, UserSortFields>>): Promise<ArrayResult<User>>
 
     getUserByUsername(username: string): Promise<Nullable<User>>
 
-    searchUserByUsername(username: string, options?: ArrayResultOptions<SortOptions<User, UserSortFields>>): Promise<ArrayResult<User>>
+    searchUserByUsername(
+        username: string,
+        options?: ArrayResultOptions<SortOptions<User, UserSortFields>>
+    ): Promise<ArrayResult<User>>
 
     createUser(u: User): Promise<User>
 

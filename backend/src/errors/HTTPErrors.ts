@@ -1,7 +1,7 @@
 abstract class HTTPError extends Error {
     public status: number
 
-    protected constructor (status: number) {
+    protected constructor(status: number) {
         super()
         this.status = status
         this.name = "HTTPError"
@@ -9,9 +9,9 @@ abstract class HTTPError extends Error {
 }
 
 export class NotFoundError extends HTTPError {
-    constructor (message?: string) {
+    constructor(message?: string) {
         super(404)
-        this.message = message?? "Not Found"
+        this.message = message ?? "Not Found"
         this.name = this.status.toString()
     }
 }

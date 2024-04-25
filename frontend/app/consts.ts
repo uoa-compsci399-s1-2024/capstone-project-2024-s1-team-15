@@ -1,4 +1,4 @@
-let apiUri;
+let apiUri
 
 switch (process.env.ENV) {
     case "LOCAL": {
@@ -18,5 +18,5 @@ switch (process.env.ENV) {
     }
 }
 
-export const API_URI = apiUri  // can add custom uri for testing here
+export const API_URI = apiUri // can add custom uri for testing here
 export const WEBSITE_NAME = "Aotearoa Airborne Pollen Collective"

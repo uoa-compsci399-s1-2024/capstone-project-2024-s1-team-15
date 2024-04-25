@@ -1,38 +1,41 @@
 {
-  "name": "aapc-frontend",
-  "version": "0.1.0",
-  "private": true,
-  "description": "The frontend of the AAPC website.",
-  "scripts": {
-    "dev": "next dev -p 3001",
-    "build": "next build",
-    "start": "next start -p 3001",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@aapc/types": "^0.2.2",
-    "@tiptap/extension-underline": "^2.2.6",
-    "@tiptap/pm": "^2.2.6",
-    "@tiptap/react": "^2.2.6",
-    "@tiptap/starter-kit": "^2.2.6",
-    "html-react-parser": "^5.1.10",
-    "isomorphic-dompurify": "^2.6.0",
-    "next": "14.1.4",
-    "react": "^18",
-    "react-dom": "^18",
-    "react-icons": "^5.0.1"
-  },
-  "devDependencies": {
-    "@tailwindcss/typography": "^0.5.12",
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "autoprefixer": "^10.0.1",
-    "dotenv": "^16.4.5",
-    "eslint": "^8",
-    "eslint-config-next": "14.1.4",
-    "postcss": "^8",
-    "tailwindcss": "^3.3.0",
-    "typescript": "^5"
-  }
+    "name": "aapc-frontend",
+    "version": "0.1.0",
+    "private": true,
+    "description": "The frontend of the AAPC website.",
+    "scripts": {
+        "dev": "next dev -p 3001",
+        "build": "next build",
+        "start": "next start -p 3001",
+        "lint": "next lint",
+        "prettier": "npx prettier . --check",
+        "prettier:fix": "npx prettier . --write"
+    },
+    "dependencies": {
+        "@aapc/types": "^0.2.2",
+        "@tiptap/extension-underline": "^2.2.6",
+        "@tiptap/pm": "^2.2.6",
+        "@tiptap/react": "^2.2.6",
+        "@tiptap/starter-kit": "^2.2.6",
+        "html-react-parser": "^5.1.10",
+        "isomorphic-dompurify": "^2.6.0",
+        "next": "14.1.4",
+        "react": "^18",
+        "react-dom": "^18",
+        "react-icons": "^5.0.1"
+    },
+    "devDependencies": {
+        "@tailwindcss/typography": "^0.5.12",
+        "@types/node": "^20",
+        "@types/react": "^18",
+        "@types/react-dom": "^18",
+        "autoprefixer": "^10.0.1",
+        "dotenv": "^16.4.5",
+        "eslint": "^8",
+        "eslint-config-next": "14.1.4",
+        "postcss": "^8",
+        "prettier": "3.2.5",
+        "tailwindcss": "^3.3.0",
+        "typescript": "^5"
+    }
 }

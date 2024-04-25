@@ -2,12 +2,12 @@ import users from "./data/users.json"
 import news from "./data/news.json"
 import researches from "./data/researches.json"
 
-import { Article, IArticle, User } from "@aapc/types";
-import IRepository from "../IRepository";
-import { ArrayResult, ArrayResultOptions, Nullable, SortOptions } from "../../util/types/util.types";
-import { ArticleSortFields } from "./sorters/article.sorter";
-import { UserSortFields } from "./sorters/user.sorter";
-import { Sorter } from "./sorters/Sorter";
+import { Article, IArticle, User } from "@aapc/types"
+import IRepository from "../IRepository"
+import { ArrayResult, ArrayResultOptions, Nullable, SortOptions } from "../../util/types/util.types"
+import { ArticleSortFields } from "./sorters/article.sorter"
+import { UserSortFields } from "./sorters/user.sorter"
+import { Sorter } from "./sorters/Sorter"
 
 export default class MemoryRepository implements IRepository {
     private readonly users: User[]
@@ -16,21 +16,21 @@ export default class MemoryRepository implements IRepository {
 
     constructor() {
         this.users = []
-        users.forEach(i => {
+        users.forEach((i) => {
             this.users.push(new User(i))
         })
 
         this.news = []
-        news.forEach(i => {
-            this.getUserByUsername(i.publisher).then(r => {
+        news.forEach((i) => {
+            this.getUserByUsername(i.publisher).then((r) => {
                 const j: IArticle = { ...i, ...{ publisher: r ?? new User() } }
                 this.news.push(new Article(j))
             })
         })
 
         this.researches = []
-        researches.forEach(i => {
-            this.getUserByUsername(i.publisher).then(r => {
+        researches.forEach((i) => {
+            this.getUserByUsername(i.publisher).then((r) => {
                 const j: IArticle = { ...i, ...{ publisher: r ?? new User() } }
                 this.researches.push(new Article(j))
             })
@@ -45,7 +45,7 @@ export default class MemoryRepository implements IRepository {
         let start, end
         if (options) {
             start = options.startFrom ?? 0
-            end = options.maxResults ? (options.maxResults + start) : undefined
+            end = options.maxResults ? options.maxResults + start : undefined
             if (sorter) {
                 sorter(arr, options.sort)
             }
@@ -53,26 +53,33 @@ export default class MemoryRepository implements IRepository {
         return arr.slice(start, end)
     }
 
-    async getAllNews(options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>): Promise<ArrayResult<Article>> {
+    async getAllNews(
+        options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>
+    ): Promise<ArrayResult<Article>> {
         let r = structuredClone(this.news)
         return {
             totalResults: r.length,
-            results: this.handleArrayResultOptions(r, options)
+            results: this.handleArrayResultOptions(r, options),
         }
     }
 
     async getNewsById(id: string): Promise<Nullable<Article>> {
         for (const a of this.news) {
-            if (a.id === id) { return a }
+            if (a.id === id) {
+                return a
+            }
         }
         return null
     }
 
-    async searchNewsByTitle(title: string, options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>): Promise<ArrayResult<Article>> {
-        let r = this.news.filter(a => a.title.toLowerCase().includes(title.toLowerCase()))
+    async searchNewsByTitle(
+        title: string,
+        options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>
+    ): Promise<ArrayResult<Article>> {
+        let r = this.news.filter((a) => a.title.toLowerCase().includes(title.toLowerCase()))
         return {
             totalResults: r.length,
-            results: this.handleArrayResultOptions(r, options)
+            results: this.handleArrayResultOptions(r, options),
         }
     }
 
@@ -85,7 +92,7 @@ export default class MemoryRepository implements IRepository {
         if (a.id !== id) throw new TypeError("News edit ID mismatch")
         for (let i = 0; i < this.news.length; i++) {
             if (this.news[i].id === id) {
-                this.news[i] = a;
+                this.news[i] = a
                 break
             }
         }
@@ -102,11 +109,13 @@ export default class MemoryRepository implements IRepository {
         throw new TypeError(`No news with ID ${id}.`)
     }
 
-    async getAllResearch(options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>): Promise<ArrayResult<Article>> {
+    async getAllResearch(
+        options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>
+    ): Promise<ArrayResult<Article>> {
         let r = structuredClone(this.researches)
         return {
             totalResults: r.length,
-            results: this.handleArrayResultOptions(r, options)
+            results: this.handleArrayResultOptions(r, options),
         }
     }
 
@@ -117,11 +126,14 @@ export default class MemoryRepository implements IRepository {
         return null
     }
 
-    async searchResearchByTitle(title: string, options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>): Promise<ArrayResult<Article>> {
-        let r = this.researches.filter(a => a.title.toLowerCase().includes(title.toLowerCase()))
+    async searchResearchByTitle(
+        title: string,
+        options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>
+    ): Promise<ArrayResult<Article>> {
+        let r = this.researches.filter((a) => a.title.toLowerCase().includes(title.toLowerCase()))
         return {
             totalResults: r.length,
-            results: this.handleArrayResultOptions(r, options)
+            results: this.handleArrayResultOptions(r, options),
         }
     }
 
@@ -150,12 +162,11 @@ export default class MemoryRepository implements IRepository {
         }
     }
 
-
     async getAllUsers(options?: ArrayResultOptions<SortOptions<User, UserSortFields>>): Promise<ArrayResult<User>> {
         let r = structuredClone(this.users)
         return {
             totalResults: r.length,
-            results: this.handleArrayResultOptions(r, options)
+            results: this.handleArrayResultOptions(r, options),
         }
     }
 
@@ -166,11 +177,14 @@ export default class MemoryRepository implements IRepository {
         return null
     }
 
-    async searchUserByUsername(username: string, options?: ArrayResultOptions<SortOptions<User, UserSortFields>>): Promise<ArrayResult<User>> {
-        let r = this.users.filter(a => a.username.toLowerCase().includes(username.toLowerCase()))
+    async searchUserByUsername(
+        username: string,
+        options?: ArrayResultOptions<SortOptions<User, UserSortFields>>
+    ): Promise<ArrayResult<User>> {
+        let r = this.users.filter((a) => a.username.toLowerCase().includes(username.toLowerCase()))
         return {
             totalResults: r.length,
-            results: this.handleArrayResultOptions(r, options)
+            results: this.handleArrayResultOptions(r, options),
         }
     }
 

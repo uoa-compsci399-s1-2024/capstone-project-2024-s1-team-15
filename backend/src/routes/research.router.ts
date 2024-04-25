@@ -1,11 +1,11 @@
-import express, { Router } from "express";
-import ResearchController from "../controllers/research.controller";
-import expressAsyncHandler from "express-async-handler";
+import express, { Router } from "express"
+import ResearchController from "../controllers/research.controller"
+import expressAsyncHandler from "express-async-handler"
 
 export default class ResearchRouter {
     static url = "/content/research"
 
-    static router (): Router {
+    static router(): Router {
         const router = express.Router()
 
         router.get("/", expressAsyncHandler(ResearchController.getResearch))

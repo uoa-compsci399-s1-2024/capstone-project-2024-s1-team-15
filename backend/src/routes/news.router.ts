@@ -1,11 +1,11 @@
-import express, { Router } from "express";
-import NewsController from "../controllers/news.controller";
-import expressAsyncHandler from "express-async-handler";
+import express, { Router } from "express"
+import NewsController from "../controllers/news.controller"
+import expressAsyncHandler from "express-async-handler"
 
 export default class NewsRouter {
     static url = "/content/news"
 
-    static router (): Router {
+    static router(): Router {
         const router = express.Router()
 
         router.get("/", expressAsyncHandler(NewsController.getNews))

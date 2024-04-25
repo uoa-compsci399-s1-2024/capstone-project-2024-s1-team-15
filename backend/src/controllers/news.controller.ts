@@ -1,14 +1,14 @@
-import { RequestHandler } from "express";
-import { DB } from "../repositories/repository";
-import { BadRequestError, NotFoundError } from "../errors/HTTPErrors";
-import { Article, ArticleType, Paginator } from "@aapc/types";
-import { DEFAULT_PER_PAGE, DUMMY_USER } from "../util/const";
-import { ArrayResult } from "../util/types/util.types";
-import { ArticleIn } from "../util/types/input.types";
+import { RequestHandler } from "express"
+import { DB } from "../repositories/repository"
+import { BadRequestError, NotFoundError } from "../errors/HTTPErrors"
+import { Article, ArticleType, Paginator } from "@aapc/types"
+import { DEFAULT_PER_PAGE, DUMMY_USER } from "../util/const"
+import { ArrayResult } from "../util/types/util.types"
+import { ArticleIn } from "../util/types/input.types"
 
 export default class NewsController {
     static getNews: RequestHandler = async (req, res, next) => {
-        const url = new URL(`${req.protocol}://${req.get('host')}${req.originalUrl}`)
+        const url = new URL(`${req.protocol}://${req.get("host")}${req.originalUrl}`)
 
         // Get query parameter p from URL
         const page: number = Number(req.query.p ?? 1)
@@ -20,15 +20,21 @@ export default class NewsController {
         const searchTitle = String(req.query.title ?? "")
         let r: ArrayResult<Article>
         if (searchTitle === "") {
-            r = await DB.getAllNews({ startFrom: startFrom, maxResults: perPage })
+            r = await DB.getAllNews({
+                startFrom: startFrom,
+                maxResults: perPage,
+            })
         } else {
-            r = await DB.searchNewsByTitle(searchTitle, { startFrom: startFrom, maxResults: perPage })
+            r = await DB.searchNewsByTitle(searchTitle, {
+                startFrom: startFrom,
+                maxResults: perPage,
+            })
         }
         const paginator = new Paginator(Article, {
             resultsPerPage: perPage,
             currentPage: page,
             totalResults: r.totalResults,
-            data: r.results
+            data: r.results,
         })
         if (page < paginator.lastPage) {
             url.searchParams.set("p", String(page + 1))

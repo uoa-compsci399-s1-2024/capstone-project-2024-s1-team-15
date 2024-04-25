@@ -1,7 +1,7 @@
-import dotenv from "dotenv";
-import IRepository from "./IRepository";
-import MemoryRepository from "./memory/MemoryRepository";
-import MongoRepository from "./mongo/MongoRepository";
+import dotenv from "dotenv"
+import IRepository from "./IRepository"
+import MemoryRepository from "./memory/MemoryRepository"
+import MongoRepository from "./mongo/MongoRepository"
 
 dotenv.config()
 
