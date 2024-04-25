@@ -20,7 +20,10 @@ export default class NewsController {
         const searchTitle = String(req.query.title ?? "")
         let r: ArrayResult<Article>
         if (searchTitle === "") {
-            r = await DB.getAllNews({ startFrom: startFrom, maxResults: perPage })
+            r = await DB.getAllNews({
+                startFrom: startFrom,
+                maxResults: perPage,
+            })
         } else {
             r = await DB.searchNewsByTitle(searchTitle, {
                 startFrom: startFrom,
