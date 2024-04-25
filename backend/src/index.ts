@@ -1,28 +1,28 @@
-import express, { Express, Request, Response } from "express";
-import dotenv from "dotenv";
-import NewsRouter from "./routes/news.router";
-import ResearchRouter from "./routes/research.router";
-import AuthRouter from "./routes/auth.router";
+import express, { Express, Request, Response } from "express"
+import dotenv from "dotenv"
+import NewsRouter from "./routes/news.router"
+import ResearchRouter from "./routes/research.router"
+import AuthRouter from "./routes/auth.router"
 
-dotenv.config();
+dotenv.config()
 
-const app: Express = express();
-const port = process.env.PORT || 3000;
+const app: Express = express()
+const port = process.env.PORT || 3000
 
-app.use(express.json());
-app.use(require("cors")());
+app.use(express.json())
+app.use(require("cors")())
 
 app.get("/", (req: Request, res: Response) => {
-  res.json({
-    message: "ok",
-    environment: (process.env.ENV ?? "local").toLowerCase(),
-  });
-});
+    res.json({
+        message: "ok",
+        environment: (process.env.ENV ?? "local").toLowerCase(),
+    })
+})
 
-app.use(NewsRouter.url, NewsRouter.router());
-app.use(ResearchRouter.url, ResearchRouter.router());
-app.use(AuthRouter.url, AuthRouter.router());
+app.use(NewsRouter.url, NewsRouter.router())
+app.use(ResearchRouter.url, ResearchRouter.router())
+app.use(AuthRouter.url, AuthRouter.router())
 
 app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
-});
+    console.log(`Server is running at http://localhost:${port}`)
+})
