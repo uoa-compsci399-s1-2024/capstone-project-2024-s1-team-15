@@ -3,18 +3,18 @@ import NewsController from "../controllers/news.controller";
 import expressAsyncHandler from "express-async-handler";
 
 export default class NewsRouter {
-    static url = "/content/news"
+  static url = "/content/news";
 
-    static router (): Router {
-        const router = express.Router()
+  static router(): Router {
+    const router = express.Router();
 
-        router.get("/", expressAsyncHandler(NewsController.getNews))
-        router.post("/", expressAsyncHandler(NewsController.createNews))
+    router.get("/", expressAsyncHandler(NewsController.getNews));
+    router.post("/", expressAsyncHandler(NewsController.createNews));
 
-        router.get("/:id", expressAsyncHandler(NewsController.getNewsById))
-        router.put("/:id", expressAsyncHandler(NewsController.editNews))
-        router.delete("/:id", expressAsyncHandler(NewsController.deleteNews))
+    router.get("/:id", expressAsyncHandler(NewsController.getNewsById));
+    router.put("/:id", expressAsyncHandler(NewsController.editNews));
+    router.delete("/:id", expressAsyncHandler(NewsController.deleteNews));
 
-        return router
-    }
+    return router;
+  }
 }
