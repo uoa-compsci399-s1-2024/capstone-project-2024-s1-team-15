@@ -49,3 +49,6 @@ a {
     @apply mt-7 mb-1.5 tracking-tight font-medium text-gray-400 uppercase text-xs
 }
 
+.form-error {
+  @apply text-red-500;
+}
