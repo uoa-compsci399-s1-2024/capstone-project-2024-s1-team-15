@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 import IRepository from "./IRepository";
 import MemoryRepository from "./memory/MemoryRepository";
+import MongoRepository from "./mongo/MongoRepository";
 
 dotenv.config()
 
@@ -27,7 +28,15 @@ switch (process.env.ENV) {
 export let DB: IRepository
 
 switch (repo) {
-    default:  // TODO: change when implementing mongo
+    case "mongo-dev": {
+        DB = new MongoRepository(process.env.MONGO_DEV_URI ?? "")
+        break
+    }
+    case "mongo-prod": {
+        DB = new MongoRepository(process.env.MONGO_PROD_URI ?? "")
+        break
+    }
+    default:
         DB = new MemoryRepository()
         break
 }

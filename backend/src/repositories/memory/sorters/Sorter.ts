@@ -1,5 +1,3 @@
-export default interface Sorter<T, F extends string> {
-    field: F
-    descending: boolean
-    sort: (r: T[]) => T[]
-}
+import { SortOptions } from "../../../util/types/util.types";
+
+export type Sorter <T, K extends SortOptions<T, any>> = (arr: T[], sortOptions?: K[]) => T[]
