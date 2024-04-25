@@ -21,7 +21,8 @@ export default class AuthController {
 
         const authResult = await AuthController.authContext.login(username, password)
         if (authResult === null) {
-            throw new UnauthorizedError("username and/or password incorrect.")
+            res.status(401).json(new UnauthorizedError("username and/or password incorrect."))
+            return
         }
 
         res.status(200).json(authResult)
