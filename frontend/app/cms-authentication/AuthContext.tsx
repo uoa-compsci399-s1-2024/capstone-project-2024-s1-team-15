@@ -1,25 +1,14 @@
 import React, { useContext, useState, useEffect } from "react"
-import {
-    AuthenticationDetails,
-    CognitoUser,
-    CognitoUserPool,
-    CognitoUserSession,
-    CognitoIdToken,
-} from "amazon-cognito-identity-js"
+
 import { redirect } from "next/navigation"
-import { OPEN_CMS_ROUTES, ROUTES } from "@/app/consts"
+import { API_URI, OPEN_CMS_ROUTES, ROUTES } from "@/app/consts"
+import { User } from "@aapc/types"
 
 type AuthContextValue = {
-    currentUser: null | CognitoIdToken["payload"]
+    currentUser: null | (User & { token: string })
     login: any
     logout: any
 }
-
-// where to authenticate users from
-const adminUserPool = new CognitoUserPool({
-    ClientId: "7dv8g7lsl2ht3uv29q9npt0a84",
-    UserPoolId: "us-east-1_1GuGm8wMs",
-})
 
 const AuthContext = React.createContext({
     currentUser: null,
@@ -31,53 +20,49 @@ export function useAuth() {
 }
 
 export default function AuthProvider({ children }: React.PropsWithChildren) {
-    const [currentUserSession, setCurrentUserSession] = useState(null as AuthContextValue["currentUser"])
+    const [currentUser, setCurrentUser] = useState(null as AuthContextValue["currentUser"])
     const [loading, setLoading] = useState(true)
 
+    // remember previously logged in user
     useEffect(() => {
-        const currentUser = adminUserPool.getCurrentUser()
-
-        if (!currentUser) return setLoading(false)
-
-        currentUser.getSession((error: Error | null, session: CognitoUserSession | null) => {
-            error && console.log("Error in getting user session:", error)
-            session && setCurrentUserSession(session.getIdToken().payload)
-            setLoading(false)
-        })
+        let currentUser
+        try {
+            currentUser = JSON.parse(localStorage.getItem("user") || "null")
+        } catch (e) {
+            currentUser = null
+        }
+        setCurrentUser(currentUser)
+        setLoading(false)
     }, [])
 
+    // remember this login/logout & redirect if necessary
     useEffect(() => {
-        if (loading) return // we don't know if user is logged in or not
+        if (loading) return // auth changes are still happening so wait
+
+        localStorage.setItem("user", JSON.stringify(currentUser))
 
         const currentRoute = window.location.pathname
 
-        if (!currentUserSession && !OPEN_CMS_ROUTES.includes(currentRoute)) redirect(OPEN_CMS_ROUTES[0])
+        if (!currentUser && !OPEN_CMS_ROUTES.includes(currentRoute)) redirect(OPEN_CMS_ROUTES[0])
 
-        if (currentUserSession && OPEN_CMS_ROUTES.includes(currentRoute)) redirect(ROUTES.REDIRECT_AFTER_LOGIN)
-    }, [currentUserSession, loading])
+        if (currentUser && OPEN_CMS_ROUTES.includes(currentRoute)) redirect(ROUTES.REDIRECT_AFTER_LOGIN)
+    }, [currentUser, loading])
 
     // returns the error if there is one
     // if login successful, returns void but sets the current user
     async function login(email: string, password: string) {
-        const user = new CognitoUser({
-            Username: email,
-            Pool: adminUserPool,
-        })
-
-        const authDetails = new AuthenticationDetails({
-            Username: email,
-            Password: password,
-        })
-
         try {
-            const result: CognitoUserSession = await new Promise((resolve, reject) => {
-                user.authenticateUser(authDetails, {
-                    onSuccess: resolve,
-                    onFailure: reject,
-                })
+            const credentialsJson = JSON.stringify({ username: email, password })
+            const authResponse = await fetch(`${API_URI}/auth/login`, {
+                method: "POST",
+                body: credentialsJson,
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                },
             })
 
-            setCurrentUserSession(result.getIdToken().payload)
+            setCurrentUser(await authResponse.json())
         } catch (error: any) {
             console.error("Login failed:", { error })
             return error.message
@@ -85,16 +70,14 @@ export default function AuthProvider({ children }: React.PropsWithChildren) {
     }
 
     function logout() {
-        adminUserPool.getCurrentUser()?.signOut()
-        setCurrentUserSession(null)
+        setCurrentUser(null)
     }
 
     // expose useful auth methods/values
     const authDetails = {
-        currentUser: currentUserSession,
+        currentUser,
         login,
         logout,
     }
-
     return <AuthContext.Provider value={authDetails}>{!loading && children}</AuthContext.Provider>
 }

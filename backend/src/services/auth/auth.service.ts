@@ -1,5 +1,6 @@
 import { JwtPayload, sign, verify } from "jsonwebtoken"
 import { Nullable } from "../../util/types/util.types"
+import { User } from "@aapc/types"
 
 export default class AuthContext {
     private readonly authServiceProvider: IAuthService
@@ -19,10 +20,11 @@ export default class AuthContext {
         )
     }
 
-    async login(username: string, password: string): Promise<Nullable<string>> {
-        if (await this.authServiceProvider.authenticateUser(username, password)) {
-            return this.issueToken(username)
-        } else {
+    async login(username: string, password: string): Promise<Nullable<{ token: string; user: User }>> {
+        try {
+            const authenticatedUser = await this.authServiceProvider.authenticateUser(username, password)
+            return { token: this.issueToken(username), user: authenticatedUser }
+        } catch (e) {
             return null
         }
     }
@@ -38,7 +40,7 @@ export default class AuthContext {
 }
 
 export interface IAuthService {
-    authenticateUser(username: string, password: string): Promise<boolean>
+    authenticateUser(username: string, password: string): Promise<User>
     createUser(username: string, password: string): Promise<null>
     changePassword(username: string, oldPassword: string, newPassword: string): Promise<null>
     resetPassword(username: string, newPassword: string): Promise<null>

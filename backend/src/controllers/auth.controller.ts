@@ -19,15 +19,12 @@ export default class AuthController {
             throw new BadRequestError("username and/or password is missing from request body.")
         }
 
-        const token = await this.authContext.login(username, password)
-        if (token === null) {
+        const authResult = await AuthController.authContext.login(username, password)
+        if (authResult === null) {
             throw new UnauthorizedError("username and/or password incorrect.")
         }
 
-        res.status(200).json({
-            token: token,
-            username: username,
-        })
+        res.status(200).json(authResult)
         next()
     }
 
