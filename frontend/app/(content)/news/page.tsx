@@ -7,7 +7,7 @@ import ButtonLink from "@/app/components/ButtonLink"
 import { getMetadata } from "@/app/util"
 
 // 👇 so npm run build passes (don't attempt to static render this page)
-export const dynamic = "force-dynamic";
+export const dynamic = "force-dynamic"
 
 export const metadata = getMetadata("All News")
 

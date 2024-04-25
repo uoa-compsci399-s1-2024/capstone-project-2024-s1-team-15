@@ -2,7 +2,7 @@ import authSuccessResponse1 from "../fixtures/authSuccessResponse1.json";
 import authSuccessResponse2 from "../fixtures/authSuccessResponse2.json";
 import authSuccessRequestHeaders from "../fixtures/authSuccessRequestHeaders.json";
 
-import { URLS } from "@/../../frontend/app/consts";
+import { URLS } from "../../frontend/app/consts";
 
 describe("Authentication", () => {
   describe("login", () => {

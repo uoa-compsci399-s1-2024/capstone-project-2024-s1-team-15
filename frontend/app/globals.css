@@ -3,52 +3,52 @@
 @tailwind utilities;
 
 h1 {
-    @apply text-4xl font-bold tracking-tight mb-8 mt-12
+    @apply text-4xl font-bold tracking-tight mb-8 mt-12;
 }
 
 a {
-    @apply text-blue-700
+    @apply text-blue-700;
 }
 
 .subtitle {
-    @apply italic text-2xl text-gray-400 mb-10 block
+    @apply italic text-2xl text-gray-400 mb-10 block;
 }
 
 .button {
-  @apply flex items-center justify-center py-2 px-4 bg-green-600 font-medium rounded-full text-sm transition-all bg-opacity-15 text-black hover:bg-opacity-100 hover:text-white;
+    @apply flex items-center justify-center py-2 px-4 bg-green-600 font-medium rounded-full text-sm transition-all bg-opacity-15 text-black hover:bg-opacity-100 hover:text-white;
 }
 
 #editor button {
     @apply h-8 w-8 rounded-md bg-green-600 bg-opacity-15
     border-2 border-green-600 border-opacity-0 transition-all
     text-sm font-medium tracking-tight text-black
-    hover:border-opacity-100 flex items-center justify-center
+    hover:border-opacity-100 flex items-center justify-center;
 }
 
 #editor button.active {
-    @apply border-opacity-100 bg-opacity-100 text-white
+    @apply border-opacity-100 bg-opacity-100 text-white;
 }
 
 #editor button:disabled {
-    @apply text-gray-500 text-opacity-40 bg-gray-500 bg-opacity-15 cursor-default hover:border-opacity-0
+    @apply text-gray-500 text-opacity-40 bg-gray-500 bg-opacity-15 cursor-default hover:border-opacity-0;
 }
 
 *:focus {
-    @apply outline-none
+    @apply outline-none;
 }
 
 .form-field {
-    @apply border-2 border-opacity-30 border-black border-solid rounded-2xl
+    @apply border-2 border-opacity-30 border-black border-solid rounded-2xl;
 }
 
 .form-input {
-    @apply resize-none h-11 text-lg w-full px-4 pb-1 pt-2 bg-gray-500 bg-opacity-5 rounded-2xl shadow-inner
+    @apply resize-none h-11 text-lg w-full px-4 pb-1 pt-2 bg-gray-500 bg-opacity-5 rounded-2xl shadow-inner;
 }
 
 .form-label {
-    @apply mt-7 mb-1.5 tracking-tight font-medium text-gray-400 uppercase text-xs
+    @apply mt-7 mb-1.5 tracking-tight font-medium text-gray-400 uppercase text-xs;
 }
 
 .form-error {
-  @apply text-red-500;
+    @apply text-red-500;
 }
