@@ -60,8 +60,6 @@ export default function AuthProvider({ children }: React.PropsWithChildren) {
 
     if (currentUserSession && OPEN_CMS_ROUTES.includes(currentRoute))
       redirect(ROUTES.REDIRECT_AFTER_LOGIN);
-
-    setLoading(false);
   }, [currentUserSession, loading]);
 
   // returns the error if there is one
