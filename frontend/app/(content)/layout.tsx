@@ -1,9 +1,5 @@
-import React from "react";
+import React from "react"
 
-export default function ContentLayout({ children, }: { children: React.ReactNode }) {
-    return (
-        <div>
-            {children}
-        </div>
-    )
+export default function ContentLayout({ children }: { children: React.ReactNode }) {
+    return <div>{children}</div>
 }

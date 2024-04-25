@@ -1,1 +1,1 @@
-export type UserSortFields = "registeredAt";
+export type UserSortFields = "registeredAt"

@@ -1,1 +1,1 @@
-export type ArticleSortFields = "publishedAt" | "lastEditedAt";
+export type ArticleSortFields = "publishedAt" | "lastEditedAt"

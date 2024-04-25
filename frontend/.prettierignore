@@ -13,4 +13,6 @@
 .DS_Store
 *.pem
 
+# typescript
+next-env.d.ts
 .vercel

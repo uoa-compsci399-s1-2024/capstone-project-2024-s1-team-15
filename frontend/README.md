@@ -11,6 +11,7 @@ unique approach to styling to provide an efficient, and aesthetically pleasing w
 # Starting the Local Server
 
 Change directory to the frontend (only if you are currently in the root directory):
+
 ```bash
 cd frontend
 ```
@@ -18,6 +19,7 @@ cd frontend
 ## Install Dependencies
 
 Install dependencies using `npm`:
+
 ```bash
 npm i
 ```
@@ -34,17 +36,20 @@ Open [http://localhost:3001](http://localhost:3001) with your browser to access 
 
 # Deployment Rules
 
-- Any changes pushed to github on **any** branch will be deployed to Vercel Development Preview. This is not public.
-- Any changes pushed on the `dev` branch will be deployed to the **development** environment ([https://dev.aapc-nz.org](https://dev.aapc-nz.org)).
-- Any changes pushed on the `main` branch will be deployed to the **production** environment ([https://www.aapc-nz.org](https://aapc-nz.org)).
+-   Any changes pushed to github on **any** branch will be deployed to Vercel Development Preview. This is not public.
+-   Any changes pushed on the `dev` branch will be deployed to the **development** environment ([https://dev.aapc-nz.org](https://dev.aapc-nz.org)).
+-   Any changes pushed on the `main` branch will be deployed to the **production** environment ([https://www.aapc-nz.org](https://aapc-nz.org)).
 
 # Environments
 
 ### `LOCAL`
+
 When running the frontend locally, the `ENV` will be `LOCAL`, and the backend endpoint URI will be configured to `http://localhost:3000`.
 
 ### `DEV`
+
 On [https://dev.aapc-nz.org](https://dev.aapc-nz.org) (the **development** environment), the `ENV` will be `DEV`, and the backend endpoint URI will be configured to `https://dev-api.aapc-nz.org`.
 
 ### `PROD`
+
 On [https://www.aapc-nz.org](https://aapc-nz.org) (the **production** environment), the `ENV` will be `PROD`, and the backend endpoint URI will be configured to `https://api.aapc-nz.org`.

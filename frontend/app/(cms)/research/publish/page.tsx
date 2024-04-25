@@ -1,8 +1,8 @@
 "use client"
 
-import React from "react";
-import ArticleForm from "@/app/components/ArticleForm";
-import { ArticleType } from "@aapc/types";
+import React from "react"
+import ArticleForm from "@/app/components/ArticleForm"
+import { ArticleType } from "@aapc/types"
 
 export default function CreateResearchPage() {
     return (

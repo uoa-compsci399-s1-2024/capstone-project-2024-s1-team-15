@@ -1,6 +1,6 @@
-import React from "react";
+import React from "react"
 
-export default function CMSLayout({ children, }: { children: React.ReactNode }) {
+export default function CMSLayout({ children }: { children: React.ReactNode }) {
     return (
         <div>
             {/*<div className={"absolute right-12 -z-50"}>*/}
