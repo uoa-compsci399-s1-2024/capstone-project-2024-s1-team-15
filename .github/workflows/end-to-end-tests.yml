@@ -10,13 +10,11 @@ jobs:
               working-directory: ./backend
               run: |
                   touch .env
-                  echo ENV=DEV >> .env
                   echo PORT=3000 >> .env
-                  echo DEV_MONGO_URI=${{ secrets.MONGO_DEV_URI }}
-                  echo COGNITO_CLIENT_ID=${{ secrets.COGNITO_CLIENT_ID }}
-                  echo COGNITO_USERPOOL_ID=${{ secrets.COGNITO_USERPOOL_ID }}
+                  echo COGNITO_CLIENT_ID=${{ secrets.COGNITO_CLIENT_ID }} >> .env
+                  echo COGNITO_USERPOOL_ID=${{ secrets.COGNITO_USERPOOL_ID }} >> .env
             - name: Cypress run
               uses: cypress-io/github-action@v6
               with:
                   build: npm run build
-                  start: npm start
+                  start: npm start --env-file=./backend/.env
