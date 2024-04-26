@@ -21,24 +21,20 @@ export default class AuthContext {
     }
 
     async login(username: string, password: string): Promise<Nullable<{ token: string; user: User }>> {
-        try {
-            await this.authServiceProvider.authenticateUser(username, password)
-
-            // no error? means auth succeeded
-
-            // update this to show additional user details
-            const authenticatedUser = new User({
-                username: username,
-                email: username,
-                displayName: "Admin",
-                verified: true,
-                registeredAt: undefined,
-            })
-
-            return { token: this.issueToken(username), user: authenticatedUser }
-        } catch (e) {
+        if (!(await this.authServiceProvider.authenticateUser(username, password))) {
             return null
         }
+
+        // update this to show additional user details
+        const authenticatedUser = new User({
+            username: username,
+            email: username,
+            displayName: "Admin",
+            verified: true,
+            registeredAt: undefined,
+        })
+
+        return { token: this.issueToken(username), user: authenticatedUser }
     }
 
     verifyToken(token: string): Nullable<string | JwtPayload> {
