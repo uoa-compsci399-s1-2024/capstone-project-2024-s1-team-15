@@ -1,6 +1,7 @@
 import authSuccessResponse from "../fixtures/authSuccessResponse.json"
 
-import { API_URI, URLS } from "../../frontend/app/consts"
+import { API_URI } from "../../frontend/app/consts"
+import { URLS } from "./consts"
 
 // allows successful login without using the actual admin credentials
 function mockValidCredentials() {
