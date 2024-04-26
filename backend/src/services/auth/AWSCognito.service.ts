@@ -19,13 +19,16 @@ export default class AWSCognitoAuthService implements IAuthService {
             Password: password,
         })
 
-        //  will throw error if auth fails
-        const result: CognitoUserSession = await new Promise((resolve, reject) => {
-            user.authenticateUser(authDetails, {
-                onSuccess: resolve,
-                onFailure: reject,
+        try {
+            const result: CognitoUserSession = await new Promise((resolve, reject) => {
+                user.authenticateUser(authDetails, {
+                    onSuccess: resolve,
+                    onFailure: reject,
+                })
             })
-        })
+        } catch (e) {
+            return false
+        }
 
         return true
     }
