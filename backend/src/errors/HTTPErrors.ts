@@ -1,4 +1,4 @@
-abstract class HTTPError extends Error {
+export abstract class HTTPError extends Error {
     public status: number
 
     protected constructor(status: number) {
