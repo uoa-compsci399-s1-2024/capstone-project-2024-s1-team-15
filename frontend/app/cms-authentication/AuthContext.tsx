@@ -43,7 +43,7 @@ export default function AuthProvider({ children }: React.PropsWithChildren) {
 
         const currentRoute = window.location.pathname
 
-        if (!currentUser && !OPEN_CMS_ROUTES.includes(currentRoute)) redirect(OPEN_CMS_ROUTES[0])
+        if (!currentUser && !OPEN_CMS_ROUTES.includes(currentRoute)) redirect(ROUTES.LOGIN)
 
         if (currentUser && OPEN_CMS_ROUTES.includes(currentRoute)) redirect(ROUTES.REDIRECT_AFTER_LOGIN)
     }, [currentUser, loading])
