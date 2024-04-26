@@ -49,6 +49,7 @@ describe("Authentication", () => {
             userIsLoggedOut()
             loginAttempt()
             userIsLoggedOut() // should still be logged out
+
             cy.get("p").contains("username and/or password incorrect.")
         })
     })

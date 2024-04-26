@@ -1,13 +1,22 @@
 name: End-to-end tests
 on: push
 jobs:
-  cypress-run:
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Cypress run
-        uses: cypress-io/github-action@v6
-        with:
-          build: npm run build
-          start: npm start
+    cypress-run:
+        runs-on: ubuntu-22.04
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+            - name: Create env File
+              working-directory: ./backend
+              run: |
+                  touch .env
+                  echo ENV=DEV >> .env
+                  echo PORT=3000 >> .env
+                  echo DEV_MONGO_URI=${{ secrets.MONGO_DEV_URI }}
+                  echo COGNITO_CLIENT_ID=${{ secrets.COGNITO_CLIENT_ID }}
+                  echo COGNITO_USERPOOL_ID=${{ secrets.COGNITO_USERPOOL_ID }}
+            - name: Cypress run
+              uses: cypress-io/github-action@v6
+              with:
+                  build: npm run build
+                  start: npm start
