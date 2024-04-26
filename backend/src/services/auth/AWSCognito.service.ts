@@ -1,6 +1,5 @@
 import { AuthenticationDetails, CognitoUser, CognitoUserPool, CognitoUserSession } from "amazon-cognito-identity-js"
 import { IAuthService } from "./auth.service"
-import { User } from "@aapc/types"
 
 export default class AWSCognitoAuthService implements IAuthService {
     // where to authenticate users from
@@ -28,7 +27,7 @@ export default class AWSCognitoAuthService implements IAuthService {
             })
         })
 
-        return new User({ username, email: username })
+        return true
     }
 
     async changePassword(username: string, oldPassword: string, newPassword: string): Promise<null> {

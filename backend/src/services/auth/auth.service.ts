@@ -22,7 +22,19 @@ export default class AuthContext {
 
     async login(username: string, password: string): Promise<Nullable<{ token: string; user: User }>> {
         try {
-            const authenticatedUser = await this.authServiceProvider.authenticateUser(username, password)
+            await this.authServiceProvider.authenticateUser(username, password)
+
+            // no error? means auth succeeded
+
+            // update this to show additional user details
+            const authenticatedUser = new User({
+                username: username,
+                email: username,
+                displayName: "Admin",
+                verified: true,
+                registeredAt: undefined,
+            })
+
             return { token: this.issueToken(username), user: authenticatedUser }
         } catch (e) {
             return null
@@ -40,7 +52,7 @@ export default class AuthContext {
 }
 
 export interface IAuthService {
-    authenticateUser(username: string, password: string): Promise<User>
+    authenticateUser(username: string, password: string): Promise<boolean>
     createUser(username: string, password: string): Promise<null>
     changePassword(username: string, oldPassword: string, newPassword: string): Promise<null>
     resetPassword(username: string, newPassword: string): Promise<null>
