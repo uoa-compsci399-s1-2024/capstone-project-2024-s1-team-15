@@ -1,6 +1,7 @@
 import { RequestHandler } from "express"
 import { BadRequestError, UnauthorizedError } from "@/errors/HTTPErrors"
 import { AUTH } from "@/services/services"
+import { User } from "@aapc/types"
 
 export default class AuthController {
     static register: RequestHandler = async (req, res, next) => {
@@ -16,12 +17,21 @@ export default class AuthController {
             throw new BadRequestError("username and/or password is missing from request body.")
         }
 
-        const authResult = await AUTH.login(username, password)
-        if (authResult === null) {
+        const authToken = await AUTH.login(username, password)
+        if (authToken === null) {
             throw new UnauthorizedError("username and/or password incorrect.")
         }
 
-        res.status(200).json(authResult)
+        // update this to show additional user details
+        const authenticatedUser = new User({
+            username: username,
+            email: username,
+            displayName: "Admin",
+            verified: true,
+            registeredAt: undefined,
+        })
+
+        res.status(200).json({ token: authToken, user: authenticatedUser })
         next()
     }
 

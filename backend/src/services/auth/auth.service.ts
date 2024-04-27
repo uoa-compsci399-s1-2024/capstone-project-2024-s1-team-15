@@ -1,5 +1,4 @@
 import { JwtPayload, sign, verify } from "jsonwebtoken"
-import { User } from "@aapc/types"
 import { Nullable } from "@/util/types/util.types"
 
 export default class AuthContext {
@@ -20,21 +19,12 @@ export default class AuthContext {
         )
     }
 
-    async login(username: string, password: string): Promise<Nullable<{ token: string; user: User }>> {
+    async login(username: string, password: string): Promise<Nullable<string>> {
         if (!(await this.authServiceProvider.authenticateUser(username, password))) {
             return null
         }
 
-        // update this to show additional user details
-        const authenticatedUser = new User({
-            username: username,
-            email: username,
-            displayName: "Admin",
-            verified: true,
-            registeredAt: undefined,
-        })
-
-        return { token: this.issueToken(username), user: authenticatedUser }
+        return this.issueToken(username)
     }
 
     verifyToken(token: string): Nullable<string | JwtPayload> {
