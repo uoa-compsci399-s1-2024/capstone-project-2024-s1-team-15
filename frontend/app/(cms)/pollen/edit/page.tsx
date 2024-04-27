@@ -5,13 +5,13 @@ import React, { useEffect, useState, useRef } from "react"
 export default function EditPollen() {
     const [errorMessage, setErrorMessage] = useState(null as string | null)
     const fileInputReference = useRef(null)
-    const [validInputFile, setValidInputFile] = useState(null as null | File)
+    const [inputFileWithValidFileType, setInputFileWithValidFileType] = useState(null as null | File)
 
     useEffect(() => {
-        if (errorMessage) setValidInputFile(null)
+        if (errorMessage) setInputFileWithValidFileType(null)
     }, [errorMessage])
 
-    function validateInputFile(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    function validateInputFileType(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
         e.preventDefault()
 
         if (!fileInputReference.current) return
@@ -30,8 +30,9 @@ export default function EditPollen() {
             )
 
         setErrorMessage(null)
-        setValidInputFile(uploadedFile)
+        setInputFileWithValidFileType(uploadedFile)
     }
+
     return (
         <>
             <form className="flex flex-col items-start gap-2">
@@ -41,13 +42,13 @@ export default function EditPollen() {
                     <input type="file" ref={fileInputReference} />
                 </label>
 
-                <button type="submit" className="button" onClick={validateInputFile}>
+                <button type="submit" className="button" onClick={validateInputFileType}>
                     Preview data
                 </button>
                 {errorMessage && <p className="form-error">{errorMessage}</p>}
             </form>
 
-            {validInputFile && <div>Preview generated ✅</div>}
+            {inputFileWithValidFileType && <div>Preview generated ✅</div>}
         </>
     )
 }
