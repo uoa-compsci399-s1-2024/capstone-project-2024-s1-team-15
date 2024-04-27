@@ -1,31 +1,17 @@
 "use client"
 
-import React from "react"
-import AuthProvider, { useAuth } from "@/app/cms-authentication/AuthContext"
+import React, { useEffect } from "react"
+import { useAuth } from "../cms-authentication/AuthContext"
+import { redirect } from "next/navigation"
 
 export default function CMSLayout({ children }: { children: React.ReactNode }) {
-    return (
-        <AuthProvider>
-            <CMSLayoutWithAuth>{children}</CMSLayoutWithAuth>
-        </AuthProvider>
-    )
-}
+    const { currentUser } = useAuth()
 
-function CMSLayoutWithAuth({ children }: { children: React.ReactNode }) {
-    const { currentUser, logout } = useAuth()
+    useEffect(() => {
+        if (!currentUser) {
+            redirect("/login")
+        }
+    })
 
-    return (
-        <div>
-            {currentUser && (
-                <>
-                    <p>Logged in as Admin</p>
-                    <button className="button" onClick={logout}>
-                        Logout
-                    </button>
-                </>
-            )}
-
-            {children}
-        </div>
-    )
+    return <div>{children}</div>
 }

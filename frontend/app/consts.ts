@@ -1,4 +1,4 @@
-let apiUri, uiUri
+let apiUri
 
 switch (process.env.ENV) {
     case "LOCAL": {
@@ -25,7 +25,7 @@ export const ROUTES = {
     LOGIN: "/login",
     FORGOT_PASSWORD: "/forgot-password",
 
-    REDIRECT_AFTER_LOGIN: "/news/publish",
+    REDIRECT_AFTER_LOGIN: "/",
 }
 
-export const OPEN_CMS_ROUTES = [ROUTES.LOGIN, ROUTES.FORGOT_PASSWORD] // no auth required for these ones
+export const OPEN_AUTH_ROUTES = [ROUTES.LOGIN, ROUTES.FORGOT_PASSWORD] // no auth required for these ones

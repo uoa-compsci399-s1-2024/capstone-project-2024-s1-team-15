@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react"
 
 import { redirect } from "next/navigation"
-import { API_URI, OPEN_CMS_ROUTES, ROUTES } from "@/app/consts"
+import { API_URI, OPEN_AUTH_ROUTES, ROUTES } from "@/app/consts"
 import { User } from "@aapc/types"
 
 type AuthContextValue = {
@@ -43,9 +43,7 @@ export default function AuthProvider({ children }: React.PropsWithChildren) {
 
         const currentRoute = window.location.pathname
 
-        if (!currentUser && !OPEN_CMS_ROUTES.includes(currentRoute)) redirect(ROUTES.LOGIN)
-
-        if (currentUser && OPEN_CMS_ROUTES.includes(currentRoute)) redirect(ROUTES.REDIRECT_AFTER_LOGIN)
+        if (currentUser && OPEN_AUTH_ROUTES.includes(currentRoute)) redirect(ROUTES.REDIRECT_AFTER_LOGIN)
     }, [currentUser, loading])
 
     // returns the error if there is one
