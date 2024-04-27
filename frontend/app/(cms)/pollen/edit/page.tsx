@@ -34,16 +34,19 @@ export default function EditPollen() {
     }
     return (
         <>
-            <form>
+            <form className="flex flex-col items-start gap-2">
                 <label>
                     <span>Upload .xlsx spreadsheet file with pollen data</span>
+                    <br />
                     <input type="file" ref={fileInputReference} />
                 </label>
 
-                <button type="submit" onClick={validateInputFile}>
+                <button type="submit" className="button" onClick={validateInputFile}>
                     Preview data
                 </button>
-                <button type="submit">Save data</button>
+                <button type="submit" className="button">
+                    Save data
+                </button>
                 {errorMessage && <p className="form-error">{errorMessage}</p>}
             </form>
 
