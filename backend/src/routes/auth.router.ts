@@ -1,6 +1,6 @@
 import express, { Router } from "express"
 import AuthController from "../controllers/auth.controller"
-import expressAsyncHandler from "express-async-handler";
+import expressAsyncHandler from "express-async-handler"
 
 export default class AuthRouter {
     static url = "/auth"

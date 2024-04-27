@@ -20,17 +20,16 @@ export default class AWSCognitoAuthService implements IAuthService {
         })
 
         try {
-            const result: CognitoUserSession = await new Promise((resolve, reject) => {
+            await new Promise((resolve, reject) => {
                 user.authenticateUser(authDetails, {
                     onSuccess: resolve,
                     onFailure: reject,
                 })
             })
+            return true
         } catch (e) {
             return false
         }
-
-        return true
     }
 
     async changePassword(username: string, oldPassword: string, newPassword: string): Promise<null> {
