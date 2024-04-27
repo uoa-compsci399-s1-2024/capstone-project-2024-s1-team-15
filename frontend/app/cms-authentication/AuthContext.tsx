@@ -60,7 +60,12 @@ export default function AuthProvider({ children }: React.PropsWithChildren) {
                 },
             })
 
-            if (authResponse.status != 200) throw Error((await authResponse.json()).message)
+            if (authResponse.status != 200) {
+                const errorMessage = (await authResponse.json()).errors
+                    .map((error: { message: string }) => error.message)
+                    .join("\n")
+                throw Error(errorMessage)
+            }
 
             const authJson = (await authResponse.json()) as { token: string; user: object }
             const userReconstructed = new User(authJson.user)
