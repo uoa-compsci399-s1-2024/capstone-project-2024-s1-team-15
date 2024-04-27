@@ -1,6 +1,9 @@
 "use client"
 
 import React, { useEffect, useState, useRef } from "react"
+import { parse } from "./parseExcel"
+
+import assumptions from "./assumptions made to parse excel file"
 
 export default function EditPollen() {
     const [errorMessage, setErrorMessage] = useState(null as string | null)
@@ -10,6 +13,12 @@ export default function EditPollen() {
     useEffect(() => {
         if (errorMessage) setInputFileWithValidFileType(null)
     }, [errorMessage])
+
+    useEffect(() => {
+        if (!inputFileWithValidFileType) return
+
+        inputFileWithValidFileType.arrayBuffer().then((res) => parse(res))
+    }, [inputFileWithValidFileType])
 
     function validateInputFileType(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
         e.preventDefault()
@@ -49,6 +58,19 @@ export default function EditPollen() {
             </form>
 
             {inputFileWithValidFileType && <div>Preview generated ✅</div>}
+
+            <section className="mt-20">
+                <h3 className="text-4xl mb-5">Assumptions ⚠️</h3>
+                <p>
+                    The parsing algorithm that attempts to understand your Excel file input makes the following
+                    assumptions:
+                </p>
+                <ul className="list-disc pl-4 mt-5">
+                    {assumptions.map((assumption) => {
+                        return <li key={assumption}>{assumption}</li>
+                    })}
+                </ul>
+            </section>
         </>
     )
 }
