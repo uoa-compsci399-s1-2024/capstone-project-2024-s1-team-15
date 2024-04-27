@@ -15,9 +15,6 @@ app.use(express.json())
 // Use CORS middleware
 app.use(require("cors")())
 
-// Use Error Handler middleware
-app.use(errorHandler)
-
 app.get("/", (req: Request, res: Response) => {
     res.json({
         message: "ok",
@@ -27,6 +24,9 @@ app.get("/", (req: Request, res: Response) => {
 
 app.use(NewsRouter.url, NewsRouter.router())
 app.use(ResearchRouter.url, ResearchRouter.router())
+
+// Use Error Handler middleware
+app.use(errorHandler)
 
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`)
