@@ -1,11 +1,8 @@
 import { RequestHandler } from "express"
-import AuthContext from "../services/auth/auth.service"
-import AWSCognitoAuthService from "../services/auth/AWSCognito.service"
-import { BadRequestError, UnauthorizedError } from "../errors/HTTPErrors"
+import { BadRequestError, UnauthorizedError } from "@/errors/HTTPErrors"
+import { AUTH } from "@/services/services"
 
 export default class AuthController {
-    private static readonly authContext = new AuthContext(new AWSCognitoAuthService())
-
     static register: RequestHandler = async (req, res, next) => {
         res.send()
         next()
@@ -19,12 +16,17 @@ export default class AuthController {
             throw new BadRequestError("username and/or password is missing from request body.")
         }
 
-        const authResult = await AuthController.authContext.login(username, password)
+        const authResult = await AUTH.login(username, password)
         if (authResult === null) {
             throw new UnauthorizedError("username and/or password incorrect.")
         }
 
         res.status(200).json(authResult)
+        next()
+    }
+
+    static deactivate: RequestHandler = async (req, res, next) => {
+        res.send()
         next()
     }
 

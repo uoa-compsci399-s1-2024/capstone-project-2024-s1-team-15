@@ -1,6 +1,6 @@
 import express, { Router } from "express"
-import ResearchController from "../controllers/research.controller"
 import expressAsyncHandler from "express-async-handler"
+import ResearchController from "@/controllers/research.controller"
 
 export default class ResearchRouter {
     static url = "/content/research"

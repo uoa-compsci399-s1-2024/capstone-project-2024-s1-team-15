@@ -1,5 +1,5 @@
-import { AuthenticationDetails, CognitoUser, CognitoUserPool, CognitoUserSession } from "amazon-cognito-identity-js"
-import { IAuthService } from "./auth.service"
+import { AuthenticationDetails, CognitoUser, CognitoUserPool } from "amazon-cognito-identity-js"
+import { IAuthService } from "../auth.service"
 
 export default class AWSCognitoAuthService implements IAuthService {
     // where to authenticate users from

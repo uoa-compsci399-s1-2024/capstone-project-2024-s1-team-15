@@ -12,6 +12,8 @@ export default class AuthRouter {
 
         router.post("/register", expressAsyncHandler(AuthController.register))
 
+        router.post("/deactivate", expressAsyncHandler(AuthController.deactivate))
+
         router.put("/password", expressAsyncHandler(AuthController.changePassword))
         router.post("/password", expressAsyncHandler(AuthController.resetPassword))
 

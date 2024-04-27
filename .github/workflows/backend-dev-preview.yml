@@ -18,7 +18,8 @@ jobs:
           touch .env
           echo ENV=DEV >> .env
           echo PORT=3000 >> .env
-          echo DEV_MONGO_URI=${{ secrets.MONGO_DEV_URI }}
+          echo MONGO_URI=${{ secrets.MONGO_URI_DEV }} >> .env
+          echo JWT_SECRET=${{ secrets.JWT_SECRET_DEV }} >> .env
       - name: Install Vercel CLI
         working-directory: ./backend
         run: |

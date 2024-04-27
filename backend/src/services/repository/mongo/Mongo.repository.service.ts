@@ -1,9 +1,9 @@
-import IRepository from "../IRepository"
 import { Article, ArticleType, User } from "@aapc/types"
-import { ArrayResult, ArrayResultOptions, Nullable, SortOptions } from "../../util/types/util.types"
-import { ArticleSortFields } from "../memory/sorters/article.sorter"
-import { UserSortFields } from "../memory/sorters/user.sorter"
 import { Collection, Db, Document, Filter, FindCursor, MongoClient, ServerApiVersion, WithId } from "mongodb"
+import { ArrayResult, ArrayResultOptions, Nullable, SortOptions } from "@/util/types/util.types"
+import IRepository from "@/services/repository/repository.service"
+import { ArticleSortFields } from "@/services/repository/memory/sorters/article.sorter"
+import { UserSortFields } from "@/services/repository/memory/sorters/user.sorter"
 
 export default class MongoRepository implements IRepository {
     private readonly db: Db

@@ -1,13 +1,12 @@
-import users from "./data/users.json"
-import news from "./data/news.json"
-import researches from "./data/researches.json"
-
 import { Article, IArticle, User } from "@aapc/types"
-import IRepository from "../IRepository"
-import { ArrayResult, ArrayResultOptions, Nullable, SortOptions } from "../../util/types/util.types"
-import { ArticleSortFields } from "./sorters/article.sorter"
-import { UserSortFields } from "./sorters/user.sorter"
-import { Sorter } from "./sorters/Sorter"
+import { ArrayResult, ArrayResultOptions, Nullable, SortOptions } from "@/util/types/util.types"
+import IRepository from "@/services/repository/repository.service"
+import users from "@/services/repository/memory/data/users.json"
+import news from "@/services/repository/memory/data/news.json"
+import researches from "@/services/repository/memory/data/researches.json"
+import { Sorter } from "@/services/repository/memory/sorters/Sorter"
+import { ArticleSortFields } from "@/services/repository/memory/sorters/article.sorter"
+import { UserSortFields } from "@/services/repository/memory/sorters/user.sorter"
 
 export default class MemoryRepository implements IRepository {
     private readonly users: User[]
@@ -15,6 +14,7 @@ export default class MemoryRepository implements IRepository {
     private readonly researches: Article[]
 
     constructor() {
+        6
         this.users = []
         users.forEach((i) => {
             this.users.push(new User(i))
