@@ -1,5 +1,6 @@
 import express, { Router } from "express"
 import AuthController from "../controllers/auth.controller"
+import expressAsyncHandler from "express-async-handler";
 
 export default class AuthRouter {
     static url = "/auth"
@@ -7,12 +8,12 @@ export default class AuthRouter {
     static router(): Router {
         const router = express.Router()
 
-        router.post("/login", AuthController.login)
+        router.post("/login", expressAsyncHandler(AuthController.login))
 
-        router.post("/register", AuthController.register)
+        router.post("/register", expressAsyncHandler(AuthController.register))
 
-        router.put("/password", AuthController.changePassword)
-        router.post("/password", AuthController.resetPassword)
+        router.put("/password", expressAsyncHandler(AuthController.changePassword))
+        router.post("/password", expressAsyncHandler(AuthController.resetPassword))
 
         return router
     }
