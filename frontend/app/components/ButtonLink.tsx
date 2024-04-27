@@ -11,7 +11,7 @@ export default function ButtonLink({
     className?: string
 }): React.JSX.Element {
     return (
-        <Link href={href} className={"button px-4 py-2 w-48"}>
+        <Link href={href} className={"button w-48"}>
             <span className={"block"}>{text}</span>
         </Link>
     )

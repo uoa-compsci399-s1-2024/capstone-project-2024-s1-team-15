@@ -68,7 +68,7 @@ export default function ArticleForm({
             <ContentEditor setEditorContent={setEditorContent} content={article?.content} />
 
             <div className={""}>
-                <button className={"button px-6 py-2 mt-8 text-lg"}>
+                <button className={"button mt-8 text-lg"}>
                     Publish {articleType === ArticleType.news ? "News" : "Research"}
                 </button>
             </div>

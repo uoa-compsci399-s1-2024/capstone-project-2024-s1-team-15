@@ -15,7 +15,7 @@ a {
 }
 
 .button {
-    @apply flex items-center justify-center bg-green-600 font-medium rounded-full text-sm transition-all bg-opacity-15 text-black hover:bg-opacity-100 hover:text-white;
+    @apply flex items-center justify-center py-2 px-4 bg-green-600 font-medium rounded-full text-sm transition-all bg-opacity-15 text-black hover:bg-opacity-100 hover:text-white;
 }
 
 #editor button {
@@ -47,4 +47,8 @@ a {
 
 .form-label {
     @apply mt-7 mb-1.5 tracking-tight font-medium text-gray-400 uppercase text-xs;
+}
+
+.form-error {
+    @apply text-red-500;
 }

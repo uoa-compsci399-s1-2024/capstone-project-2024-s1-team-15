@@ -3,6 +3,7 @@
 */.env
 !*/.env.example
 */node_modules
+.env
 
 ### JetBrains ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider

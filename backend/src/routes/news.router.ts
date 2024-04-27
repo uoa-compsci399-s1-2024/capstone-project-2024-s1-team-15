@@ -1,6 +1,6 @@
 import express, { Router } from "express"
-import NewsController from "../controllers/news.controller"
 import expressAsyncHandler from "express-async-handler"
+import NewsController from "@/controllers/news.controller"
 
 export default class NewsRouter {
     static url = "/content/news"

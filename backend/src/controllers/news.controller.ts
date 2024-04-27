@@ -1,10 +1,10 @@
 import { RequestHandler } from "express"
-import { DB } from "../repositories/repository"
-import { BadRequestError, NotFoundError } from "../errors/HTTPErrors"
 import { Article, ArticleType, Paginator } from "@aapc/types"
-import { DEFAULT_PER_PAGE, DUMMY_USER } from "../util/const"
-import { ArrayResult } from "../util/types/util.types"
-import { ArticleIn } from "../util/types/input.types"
+import { BadRequestError, NotFoundError } from "@/errors/HTTPErrors"
+import { ArrayResult } from "@/util/types/util.types"
+import { ArticleIn } from "@/util/types/input.types"
+import { DEFAULT_PER_PAGE, DUMMY_USER } from "@/util/const"
+import { DB } from "@/services/services"
 
 export default class NewsController {
     static getNews: RequestHandler = async (req, res, next) => {

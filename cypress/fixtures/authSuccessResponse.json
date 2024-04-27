@@ -1,0 +1,10 @@
+{
+    "token": "eyJhbGciOiJIUzI1NiI2cCI6IkpXVCJ9.eyJ1c2VybmFtZSI63cGN0ZXN0MjczOTQ5NjJAZtyufgaWwuY29tIiwicm9sZXMiOlsidXNlciJdLCJpYXQiOjE3MTQxNjg0Nzd9.0nN79nWs60zIwHqzcPQBOVzvwlaLLAMgDNOR2qDtR2c",
+    "user": {
+        "username": "validemail@gmail.com",
+        "email": "validemail@gmail.com",
+        "displayName": "Admin",
+        "verified": true,
+        "registeredAt": "2024-04-26T21:54:37.898Z"
+    }
+}

@@ -5,6 +5,7 @@ import React from "react"
 import Nav from "@/app/components/Nav"
 import { getMetadata } from "@/app/util"
 import Footer from "@/app/components/Footer"
+import AuthLayout from "@/app/components/AuthLayout"
 
 const inter = localFont({
     src: "./public/Inter.ttf",
@@ -19,7 +20,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <html lang="en">
             <body className={`${inter.variable} font-sans`}>
                 <Nav />
-                <div className={"w-[900px] px-6 mx-auto pb-12"}>{children}</div>
+                <div className={"w-[900px] px-6 mx-auto pb-12"}>
+                    <AuthLayout>{children}</AuthLayout>
+                </div>
                 <Footer />
             </body>
         </html>
