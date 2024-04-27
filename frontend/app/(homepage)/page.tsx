@@ -1,21 +1,25 @@
+"use client"
+
 import React from "react"
-import Link from "next/link"
 import ButtonLink from "@/app/components/ButtonLink"
-import { getMetadata } from "@/app/util"
+import { useAuth } from "../cms-authentication/AuthContext"
 
-export const metadata = getMetadata()
+export default function Home() {
+    const { currentUser } = useAuth()
 
-export default async function Home() {
     return (
         <div>
             <h1>Home</h1>
             <div className={"space-y-2"}>
                 <ButtonLink href={"/news"} text={"View All News"} />
-                <ButtonLink href={"/news/publish"} text={"Publish News"} />
-                <div className={"h-4 w-12"}></div>
+                {currentUser && <ButtonLink href={"/news/publish"} text={"Publish News"} />}
+                <br className={"h-4 w-12"} />
                 <ButtonLink href={"/research"} text={"View All Research"} />
-                <ButtonLink href={"/research/publish"} text={"Publish Research"} />
-                <div className={"h-4 w-12"}></div>
+                {currentUser && <ButtonLink href={"/research/publish"} text={"Publish Research"} />}
+                <br className={"h-4 w-12"} />
+                <ButtonLink href={"/pollen"} text={"View Pollen Data"} />
+                {currentUser && <ButtonLink href={"/pollen/edit"} text={"Edit Pollen Data"} />}
+                <br className={"h-4 w-12"} />
             </div>
         </div>
     )
