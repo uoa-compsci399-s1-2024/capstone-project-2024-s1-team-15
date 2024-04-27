@@ -44,9 +44,6 @@ export default function EditPollen() {
                 <button type="submit" className="button" onClick={validateInputFile}>
                     Preview data
                 </button>
-                <button type="submit" className="button">
-                    Save data
-                </button>
                 {errorMessage && <p className="form-error">{errorMessage}</p>}
             </form>
 
