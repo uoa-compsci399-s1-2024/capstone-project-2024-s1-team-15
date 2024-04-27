@@ -5,7 +5,7 @@
     "description": "The backend of the AAPC website.",
     "scripts": {
         "dev": "nodemon -x tsx ./src/index.ts",
-        "build": "tsc --build",
+        "build": "tsc --build && tsc-alias",
         "start": "node ./dist/index.js",
         "deploy:development": "npm run build && vercel build && vercel deploy --prebuilt",
         "deploy:production": "npm run build && vercel build --prod && vercel --prod deploy --prebuilt",
@@ -28,6 +28,7 @@
         "@types/node": "^20.12.2",
         "nodemon": "^3.1.0",
         "prettier": "3.2.5",
+        "tsc-alias": "^1.8.8",
         "tsx": "^4.7.1",
         "typescript": "^5.4.3"
     }

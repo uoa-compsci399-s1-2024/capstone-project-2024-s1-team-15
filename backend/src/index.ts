@@ -1,9 +1,9 @@
 import express, { Express, Request, Response } from "express"
 import dotenv from "dotenv"
-import NewsRouter from "./routes/news.router"
-import ResearchRouter from "./routes/research.router"
-import AuthRouter from "./routes/auth.router"
-import { errorHandler } from "./middleware/ErrorHandler"
+import NewsRouter from "@/routes/news.router"
+import ResearchRouter from "@/routes/research.router"
+import AuthRouter from "@/routes/auth.router"
+import { errorHandler } from "@/middleware/ErrorHandler"
 
 dotenv.config()
 
