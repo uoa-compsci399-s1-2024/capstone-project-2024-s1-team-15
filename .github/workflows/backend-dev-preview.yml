@@ -18,7 +18,7 @@ jobs:
           touch .env
           echo ENV=DEV >> .env
           echo PORT=3000 >> .env
-          echo MONGO_URI=${{ secrets.MONGO_URI_DEV }} >> .env
+          echo MONGO_URI="${{ secrets.MONGO_URI_DEV }}" >> .env
           echo JWT_SECRET=${{ secrets.JWT_SECRET_DEV }} >> .env
           echo COGNITO_CLIENT_ID=${{ secrets.COGNITO_CLIENT_ID }} >> .env
           echo COGNITO_USERPOOL_ID=${{ secrets.COGNITO_USERPOOL_ID }} >> .env
