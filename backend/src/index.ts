@@ -30,6 +30,7 @@ app.use(AuthRouter.url, AuthRouter.router())
 // Use Error Handler middleware
 app.use(errorHandler)
 
+
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`)
 })
