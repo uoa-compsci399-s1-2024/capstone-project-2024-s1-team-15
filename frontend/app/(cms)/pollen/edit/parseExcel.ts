@@ -1,9 +1,10 @@
 import { read, utils, WorkSheet } from "xlsx"
 import { PollenData } from "./PollenDataType"
 
-export function parse(excelFile: ArrayBuffer): PollenData {
+export function parse(excelFile: ArrayBuffer): { pollenDataset: PollenData | null; errors: string[] } {
+    let parsingErrors = [] as string[]
+
     const workbook = read(excelFile)
-    console.log({ workbook })
 
     const sheetsWithRawData: { [sheetName: string]: WorkSheet } = workbook.Sheets
 
@@ -12,14 +13,28 @@ export function parse(excelFile: ArrayBuffer): PollenData {
         if (!sheetName.includes("raw")) delete sheetsWithRawData[sheetName]
     })
 
-    console.log({ sheetsWithRawData })
+    if (!Object.keys(sheetsWithRawData).length) {
+        parsingErrors.push(
+            "This spreadsheet has no worksheet that has 'raw' in it. Here are the worksheet names it does have though: " +
+                workbook.SheetNames.join(", ")
+        )
+        return { pollenDataset: null, errors: parsingErrors }
+    }
 
     let pollenDataForAllSheets: PollenData = []
-    Object.values(sheetsWithRawData).map((sheet) => {
-        pollenDataForAllSheets = add2PollenDatasets(pollenDataForAllSheets, parseWorksheet(sheet))
+    Object.entries(sheetsWithRawData).map(([sheetName, sheet]) => {
+        try {
+            const parsedWorksheet = parseWorksheet(sheet)
+            pollenDataForAllSheets = add2PollenDatasets(pollenDataForAllSheets, parsedWorksheet)
+        } catch (e: any) {
+            parsingErrors.push(
+                `Worksheet '${sheetName}' couldn't be parsed because this error occurred: ${e.message}\n\nTake a look at the assumptions the parsing algorithm makes. This could also be a bug with the parsing algorithm so report to developers 🙂.`
+            )
+        }
     })
+
     console.log({ pollenDataForAllSheets })
-    return pollenDataForAllSheets
+    return { pollenDataset: pollenDataForAllSheets, errors: parsingErrors }
 }
 
 function add2PollenDatasets(pollenData1: PollenData, pollenData2: PollenData): PollenData {
@@ -51,33 +66,56 @@ function parseWorksheet(worksheet: WorkSheet): PollenData {
 
     const rows = utils.sheet_to_json(worksheet, { header: "A", raw: false })
 
-    // ⚠️assume pollen names are in column A AND start at row 2
+    // ⚠️assume dates are in the first row
+    const datesWithColumnNumber = rows[0] as { [columnNumber: string]: string } // string value is date
+
+    let lastPollenRow = -1
     const columnAValues = rows.slice(1).map((row: any) => row.A)
 
-    // ⚠️assume pollen values are in column B or to the right of column B AND start at row 2
     const remainingColumns = rows.slice(1).map((row: any) => {
         delete row.A
         return row
     })
 
-    const pollenTypes: string[] = []
-    const pollenValues: { [columnNumber: string]: string }[] = []
+    columnAValues.map((columnAValue, index) => {
+        // ⚠️assume pollen names are in column A AND start at row 2
+        if (!(typeof columnAValue == "string") || columnAValue === "")
+            throw Error(
+                `Column A, row ${2 + index} doesn't seem to contain a pollen name, it contains: ${columnAValue}. To understand the excel data, the pollen names should be in column A, start at row 2 and the last pollen type will be "Total pollen counted"`
+            )
 
-    for (let index in columnAValues) {
-        const columnAValue = columnAValues[index]
-        const remainingColumnsValues = remainingColumns[index]
-        pollenTypes.push(columnAValue)
-        pollenValues.push(remainingColumnsValues)
+        // ⚠️assume pollen values are in column B or to the right of column B AND start at row 2
 
         // ⚠️ assume last pollen name is "Total pollen counted"
         // ⚠️ assume last pollen values are the same row as ☝️
         if (columnAValue === "Total pollen counted") {
-            console.log("No more pollen types in sheet")
+            lastPollenRow = 2 + index
+        }
+    })
+
+    if (lastPollenRow === -1) {
+        throw Error(
+            `Couldn't find a 'Total pollen counted' row or 'Total pollen counted' label is not in column A. This is used to detect how many pollen types are in the spreadsheet. `
+        )
+    }
+
+    const pollenTypes: string[] = []
+    const pollenValues: { [columnNumber: string]: string }[] = []
+
+    for (let index = 0; index < columnAValues.length; index++) {
+        const columnAValue = columnAValues[index]
+        const remainingColumnsValues = remainingColumns[index]
+
+        pollenTypes.push(columnAValue)
+        pollenValues.push(remainingColumnsValues)
+
+        if (index + 2 === lastPollenRow) {
             break
         }
     }
 
     // ⚠️assume scientific name is within round brackets i.e. name (scientific name)
+
     const pollenNames = pollenTypes.map((pollenType: string) => pollenType.split("(")[0])
     const pollenScientificNames = pollenTypes.map((pollenType: string) => {
         try {
@@ -95,12 +133,10 @@ function parseWorksheet(worksheet: WorkSheet): PollenData {
         }
     })
 
-    // ⚠️assume dates are in the first row
-    const datesWithColumnNumber = rows[0] as { [columnNumber: string]: string } // string value is date
-
     parsedData.map((pollenType, index) => {
         pollenType.pollenValues = Object.fromEntries(
             Object.entries(datesWithColumnNumber).map(([columnNumber, date]) => {
+                // ⚠️assume the column of the pollen value = the column for the date it was recorded at
                 const pollenStringValueForThisDate = pollenValues[index][columnNumber]
 
                 let pollenValueForThisDate: undefined | number
@@ -115,8 +151,6 @@ function parseWorksheet(worksheet: WorkSheet): PollenData {
                 return [date, pollenValueForThisDate]
             })
         )
-
-        // ⚠️assume the column of the pollen value = the column for the date it was recorded at
 
         return pollenType
     })
