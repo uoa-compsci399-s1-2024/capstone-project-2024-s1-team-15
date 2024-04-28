@@ -1,9 +1,9 @@
 import React from "react"
-import { API_URI } from "@/app/consts"
+import { API_URI, ENV } from "@/app/consts"
 
 export default async function Footer(): Promise<React.JSX.Element> {
     let backendEnv: string
-    if (process.env.ENV === "PROD") {
+    if (ENV === "PROD") {
         backendEnv = "prod"
     } else {
         try {
@@ -22,9 +22,9 @@ export default async function Footer(): Promise<React.JSX.Element> {
                 <div className={"py-6 px-12 flex-col flex justify-center items-center"}>
                     <span className={"font-bold text-xl text-black tracking-tight"}>aapc-nz.org</span>
                     <span
-                        className={"text-secondary text-xs space-x-4" + (process.env.ENV !== "PROD" ? "" : " hidden")}>
+                        className={"text-secondary text-xs space-x-4" + (ENV !== "PROD" ? "" : " hidden")}>
                         <span>
-                            frontend env: <b className={"font-mono"}>{(process.env.ENV ?? "local").toLowerCase()}</b>
+                            frontend env: <b className={"font-mono"}>{(ENV ?? "local").toLowerCase()}</b>
                         </span>
                         <span>
                             backend env:{" "}
