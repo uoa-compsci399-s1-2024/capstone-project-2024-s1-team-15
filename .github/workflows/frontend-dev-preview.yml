@@ -16,8 +16,7 @@ jobs:
         working-directory: ./frontend
         run: |
           touch .env
-          echo ENV=DEV >> .env
-          echo PORT=3001 >> .env
+          echo NEXT_PUBLIC_ENV=DEV >> .env
       - name: Install Vercel CLI
         working-directory: ./frontend
         run: |

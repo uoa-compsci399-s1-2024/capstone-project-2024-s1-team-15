@@ -1,24 +1,27 @@
-let apiUri
+import dotenv from "dotenv"
 
-switch (process.env.ENV) {
-    case "LOCAL": {
-        apiUri = "http://localhost:3000"
-        break
-    }
+dotenv.config()
+
+export let API_URI: string
+export let ENV: "DEV" | "PROD" | "LOCAL"
+
+switch (process.env.NEXT_PUBLIC_ENV) {
     case "DEV": {
-        apiUri = "https://dev-api.aapc-nz.org"
+        API_URI = "https://dev-api.aapc-nz.org"
+        ENV = "DEV"
         break
     }
     case "PROD": {
-        apiUri = "https://api.aapc-nz.org"
+        API_URI = "https://api.aapc-nz.org"
+        ENV = "PROD"
         break
     }
     default: {
-        apiUri = "http://localhost:3000"
+        API_URI = "http://localhost:3000"
+        ENV = "LOCAL"
     }
 }
 
-export const API_URI = apiUri // can add custom uri for testing here
 export const WEBSITE_NAME = "Aotearoa Airborne Pollen Collective"
 
 export const ROUTES = {

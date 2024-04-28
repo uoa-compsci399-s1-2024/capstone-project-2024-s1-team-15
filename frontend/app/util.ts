@@ -1,8 +1,8 @@
 import { Metadata } from "next"
+import { WEBSITE_NAME } from "@/app/consts";
 
 export function getMetadata(title: string = ""): Metadata {
-    const websiteTitle = "Aotearoa Airborne Pollen Collective"
-    const t = `${title !== "" ? title + " - " : ""}${websiteTitle}`
+    const t = `${title !== "" ? title + " - " : ""}${WEBSITE_NAME}`
     return {
         title: t,
     }
