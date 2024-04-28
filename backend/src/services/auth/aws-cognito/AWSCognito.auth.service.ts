@@ -2,11 +2,14 @@ import { AuthenticationDetails, CognitoUser, CognitoUserPool } from "amazon-cogn
 import { IAuthService } from "@/services/auth/auth.service"
 
 export default class AWSCognitoAuthService implements IAuthService {
-    // where to authenticate users from
-    adminUserPool = new CognitoUserPool({
-        ClientId: process.env.COGNITO_CLIENT_ID as string,
-        UserPoolId: process.env.COGNITO_USERPOOL_ID as string,
-    })
+    private readonly adminUserPool: CognitoUserPool
+
+    constructor (clientId: string, userpoolId: string) {
+        this.adminUserPool = new CognitoUserPool({
+            ClientId: clientId,
+            UserPoolId: userpoolId,
+        })
+    }
 
     async authenticateUser(username: string, password: string) {
         const user = new CognitoUser({
