@@ -129,28 +129,26 @@ function parseWorksheet(worksheet: WorkSheet): PollenData {
         return {
             pollenName,
             pollenScientificName: pollenScientificNames[index],
-            pollenValues: {},
+            pollenValues: [],
         }
     })
 
     parsedData.map((pollenType, index) => {
-        pollenType.pollenValues = Object.fromEntries(
-            Object.entries(datesWithColumnNumber).map(([columnNumber, date]) => {
-                // ⚠️assume the column of the pollen value = the column for the date it was recorded at
-                const pollenStringValueForThisDate = pollenValues[index][columnNumber]
+        pollenType.pollenValues = Object.entries(datesWithColumnNumber).map(([columnNumber, date]) => {
+            // ⚠️assume the column of the pollen value = the column for the date it was recorded at
+            const pollenStringValueForThisDate = pollenValues[index][columnNumber]
 
-                let pollenValueForThisDate: undefined | number
-                try {
-                    // ⚠️assume pollen values are integers (not floats)
-                    pollenValueForThisDate = parseInt(pollenStringValueForThisDate)
-                } catch (e) {
-                    // ⚠️assume if not integer, then there is no pollen value for this date
-                    pollenValueForThisDate = undefined
-                }
+            let pollenValueForThisDate: undefined | number
+            try {
+                // ⚠️assume pollen values are integers (not floats)
+                pollenValueForThisDate = parseInt(pollenStringValueForThisDate)
+            } catch (e) {
+                // ⚠️assume if not integer, then there is no pollen value for this date
+                pollenValueForThisDate = undefined
+            }
 
-                return [date, pollenValueForThisDate]
-            })
-        )
+            return { date, value: pollenValueForThisDate }
+        })
 
         return pollenType
     })
