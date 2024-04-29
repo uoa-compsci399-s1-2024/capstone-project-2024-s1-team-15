@@ -1,4 +1,4 @@
-import { ArrayResult, ArrayResultOptions, Nullable, SortOptions } from "@/util/types/util.types"
+import { ArrayResult, ArrayResultOptions, Nullable, SortOptions } from "@/util/types/types"
 import { Article, User } from "@aapc/types"
 import { ArticleSortFields } from "@/services/repository/memory/sorters/article.sorter"
 import { UserSortFields } from "@/services/repository/memory/sorters/user.sorter"

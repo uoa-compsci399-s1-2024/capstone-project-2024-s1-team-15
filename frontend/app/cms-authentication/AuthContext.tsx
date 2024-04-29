@@ -50,32 +50,25 @@ export default function AuthProvider({ children }: React.PropsWithChildren) {
 
     // returns the error if there is one
     // if login successful, returns void but sets the current user
-    async function login(email: string, password: string) {
-        try {
-            const credentialsJson = JSON.stringify({ username: email, password })
-            const authResponse = await fetch(`${API_URI}/auth/login`, {
-                method: "POST",
-                body: credentialsJson,
-                headers: {
-                    "Content-Type": "application/json",
-                    Accept: "application/json",
-                },
-            })
+    async function login(email: string, password: string): Promise<null | string> {
+        const credentialsJson = JSON.stringify({ username: email, password })
+        const authResponse = await fetch(`${API_URI}/auth/login`, {
+            method: "POST",
+            body: credentialsJson,
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+            },
+        })
 
-            if (authResponse.status != 200) {
-                const errorMessage = (await authResponse.json()).errors
-                    .map((error: { message: string }) => error.message)
-                    .join("\n")
-                throw Error(errorMessage)
-            }
-
-            const authJson = (await authResponse.json()) as { token: string; user: object }
-            const userReconstructed = new User(authJson.user)
-            setCurrentUser({ token: authJson.token, ...userReconstructed })
-        } catch (error: any) {
-            console.error("Login failed:", { error })
-            return error.message
+        if (authResponse.status != 200) {
+            return (await authResponse.json()).message
         }
+
+        const authJson = (await authResponse.json()) as { token: string; user: object }
+        const userReconstructed = new User(authJson.user)
+        setCurrentUser({ token: authJson.token, ...userReconstructed })
+        return null
     }
 
     function logout() {
