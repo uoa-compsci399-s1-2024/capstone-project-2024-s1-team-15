@@ -1,5 +1,8 @@
+import { InputValidationFailure } from "@/util/validation/validator";
+
 export abstract class HTTPError extends Error {
     public status: number
+    public errors: InputValidationFailure<any>[] = []
 
     protected constructor(status: number) {
         super()
@@ -16,6 +19,14 @@ export class NotFoundError extends HTTPError {
     }
 }
 
+export class ForbiddenError extends HTTPError {
+    constructor(message?: string) {
+        super(403)
+        this.message = message ?? "Forbidden"
+        this.name = this.status.toString()
+    }
+}
+
 export class UnauthorizedError extends HTTPError {
     constructor(message?: string) {
         super(401)
@@ -25,9 +36,10 @@ export class UnauthorizedError extends HTTPError {
 }
 
 export class BadRequestError extends HTTPError {
-    constructor(message?: string) {
+    constructor(message?: string, errors?: InputValidationFailure<any>[]) {
         super(400)
         this.message = message ?? "Bad Request"
+        this.errors = errors ?? []
         this.name = this.status.toString()
     }
 }

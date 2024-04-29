@@ -4,7 +4,7 @@ import { IAuthService } from "@/services/auth/auth.service"
 export default class AWSCognitoAuthService implements IAuthService {
     private readonly adminUserPool: CognitoUserPool
 
-    constructor (clientId: string, userpoolId: string) {
+    constructor(clientId: string, userpoolId: string) {
         this.adminUserPool = new CognitoUserPool({
             ClientId: clientId,
             UserPoolId: userpoolId,

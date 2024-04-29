@@ -1,5 +1,5 @@
 import { JwtPayload, sign, verify } from "jsonwebtoken"
-import { Nullable } from "@/util/types/util.types"
+import { Nullable } from "@/util/types/types"
 
 export default class AuthContext {
     private readonly authServiceProvider: IAuthService

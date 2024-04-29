@@ -1,14 +1,18 @@
 import { NextFunction, Request, Response } from "express"
-import { HTTPError } from "@/errors/HTTPErrors"
+import { BadRequestError, HTTPError } from "@/errors/HTTPErrors"
 
-export function errorHandler(err: Error, req: Request, res: Response, next: NextFunction) {
+export function errorHandler(err: Error, _: Request, res: Response, next: NextFunction) {
     res.status(err instanceof HTTPError ? err.status : 500)
-
-    res.json({
-        errors: [{ message: err.message }],
-    })
-
+    if (err instanceof BadRequestError) {
+        res.json({
+            message: err.message,
+            errors: err.errors,
+        })
+    } else {
+        res.json({
+            message: err.message,
+        })
+    }
     res.send()
-
     next()
 }

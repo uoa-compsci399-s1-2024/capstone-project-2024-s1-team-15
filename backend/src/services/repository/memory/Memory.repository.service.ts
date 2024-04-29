@@ -1,5 +1,5 @@
 import { Article, IArticle, User } from "@aapc/types"
-import { ArrayResult, ArrayResultOptions, Nullable, SortOptions } from "@/util/types/util.types"
+import { ArrayResult, ArrayResultOptions, Nullable, SortOptions } from "@/util/types/types"
 import IRepository from "@/services/repository/repository.service"
 import users from "@/services/repository/memory/data/users.json"
 import news from "@/services/repository/memory/data/news.json"
@@ -14,7 +14,6 @@ export default class MemoryRepository implements IRepository {
     private readonly researches: Article[]
 
     constructor() {
-        6
         this.users = []
         users.forEach((i) => {
             this.users.push(new User(i))
