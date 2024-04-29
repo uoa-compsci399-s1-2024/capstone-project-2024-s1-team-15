@@ -100,6 +100,8 @@ describe("updating pollen calendar", () => {
         // both tests won't work as is because canvas is a visual element
         // and its children elements are picked up by the browser :`(
         it.skip("chart with a labelled x and y axis", () => {
+            cy.contains("button", "Preview data").click()
+
             const yAxisLabel = "Pollen grains per cubic metre of air"
             const xAxisLabel = "Date"
             cy.contains(yAxisLabel).should("have.length", 1)
@@ -107,9 +109,20 @@ describe("updating pollen calendar", () => {
         })
 
         it.skip("check tooltip of a pollen data point", () => {
+            cy.contains("button", "Preview data").click()
+
             cy.get("#toolTipButton").trigger("mouseover")
 
             cy.contains("You hovered over the Button").should("be.visible")
+        })
+
+        it("pollen calendar looks as it currently does lol", () => {
+            cy.contains("button", "Preview data").click()
+            cy.wait(5000)
+
+            // if it looks '50%' or more different to base snapshot then test fails
+            cy.compareSnapshot("editPollenCalendarPreview", { errorThreshold: 50 })
+            cy.get("canvas").compareSnapshot("editPollenCalendarPreview", { errorThreshold: 50 })
         })
     })
 })
