@@ -1,25 +1,36 @@
 import { URLS } from "../consts"
 import { loginAttempt, mockValidCredentials, userIsLoggedIn } from "../authenticationUtils"
 
-describe("pollen data", () => {
-    describe("filetype of inputted file", () => {
-        beforeEach(() => {
-            cy.visit(URLS.EDIT_POLLEN_DATA)
-            mockValidCredentials()
-            loginAttempt()
-            userIsLoggedIn()
-            cy.visit(URLS.EDIT_POLLEN_DATA) // TODO: login should already redirect here!!!!
-        })
+function loginToEditPollenPage() {
+    cy.visit(URLS.EDIT_POLLEN_DATA)
+    mockValidCredentials()
+    loginAttempt()
+    userIsLoggedIn()
+    cy.visit(URLS.EDIT_POLLEN_DATA) // TODO: login should already redirect here (task #70)
+    cy.url().should("eq", URLS.EDIT_POLLEN_DATA)
+}
 
-        it("valid excel file", () => {
-            cy.contains("label", "Upload .xlsx spreadsheet file with pollen data")
-                .find("input[type='file']")
-                .selectFile("cypress/fixtures/Pollen Dummy Data - valid format.xlsx")
+function inputDataFile(filepath: string = "cypress/fixtures/Pollen Dummy Data - valid format.xlsx") {
+    cy.contains("label", "Upload .xlsx spreadsheet file with pollen data")
+        .find("input[type='file']")
+        .selectFile(filepath)
 
-            cy.contains("button", "Preview data").click()
-            cy.contains("Preview generated ✅")
-        })
+    cy.contains("button", "Preview data").click()
+}
 
+describe("updating pollen calendar", () => {
+    beforeEach(loginToEditPollenPage)
+
+    it("successfully preview calendar using valid excel spreadsheet", () => {
+        inputDataFile("cypress/fixtures/Pollen Dummy Data - valid format.xlsx")
+
+        cy.contains("button", "Preview data").click()
+        cy.contains("Preview generated ✅")
+
+        cy.contains("button", "Update calendar on website").click()
+    })
+
+    describe("invalid filetypes", () => {
         it("no file", () => {
             cy.contains("label", "Upload .xlsx spreadsheet file with pollen data").find("input[type='file']")
 
@@ -29,9 +40,7 @@ describe("pollen data", () => {
         })
 
         it("invalid file", () => {
-            cy.contains("label", "Upload .xlsx spreadsheet file with pollen data")
-                .find("input[type='file']")
-                .selectFile("cypress/fixtures/authSuccessResponse.json")
+            inputDataFile("cypress/fixtures/authSuccessResponse.json")
 
             cy.contains("button", "Preview data").click()
             cy.contains(
@@ -40,22 +49,11 @@ describe("pollen data", () => {
         })
     })
 
-    describe("excel spreadsheet format", () => {
-        beforeEach(() => {
-            cy.visit(URLS.EDIT_POLLEN_DATA)
-            mockValidCredentials()
-            loginAttempt()
-            userIsLoggedIn()
-            cy.visit(URLS.EDIT_POLLEN_DATA) // TODO: login should already redirect here!!!!
-        })
-        // correct format test is already in the 'inputting excel file' suite
-        // so testing all invalid formats
-        // which are formats that ignore an assumptions made by parsing algorithm
+    describe("invalid excel spreadsheet format", () => {
+        // invalid formatsare formats that ignore an assumptions made by parsing algorithm
 
         it("has no worksheets with 'raw' in the name", () => {
-            cy.contains("label", "Upload .xlsx spreadsheet file with pollen data")
-                .find("input[type='file']")
-                .selectFile("cypress/fixtures/Pollen Dummy Data - invalid format  - no 'raw' worksheet.xlsx")
+            inputDataFile("cypress/fixtures/Pollen Dummy Data - invalid format  - no 'raw' worksheet.xlsx")
 
             cy.contains("button", "Preview data").click()
             cy.contains(
@@ -65,9 +63,7 @@ describe("pollen data", () => {
         })
 
         it("pollen types are not in column A", () => {
-            cy.contains("label", "Upload .xlsx spreadsheet file with pollen data")
-                .find("input[type='file']")
-                .selectFile("cypress/fixtures/Pollen Dummy Data - invalid format - pollen types in column B.xlsx")
+            inputDataFile("cypress/fixtures/Pollen Dummy Data - invalid format - pollen types in column B.xlsx")
 
             cy.contains("button", "Preview data").click()
             cy.contains(
@@ -77,9 +73,7 @@ describe("pollen data", () => {
         })
 
         it.skip("dates are not in row 1", () => {
-            cy.contains("label", "Upload .xlsx spreadsheet file with pollen data")
-                .find("input[type='file']")
-                .selectFile("cypress/fixtures/Pollen Dummy Data - invalid format - dates in row 2.xlsx")
+            inputDataFile("cypress/fixtures/Pollen Dummy Data - invalid format - dates in row 2.xlsx")
 
             cy.contains("button", "Preview data").click()
             cy.contains(
@@ -89,11 +83,9 @@ describe("pollen data", () => {
         })
 
         it("doesn't have 'Total pollen counted'", () => {
-            cy.contains("label", "Upload .xlsx spreadsheet file with pollen data")
-                .find("input[type='file']")
-                .selectFile(
-                    "cypress/fixtures/Pollen Dummy Data - invalid format - sheet doesn't have 'Total pollen counted'.xlsx"
-                )
+            inputDataFile(
+                "cypress/fixtures/Pollen Dummy Data - invalid format - sheet doesn't have 'Total pollen counted'.xlsx"
+            )
 
             cy.contains("button", "Preview data").click()
             cy.contains("Worksheet '2023_24_raw' couldn't be parsed because this error occurred:")
@@ -101,6 +93,25 @@ describe("pollen data", () => {
                 `Couldn't find a 'Total pollen counted' row or 'Total pollen counted' label is not in column A. This is used to detect how many pollen types are in the spreadsheet. `
             )
             cy.contains("Preview generated ✅").should("not.exist")
+        })
+    })
+
+    describe("showing calendar preview", () => {
+        beforeEach(() => inputDataFile("cypress/fixtures/Pollen Dummy Data - valid format.xlsx"))
+
+        // both tests won't work as is because canvas is a visual element
+        // and its children elements are picked up by the browser :`(
+        it.skip("chart with a labelled x and y axis", () => {
+            const yAxisLabel = "Pollen grains per cubic metre of air"
+            const xAxisLabel = "Date"
+            cy.contains(yAxisLabel).should("have.length", 1)
+            cy.contains(xAxisLabel).should("have.length", 1)
+        })
+
+        it.skip("check tooltip of a pollen data point", () => {
+            cy.get("#toolTipButton").trigger("mouseover")
+
+            cy.contains("You hovered over the Button").should("be.visible")
         })
     })
 })
