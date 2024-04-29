@@ -14,8 +14,6 @@ function inputDataFile(filepath: string = "cypress/fixtures/Pollen Dummy Data - 
     cy.contains("label", "Upload .xlsx spreadsheet file with pollen data")
         .find("input[type='file']")
         .selectFile(filepath)
-
-    cy.contains("button", "Preview data").click()
 }
 
 describe("updating pollen calendar", () => {
@@ -69,7 +67,7 @@ describe("updating pollen calendar", () => {
             cy.contains(
                 `Column A, row 2 doesn't seem to contain a pollen name, it contains: undefined. To understand the excel data, the pollen names should be in column A, start at row 2 and the last pollen type will be "Total pollen counted"`
             )
-            cy.contains("Preview generated ✅").should("not.exist")
+            cy.contains("Preview generated ✅").should("exist") // the other worksheet has a valid format though so preview that data
         })
 
         it.skip("dates are not in row 1", () => {
@@ -79,12 +77,12 @@ describe("updating pollen calendar", () => {
             cy.contains(
                 `Column B, row 1 doesn't seem to contain a date, it contains: Pollen Data 2025. To understand the excel data, the dates should be in row 1 and start at column B.`
             )
-            cy.contains("Preview generated ✅").should("not.exist")
+            cy.contains("Preview generated ✅").should("exist") // other worksheet has valid format
         })
 
         it("doesn't have 'Total pollen counted'", () => {
             inputDataFile(
-                "cypress/fixtures/Pollen Dummy Data - invalid format - sheet doesn't have 'Total pollen counted'.xlsx"
+                "cypress/fixtures/Pollen Dummy Data - invalid format - sheets don't have 'Total pollen counted'.xlsx"
             )
 
             cy.contains("button", "Preview data").click()

@@ -35,7 +35,7 @@ export function parse(excelFile: ArrayBuffer): { pollenDataset: PollenData | nul
         }
     })
 
-    return { pollenDataset: pollenDataForAllSheets, errors: parsingErrors }
+    return { pollenDataset: pollenDataForAllSheets.length ? pollenDataForAllSheets : null, errors: parsingErrors }
 }
 
 function add2PollenDatasets(pollenData1: PollenData, pollenData2: PollenData): PollenData {
