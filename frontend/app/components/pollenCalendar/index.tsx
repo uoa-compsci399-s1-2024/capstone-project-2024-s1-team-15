@@ -4,10 +4,10 @@ import PollenTypeInput from "./PollenTypeInput"
 import dayjs from "dayjs"
 import DateInput from "./DateInput"
 import { PollenData } from "@/app/(cms)/pollen/edit/PollenDataType"
-import { useEffect, useState } from "react"
+import { memo, useEffect, useState } from "react"
 import MultiChart from "./MultiChart"
 
-export default function PollenCalendar({ pollenData }: { pollenData: PollenData }) {
+const PollenCalendar = memo(function PollenCalendar({ pollenData }: { pollenData: PollenData }) {
     const [showingDateFilter, showDateFilter] = useState(false)
     const [dateLowerLimit, setDateLowerLimit] = useState(dayjs("2024-11-28").valueOf())
     const [dateUpperLimit, setDateUpperLimit] = useState(dayjs("2024-12-2").valueOf())
@@ -95,4 +95,6 @@ export default function PollenCalendar({ pollenData }: { pollenData: PollenData 
             </div>
         </>
     )
-}
+})
+
+export default PollenCalendar

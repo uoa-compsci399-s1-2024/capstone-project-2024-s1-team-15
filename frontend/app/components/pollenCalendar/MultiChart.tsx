@@ -1,5 +1,6 @@
 import dayjs from "dayjs"
 import { FormattedPollenData } from "./formatData"
+import { memo } from "react"
 
 import "chartjs-adapter-dayjs-4/dist/chartjs-adapter-dayjs-4.esm"
 import "chart.js/auto"
@@ -8,7 +9,7 @@ import { Chart } from "react-chartjs-2"
 import { ChartOptions, ChartType } from "chart.js"
 
 // includes bar chart & line chart on same axis
-export default function MultiChart({
+const MultiChart = memo(function MultiChart({
     dateUpperLimit = dayjs("2024-07-24").valueOf(),
     dateLowerLimit = dayjs("2024-08-24").valueOf(),
     pollenData,
@@ -144,4 +145,6 @@ export default function MultiChart({
             {chartData && <Chart type="line" data={chartData as any} options={chartOptions}></Chart>}
         </div>
     )
-}
+})
+
+export default MultiChart
