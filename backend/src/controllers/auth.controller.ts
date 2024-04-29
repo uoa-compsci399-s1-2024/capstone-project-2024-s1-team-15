@@ -1,47 +1,47 @@
 import { RequestHandler } from "express"
-import { BadRequestError, UnauthorizedError } from "@/errors/HTTPErrors"
+import { UnauthorizedError } from "@/errors/HTTPErrors"
 import { AUTH } from "@/services/services"
 import { User } from "@aapc/types"
+import { ChangePasswordIn, DeactivateIn, LoginIn, RegisterIn } from "@/util/validation/input.types"
+import { validate } from "@/util/functions"
 
 export default class AuthController {
     static register: RequestHandler = async (req, res, next) => {
-        res.send()
+        const body = validate(RegisterIn, req.body)
+        res.status(200).send(body)
         next()
     }
 
     static login: RequestHandler = async (req, res, next) => {
-        const username = req.body.username ?? null
-        const password = req.body.password ?? null
-
-        if (username === null || password === null) {
-            throw new BadRequestError("username and/or password is missing from request body.")
-        }
-
-        const authToken = await AUTH.login(username, password)
+        const body = validate(LoginIn, req.body)
+        const authToken = await AUTH.login(body.username, body.password)
         if (authToken === null) {
             throw new UnauthorizedError("username and/or password incorrect.")
         }
-
-        // update this to show additional user details
+        // TODO: get user object from db
         const authenticatedUser = new User({
-            username: username,
-            email: username,
+            username: body.username,
+            email: body.username,
             displayName: "Admin",
             verified: true,
             registeredAt: undefined,
         })
-
-        res.status(200).json({ token: authToken, user: authenticatedUser })
+        res.status(200).json({
+            token: authToken,
+            user: authenticatedUser,
+        })
         next()
     }
 
     static deactivate: RequestHandler = async (req, res, next) => {
-        res.send()
+        const body = validate(DeactivateIn, req.body)
+        res.status(200).send(body)
         next()
     }
 
     static changePassword: RequestHandler = async (req, res, next) => {
-        res.send()
+        const body = validate(ChangePasswordIn, req.body)
+        res.status(200).send(body)
         next()
     }
 

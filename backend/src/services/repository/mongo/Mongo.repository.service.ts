@@ -1,6 +1,6 @@
 import { Article, ArticleType, User } from "@aapc/types"
 import { Collection, Db, Document, Filter, FindCursor, MongoClient, ServerApiVersion, WithId } from "mongodb"
-import { ArrayResult, ArrayResultOptions, Nullable, SortOptions } from "@/util/types/util.types"
+import { ArrayResult, ArrayResultOptions, Nullable, SortOptions } from "@/util/types/types"
 import IRepository from "@/services/repository/repository.service"
 import { ArticleSortFields } from "@/services/repository/memory/sorters/article.sorter"
 import { UserSortFields } from "@/services/repository/memory/sorters/user.sorter"

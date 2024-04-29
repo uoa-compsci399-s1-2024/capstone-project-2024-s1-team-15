@@ -28,20 +28,15 @@ switch (process.env.ENV) {
             missingEnvVariables.push("COGNITO_USERPOOL_ID")
         }
 
-        if (missingEnvVariables.length > 0){
+        if (missingEnvVariables.length > 0) {
             throw new Error("Missing environment variables " + missingEnvVariables.toString())
         }
 
         AUTH = new AuthContext(
-            new AWSCognitoAuthService(
-                <string>process.env.COGNITO_CLIENT_ID,
-                <string>process.env.COGNITO_USERPOOL_ID
-            ),
+            new AWSCognitoAuthService(<string>process.env.COGNITO_CLIENT_ID, <string>process.env.COGNITO_USERPOOL_ID),
             <string>process.env.JWT_SECRET
         )
-        DB = new MongoRepository(
-            <string>process.env.MONGO_URI
-        )
+        DB = new MongoRepository(<string>process.env.MONGO_URI)
         break
     }
     default: {
