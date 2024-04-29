@@ -12,7 +12,7 @@ export function formatPollenData(pollenData: PollenData): FormattedPollenData {
     const indexOfTotalCount = pollenData.findIndex((pollenType) => pollenType.pollenName === "Total pollen counted")
 
     const dailyTotals = pollenData[indexOfTotalCount].pollenValues
-        .filter(({ value }) => value)
+        .filter(({ value }) => value != undefined)
         .map(({ date, value }) => ({
             x: dayjs(date).valueOf(),
             y: value as number,
@@ -23,7 +23,7 @@ export function formatPollenData(pollenData: PollenData): FormattedPollenData {
 
     const pollenValues = pollenData.map((row) => {
         return { ...row }.pollenValues
-            .filter(({ value }) => value)
+            .filter(({ value }) => value != undefined)
             .map(({ date, value }) => ({
                 x: dayjs(date).valueOf(),
                 y: value as number,
