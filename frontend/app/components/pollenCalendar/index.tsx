@@ -8,9 +8,9 @@ import { useEffect, useState } from "react"
 import MultiChart from "./MultiChart"
 
 export default function PollenCalendar({ pollenData }: { pollenData: PollenData }) {
-    const dateLowerLimit = dayjs("2024-11-28").valueOf()
-    const dateUpperLimit = dayjs("2024-12-2").valueOf()
     const [showingDateFilter, showDateFilter] = useState(false)
+    const [dateLowerLimit, setDateLowerLimit] = useState(dayjs("2024-11-28").valueOf())
+    const [dateUpperLimit, setDateUpperLimit] = useState(dayjs("2024-12-2").valueOf())
 
     const [showingPollenTypeFilter, showPollenTypeFilter] = useState(false)
     const [allPollenTypes, setAllPollenTypes] = useState<string[]>([])
@@ -49,20 +49,31 @@ export default function PollenCalendar({ pollenData }: { pollenData: PollenData 
 
     return (
         <>
-            <div className="flex flex-col max-w-[100vw] h-[80vh]">
+            <div className="flex flex-col ">
                 <div className="flex items-center gap-2">
                     <p>Filter by</p>
-                    <button onClick={() => showPollenTypeFilter((currentState) => !currentState)}>Pollen Type</button>
+                    <button className="button" onClick={() => showPollenTypeFilter((currentState) => !currentState)}>
+                        Pollen Type
+                    </button>
                     {allPollenTypes && showingPollenTypeFilter && (
                         <PollenTypeInput allPollenTypes={allPollenTypes} showPollenTypes={showPollenTypes} />
                     )}
 
-                    <button onClick={() => showDateFilter((currentState) => !currentState)}>Date</button>
-                    {showingDateFilter && <DateInput lowerLimit={dateLowerLimit} upperLimit={dateUpperLimit} />}
+                    <button className="button" onClick={() => showDateFilter((currentState) => !currentState)}>
+                        Date
+                    </button>
+                    {showingDateFilter && (
+                        <DateInput
+                            lowerLimit={dateLowerLimit}
+                            upperLimit={dateUpperLimit}
+                            setUpperLimit={setDateUpperLimit}
+                            setLowerLimit={setDateLowerLimit}
+                        />
+                    )}
                 </div>
 
                 {filteredPollenData && showingPollenTypes.length ? (
-                    <div className="flex flex-col w-full h-[100vh]">
+                    <div className="flex flex-col w-full">
                         <MultiChart
                             dateUpperLimit={dateUpperLimit}
                             dateLowerLimit={dateLowerLimit}
