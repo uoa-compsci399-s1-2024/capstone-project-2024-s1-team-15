@@ -49,31 +49,41 @@ export default function PollenCalendar({ pollenData }: { pollenData: PollenData 
 
     return (
         <>
-            <div className="flex flex-col ">
-                <div className="flex items-center gap-2">
+            <div className="flex flex-col">
+                <div className="flex flex-col  gap-4">
                     <p>Filter by</p>
-                    <button className="button" onClick={() => showPollenTypeFilter((currentState) => !currentState)}>
-                        Pollen Type
-                    </button>
-                    {allPollenTypes && showingPollenTypeFilter && (
-                        <PollenTypeInput allPollenTypes={allPollenTypes} showPollenTypes={showPollenTypes} />
-                    )}
+                    <div className="flex gap-4 items-center">
+                        <button
+                            className="button w-40 inline-block  text-nowrap"
+                            onClick={() => showPollenTypeFilter((currentState) => !currentState)}>
+                            Pollen Type
+                        </button>
+                        <div>
+                            {allPollenTypes && showingPollenTypeFilter && (
+                                <PollenTypeInput allPollenTypes={allPollenTypes} showPollenTypes={showPollenTypes} />
+                            )}
+                        </div>
+                    </div>
 
-                    <button className="button" onClick={() => showDateFilter((currentState) => !currentState)}>
-                        Date
-                    </button>
-                    {showingDateFilter && (
-                        <DateInput
-                            lowerLimit={dateLowerLimit}
-                            upperLimit={dateUpperLimit}
-                            setUpperLimit={setDateUpperLimit}
-                            setLowerLimit={setDateLowerLimit}
-                        />
-                    )}
+                    <div className="flex gap-4 items-center">
+                        <button
+                            className="button w-40 inline-block"
+                            onClick={() => showDateFilter((currentState) => !currentState)}>
+                            Date
+                        </button>
+                        {showingDateFilter && (
+                            <DateInput
+                                lowerLimit={dateLowerLimit}
+                                upperLimit={dateUpperLimit}
+                                setUpperLimit={setDateUpperLimit}
+                                setLowerLimit={setDateLowerLimit}
+                            />
+                        )}
+                    </div>
                 </div>
 
                 {filteredPollenData && showingPollenTypes.length ? (
-                    <div className="flex flex-col w-full">
+                    <div className="flex flex-col w-full mt-8">
                         <MultiChart
                             dateUpperLimit={dateUpperLimit}
                             dateLowerLimit={dateLowerLimit}

@@ -8,14 +8,10 @@ import { PollenData } from "./PollenDataType"
 import PollenCalendar from "@/app/components/pollenCalendar"
 
 export default function EditPollen() {
-    const [errorMessages, setErrorMessage] = useState(null as string[] | null)
+    const [errorMessages, setErrorMessages] = useState(null as string[] | null)
     const fileInputReference = useRef(null)
     const [inputFileWithValidFileType, setInputFileWithValidFileType] = useState(null as null | File)
     const [pollenDataset, setPollenDataset] = useState(null as null | PollenData)
-
-    useEffect(() => {
-        if (errorMessages) setInputFileWithValidFileType(null)
-    }, [errorMessages])
 
     useEffect(() => {
         if (!inputFileWithValidFileType) return
@@ -26,7 +22,7 @@ export default function EditPollen() {
             setPollenDataset(parseResults.pollenDataset)
 
             if (parseResults.errors.length) {
-                setErrorMessage([
+                setErrorMessages([
                     "These errors occured while trying to parse (understand) the excel spreadsheet:",
                     ...parseResults.errors,
                 ])
@@ -41,18 +37,18 @@ export default function EditPollen() {
 
         const fileInputElement: HTMLInputElement = fileInputReference.current
 
-        if (!fileInputElement.files?.length || !fileInputElement.files[0]) return setErrorMessage(["No file uploaded"])
+        if (!fileInputElement.files?.length || !fileInputElement.files[0]) return setErrorMessages(["No file uploaded"])
 
         const uploadedFile = fileInputElement.files[0]
 
         console.log({ uploadedFile })
 
         if (!uploadedFile.name.includes(".xlsx"))
-            return setErrorMessage([
+            return setErrorMessages([
                 `The file you have uploaded doesn't seem to be an Excel spreadsheet. The filename '${uploadedFile.name}' doesn't have '.xlsx'`,
             ])
 
-        setErrorMessage(null)
+        setErrorMessages(null)
         setInputFileWithValidFileType(uploadedFile)
     }
 
@@ -89,28 +85,30 @@ export default function EditPollen() {
             </form>
 
             {inputFileWithValidFileType && pollenDataset && (
-                <div>
-                    <p>Preview generated ✅</p>
+                <div className="mt-10">
+                    <h3 className="font-bold text-2xl my-2">Preview generated ✅</h3>
                     <PollenCalendar pollenData={pollenDataset}></PollenCalendar>
 
-                    <button type="submit" className="button" onClick={validateInputFileType}>
-                        Share data (to general public)
+                    <button type="submit" className="button" onClick={() => {}}>
+                        Update calendar on website
                     </button>
                 </div>
             )}
 
-            <section className="mt-20">
-                <h3 className="text-4xl mb-5">Assumptions ⚠️</h3>
-                <p>
-                    The parsing algorithm that attempts to understand your Excel file input makes the following
-                    assumptions:
-                </p>
-                <ul className="list-disc pl-4 mt-5">
-                    {assumptions.map((assumption) => {
-                        return <li key={assumption}>{assumption}</li>
-                    })}
-                </ul>
-            </section>
+            {inputFileWithValidFileType && errorMessages && (
+                <section className="mt-20">
+                    <h3 className="text-4xl mb-5">Assumptions ⚠️</h3>
+                    <p>
+                        The parsing algorithm that attempts to understand your Excel file input makes the following
+                        assumptions:
+                    </p>
+                    <ul className="list-disc pl-4 mt-5">
+                        {assumptions.map((assumption) => {
+                            return <li key={assumption}>{assumption}</li>
+                        })}
+                    </ul>
+                </section>
+            )}
         </>
     )
 }
