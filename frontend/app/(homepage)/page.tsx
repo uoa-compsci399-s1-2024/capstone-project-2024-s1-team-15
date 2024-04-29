@@ -15,6 +15,9 @@ export default async function Home() {
                 <ButtonLink href={"/research"} text={"View All Research"} />
                 <ButtonLink href={"/research/publish"} text={"Publish Research"} />
                 <div className={"h-4 w-12"}></div>
+                <ButtonLink href={"/about"} text={"About Us"} />
+                <ButtonLink href={"/contact"} text={"Contact Us"} />
+                <ButtonLink href={"/health"} text={"Health"} />
             </div>
         </div>
     )
