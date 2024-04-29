@@ -5,6 +5,7 @@ import { parse } from "./parseExcel"
 
 import assumptions from "./assumptions made to parse excel file"
 import { PollenData } from "./PollenDataType"
+import PollenCalendar from "@/app/components/pollenCalendar"
 
 export default function EditPollen() {
     const [errorMessages, setErrorMessage] = useState(null as string[] | null)
@@ -67,6 +68,7 @@ export default function EditPollen() {
                 <button type="submit" className="button" onClick={validateInputFileType}>
                     Preview data
                 </button>
+
                 {errorMessages?.length &&
                     (errorMessages.length === 1 ? (
                         <p className="form-error">{errorMessages[0]}</p>
@@ -86,7 +88,16 @@ export default function EditPollen() {
                     ))}
             </form>
 
-            {inputFileWithValidFileType && pollenDataset && <div>Preview generated ✅</div>}
+            {inputFileWithValidFileType && pollenDataset && (
+                <div>
+                    <p>Preview generated ✅</p>
+                    <PollenCalendar pollenData={pollenDataset}></PollenCalendar>
+
+                    <button type="submit" className="button" onClick={validateInputFileType}>
+                        Share data (to general public)
+                    </button>
+                </div>
+            )}
 
             <section className="mt-20">
                 <h3 className="text-4xl mb-5">Assumptions ⚠️</h3>
