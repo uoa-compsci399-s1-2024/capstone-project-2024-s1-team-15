@@ -25,7 +25,9 @@ export function parse(excelFile: ArrayBuffer): { pollenDataset: PollenData | nul
     Object.entries(sheetsWithRawData).map(([sheetName, sheet]) => {
         try {
             const parsedWorksheet = parseWorksheet(sheet)
-            pollenDataForAllSheets = add2PollenDatasets(pollenDataForAllSheets, parsedWorksheet)
+            pollenDataForAllSheets = pollenDataForAllSheets.length
+                ? add2PollenDatasets(pollenDataForAllSheets, [...parsedWorksheet])
+                : [...parsedWorksheet]
         } catch (e: any) {
             parsingErrors.push(
                 `Worksheet '${sheetName}' couldn't be parsed because this error occurred: ${e.message}\n\nTake a look at the assumptions the parsing algorithm makes. This could also be a bug with the parsing algorithm so report to developers 🙂.`
@@ -33,7 +35,6 @@ export function parse(excelFile: ArrayBuffer): { pollenDataset: PollenData | nul
         }
     })
 
-    console.log({ pollenDataForAllSheets })
     return { pollenDataset: pollenDataForAllSheets, errors: parsingErrors }
 }
 
@@ -51,10 +52,10 @@ function add2PollenDatasets(pollenData1: PollenData, pollenData2: PollenData): P
         } else {
             // ⚠️assume no date in a sheet as also in another sheet
             // BUT if the same date is in 2 different sheets, then use the pollen value from the last sheet
-            combinedDataset[existingIndex].pollenValues = {
+            combinedDataset[existingIndex].pollenValues = [
                 ...combinedDataset[existingIndex].pollenValues,
                 ...pollenType.pollenValues,
-            }
+            ]
         }
     })
 
