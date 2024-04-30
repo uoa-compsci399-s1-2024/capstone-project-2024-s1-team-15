@@ -1,4 +1,4 @@
-import { UserScopes } from "./UserScopes";
+import { UserScopes } from "./UserScope";
 
 /**
  * An interface representing a user.
