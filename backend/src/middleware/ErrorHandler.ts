@@ -10,7 +10,7 @@ export function errorHandler(err: Error, _: Request, res: Response, next: NextFu
         })
     } else {
         res.json({
-            message: "Internal Server Error: " + err.message,
+            message: (res.statusCode === 500 ? "Internal Server Error: " : "") + err.message,
         })
     }
     res.send()
