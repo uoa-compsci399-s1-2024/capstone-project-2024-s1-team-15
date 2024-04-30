@@ -28,7 +28,7 @@ interface IChangePasswordIn {
     newPassword: string
 }
 
-interface IPaginatedQIn<T extends string> {
+export interface IPaginatedQIn<T extends string> {
     p: number
     pp: number
     sortBy: T
