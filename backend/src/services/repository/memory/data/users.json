@@ -4,27 +4,58 @@
         "email": "airmonitor@example.com",
         "displayName": "Sarah Davis",
         "verified": true,
-        "registeredAt": "2024-03-16T00:00:00.000000Z"
+        "registeredAt": "2024-03-16T00:00:00.000000Z",
+        "scopes": [
+            "usr",
+            "reg",
+            "mtn"
+        ]
     },
     {
         "username": "nzhealth",
         "email": "nzhealth@example.com",
         "displayName": "John Williams",
         "verified": true,
-        "registeredAt": "2024-03-11T00:00:00.000000Z"
+        "registeredAt": "2024-03-11T00:00:00.000000Z",
+        "scopes": [
+            "usr",
+            "reg",
+            "mtn"
+        ]
     },
     {
         "username": "kiwihealth",
         "email": "kiwihealth@example.com",
         "displayName": "Robert Garcia",
         "verified": true,
-        "registeredAt": "2024-03-08T00:00:00.000000Z"
+        "registeredAt": "2024-03-08T00:00:00.000000Z",
+        "scopes": [
+            "usr",
+            "reg",
+            "adm"
+        ]
     },
     {
         "username": "climatewatch",
         "email": "climatewatch@example.com",
         "displayName": "Emma Williams",
         "verified": true,
-        "registeredAt": "2024-04-23T00:00:00.000000Z"
+        "registeredAt": "2024-04-23T00:00:00.000000Z",
+        "scopes": [
+            "usr",
+            "prm",
+            "mtn"
+        ]
+    },
+    {
+        "username": "nzclimates",
+        "email": "nzclimates@example.com",
+        "displayName": "John Doe",
+        "verified": true,
+        "registeredAt": "2024-04-27T00:00:00.000000Z",
+        "scopes": [
+            "usr",
+            "reg"
+        ]
     }
 ]

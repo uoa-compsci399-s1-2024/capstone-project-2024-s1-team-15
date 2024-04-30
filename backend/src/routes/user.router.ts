@@ -13,6 +13,7 @@ export default class UserRouter {
 
         router.get("/:username", expressAsyncHandler(UserController.getUserByUsername))
         router.put("/:username", expressAsyncHandler(UserController.editUser))
+        router.put("/:username/scope", expressAsyncHandler(UserController.editUserScopes))
         router.delete("/:username", expressAsyncHandler(UserController.deleteUser))
 
         return router
