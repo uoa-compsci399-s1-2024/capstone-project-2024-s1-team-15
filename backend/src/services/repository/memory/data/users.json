@@ -57,5 +57,18 @@
             "usr",
             "reg"
         ]
+    },
+    {
+        "username": "aapctest27394962@gmail.com",
+        "email": "aapctest27394962@gmail.com",
+        "displayName": "Test Admin Account",
+        "verified": true,
+        "registeredAt": "2024-04-30T10:02:00.000000Z",
+        "scopes": [
+            "usr",
+            "reg",
+            "mtn",
+            "adm"
+        ]
     }
 ]
