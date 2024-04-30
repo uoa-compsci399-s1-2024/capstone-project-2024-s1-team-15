@@ -9,9 +9,7 @@ export default class AuthRouter {
         const router = express.Router()
 
         router.post("/login", expressAsyncHandler(AuthController.login))
-
         router.post("/register", expressAsyncHandler(AuthController.register))
-
         router.post("/deactivate", expressAsyncHandler(AuthController.deactivate))
 
         router.put("/password", expressAsyncHandler(AuthController.changePassword))

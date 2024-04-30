@@ -1,4 +1,4 @@
-import { Article, ArticleType, IArticle, IUser, User } from "@aapc/types"
+import { Article, ArticleType, IArticle, IUser, User, UserScope } from "@aapc/types"
 import { getRandomID } from "../functions"
 import { ValidationError } from "@/errors/ValidationError"
 import { ArticleSortFields } from "@/services/repository/memory/sorters/article.sorter"
@@ -10,14 +10,20 @@ import Validator from "@/util/validation/validator"
 
 interface IArticleIn extends Omit<IArticle, "id" | "lastEditedAt" | "publishedAt" | "publisher" | "articleType"> {}
 
-interface IUserIn extends Omit<IUser, "verified" | "registeredAt"> {}
+interface INewUserIn extends Omit<IUser, "verified" | "registeredAt"> {}
+
+interface IEditUserIn extends Omit<IUser, "verified" | "registeredAt" | "username" | "scopes" > {}
+
+interface IEditUserScopeIn {
+    scope: UserScope[]
+}
 
 interface ILoginIn {
     username: string
     password: string
 }
 
-interface IRegisterIn extends ILoginIn, IUserIn {}
+interface IRegisterIn extends ILoginIn, Omit<INewUserIn, "scopes"> {}
 
 interface IDeactivateIn {
     confirm: string
@@ -28,7 +34,7 @@ interface IChangePasswordIn {
     newPassword: string
 }
 
-interface IPaginatedQIn<T extends string> {
+export interface IPaginatedQIn<T extends string> {
     p: number
     pp: number
     sortBy: T
@@ -45,7 +51,7 @@ interface IUserPaginatedQIn extends IPaginatedQIn<UserSortFields> {
 
 // Concrete Implementations
 
-export class ArticleIn extends Validator<IArticleIn> implements IArticleIn {
+export class NewArticleIn extends Validator<IArticleIn> implements IArticleIn {
     title: string
     subtitle: string
     content: string
@@ -64,15 +70,6 @@ export class ArticleIn extends Validator<IArticleIn> implements IArticleIn {
         }
     }
 
-    toExistingArticle(article: IArticle): IArticle {
-        article.title = this.title
-        article.subtitle = this.subtitle === "" ? article.subtitle : this.subtitle
-        article.content = this.content
-        article.media = this.media.length === 0 ? article.media : this.media
-        article.lastEditedAt = new Date().toISOString()
-        return article
-    }
-
     toNewArticle(articleType: ArticleType, publisher: IUser): IArticle {
         return new Article({
             id: getRandomID(), // TODO: implement id checks
@@ -88,10 +85,36 @@ export class ArticleIn extends Validator<IArticleIn> implements IArticleIn {
     }
 }
 
-export class UserIn extends Validator<IUserIn> implements IUserIn {
+export class EditArticleIn extends Validator<IArticleIn> implements IArticleIn {
+    title: string
+    subtitle: string
+    content: string
+    media: string[]
+
+    constructor(obj: any) {
+        super("body")
+
+        this.title = obj.title ?? ""
+        this.subtitle = obj.subtitle ?? ""
+        this.content = obj.content ?? ""
+        this.media = obj.media ?? []
+    }
+
+    toExistingArticle(article: IArticle): IArticle {
+        article.title = this.title === "" ? article.title : this.title
+        article.subtitle = this.subtitle === "" ? article.subtitle : this.subtitle
+        article.content = this.content === "" ? article.content : this.content
+        article.media = this.media.length === 0 ? article.media : this.media
+        article.lastEditedAt = new Date().toISOString()
+        return article
+    }
+}
+
+export class NewUserIn extends Validator<INewUserIn> implements INewUserIn {
     username: string
     email: string
     displayName: string
+    scopes: UserScope[]
 
     constructor(obj: any) {
         super("body")
@@ -99,16 +122,11 @@ export class UserIn extends Validator<IUserIn> implements IUserIn {
         this.username = this.checkMissing(obj, "username")
         this.email = this.checkMissing(obj, "email")
         this.displayName = this.checkMissing(obj, "displayName")
+        this.scopes = this.checkScopes(obj, "scopes") || [UserScope.user, UserScope.regular]
 
         if (this.errors.length > 0) {
             throw new ValidationError(this.errors)
         }
-    }
-
-    toExistingUser(user: IUser): IUser {
-        user.email = this.email
-        user.displayName = this.displayName
-        return user
     }
 
     toNewUser(): IUser {
@@ -118,7 +136,46 @@ export class UserIn extends Validator<IUserIn> implements IUserIn {
             displayName: this.displayName,
             verified: true, // TODO: set false when user verification is added
             registeredAt: new Date().toISOString(),
+            scopes: this.scopes
         })
+    }
+}
+
+export class EditUserIn extends Validator<IEditUserIn> implements IEditUserIn {
+    displayName: string
+    email: string
+
+    constructor(obj: any) {
+        super("body")
+
+        this.displayName = obj["displayName"] ?? ""
+        this.email = obj["email"] ?? ""
+    }
+
+    toExistingUser(user: IUser): IUser {
+        user.email = this.email === "" ? user.email : this.email
+        user.displayName = this.displayName === "" ? user.displayName : this.displayName
+        return user
+    }
+}
+
+export class EditUserScopeIn extends Validator<IEditUserScopeIn> implements IEditUserScopeIn {
+    scope: UserScope[]
+
+    constructor(obj: any) {
+        super("body")
+
+        this.scope = this.checkMissing(obj, "scope")
+        this.scope = this.checkScopes(obj, "scope") || []
+
+        if (this.errors.length > 0) {
+            throw new ValidationError(this.errors)
+        }
+    }
+
+    toExistingUser(user: IUser): IUser {
+        user.scopes = this.scope
+        return user
     }
 }
 

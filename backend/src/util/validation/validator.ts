@@ -1,3 +1,5 @@
+import { UserScope } from "@aapc/types";
+
 export type InputParameterLocation = "query" | "path" | "body"
 
 export interface InputValidationFailure<T> {
@@ -19,7 +21,7 @@ export default class Validator<T> {
             this.errors.push({
                 field: k,
                 location: this.location,
-                message: `Required attribute not present.`,
+                message: `Required attribute not present`,
             })
         } else {
             return obj[k]
@@ -58,7 +60,37 @@ export default class Validator<T> {
             this.errors.push({
                 field: k,
                 location: this.location,
-                message: `Expected value of type boolean, got ${String(p)} which is not a boolean value`,
+                message: `Expected value of type boolean, got '${String(p)}' which is not a boolean value`,
+            })
+        }
+    }
+
+    checkScopes(obj: any, k: keyof T): UserScope[] | undefined {
+        const param: any = obj[k]
+        if (param === undefined) return undefined
+        // Check if param is an array
+        if (Array.isArray(param)) {
+            // Check if each value in the param is a UserScope
+            const messages: string[] = []
+            for (let i = 0; i < param.length; i++) {
+                if (!Object.values(UserScope).includes(param[i])) {
+                    messages.push(`Array position ${i}: '${param[i]}' is not a valid UserScope`)
+                }
+            }
+            if (messages.length === 0) {
+                return <UserScope[]>param
+            } else {
+                this.errors.push({
+                    field: k,
+                    location: this.location,
+                    message: messages.join("; ")
+                })
+            }
+        } else {
+            this.errors.push({
+                field: k,
+                location: this.location,
+                message: `Expected array, got '${param}' which is not an array`
             })
         }
     }

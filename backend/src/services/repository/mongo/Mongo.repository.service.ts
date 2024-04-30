@@ -185,7 +185,7 @@ export default class MongoRepository implements IRepository {
         const r: Article[] = []
         const q: Filter<any> = {
             articleType: ArticleType.news,
-            title: { $regex: title },
+            title: new RegExp(`.*${title}.*`, "i"),
         }
         const rC: number = await this.articles.countDocuments(q)
         const result = await this.fetchMongoDocuments(this.articles.find(q), options)
@@ -205,7 +205,7 @@ export default class MongoRepository implements IRepository {
         const r: Article[] = []
         const q: Filter<any> = {
             articleType: ArticleType.research,
-            title: { $regex: title },
+            title: new RegExp(`.*${title}.*`, "i"),
         }
         const rC: number = await this.articles.countDocuments(q)
         const result = await this.fetchMongoDocuments(this.articles.find(q), options)
@@ -223,7 +223,7 @@ export default class MongoRepository implements IRepository {
         options?: ArrayResultOptions<SortOptions<User, UserSortFields>>
     ): Promise<ArrayResult<User>> {
         const r: User[] = []
-        const q: Filter<any> = { username: { $regex: username } }
+        const q: Filter<any> = { username: new RegExp(`.*${username}.*`, "i") }
         const rC = await this.users.countDocuments(q)
         const result = await this.fetchMongoDocuments(this.users.find(q), options)
         for (const document of result) {

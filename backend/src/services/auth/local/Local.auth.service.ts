@@ -2,7 +2,7 @@ import { IAuthService } from "@/services/auth/auth.service"
 
 export default class LocalAuthService implements IAuthService {
     async authenticateUser(username: string, password: string): Promise<boolean> {
-        return username === "admin" && password === "admin"
+        return password === "admin"
     }
 
     async changePassword(username: string, oldPassword: string, newPassword: string): Promise<null> {
