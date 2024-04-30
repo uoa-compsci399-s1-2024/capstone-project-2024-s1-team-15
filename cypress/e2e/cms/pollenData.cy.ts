@@ -12,7 +12,7 @@ describe("pollen data", () => {
         })
 
         it("valid excel file", () => {
-            cy.contains("label", "Upload .xlsx spreadsheet file with pollen data")
+            cy.contains("label", "Upload .xlsx Excel spreadsheet containing pollen data")
                 .find("input[type='file']")
                 .selectFile("cypress/fixtures/Pollen Dummy Data - valid format.xlsx")
 
@@ -21,7 +21,7 @@ describe("pollen data", () => {
         })
 
         it("no file", () => {
-            cy.contains("label", "Upload .xlsx spreadsheet file with pollen data").find("input[type='file']")
+            cy.contains("label", "Upload .xlsx Excel spreadsheet containing pollen data").find("input[type='file']")
 
             cy.contains("button", "Preview data").click()
             cy.contains("No file uploaded")
@@ -29,7 +29,7 @@ describe("pollen data", () => {
         })
 
         it("invalid file", () => {
-            cy.contains("label", "Upload .xlsx spreadsheet file with pollen data")
+            cy.contains("label", "Upload .xlsx Excel spreadsheet containing pollen data")
                 .find("input[type='file']")
                 .selectFile("cypress/fixtures/authSuccessResponse.json")
 
@@ -53,7 +53,7 @@ describe("pollen data", () => {
         // which are formats that ignore an assumptions made by parsing algorithm
 
         it("has no worksheets with 'raw' in the name", () => {
-            cy.contains("label", "Upload .xlsx spreadsheet file with pollen data")
+            cy.contains("label", "Upload .xlsx Excel spreadsheet containing pollen data")
                 .find("input[type='file']")
                 .selectFile("cypress/fixtures/Pollen Dummy Data - invalid format  - no 'raw' worksheet.xlsx")
 
@@ -65,7 +65,7 @@ describe("pollen data", () => {
         })
 
         it("pollen types are not in column A", () => {
-            cy.contains("label", "Upload .xlsx spreadsheet file with pollen data")
+            cy.contains("label", "Upload .xlsx Excel spreadsheet containing pollen data")
                 .find("input[type='file']")
                 .selectFile("cypress/fixtures/Pollen Dummy Data - invalid format - pollen types in column B.xlsx")
 
@@ -77,7 +77,7 @@ describe("pollen data", () => {
         })
 
         it.skip("dates are not in row 1", () => {
-            cy.contains("label", "Upload .xlsx spreadsheet file with pollen data")
+            cy.contains("label", "Upload .xlsx Excel spreadsheet containing pollen data")
                 .find("input[type='file']")
                 .selectFile("cypress/fixtures/Pollen Dummy Data - invalid format - dates in row 2.xlsx")
 
@@ -89,7 +89,7 @@ describe("pollen data", () => {
         })
 
         it("doesn't have 'Total pollen counted'", () => {
-            cy.contains("label", "Upload .xlsx spreadsheet file with pollen data")
+            cy.contains("label", "Upload .xlsx Excel spreadsheet containing pollen data")
                 .find("input[type='file']")
                 .selectFile(
                     "cypress/fixtures/Pollen Dummy Data - invalid format - sheet doesn't have 'Total pollen counted'.xlsx"
