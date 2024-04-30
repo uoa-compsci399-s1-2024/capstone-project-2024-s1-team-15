@@ -1,4 +1,4 @@
-name: End-to-end Tests
+name: End-to-End Tests
 on:
   push:
     paths:
@@ -10,10 +10,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Install Dependencies
+        run: |
+          cd frontend
+          npm ci
+          cd ../backend
+          npm ci
       - name: Run Cypress
         uses: cypress-io/github-action@v6
         with:
-          start: |
-            npm run install
-            npm run dev
-            sleep 10
+          start: npm run cypress:start
+          wait-on: "http://localhost:3000, http://localhost:3001"
+          wait-on-timeout: 60

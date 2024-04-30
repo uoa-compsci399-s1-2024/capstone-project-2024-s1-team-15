@@ -3,8 +3,7 @@
     "version": "1.0.0",
     "description": "Project by **Team Bit by Bit** (Team 15, S1 2024)",
     "scripts": {
-        "install": "cd frontend && npm ci && cd ../backend && npm ci",
-        "dev": "concurrently \"cd frontend && npm run dev\" \"cd backend && npm run dev\"",
+        "cypress:start": "concurrently \"cd frontend && npm run dev\" \"cd backend && npm run dev\"",
         "cypress:open": "cypress open",
         "cypress:run": "cypress run --project ."
     },
