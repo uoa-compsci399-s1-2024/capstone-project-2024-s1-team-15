@@ -4,6 +4,10 @@ export default function DateInput({ lowerLimit, upperLimit, setUpperLimit, setLo
     const lowerLimitString = dayjs(lowerLimit).format("YYYY-MM-DD")
     const upperLimitString = dayjs(upperLimit).format("YYYY-MM-DD")
 
+    function makeTimestampForDateMidday(timestamp: number) {
+        return dayjs(timestamp).set("hour", 0).set("minute", 0).set("second", 0).set("millisecond", 0).valueOf()
+    }
+
     return (
         <div>
             <label className="form-label">
@@ -12,7 +16,7 @@ export default function DateInput({ lowerLimit, upperLimit, setUpperLimit, setLo
                     className="form-input"
                     type="date"
                     defaultValue={lowerLimitString}
-                    onChange={(e) => setLowerLimit(e.target.valueAsNumber)}
+                    onChange={(e) => setLowerLimit(makeTimestampForDateMidday(e.target.valueAsNumber))}
                 />
             </label>
 
@@ -22,7 +26,7 @@ export default function DateInput({ lowerLimit, upperLimit, setUpperLimit, setLo
                     className="form-input"
                     type="date"
                     defaultValue={upperLimitString}
-                    onChange={(e) => setUpperLimit(e.target.valueAsNumber)}
+                    onChange={(e) => setUpperLimit(makeTimestampForDateMidday(e.target.valueAsNumber))}
                 />
             </label>
         </div>
