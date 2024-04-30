@@ -51,7 +51,7 @@ interface IUserPaginatedQIn extends IPaginatedQIn<UserSortFields> {
 
 // Concrete Implementations
 
-export class ArticleIn extends Validator<IArticleIn> implements IArticleIn {
+export class NewArticleIn extends Validator<IArticleIn> implements IArticleIn {
     title: string
     subtitle: string
     content: string
@@ -70,15 +70,6 @@ export class ArticleIn extends Validator<IArticleIn> implements IArticleIn {
         }
     }
 
-    toExistingArticle(article: IArticle): IArticle {
-        article.title = this.title
-        article.subtitle = this.subtitle === "" ? article.subtitle : this.subtitle
-        article.content = this.content
-        article.media = this.media.length === 0 ? article.media : this.media
-        article.lastEditedAt = new Date().toISOString()
-        return article
-    }
-
     toNewArticle(articleType: ArticleType, publisher: IUser): IArticle {
         return new Article({
             id: getRandomID(), // TODO: implement id checks
@@ -91,6 +82,31 @@ export class ArticleIn extends Validator<IArticleIn> implements IArticleIn {
             publishedAt: new Date().toISOString(),
             lastEditedAt: new Date().toISOString(),
         })
+    }
+}
+
+export class EditArticleIn extends Validator<IArticleIn> implements IArticleIn {
+    title: string
+    subtitle: string
+    content: string
+    media: string[]
+
+    constructor(obj: any) {
+        super("body")
+
+        this.title = obj.title ?? ""
+        this.subtitle = obj.subtitle ?? ""
+        this.content = obj.content ?? ""
+        this.media = obj.media ?? []
+    }
+
+    toExistingArticle(article: IArticle): IArticle {
+        article.title = this.title === "" ? article.title : this.title
+        article.subtitle = this.subtitle === "" ? article.subtitle : this.subtitle
+        article.content = this.content === "" ? article.content : this.content
+        article.media = this.media.length === 0 ? article.media : this.media
+        article.lastEditedAt = new Date().toISOString()
+        return article
     }
 }
 
