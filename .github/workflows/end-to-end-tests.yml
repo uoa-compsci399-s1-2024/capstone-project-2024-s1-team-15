@@ -4,6 +4,7 @@ on:
     paths:
       - 'backend/**'
       - 'frontend/**'
+      - 'cypress/**'
 jobs:
   test:
     runs-on: ubuntu-22.04

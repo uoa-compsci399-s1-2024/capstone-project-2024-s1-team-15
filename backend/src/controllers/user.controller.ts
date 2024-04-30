@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import { getPaginator, validate } from "@/util/functions"
-import { UserIn, UserPaginatedQIn } from "@/util/validation/input.types";
+import { NewUserIn, EditUserIn, UserPaginatedQIn, EditUserScopeIn } from "@/util/validation/input.types";
 import { ArrayResultOptions, SortOptions } from "@/util/types/types";
 import { User } from "@aapc/types";
 import { UserSortFields } from "@/services/repository/memory/sorters/user.sorter";
@@ -32,7 +32,9 @@ export default class UserController {
     }
 
     static createUser: RequestHandler = async (req, res, next) => {
-        const body = validate(UserIn, req.body)
+        const body = validate(NewUserIn, req.body)
+        if (await DB.getUserByUsername(body.username) !== null)
+            throw new NotFoundError(`User with username ${body.username} already exists.`)
         const u = body.toNewUser()
         await DB.createUser(u)
         res.location(`/user/${u.username}`)
@@ -45,7 +47,24 @@ export default class UserController {
         const currentUser = await DB.getUserByUsername(username)
         if (currentUser === null)
             throw new NotFoundError(`User with username ${username} does not exist.`)
-        const body = validate(UserIn, req.body)
+        const body = validate(EditUserIn, req.body)
+        const u = body.toExistingUser(currentUser)
+        try {
+            await DB.editUser(username, u)
+        } catch (e) {
+            if (e instanceof TypeError) throw new BadRequestError(e.message)
+            throw e
+        }
+        res.status(200).json(u).send()
+        next()
+    }
+
+    static editUserScope: RequestHandler = async (req, res, next) => {
+        const username: string = String(req.params.username)
+        const currentUser = await DB.getUserByUsername(username)
+        if (currentUser === null)
+            throw new NotFoundError(`User with username ${username} does not exist.`)
+        const body = validate(EditUserScopeIn, req.body)
         const u = body.toExistingUser(currentUser)
         try {
             await DB.editUser(username, u)
@@ -58,7 +77,7 @@ export default class UserController {
     }
 
     static deleteUser: RequestHandler = async (req, res, next) => {
-        const username: string = String(req.params.id)
+        const username: string = String(req.params.username)
         if ((await DB.getUserByUsername(username)) === null)
             throw new NotFoundError(`User with username ${username} does not exist.`)
         await DB.deleteUser(username)

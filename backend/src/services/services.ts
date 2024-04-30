@@ -13,6 +13,7 @@ export let DB: IRepository
 
 switch (process.env.ENV) {
     case "DEV" || "PROD": {
+        console.log(`Environment: ${process.env.ENV}`)
         const missingEnvVariables: string[] = []
 
         if (!process.env.MONGO_URI) {
@@ -40,7 +41,7 @@ switch (process.env.ENV) {
         break
     }
     default: {
-        console.log("environment variable ENV not loaded; using default (local)")
+        console.log(`Environment: LOCAL`)
         AUTH = new AuthContext(new LocalAuthService())
         DB = new MemoryRepository()
         break

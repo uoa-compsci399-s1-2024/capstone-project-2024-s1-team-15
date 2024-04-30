@@ -2,7 +2,7 @@ import { RequestHandler } from "express"
 import { Article, ArticleType } from "@aapc/types"
 import { BadRequestError, NotFoundError } from "@/errors/HTTPErrors"
 import { ArrayResultOptions, SortOptions } from "@/util/types/types"
-import { ArticleIn, ArticlePaginatedQIn } from "@/util/validation/input.types"
+import { NewArticleIn, EditArticleIn, ArticlePaginatedQIn } from "@/util/validation/input.types"
 import { DUMMY_USER } from "@/util/const"
 import { DB } from "@/services/services"
 import { getPaginator, validate } from "@/util/functions"
@@ -33,7 +33,7 @@ export default class ResearchController {
     }
 
     static createResearch: RequestHandler = async (req, res, next) => {
-        const body = validate(ArticleIn, req.body)
+        const body = validate(NewArticleIn, req.body)
         // TODO: use auth headers to auto fill user
         const n = body.toNewArticle(ArticleType.research, DUMMY_USER)
         await DB.createResearch(n)
@@ -47,7 +47,7 @@ export default class ResearchController {
         const currentArticle = await DB.getResearchById(id)
         if (currentArticle === null)
             throw new NotFoundError(`Research article with id ${id} does not exist.`)
-        const body = validate(ArticleIn, req.body)
+        const body = validate(EditArticleIn, req.body)
         const n = body.toExistingArticle(currentArticle)
         try {
             await DB.editResearch(id, n)

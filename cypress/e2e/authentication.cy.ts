@@ -18,7 +18,7 @@ describe("Authentication", () => {
         it("invalid credentials", () => {
             userIsLoggedOut()
             loginAttempt()
-            cy.get("p").contains("username and/or password incorrect.")
+            cy.get("p").contains("Username and/or password incorrect.")
             userIsLoggedOut() // should still be logged out
         })
     })
