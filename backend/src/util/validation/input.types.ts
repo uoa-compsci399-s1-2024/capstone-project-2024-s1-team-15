@@ -15,7 +15,7 @@ interface INewUserIn extends Omit<IUser, "verified" | "registeredAt"> {}
 interface IEditUserIn extends Omit<IUser, "verified" | "registeredAt" | "username" | "scopes" > {}
 
 interface IEditUserScopeIn {
-    scopes: UserScope[]
+    scope: UserScope[]
 }
 
 interface ILoginIn {
@@ -160,13 +160,13 @@ export class EditUserIn extends Validator<IEditUserIn> implements IEditUserIn {
 }
 
 export class EditUserScopeIn extends Validator<IEditUserScopeIn> implements IEditUserScopeIn {
-    scopes: UserScope[]
+    scope: UserScope[]
 
     constructor(obj: any) {
         super("body")
 
-        this.scopes = this.checkMissing(obj, "scopes")
-        this.scopes = this.checkScopes(obj, "scopes") || []
+        this.scope = this.checkMissing(obj, "scope")
+        this.scope = this.checkScopes(obj, "scope") || []
 
         if (this.errors.length > 0) {
             throw new ValidationError(this.errors)
@@ -174,7 +174,7 @@ export class EditUserScopeIn extends Validator<IEditUserScopeIn> implements IEdi
     }
 
     toExistingUser(user: IUser): IUser {
-        user.scopes = this.scopes
+        user.scopes = this.scope
         return user
     }
 }

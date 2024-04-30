@@ -59,7 +59,7 @@ export default class UserController {
         next()
     }
 
-    static editUserScopes: RequestHandler = async (req, res, next) => {
+    static editUserScope: RequestHandler = async (req, res, next) => {
         const username: string = String(req.params.username)
         const currentUser = await DB.getUserByUsername(username)
         if (currentUser === null)
