@@ -1,4 +1,4 @@
-export enum UserScopes {
+export enum UserScope {
     user = "usr",
     regular = "reg",
     premium = "prm",
