@@ -77,7 +77,7 @@ export default class UserController {
     }
 
     static deleteUser: RequestHandler = async (req, res, next) => {
-        const username: string = String(req.params.id)
+        const username: string = String(req.params.username)
         if ((await DB.getUserByUsername(username)) === null)
             throw new NotFoundError(`User with username ${username} does not exist.`)
         await DB.deleteUser(username)
