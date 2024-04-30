@@ -124,5 +124,22 @@ describe("updating pollen calendar", () => {
             cy.compareSnapshot("editPollenCalendarPreview", { errorThreshold: 50 })
             cy.get("canvas").compareSnapshot("editPollenCalendarPreview", { errorThreshold: 50 })
         })
+
+        it("pollen calendar hover on data point should look as it does right now", () => {
+            cy.contains("button", "Preview data").click()
+            cy.wait(5000)
+
+            cy.get("canvas").then(($canvas) => {
+                const canvasWidth = $canvas.width()
+                const canvasHeight = $canvas.height()
+
+                let buttonX = canvasWidth * 0.53052
+                let buttonY = canvasHeight * 0.6427
+
+                cy.wrap($canvas).scrollIntoView().realTouch({ x: buttonX, y: buttonY })
+                cy.wait(5000)
+                cy.get("canvas").compareSnapshot("pollenCalendarDataPointHover1")
+            })
+        })
     })
 })
