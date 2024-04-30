@@ -1,4 +1,4 @@
-import { UserScopes } from "./UserScope";
+import { UserScope } from "./UserScope";
 
 /**
  * An interface representing a user.
@@ -9,7 +9,7 @@ export interface IUser {
     displayName: string
     verified: boolean
     registeredAt: string
-    scopes: UserScopes[]
+    scopes: UserScope[]
 }
 
 /**
@@ -33,7 +33,7 @@ export default class User implements IUser {
         this.displayName = obj?.displayName ?? ""
         this.verified = obj?.verified ?? false
         this.registeredAt = (obj?.registeredAt ? new Date(obj.registeredAt) : new Date()).toISOString()
-        this.scopes = obj?.scopes ?? [UserScopes.user, UserScopes.regular]
+        this.scopes = obj?.scopes ?? [UserScope.user, UserScope.regular]
     }
 
     username: string
@@ -41,5 +41,5 @@ export default class User implements IUser {
     displayName: string
     verified: boolean
     registeredAt: string
-    scopes: UserScopes[]
+    scopes: UserScope[]
 }
