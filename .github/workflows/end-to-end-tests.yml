@@ -13,10 +13,12 @@ jobs:
       - name: Start Backend
         run: |
           cd backend
+          npm ci
           npm run dev
       - name: Start Frontend
         run: |
           cd frontend
+          npm ci
           npm run dev
       - name: Run Cypress
         uses: cypress-io/github-action@v6
