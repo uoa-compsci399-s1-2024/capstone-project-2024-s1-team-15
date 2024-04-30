@@ -6,7 +6,7 @@ import "chartjs-adapter-dayjs-4/dist/chartjs-adapter-dayjs-4.esm"
 import "chart.js/auto"
 import { Chart } from "react-chartjs-2"
 
-import { ChartOptions, ChartType } from "chart.js"
+import { ChartOptions } from "chart.js"
 
 // includes bar chart & line chart on same axis
 const MultiChart = memo(function MultiChart({
@@ -86,14 +86,13 @@ const MultiChart = memo(function MultiChart({
 
         scales: {
             x: {
-                stacked: true,
-
-                // The axis for this scale is determined from the first letter of the id as `'x'`
-                // It is recommended to specify `position` and / or `axis` explicitly.
-                type: "timeseries",
+                type: "time",
+                time: {
+                    unit: "day",
+                },
 
                 min: dateLowerLimit,
-                max: dateUpperLimit,
+                max: dateUpperLimit + 50, //+50ms so right most pollen values don't get cut off from chart
                 title: { text: "Date", display: true },
                 ticks: {
                     // For a category axis, the val is the index so the lookup via getLabelForValue is needed

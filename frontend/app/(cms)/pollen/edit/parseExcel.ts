@@ -1,5 +1,6 @@
 import { read, utils, WorkSheet } from "xlsx"
 import { PollenData } from "./PollenDataType"
+import dayjs from "dayjs"
 
 export function parse(excelFile: ArrayBuffer): { pollenDataset: PollenData | null; errors: string[] } {
     let parsingErrors = [] as string[]
@@ -35,7 +36,20 @@ export function parse(excelFile: ArrayBuffer): { pollenDataset: PollenData | nul
         }
     })
 
-    return { pollenDataset: pollenDataForAllSheets.length ? pollenDataForAllSheets : null, errors: parsingErrors }
+    const returnedDataset = pollenDataForAllSheets.length ? sortValuesByDate(pollenDataForAllSheets) : null
+
+    return { pollenDataset: returnedDataset, errors: parsingErrors }
+}
+
+// so pollen calendar chart doesn't look weird
+// chart.js connects the lines based on the order of list, not based on the date value 🥲
+function sortValuesByDate(pollenData: PollenData): PollenData {
+    return pollenData.map((pollenType) => {
+        pollenType.pollenValues = pollenType.pollenValues.toSorted(
+            ({ date }, { date: date1 }) => dayjs(date).valueOf() - dayjs(date1).valueOf()
+        )
+        return pollenType
+    })
 }
 
 function add2PollenDatasets(pollenData1: PollenData, pollenData2: PollenData): PollenData {

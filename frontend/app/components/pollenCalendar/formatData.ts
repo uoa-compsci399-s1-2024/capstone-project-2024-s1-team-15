@@ -17,6 +17,7 @@ export function formatPollenData(pollenData: PollenData): FormattedPollenData {
             x: dayjs(date).valueOf(),
             y: value as number,
         }))
+
     pollenData = pollenData.slice(0, indexOfTotalCount)
 
     const pollenTypes = pollenData.map((row) => row.pollenName)
