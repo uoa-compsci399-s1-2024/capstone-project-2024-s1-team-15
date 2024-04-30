@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
         "esModuleInterop": true,
-        "types": ["cypress", "cypress-visual-regression"]
+        "types": ["cypress", "cypress-visual-regression"],
+        "resolveJsonModule": true
     }
 }
