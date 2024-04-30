@@ -20,12 +20,6 @@ const MultiChart = memo(function MultiChart({
 }) {
     const { pollenTypes, pollenValues, dailyTotals } = pollenData
 
-    const largestDailyTotal = Math.max(
-        ...dailyTotals.filter(({ x }) => x <= dateUpperLimit && x >= dateLowerLimit).map(({ y }) => y)
-    )
-    const axisPadding = 1.2
-    const maxPollenValue = largestDailyTotal * axisPadding
-
     const dateFormat = "DD/MM/YY"
     const chartData = {
         labels: pollenValues[0].map(({ x }) => dayjs(x).valueOf()),
@@ -41,10 +35,12 @@ const MultiChart = memo(function MultiChart({
                         1 - towerEffectWeighting + (towerEffectWeighting * (numPollenTypes - index)) / numPollenTypes,
                     barPercentage: 0.8,
                     type: "bar",
+                    stack: "barStack",
                     backgroundColor: selectColour(index),
                     borderColor: selectColour(index),
                 }
             }),
+
             ...pollenTypes.map((pollenType, index) => {
                 return {
                     data: pollenValues[index],
@@ -52,16 +48,15 @@ const MultiChart = memo(function MultiChart({
                     type: "line",
                     borderColor: selectColour(index),
                     backgroundColor: selectColour(index),
-                    yAxisID: "yLine",
                 }
             }),
+
             {
                 label: "Total Pollen",
                 data: dailyTotals,
                 borderColor: "black",
 
                 borderDash: [5, 5],
-                yAxisID: "yLine",
                 type: "line",
             },
         ],
@@ -92,7 +87,6 @@ const MultiChart = memo(function MultiChart({
         scales: {
             x: {
                 stacked: true,
-                // display: false,
 
                 // The axis for this scale is determined from the first letter of the id as `'x'`
                 // It is recommended to specify `position` and / or `axis` explicitly.
@@ -110,10 +104,8 @@ const MultiChart = memo(function MultiChart({
             },
 
             y: {
-                stacked: true,
-                min: -1 * maxPollenValue,
-                max: maxPollenValue,
-
+                suggestedMin: -10,
+                suggestedMax: 10,
                 title: {
                     display: true,
                     text: "Pollen grains per cubic metre of air",
@@ -125,12 +117,6 @@ const MultiChart = memo(function MultiChart({
                         return Math.abs(val as number)
                     },
                 },
-            },
-
-            yLine: {
-                min: -1 * maxPollenValue,
-                max: maxPollenValue,
-                display: false,
             },
         },
     }
