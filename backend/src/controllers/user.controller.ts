@@ -33,6 +33,8 @@ export default class UserController {
 
     static createUser: RequestHandler = async (req, res, next) => {
         const body = validate(NewUserIn, req.body)
+        if (await DB.getUserByUsername(body.username) !== null)
+            throw new NotFoundError(`User with username ${body.username} already exists.`)
         const u = body.toNewUser()
         await DB.createUser(u)
         res.location(`/user/${u.username}`)
