@@ -18,4 +18,3 @@ switch (process.env.ENV) {
 
 export const UI_URI = uiUri
 export const URLS = Object.fromEntries(Object.entries(ROUTES).map(([name, route]) => [name, UI_URI + route]))
-
