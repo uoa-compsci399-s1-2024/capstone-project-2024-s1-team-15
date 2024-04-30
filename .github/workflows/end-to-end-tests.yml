@@ -10,15 +10,13 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-      - name: Create env File
-        working-directory: ./backend
+      - name: Start Backend
         run: |
-          touch .env
-          echo PORT=3000 >> .env
-          echo COGNITO_CLIENT_ID=${{ secrets.COGNITO_CLIENT_ID }} >> .env
-          echo COGNITO_USERPOOL_ID=${{ secrets.COGNITO_USERPOOL_ID }} >> .env
+          cd backend
+          npm run dev
+      - name: Start Frontend
+        run: |
+          cd frontend
+          npm run dev
       - name: Run Cypress
         uses: cypress-io/github-action@v6
-        with:
-          build: npm run build
-          start: npm start --env-file=./backend/.env
