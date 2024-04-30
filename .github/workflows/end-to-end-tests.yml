@@ -7,18 +7,11 @@ on:
       - 'cypress/**'
 jobs:
   test:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Start Backend
-        run: |
-          cd backend
-          npm ci
-          npm run dev
-      - name: Start Frontend
-        run: |
-          cd frontend
-          npm ci
-          npm run dev
       - name: Run Cypress
         uses: cypress-io/github-action@v6
+        with:
+          run-front: cd frontend && npm ci && npm run dev
+          run-back: cd backend && npm ci && npm run dev
