@@ -84,6 +84,9 @@ const MultiChart = memo(function MultiChart({
             },
         },
 
+        maintainAspectRatio: false,
+        parsing: false,
+
         scales: {
             x: {
                 type: "time",
@@ -127,7 +130,7 @@ const MultiChart = memo(function MultiChart({
 
     return (
         <div className="flex">
-            {chartData && <Chart type="line" data={chartData as any} options={chartOptions}></Chart>}
+            {chartData && <Chart type="line" data={chartData as any} options={chartOptions} height="420"></Chart>}
         </div>
     )
 })
