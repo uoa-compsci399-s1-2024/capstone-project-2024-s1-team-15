@@ -13,4 +13,6 @@ jobs:
       - name: Run Cypress
         uses: cypress-io/github-action@v6
         with:
-          start: npm run cypress:start
+          start: |
+            npm run cypress:start
+            sleep 5

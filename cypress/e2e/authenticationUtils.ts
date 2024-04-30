@@ -32,4 +32,3 @@ export function userIsLoggedIn() {
     cy.contains("Logged in as Admin")
     cy.contains("Logout")
 }
-
