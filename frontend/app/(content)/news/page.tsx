@@ -2,12 +2,8 @@ import React from "react"
 import { Article, Paginator } from "@aapc/types"
 import { API_URI } from "@/app/consts"
 import ArticleCard from "@/app/components/ArticleCard"
-import Link from "next/link"
 import ButtonLink from "@/app/components/ButtonLink"
 import { getMetadata } from "@/app/util"
-
-// 👇 so npm run build passes (don't attempt to static render this page)
-export const dynamic = "force-dynamic"
 
 export const metadata = getMetadata("All News")
 
