@@ -41,9 +41,7 @@ describe("updating pollen calendar", () => {
             inputDataFile("cypress/fixtures/authSuccessResponse.json")
 
             cy.contains("button", "Preview data").click()
-            cy.contains(
-                "The file you have uploaded doesn't seem to be an Excel spreadsheet. The filename 'authSuccessResponse.json' doesn't have '.xlsx'"
-            )
+            cy.contains("Uploaded file 'authSuccessResponse.json' is not a .xlsx Excel spreadsheet.")
         })
     })
 
