@@ -11,7 +11,7 @@ function loginToEditPollenPage() {
 }
 
 function inputDataFile(filepath: string = "cypress/fixtures/Pollen Dummy Data - valid format.xlsx") {
-    cy.contains("label", "Upload .xlsx spreadsheet file with pollen data")
+    cy.contains("label", "Upload .xlsx Excel spreadsheet containing pollen data")
         .find("input[type='file']")
         .selectFile(filepath)
 }
@@ -30,7 +30,7 @@ describe("updating pollen calendar", () => {
 
     describe("invalid filetypes", () => {
         it("no file", () => {
-            cy.contains("label", "Upload .xlsx spreadsheet file with pollen data").find("input[type='file']")
+            cy.contains("label", "Upload .xlsx Excel spreadsheet containing pollen data").find("input[type='file']")
 
             cy.contains("button", "Preview data").click()
             cy.contains("No file uploaded")
