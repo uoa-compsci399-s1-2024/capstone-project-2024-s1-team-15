@@ -1,5 +1,5 @@
 import { read, utils, WorkSheet } from "xlsx"
-import { PollenData, PollenValue } from "./PollenDataType"
+import { PollenData, PollenValue } from "../type/PollenDataType"
 
 export function parseSpreadsheet(spreadsheet: ArrayBuffer): { pollenDataset: PollenData[] | null, errors?: string[] } {
     let parsingErrors: string[] = []

@@ -1,4 +1,4 @@
-const assumptions = [
+const parseAssumptions = [
     '⚠️ Assume relevant worksheets in spreadsheet contain "raw" in its name',
 
     "⚠️ Assume Row 1 contains dates",
@@ -18,4 +18,4 @@ const assumptions = [
     "⚠️ Assume that if a whole number value does not exist for a pollen value, then it is undefined"
 ]
 
-export default assumptions
+export default parseAssumptions
