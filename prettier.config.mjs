@@ -1,4 +1,4 @@
-export default {"trailingComma": "es5",
+const config = {"trailingComma": "es5",
 "tabWidth": 4,
 "semi": false,
 "singleQuote": false,
@@ -6,3 +6,5 @@ export default {"trailingComma": "es5",
 "bracketSameLine": true,
 "endOfLine": "crlf"
 }
+
+export default config
