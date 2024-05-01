@@ -1,8 +1,8 @@
 import { DEFAULT_ID_LENGTH } from "@/util/const"
 import { ValidationError } from "@/errors/ValidationError"
 import { BadRequestError } from "@/errors/HTTPErrors"
-import { Paginator } from "@aapc/types";
-import { Request } from "express";
+import { Paginator } from "@aapc/types"
+import { Request } from "express"
 import { ArrayResult } from "@/util/types/types"
 
 export function getRandomID(length: number = DEFAULT_ID_LENGTH) {
@@ -25,13 +25,19 @@ export function validate<T>(inputType: { new (obj: any): T }, obj: any): T {
     }
 }
 
-export function getPaginator<T extends {}>(type: { new(obj: object): T }, req: Request, ar: ArrayResult<T>, p: number, pp: number): Paginator<T> {
+export function getPaginator<T extends {}>(
+    type: { new (obj: object): T },
+    req: Request,
+    ar: ArrayResult<T>,
+    p: number,
+    pp: number
+): Paginator<T> {
     const url = new URL(`${req.protocol}://${req.get("host")}${req.originalUrl}`)
     const paginator = new Paginator(type, {
         resultsPerPage: pp,
         currentPage: p,
         totalResults: ar.totalResults,
-        data: ar.results
+        data: ar.results,
     })
     if (p < paginator.lastPage) {
         url.searchParams.set("p", String(p + 1))

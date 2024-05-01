@@ -21,10 +21,12 @@ export default class AuthController {
         const authToken = await AUTH.login(user, body.password)
         if (authToken === null) throw incorrectLoginError
 
-        res.status(200).json({
-            token: authToken,
-            user: user,
-        }).send()
+        res.status(200)
+            .json({
+                token: authToken,
+                user: user,
+            })
+            .send()
         next()
     }
 

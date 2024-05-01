@@ -16,18 +16,18 @@ export default class ResearchController {
             maxResults: query.pp,
             sort: [{ field: query.sortBy, descending: query.desc }],
         }
-        let r = query.t === undefined
-            ? await DB.getAllResearch(options)
-            : await DB.searchResearchByTitle(query.t, options)
-        res.status(200).json(getPaginator(Article, req, r, query.p, query.pp)).send()
+        let r =
+            query.t === undefined ? await DB.getAllResearch(options) : await DB.searchResearchByTitle(query.t, options)
+        res.status(200)
+            .json(getPaginator(Article, req, r, query.p, query.pp))
+            .send()
         next()
     }
 
     static getResearchById: RequestHandler = async (req, res, next) => {
         const id: string = String(req.params.id)
         const a = await DB.getResearchById(id)
-        if (a === null)
-            throw new NotFoundError(`Research article with id ${req.params.id} does not exist.`)
+        if (a === null) throw new NotFoundError(`Research article with id ${req.params.id} does not exist.`)
         res.status(200).json(a).send()
         next()
     }
@@ -45,8 +45,7 @@ export default class ResearchController {
     static editResearch: RequestHandler = async (req, res, next) => {
         const id: string = String(req.params.id)
         const currentArticle = await DB.getResearchById(id)
-        if (currentArticle === null)
-            throw new NotFoundError(`Research article with id ${id} does not exist.`)
+        if (currentArticle === null) throw new NotFoundError(`Research article with id ${id} does not exist.`)
         const body = validate(EditArticleIn, req.body)
         const n = body.toExistingArticle(currentArticle)
         try {

@@ -16,18 +16,17 @@ export default class NewsController {
             maxResults: query.pp,
             sort: [{ field: query.sortBy, descending: query.desc }],
         }
-        let n = query.t === undefined
-            ? await DB.getAllNews(options)
-            : await DB.searchNewsByTitle(query.t, options)
-        res.status(200).json(getPaginator(Article, req, n, query.p, query.pp)).send()
+        let n = query.t === undefined ? await DB.getAllNews(options) : await DB.searchNewsByTitle(query.t, options)
+        res.status(200)
+            .json(getPaginator(Article, req, n, query.p, query.pp))
+            .send()
         next()
     }
 
     static getNewsById: RequestHandler = async (req, res, next) => {
         const id: string = String(req.params.id)
         const a = await DB.getNewsById(id)
-        if (a === null)
-            throw new NotFoundError(`News article with id ${id} does not exist.`)
+        if (a === null) throw new NotFoundError(`News article with id ${id} does not exist.`)
         res.status(200).json(a).send()
         next()
     }
@@ -45,8 +44,7 @@ export default class NewsController {
     static editNews: RequestHandler = async (req, res, next) => {
         const id: string = String(req.params.id)
         const currentArticle = await DB.getNewsById(id)
-        if (currentArticle === null)
-            throw new NotFoundError(`News article with id ${id} does not exist.`)
+        if (currentArticle === null) throw new NotFoundError(`News article with id ${id} does not exist.`)
         const body = validate(EditArticleIn, req.body)
         const n = body.toExistingArticle(currentArticle)
         try {
@@ -61,8 +59,7 @@ export default class NewsController {
 
     static deleteNews: RequestHandler = async (req, res, next) => {
         const id: string = String(req.params.id)
-        if ((await DB.getNewsById(id)) === null)
-            throw new NotFoundError(`News article with id ${id} does not exist.`)
+        if ((await DB.getNewsById(id)) === null) throw new NotFoundError(`News article with id ${id} does not exist.`)
         await DB.deleteNews(id)
         res.status(204).send()
         next()

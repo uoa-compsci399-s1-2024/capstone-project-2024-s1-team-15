@@ -1,4 +1,4 @@
-import { UserScope } from "@aapc/types";
+import { UserScope } from "@aapc/types"
 
 export type InputParameterLocation = "query" | "path" | "body"
 
@@ -83,14 +83,14 @@ export default class Validator<T> {
                 this.errors.push({
                     field: k,
                     location: this.location,
-                    message: messages.join("; ")
+                    message: messages.join("; "),
                 })
             }
         } else {
             this.errors.push({
                 field: k,
                 location: this.location,
-                message: `Expected array, got '${param}' which is not an array`
+                message: `Expected array, got '${param}' which is not an array`,
             })
         }
     }

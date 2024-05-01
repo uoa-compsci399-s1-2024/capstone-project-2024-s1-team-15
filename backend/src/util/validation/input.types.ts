@@ -12,7 +12,7 @@ interface IArticleIn extends Omit<IArticle, "id" | "lastEditedAt" | "publishedAt
 
 interface INewUserIn extends Omit<IUser, "verified" | "registeredAt"> {}
 
-interface IEditUserIn extends Omit<IUser, "verified" | "registeredAt" | "username" | "scopes" > {}
+interface IEditUserIn extends Omit<IUser, "verified" | "registeredAt" | "username" | "scopes"> {}
 
 interface IEditUserScopeIn {
     scope: UserScope[]
@@ -136,7 +136,7 @@ export class NewUserIn extends Validator<INewUserIn> implements INewUserIn {
             displayName: this.displayName,
             verified: true, // TODO: set false when user verification is added
             registeredAt: new Date().toISOString(),
-            scopes: this.scopes
+            scopes: this.scopes,
         })
     }
 }
