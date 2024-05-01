@@ -29,6 +29,8 @@ export const ROUTES = {
     FORGOT_PASSWORD: "/forgot-password",
 
     REDIRECT_AFTER_LOGIN: "/",
+
+    EDIT_POLLEN_DATA: "/pollen/edit",
 }
 
 export const OPEN_AUTH_ROUTES = [ROUTES.LOGIN, ROUTES.FORGOT_PASSWORD] // no auth required for these ones
