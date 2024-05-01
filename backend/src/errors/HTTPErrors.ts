@@ -1,4 +1,4 @@
-import { InputValidationFailure } from "@/util/validation/validator";
+import { InputValidationFailure } from "@/util/validation/validator"
 
 export abstract class HTTPError extends Error {
     public status: number

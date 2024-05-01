@@ -4,7 +4,7 @@ import NewsRouter from "@/routes/news.router"
 import ResearchRouter from "@/routes/research.router"
 import AuthRouter from "@/routes/auth.router"
 import { errorHandler } from "@/middleware/ErrorHandler"
-import UserRouter from "@/routes/user.router";
+import UserRouter from "@/routes/user.router"
 
 dotenv.config()
 

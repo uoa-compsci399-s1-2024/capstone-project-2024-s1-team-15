@@ -21,8 +21,7 @@ export default async function Footer(): Promise<React.JSX.Element> {
                 className={`fixed bottom-0 h-16 w-full bg-gradient-to-t from-green-100 flex justify-center items-center z-50`}>
                 <div className={"py-6 px-12 flex-col flex justify-center items-center"}>
                     <span className={"font-bold text-xl text-black tracking-tight"}>aapc-nz.org</span>
-                    <span
-                        className={"text-secondary text-xs space-x-4" + (ENV !== "PROD" ? "" : " hidden")}>
+                    <span className={"text-secondary text-xs space-x-4" + (ENV !== "PROD" ? "" : " hidden")}>
                         <span>
                             frontend env: <b className={"font-mono"}>{(ENV ?? "local").toLowerCase()}</b>
                         </span>

@@ -31,7 +31,7 @@ export default function EditPollen() {
             if (parseResults.errors) {
                 setError({
                     message: "These errors occurred while trying to parse the Excel spreadsheet:",
-                    errors: parseResults.errors
+                    errors: parseResults.errors,
                 })
             } else {
                 setPollenDataset(parseResults.pollenDataset)
@@ -46,7 +46,7 @@ export default function EditPollen() {
         const fileInputElement: HTMLInputElement = fileInputReference.current
         if (!fileInputElement.files?.length || !fileInputElement.files[0]) {
             return setError({
-                message: "No file uploaded."
+                message: "No file uploaded.",
             })
         }
         const uploadedFile = fileInputElement.files[0]
@@ -67,22 +67,26 @@ export default function EditPollen() {
                     <p>Upload .xlsx Excel spreadsheet containing pollen data</p>
                     <input type="file" ref={fileInputReference} />
                 </label>
-                <button type="submit" className="button" onClick={validateInputFileType}>Preview data</button>
-                {error && (error.errors
-                    ? <>
-                        <p className="form-error font-bold"> {error.message} </p>
-                        <ul className="list-disc pl-4 mt-5">
-                            {error.errors.map((msg) => {
-                                return (
-                                    <li key={msg}>
-                                        <p className="form-error">{msg}</p>
-                                    </li>
-                                )
-                            })}
-                        </ul>
-                    </>
-                    : <p className="form-error">{error.message}</p>
-                )}
+                <button type="submit" className="button" onClick={validateInputFileType}>
+                    Preview data
+                </button>
+                {error &&
+                    (error.errors ? (
+                        <>
+                            <p className="form-error font-bold"> {error.message} </p>
+                            <ul className="list-disc pl-4 mt-5">
+                                {error.errors.map((msg) => {
+                                    return (
+                                        <li key={msg}>
+                                            <p className="form-error">{msg}</p>
+                                        </li>
+                                    )
+                                })}
+                            </ul>
+                        </>
+                    ) : (
+                        <p className="form-error">{error.message}</p>
+                    ))}
             </form>
 
             {inputFile && pollenDataset && <div>Preview generated ✅</div>}
@@ -90,8 +94,8 @@ export default function EditPollen() {
             <section className="mt-20">
                 <h2 className="text-2xl font-bold mb-5">Parser Assumptions ️</h2>
                 <p>
-                    The parsing algorithm that attempts to understand your Excel spreadsheet
-                    operates under these assumptions:
+                    The parsing algorithm that attempts to understand your Excel spreadsheet operates under these
+                    assumptions:
                 </p>
                 <ul className="list-disc pl-4 mt-5">
                     {parseAssumptions.map((assumption) => {

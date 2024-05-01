@@ -1,6 +1,6 @@
 import { JwtPayload, sign, verify } from "jsonwebtoken"
 import { Nullable } from "@/util/types/types"
-import { IUser, UserScope } from "@aapc/types";
+import { IUser, UserScope } from "@aapc/types"
 
 export default class AuthContext {
     private readonly authServiceProvider: IAuthService
@@ -15,7 +15,7 @@ export default class AuthContext {
         return sign(
             {
                 username: username,
-                scopes: scopes
+                scopes: scopes,
             },
             this.jwtSecret
         )

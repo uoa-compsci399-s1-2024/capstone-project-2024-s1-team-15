@@ -8,7 +8,7 @@ describe("pollen data", () => {
             mockValidCredentials()
             loginAttempt()
             userIsLoggedIn()
-            cy.visit(URLS.EDIT_POLLEN_DATA)  // TODO: login should already redirect here!!!!
+            cy.visit(URLS.EDIT_POLLEN_DATA) // TODO: login should already redirect here!!!!
         })
 
         it("valid excel file", () => {
