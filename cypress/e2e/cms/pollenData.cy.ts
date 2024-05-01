@@ -34,7 +34,7 @@ describe("pollen data", () => {
                 .selectFile("cypress/fixtures/authSuccessResponse.json")
 
             cy.contains("button", "Preview data").click()
-            cy.contains("Uploaded file is not a .xlsx Excel spreadsheet.")
+            cy.contains("Uploaded file 'authSuccessResponse.json' is not a .xlsx Excel spreadsheet.")
         })
     })
 

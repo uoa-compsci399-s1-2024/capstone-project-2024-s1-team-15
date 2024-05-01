@@ -53,7 +53,7 @@ export default function EditPollen() {
         console.log({ uploadedFile })
         if (!uploadedFile.name.endsWith(".xlsx")) {
             return setError({
-                message: "Uploaded file is not a .xlsx Excel spreadsheet."
+                message: `Uploaded file '${uploadedFile.name}' is not a .xlsx Excel spreadsheet.`,
             })
         }
         setError(null)
