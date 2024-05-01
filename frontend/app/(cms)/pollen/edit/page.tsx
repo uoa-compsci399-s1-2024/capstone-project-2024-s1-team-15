@@ -1,10 +1,10 @@
 "use client"
 
 import React, { useEffect, useState, useRef } from "react"
-import { parseSpreadsheet } from "./parseExcel"
+import { parseSpreadsheet } from "./util/parseExcel"
 
-import assumptions from "./assumptions"
-import { PollenData } from "./PollenDataType"
+import parseAssumptions from "./util/parseAssumptions"
+import { PollenData } from "./type/PollenDataType"
 
 type ParseError = {
     message: string
@@ -94,7 +94,7 @@ export default function EditPollen() {
                     operates under these assumptions:
                 </p>
                 <ul className="list-disc pl-4 mt-5">
-                    {assumptions.map((assumption) => {
+                    {parseAssumptions.map((assumption) => {
                         return <li key={assumption}>{assumption}</li>
                     })}
                 </ul>
