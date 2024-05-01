@@ -1,24 +1,21 @@
 name: End-to-End Tests
 on:
-  push:
-    paths:
-      - 'backend/**'
-      - 'frontend/**'
-      - 'cypress/**'
+    pull_request:
+        branches: [main, dev]
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Install Dependencies
-        run: |
-          cd frontend
-          npm ci
-          cd ../backend
-          npm ci
-      - name: Run Cypress
-        uses: cypress-io/github-action@v6
-        with:
-          start: npm run cypress:start
-          wait-on: "http://localhost:3000, http://localhost:3001"
-          wait-on-timeout: 60
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - name: Install Dependencies
+              run: |
+                  cd frontend
+                  npm ci
+                  cd ../backend
+                  npm ci
+            - name: Run Cypress
+              uses: cypress-io/github-action@v6
+              with:
+                  start: npm run cypress:start
+                  wait-on: "http://localhost:3000, http://localhost:3001"
+                  wait-on-timeout: 60
