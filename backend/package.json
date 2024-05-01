@@ -1,35 +1,32 @@
 {
-    "name": "aapc-backend",
-    "version": "0.1.1",
-    "private": true,
-    "description": "The backend of the AAPC website.",
-    "scripts": {
-        "dev": "nodemon -x tsx ./src/index.ts",
-        "build": "tsc --build && tsc-alias",
-        "start": "node ./dist/index.js",
-        "deploy:development": "npm run build && vercel build && vercel deploy --prebuilt",
-        "deploy:production": "npm run build && vercel build --prod && vercel --prod deploy --prebuilt",
-        "prettier": "prettier . --check",
-        "prettier:fix": "prettier . --write"
-    },
-    "dependencies": {
-        "@aapc/types": "0.3.3",
-        "amazon-cognito-identity-js": "^6.3.12",
-        "cors": "^2.8.5",
-        "dotenv": "^16.4.5",
-        "express": "^4.19.2",
-        "express-async-handler": "^1.2.0",
-        "jsonwebtoken": "^9.0.2",
-        "mongodb": "^6.5.0"
-    },
-    "devDependencies": {
-        "@types/express": "^4.17.21",
-        "@types/jsonwebtoken": "^9.0.6",
-        "@types/node": "^20.12.7",
-        "nodemon": "^3.1.0",
-        "prettier": "3.2.5",
-        "tsc-alias": "^1.8.8",
-        "tsx": "^4.7.1",
-        "typescript": "^5.4.3"
-    }
+  "name": "aapc-backend",
+  "version": "0.1.1",
+  "private": true,
+  "description": "The backend of the AAPC website.",
+  "scripts": {
+    "dev": "nodemon -x tsx ./src/index.ts",
+    "build": "tsc --build && tsc-alias",
+    "start": "node ./dist/index.js",
+    "deploy:development": "npm run build && vercel build && vercel deploy --prebuilt",
+    "deploy:production": "npm run build && vercel build --prod && vercel --prod deploy --prebuilt"
+  },
+  "dependencies": {
+    "@aapc/types": "0.3.3",
+    "amazon-cognito-identity-js": "^6.3.12",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-async-handler": "^1.2.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.5.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/node": "^20.12.7",
+    "nodemon": "^3.1.0",
+    "tsc-alias": "^1.8.8",
+    "tsx": "^4.7.1",
+    "typescript": "^5.4.3"
+  }
 }
