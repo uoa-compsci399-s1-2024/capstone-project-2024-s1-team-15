@@ -8,7 +8,7 @@ describe("pollen data", () => {
             mockValidCredentials()
             loginAttempt()
             userIsLoggedIn()
-            cy.visit(URLS.EDIT_POLLEN_DATA) // TODO: login should already redirect here!!!!
+            cy.visit(URLS.EDIT_POLLEN_DATA)  // TODO: login should already redirect here!!!!
         })
 
         it("valid excel file", () => {
@@ -34,6 +34,7 @@ describe("pollen data", () => {
                 .selectFile("cypress/fixtures/authSuccessResponse.json")
 
             cy.contains("button", "Preview data").click()
+
             cy.contains("Uploaded file 'authSuccessResponse.json' is not a .xlsx Excel spreadsheet.")
         })
     })

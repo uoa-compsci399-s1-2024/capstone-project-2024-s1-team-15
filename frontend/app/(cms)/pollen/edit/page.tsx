@@ -67,6 +67,7 @@ export default function EditPollen() {
                     <p>Upload .xlsx Excel spreadsheet containing pollen data</p>
                     <input type="file" ref={fileInputReference} />
                 </label>
+
                 <button type="submit" className="button" onClick={validateInputFileType}>
                     Preview data
                 </button>
