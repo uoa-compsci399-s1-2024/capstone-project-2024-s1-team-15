@@ -9,6 +9,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 20
+      - name: list files
+        run: ls
       - name: Install Dependencies
         run: npm ci -D
       - name: Run Prettier format check
