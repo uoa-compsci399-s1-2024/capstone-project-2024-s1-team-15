@@ -1,78 +1,79 @@
 "use client"
 
 import React, { useEffect, useState, useRef } from "react"
-import { parse } from "./parseExcel"
-
-import assumptions from "./assumptions made to parse excel file"
-import { PollenData } from "./PollenDataType"
+import { parseSpreadsheet } from "./util/parseExcel"
+import parseAssumptions from "./util/parseAssumptions"
+import { PollenData } from "./type/PollenDataType"
 import PollenCalendar from "@/app/components/pollenCalendar"
 
+type ParseError = {
+    message: string
+    errors?: string[]
+}
+
+type Nullable<T> = T | null
+
 export default function EditPollen() {
-    const [errorMessages, setErrorMessages] = useState(null as string[] | null)
     const fileInputReference = useRef(null)
-    const [inputFileWithValidFileType, setInputFileWithValidFileType] = useState(null as null | File)
-    const [pollenDataset, setPollenDataset] = useState(null as null | PollenData)
+
+    const [error, setError] = useState<Nullable<ParseError>>(null)
+    const [inputFile, setInputFile] = useState<Nullable<File>>(null) // only store after filetype is checked though
+    const [pollenDataset, setPollenDataset] = useState<Nullable<PollenData[]>>(null)
 
     useEffect(() => {
-        if (!inputFileWithValidFileType) return
-
-        inputFileWithValidFileType.arrayBuffer().then((res) => {
-            const parseResults = parse(res)
-
-            setPollenDataset(parseResults.pollenDataset)
-
-            if (parseResults.errors.length) {
-                setErrorMessages([
-                    "These errors occured while trying to parse (understand) the excel spreadsheet:",
-                    ...parseResults.errors,
-                ])
+        if (!inputFile) return
+        inputFile.arrayBuffer().then((res) => {
+            const parseResults = parseSpreadsheet(res)
+            if (parseResults.errors) {
+                setError({
+                    message: "These errors occurred while trying to parse the Excel spreadsheet:",
+                    errors: parseResults.errors,
+                })
+            } else {
+                setPollenDataset(parseResults.pollenDataset)
             }
         })
-    }, [inputFileWithValidFileType])
+    }, [inputFile])
 
     function validateInputFileType(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
         e.preventDefault()
 
         if (!fileInputReference.current) return
-
         const fileInputElement: HTMLInputElement = fileInputReference.current
-
-        if (!fileInputElement.files?.length || !fileInputElement.files[0]) return setErrorMessages(["No file uploaded"])
-
+        if (!fileInputElement.files?.length || !fileInputElement.files[0]) {
+            return setError({
+                message: "No file uploaded.",
+            })
+        }
         const uploadedFile = fileInputElement.files[0]
-
         console.log({ uploadedFile })
 
-        if (!uploadedFile.name.includes(".xlsx"))
-            return setErrorMessages([
-                `The file you have uploaded doesn't seem to be an Excel spreadsheet. The filename '${uploadedFile.name}' doesn't have '.xlsx'`,
-            ])
-
-        setErrorMessages(null)
-        setInputFileWithValidFileType(uploadedFile)
+        if (!uploadedFile.name.endsWith(".xlsx")) {
+            return setError({
+                message: `Uploaded file '${uploadedFile.name}' is not a .xlsx Excel spreadsheet.`,
+            })
+        }
+        setError(null)
+        setInputFile(uploadedFile)
     }
 
     return (
         <>
             <form className="flex flex-col items-start gap-2">
                 <label>
-                    <span>Upload .xlsx spreadsheet file with pollen data</span>
-                    <br />
+                    <p>Upload .xlsx Excel spreadsheet containing pollen data</p>
                     <input type="file" ref={fileInputReference} />
                 </label>
 
                 <button type="submit" className="button" onClick={validateInputFileType}>
                     Preview data
                 </button>
-
-                {errorMessages?.length &&
-                    (errorMessages.length === 1 ? (
-                        <p className="form-error">{errorMessages[0]}</p>
-                    ) : (
+                {error &&
+                    (error.errors ? (
                         <>
-                            <p className="form-error font-bold"> {errorMessages[0]} </p>
+                            <p className="form-error font-bold"> {error.message} </p>
                             <ul className="list-disc pl-4 mt-5">
-                                {errorMessages.slice(1).map((msg) => {
+                                {error.errors.map((msg) => {
                                     return (
                                         <li key={msg}>
                                             <p className="form-error">{msg}</p>
@@ -81,10 +82,12 @@ export default function EditPollen() {
                                 })}
                             </ul>
                         </>
+                    ) : (
+                        <p className="form-error">{error.message}</p>
                     ))}
             </form>
 
-            {inputFileWithValidFileType && pollenDataset && (
+            {inputFile && pollenDataset && (
                 <div className="mt-10">
                     <h3 className="font-bold text-2xl my-2">Preview generated ✅</h3>
                     <PollenCalendar pollenData={pollenDataset}></PollenCalendar>
@@ -95,15 +98,15 @@ export default function EditPollen() {
                 </div>
             )}
 
-            {inputFileWithValidFileType && errorMessages && (
+            {inputFile && error && (
                 <section className="mt-20">
-                    <h3 className="text-4xl mb-5">Assumptions ⚠️</h3>
+                    <h2 className="text-2xl font-bold mb-5">Parser Assumptions ️</h2>
                     <p>
-                        The parsing algorithm that attempts to understand your Excel file input makes the following
+                        The parsing algorithm that attempts to understand your Excel spreadsheet operates under these
                         assumptions:
                     </p>
                     <ul className="list-disc pl-4 mt-5">
-                        {assumptions.map((assumption) => {
+                        {parseAssumptions.map((assumption) => {
                             return <li key={assumption}>{assumption}</li>
                         })}
                     </ul>
