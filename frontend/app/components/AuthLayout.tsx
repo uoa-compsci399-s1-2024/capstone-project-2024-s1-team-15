@@ -1,6 +1,6 @@
 "use client"
 
-import AuthProvider, { useAuth } from "../cms-authentication/AuthContext"
+import AuthProvider, { useAuth } from "../(auth)/CMSAuthContext"
 
 // this component provides auth context to all child components
 export default function AuthLayout({ children }: { children: React.ReactNode }) {

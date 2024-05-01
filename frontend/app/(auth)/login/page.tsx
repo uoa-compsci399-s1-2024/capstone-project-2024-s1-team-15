@@ -1,6 +1,6 @@
 "use client"
 
-import { useAuth } from "@/app/cms-authentication/AuthContext"
+import { useAuth } from "@/app/(auth)/CMSAuthContext"
 import React, { useState } from "react"
 
 export default function Login() {
