@@ -12,9 +12,14 @@ export default function Nav(): React.JSX.Element {
                 </div>
                 <div className={"pr-20"}>
                     <Link href={"/login"}>
-                        <button className={"py-2 px-6 rounded-full text-black font-semibold text-xs w-28"} style={{ backgroundColor: '#FFD166' }}>
-                            Log in
-                        </button>
+                    <button 
+                    className="py-2 px-6 rounded-full text-black font-semibold text-xs w-28 transition duration-300 ease-in-out shadow-md hover:shadow-lg transform hover:-translate-y-0.5 hover:scale-105"
+                    style={{ 
+                        backgroundColor: '#FFD166',
+                    }}
+                    >
+                        Log in
+                    </button>
                     </Link>
                 </div>
             </div>
