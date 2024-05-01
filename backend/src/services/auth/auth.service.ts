@@ -1,5 +1,6 @@
 import { JwtPayload, sign, verify } from "jsonwebtoken"
 import { Nullable } from "@/util/types/types"
+import { IUser, UserScope } from "@aapc/types"
 
 export default class AuthContext {
     private readonly authServiceProvider: IAuthService
@@ -10,19 +11,19 @@ export default class AuthContext {
         this.jwtSecret = jwtSecret
     }
 
-    private issueToken(username: string): string {
+    private issueToken(username: string, scopes: UserScope[]): string {
         return sign(
             {
                 username: username,
-                scopes: ["user", "admin"],
+                scopes: scopes,
             },
             this.jwtSecret
         )
     }
 
-    async login(username: string, password: string): Promise<Nullable<string>> {
-        if (await this.authServiceProvider.authenticateUser(username, password)) {
-            return this.issueToken(username)
+    async login(user: IUser, password: string): Promise<Nullable<string>> {
+        if (await this.authServiceProvider.authenticateUser(user.username, password)) {
+            return this.issueToken(user.username, user.scopes)
         }
         return null
     }

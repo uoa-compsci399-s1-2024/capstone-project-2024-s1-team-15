@@ -1,4 +1,4 @@
-import { Article, IArticle, User } from "@aapc/types"
+import { Article, IArticle, IUser, User } from "@aapc/types"
 import { ArrayResult, ArrayResultOptions, Nullable, SortOptions } from "@/util/types/types"
 import IRepository from "@/services/repository/repository.service"
 import users from "@/services/repository/memory/data/users.json"
@@ -16,7 +16,7 @@ export default class MemoryRepository implements IRepository {
     constructor() {
         this.users = []
         users.forEach((i) => {
-            this.users.push(new User(i))
+            this.users.push(new User(<IUser>i))
         })
 
         this.news = []

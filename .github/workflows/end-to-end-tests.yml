@@ -1,20 +1,24 @@
-name: End-to-end tests
-on: push
+name: End-to-End Tests
+on:
+  push:
+    paths:
+      - 'backend/**'
+      - 'frontend/**'
+      - 'cypress/**'
 jobs:
-    cypress-run:
-        runs-on: ubuntu-22.04
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v4
-            - name: Create env File
-              working-directory: ./backend
-              run: |
-                  touch .env
-                  echo PORT=3000 >> .env
-                  echo COGNITO_CLIENT_ID=${{ secrets.COGNITO_CLIENT_ID }} >> .env
-                  echo COGNITO_USERPOOL_ID=${{ secrets.COGNITO_USERPOOL_ID }} >> .env
-            - name: Cypress run
-              uses: cypress-io/github-action@v6
-              with:
-                  build: npm run build
-                  start: npm start --env-file=./backend/.env
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Dependencies
+        run: |
+          cd frontend
+          npm ci
+          cd ../backend
+          npm ci
+      - name: Run Cypress
+        uses: cypress-io/github-action@v6
+        with:
+          start: npm run cypress:start
+          wait-on: "http://localhost:3000, http://localhost:3001"
+          wait-on-timeout: 60
