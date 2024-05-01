@@ -1,0 +1,21 @@
+name: Prettier formatting
+on:
+    pull_request:
+        branches: [main, dev]
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - name: Install Dependencies
+              run: |
+                  cd frontend
+                  npm ci -D
+                  cd ../backend
+                  npm ci -D
+            - name: Run Prettier format check
+              run: |
+                  cd frontend
+                  npm run prettier
+                  cd ../backend
+                  npm run prettier

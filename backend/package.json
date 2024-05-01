@@ -9,8 +9,8 @@
         "start": "node ./dist/index.js",
         "deploy:development": "npm run build && vercel build && vercel deploy --prebuilt",
         "deploy:production": "npm run build && vercel build --prod && vercel --prod deploy --prebuilt",
-        "prettier": "npx prettier . --check",
-        "prettier:fix": "npx prettier . --write"
+        "prettier": "prettier . --check",
+        "prettier:fix": "prettier . --write"
     },
     "dependencies": {
         "@aapc/types": "0.3.3",
