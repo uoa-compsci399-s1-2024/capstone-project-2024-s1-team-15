@@ -24,14 +24,14 @@ export default function EditPollen() {
         if (!inputFile) return
         inputFile.arrayBuffer().then((res) => {
             const parseResults = parseSpreadsheet(res)
-            if (parseResults.errors) {
+            parseResults.errors &&
                 setError({
                     message: "These errors occurred while trying to parse the Excel spreadsheet:",
                     errors: parseResults.errors,
                 })
-            } else {
-                setPollenDataset(parseResults.pollenDataset)
-            }
+
+            // even with errors, if something was parsed, show a preview for it
+            parseResults.pollenDataset && setPollenDataset(parseResults.pollenDataset)
         })
     }, [inputFile])
 
@@ -98,7 +98,7 @@ export default function EditPollen() {
                 </div>
             )}
 
-            {inputFile && error && (
+            {error && (
                 <section className="mt-20">
                     <h2 className="text-2xl font-bold mb-5">Parser Assumptions ️</h2>
                     <p>

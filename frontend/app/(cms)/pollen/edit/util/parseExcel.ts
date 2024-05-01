@@ -37,10 +37,10 @@ export function parseSpreadsheet(spreadsheet: ArrayBuffer): { pollenDataset: Pol
             )
         }
     })
-    if (parsingErrors.length === 0) {
-        return { pollenDataset: consolidatedPollenDataset }
-    } else {
-        return { pollenDataset: null, errors: parsingErrors }
+
+    return {
+        pollenDataset: consolidatedPollenDataset.length ? consolidatedPollenDataset : null,
+        errors: parsingErrors.length ? parsingErrors : undefined,
     }
 }
 

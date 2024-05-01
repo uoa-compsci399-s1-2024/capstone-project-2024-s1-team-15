@@ -1,4 +1,4 @@
-import { PollenData } from "@/app/(cms)/pollen/edit/PollenDataType"
+import { PollenData } from "@/app/(cms)/pollen/edit/type/PollenDataType"
 import dayjs from "dayjs"
 
 // format that works well for charts
@@ -8,7 +8,7 @@ export type FormattedPollenData = {
     dailyTotals: { x: number; y: number }[]
 }
 
-export function formatPollenData(pollenData: PollenData): FormattedPollenData {
+export function formatPollenData(pollenData: PollenData[]): FormattedPollenData {
     const indexOfTotalCount = pollenData.findIndex((pollenType) => pollenType.pollenName === "Total pollen counted")
 
     const dailyTotals = pollenData[indexOfTotalCount].pollenValues

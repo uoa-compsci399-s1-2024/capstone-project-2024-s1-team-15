@@ -11,7 +11,7 @@ function loginToEditPollenPage() {
 }
 
 function inputDataFile(filepath: string = "cypress/fixtures/Pollen Dummy Data - valid format.xlsx") {
-    cy.contains("label", "Upload .xlsx spreadsheet file with pollen data")
+    cy.contains("label", "Upload .xlsx Excel spreadsheet containing pollen data")
         .find("input[type='file']")
         .selectFile(filepath)
 }
@@ -30,10 +30,10 @@ describe("updating pollen calendar", () => {
 
     describe("invalid filetypes", () => {
         it("no file", () => {
-            cy.contains("label", "Upload .xlsx spreadsheet file with pollen data").find("input[type='file']")
+            cy.contains("label", "Upload .xlsx Excel spreadsheet containing pollen data").find("input[type='file']")
 
             cy.contains("button", "Preview data").click()
-            cy.contains("No file uploaded")
+            cy.contains("No file uploaded.")
             cy.contains("Preview generated ✅").should("not.exist")
         })
 
@@ -41,9 +41,7 @@ describe("updating pollen calendar", () => {
             inputDataFile("cypress/fixtures/authSuccessResponse.json")
 
             cy.contains("button", "Preview data").click()
-            cy.contains(
-                "The file you have uploaded doesn't seem to be an Excel spreadsheet. The filename 'authSuccessResponse.json' doesn't have '.xlsx'"
-            )
+            cy.contains("Uploaded file 'authSuccessResponse.json' is not a .xlsx Excel spreadsheet.")
         })
     })
 
@@ -55,7 +53,7 @@ describe("updating pollen calendar", () => {
 
             cy.contains("button", "Preview data").click()
             cy.contains(
-                "This spreadsheet has no worksheet that has 'raw' in it. Here are the worksheet names it does have though: "
+                "This spreadsheet has no worksheet with 'raw' in its name. Names of the worksheets in this spreadsheet: 2022_23_percentage, 2023_24, 2023_24_percentage, 2022_23_old"
             )
             cy.contains("Preview generated ✅").should("not.exist")
         })
@@ -65,7 +63,7 @@ describe("updating pollen calendar", () => {
 
             cy.contains("button", "Preview data").click()
             cy.contains(
-                `Column A, row 2 doesn't seem to contain a pollen name, it contains: undefined. To understand the excel data, the pollen names should be in column A, start at row 2 and the last pollen type will be "Total pollen counted"`
+                `Cell A2 doesn't seem to be a pollen name: undefined. Values in Column A from Row 2 onwards are expected to be pollen names, and the value in the last populated Row in Column A should be "Total pollen counted".`
             )
             cy.contains("Preview generated ✅").should("exist") // the other worksheet has a valid format though so preview that data
         })
@@ -74,9 +72,7 @@ describe("updating pollen calendar", () => {
             inputDataFile("cypress/fixtures/Pollen Dummy Data - invalid format - dates in row 2.xlsx")
 
             cy.contains("button", "Preview data").click()
-            cy.contains(
-                `Column B, row 1 doesn't seem to contain a date, it contains: Pollen Data 2025. To understand the excel data, the dates should be in row 1 and start at column B.`
-            )
+            cy.contains("Cell B1 doesn't seem to be a date: Pollen Data 2025.")
             cy.contains("Preview generated ✅").should("exist") // other worksheet has valid format
         })
 
@@ -87,9 +83,7 @@ describe("updating pollen calendar", () => {
 
             cy.contains("button", "Preview data").click()
             cy.contains("Worksheet '2023_24_raw' couldn't be parsed because this error occurred:")
-            cy.contains(
-                `Couldn't find a 'Total pollen counted' row or 'Total pollen counted' label is not in column A. This is used to detect how many pollen types are in the spreadsheet. `
-            )
+            cy.contains("A cell containing 'Total pollen counted' was not found in Column A.")
             cy.contains("Preview generated ✅").should("not.exist")
         })
     })

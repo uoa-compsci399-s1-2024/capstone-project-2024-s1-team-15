@@ -13,7 +13,6 @@ export default function PollenTypeInput({
             onChange={(selectedOptions) => showPollenTypes(selectedOptions.map(({ value }) => value))}
             isMulti
             options={allPollenTypes.map((name) => ({ value: name, label: name }))}
-            // styles={colourStyles}
         />
     )
 }
