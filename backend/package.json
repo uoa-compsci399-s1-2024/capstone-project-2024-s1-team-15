@@ -13,7 +13,7 @@
         "prettier:fix": "npx prettier . --write"
     },
     "dependencies": {
-        "@aapc/types": "^0.2.3",
+        "@aapc/types": "0.3.3",
         "amazon-cognito-identity-js": "^6.3.12",
         "cors": "^2.8.5",
         "dotenv": "^16.4.5",

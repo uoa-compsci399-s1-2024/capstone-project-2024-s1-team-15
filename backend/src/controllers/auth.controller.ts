@@ -1,7 +1,6 @@
 import { RequestHandler } from "express"
 import { UnauthorizedError } from "@/errors/HTTPErrors"
-import { AUTH } from "@/services/services"
-import { User } from "@aapc/types"
+import { AUTH, DB } from "@/services/services"
 import { ChangePasswordIn, DeactivateIn, LoginIn, RegisterIn } from "@/util/validation/input.types"
 import { validate } from "@/util/functions"
 
@@ -13,23 +12,21 @@ export default class AuthController {
     }
 
     static login: RequestHandler = async (req, res, next) => {
+        const incorrectLoginError = new UnauthorizedError("Username and/or password incorrect.")
         const body = validate(LoginIn, req.body)
-        const authToken = await AUTH.login(body.username, body.password)
-        if (authToken === null) {
-            throw new UnauthorizedError("username and/or password incorrect.")
-        }
-        // TODO: get user object from db
-        const authenticatedUser = new User({
-            username: body.username,
-            email: body.username,
-            displayName: "Admin",
-            verified: true,
-            registeredAt: undefined,
-        })
-        res.status(200).json({
-            token: authToken,
-            user: authenticatedUser,
-        })
+
+        const user = await DB.getUserByUsername(body.username)
+        if (user === null) throw incorrectLoginError
+
+        const authToken = await AUTH.login(user, body.password)
+        if (authToken === null) throw incorrectLoginError
+
+        res.status(200)
+            .json({
+                token: authToken,
+                user: user,
+            })
+            .send()
         next()
     }
 

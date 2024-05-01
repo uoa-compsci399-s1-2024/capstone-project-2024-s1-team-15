@@ -3,10 +3,6 @@ import { ROUTES } from "@/../../frontend/app/consts"
 let uiUri
 
 switch (process.env.ENV) {
-    case "LOCAL": {
-        uiUri = "http://localhost:3001"
-        break
-    }
     case "DEV": {
         uiUri = "https://dev.aapc-nz.org"
         break

@@ -15,7 +15,7 @@ const parseAssumptions = [
 
     "⚠️ Assume pollen values are whole numbers",
 
-    "⚠️ Assume that if a whole number value does not exist for a pollen value, then it is undefined"
+    "⚠️ Assume that if a whole number value does not exist for a pollen value, then it is undefined",
 ]
 
 export default parseAssumptions

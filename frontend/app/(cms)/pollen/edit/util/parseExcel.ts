@@ -1,7 +1,7 @@
 import { read, utils, WorkSheet } from "xlsx"
 import { PollenData, PollenValue } from "../type/PollenDataType"
 
-export function parseSpreadsheet(spreadsheet: ArrayBuffer): { pollenDataset: PollenData[] | null, errors?: string[] } {
+export function parseSpreadsheet(spreadsheet: ArrayBuffer): { pollenDataset: PollenData[] | null; errors?: string[] } {
     let parsingErrors: string[] = []
 
     const workbook = read(spreadsheet)
@@ -15,7 +15,8 @@ export function parseSpreadsheet(spreadsheet: ArrayBuffer): { pollenDataset: Pol
     if (!Object.keys(sheetsWithRawData).length) {
         parsingErrors.push(
             "This spreadsheet has no worksheet with 'raw' in its name. " +
-            "Names of the worksheets in this spreadsheet: " + workbook.SheetNames.join(", ")
+                "Names of the worksheets in this spreadsheet: " +
+                workbook.SheetNames.join(", ")
         )
         return { pollenDataset: null, errors: parsingErrors }
     }
@@ -25,7 +26,7 @@ export function parseSpreadsheet(spreadsheet: ArrayBuffer): { pollenDataset: Pol
         try {
             const parsedPollenDataset = parseWorksheet(sheet)
             consolidatedPollenDataset =
-                (consolidatedPollenDataset.length === 0)
+                consolidatedPollenDataset.length === 0
                     ? parsedPollenDataset
                     : combinePollenDatasets(consolidatedPollenDataset, parsedPollenDataset)
         } catch (e: any) {
@@ -128,7 +129,7 @@ function parseWorksheet(worksheet: WorkSheet): PollenData[] {
         pollenDataset.push({
             pollenName: pName,
             pollenScientificName: pScientificName,
-            pollenValues: pValues
+            pollenValues: pValues,
         })
     }
 

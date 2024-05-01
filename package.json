@@ -3,12 +3,11 @@
     "version": "1.0.0",
     "description": "Project by **Team Bit by Bit** (Team 15, S1 2024)",
     "scripts": {
-        "install": "cd frontend && npm i && cd ../backend && npm i",
-        "build": "cd frontend && npm ci && npm run build && cd ../backend && npm ci && npm run build",
-        "start": "concurrently \"cd backend && npm start\" \"cd frontend && npm start\"",
+        "install": "cd frontend && npm ci && cd ../backend && npm ci",
         "dev": "concurrently \"cd frontend && npm run dev\" \"cd backend && npm run dev\"",
+        "cypress:start": "concurrently \"cd frontend && npm run dev\" \"cd backend && npm run dev\"",
         "cypress:open": "cypress open",
-        "cypress": "cypress run --project ."
+        "cypress:run": "cypress run --project ."
     },
     "license": "ISC",
     "dependencies": {

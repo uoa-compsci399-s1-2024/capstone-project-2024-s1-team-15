@@ -2,7 +2,7 @@
 
 import React from "react"
 import ButtonLink from "@/app/components/ButtonLink"
-import { useAuth } from "../cms-authentication/AuthContext"
+import { useAuth } from "../(auth)/CMSAuthContext"
 
 export default function Home() {
     const { currentUser } = useAuth()
@@ -19,7 +19,7 @@ export default function Home() {
                 <br className={"h-4 w-12"} />
                 <ButtonLink href={"/pollen"} text={"View Pollen Data"} />
                 {currentUser && <ButtonLink href={"/pollen/edit"} text={"Edit Pollen Data"} />}
-                <br className={"h-4 w-12"} /> 
+                <br className={"h-4 w-12"} />
                 <ButtonLink href={"/about"} text={"About Us"} />
                 <ButtonLink href={"/contact"} text={"Contact Us"} />
                 <ButtonLink href={"/health"} text={"Health"} />

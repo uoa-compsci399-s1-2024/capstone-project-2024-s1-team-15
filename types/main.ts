@@ -1,10 +1,11 @@
 import Article, { ArticleType, IArticle } from "./src/Article";
-import Paginator from "./src/Paginator";
+import Paginator, { IPaginator } from "./src/Paginator";
 import User, { IUser } from "./src/User";
+import { UserScope } from "./src/UserScope";
 
 
 export {
     Article, IArticle, ArticleType,
-    User, IUser,
-    Paginator
+    User, IUser, UserScope,
+    Paginator, IPaginator
 }
