@@ -3,7 +3,7 @@
 import React, { useEffect, useState, useRef } from "react"
 import { parseSpreadsheet } from "./util/parseExcel"
 import parseAssumptions from "./util/parseAssumptions"
-import { PollenData } from "./type/PollenDataType"
+import { PollenData } from "@aapc/types"
 import PollenCalendar from "@/app/components/pollenCalendar"
 
 type ParseError = {
@@ -32,6 +32,7 @@ export default function EditPollen() {
 
             // even with errors, if something was parsed, show a preview for it
             parseResults.pollenDataset && setPollenDataset(parseResults.pollenDataset)
+            console.log({ res: parseResults.pollenDataset })
         })
     }, [inputFile])
 
