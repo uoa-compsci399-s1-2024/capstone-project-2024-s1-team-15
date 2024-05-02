@@ -1,5 +1,5 @@
 import { ArrayResult, ArrayResultOptions, Nullable, SortOptions } from "@/util/types/types"
-import { Article, User } from "@aapc/types"
+import { Article, PollenData, User } from "@aapc/types"
 import { ArticleSortFields } from "@/services/repository/memory/sorters/article.sorter"
 import { UserSortFields } from "@/services/repository/memory/sorters/user.sorter"
 
@@ -31,4 +31,5 @@ export default interface IRepository {
     createUser(u: User): Promise<User>
     editUser(username: string, u: User): Promise<User>
     deleteUser(username: string): Promise<void>
+    getAllPollenData?(): Promise<PollenData[]>
 }
