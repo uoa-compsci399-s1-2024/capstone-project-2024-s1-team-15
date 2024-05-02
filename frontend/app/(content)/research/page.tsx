@@ -1,9 +1,9 @@
 import React from "react"
 import { Article, Paginator } from "@aapc/types"
-import { API_URI } from "@/app/consts"
+import { API_URI } from "@/app/lib/consts"
 import ArticleCard from "@/app/components/ArticleCard"
 import ButtonLink from "@/app/components/ButtonLink"
-import { getMetadata } from "@/app/util"
+import { getMetadata } from "@/app/lib/util"
 
 export const metadata = getMetadata("All Research")
 

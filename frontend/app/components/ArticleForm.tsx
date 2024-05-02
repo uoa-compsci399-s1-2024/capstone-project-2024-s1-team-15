@@ -2,7 +2,7 @@ import ContentEditor from "@/app/components/ContentEditor"
 import { ArticleFromCMS } from "@/app/components/ArticleFromCMS"
 import { Article, ArticleType, IArticle } from "@aapc/types"
 import React, { useState } from "react"
-import { API_URI } from "@/app/consts"
+import { API_URI } from "@/app/lib/consts"
 
 export default function ArticleForm({
     articleType,

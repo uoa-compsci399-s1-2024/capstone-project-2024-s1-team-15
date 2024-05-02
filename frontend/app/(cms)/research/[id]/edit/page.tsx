@@ -1,8 +1,8 @@
 "use client"
 
 import React, { useState } from "react"
-import { API_URI } from "@/app/consts"
-import { Article, ArticleType } from "@aapc/types"
+import { API_URI } from "@/app/lib/consts"
+import { Article } from "@aapc/types"
 import ArticleForm from "@/app/components/ArticleForm"
 
 export default function EditResearchPage({ params }: { params: { id: string } }) {

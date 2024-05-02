@@ -1,5 +1,5 @@
 import React from "react"
-import { API_URI, ENV } from "@/app/consts"
+import { API_URI, ENV } from "@/app/lib/consts"
 
 export default async function Footer(): Promise<React.JSX.Element> {
     let backendEnv: string

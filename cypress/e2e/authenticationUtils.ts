@@ -1,6 +1,6 @@
 import authSuccessResponse from "../fixtures/authSuccessResponse.json"
 
-import { API_URI } from "../../frontend/app/consts"
+import { API_URI } from "../../frontend/app/lib/consts"
 import { URLS } from "./consts"
 
 // allows successful login without using the actual admin credentials

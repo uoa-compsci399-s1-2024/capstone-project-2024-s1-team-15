@@ -1,6 +1,6 @@
 import React from "react"
 import Link from "next/link"
-import { API_URI } from "@/app/consts"
+import { API_URI } from "@/app/lib/consts"
 import { Article } from "@aapc/types"
 
 export default async function ResearchPage({ params }: { params: { id: string } }) {

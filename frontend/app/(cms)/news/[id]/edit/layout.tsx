@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { getMetadata } from "@/app/util"
+import { getMetadata } from "@/app/lib/util"
 import React from "react"
 
 export const metadata: Metadata = getMetadata("Edit News")

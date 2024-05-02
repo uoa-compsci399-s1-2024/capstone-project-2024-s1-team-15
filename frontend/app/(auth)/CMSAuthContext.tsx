@@ -3,7 +3,7 @@
 import React, { useContext, useState, useEffect } from "react"
 
 import { redirect } from "next/navigation"
-import { API_URI, OPEN_AUTH_ROUTES, ROUTES } from "@/app/consts"
+import { API_URI, OPEN_AUTH_ROUTES, ROUTES } from "@/app/lib/consts"
 import { User } from "@aapc/types"
 
 type AuthContextValue = {

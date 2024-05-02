@@ -1,32 +1,28 @@
 "use client"
 
-import AuthProvider, { useAuth } from "../(auth)/CMSAuthContext"
+import React, { useContext } from "react"
+import ButtonLink from "@/app/components/ButtonLink"
+import AuthProvider from "@/app/components/AuthProvider"
+import AuthContext from "@/app/lib/auth/AuthContext"
 
-// this component provides auth context to all child components
-export default function AuthLayout({ children }: { children: React.ReactNode }) {
+export default function AuthLayout({ children }: React.PropsWithChildren) {
+    const { user, clearSession } = useContext(AuthContext)
+
     return (
         <AuthProvider>
-            <AuthLayoutWithContext>{children}</AuthLayoutWithContext>
+            <div>
+                {user !== null ? (
+                    <>
+                        <p>Logged in as {user.displayName}</p>
+                        <button className="button" onClick={clearSession}>Logout</button>
+                    </>
+                ) : (
+                    <>
+                        <ButtonLink href={"/login-new"} text={"Log In"}/>
+                    </>
+                )}
+                {children}
+            </div>
         </AuthProvider>
-    )
-}
-
-// this component has access to all auth context (current signed in user, login method etc.)
-function AuthLayoutWithContext({ children }: { children: React.ReactNode }) {
-    const { currentUser, logout } = useAuth()
-
-    return (
-        <div>
-            {currentUser && (
-                <>
-                    <p>Logged in as Admin</p>
-                    <button className="button" onClick={logout}>
-                        Logout
-                    </button>
-                </>
-            )}
-
-            {children}
-        </div>
     )
 }

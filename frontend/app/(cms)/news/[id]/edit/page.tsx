@@ -2,7 +2,7 @@
 
 import React, { useState } from "react"
 import { Article } from "@aapc/types"
-import { API_URI } from "@/app/consts"
+import { API_URI } from "@/app/lib/consts"
 
 export default function EditNewsPage({ params }: { params: { id: string } }) {
     const [article, setArticle] = useState<Article>()

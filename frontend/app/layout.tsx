@@ -3,7 +3,7 @@ import localFont from "next/font/local"
 import "./globals.css"
 import React from "react"
 import Nav from "@/app/components/Nav"
-import { getMetadata } from "@/app/util"
+import { getMetadata } from "@/app/lib/util"
 import Footer from "@/app/components/Footer"
 import AuthLayout from "@/app/components/AuthLayout"
 
@@ -19,11 +19,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     return (
         <html lang="en">
             <body className={`${inter.variable} font-sans`}>
-                <Nav />
+                <Nav/>
                 <div className={"w-[900px] px-6 mx-auto pb-12"}>
                     <AuthLayout>{children}</AuthLayout>
                 </div>
-                <Footer />
+                <Footer/>
             </body>
         </html>
     )

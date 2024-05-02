@@ -1,7 +1,7 @@
 import React from "react"
 import Link from "next/link"
 import { Article } from "@aapc/types"
-import { API_URI } from "@/app/consts"
+import { API_URI } from "@/app/lib/consts"
 
 export default async function NewsPage({ params }: { params: { id: string } }) {
     const req = await fetch(API_URI + `/content/news/${params.id}`, { method: "get" })
