@@ -1,25 +1,26 @@
 {
-  "name": "aapc-website",
-  "version": "1.0.0",
-  "description": "Project by **Team Bit by Bit** (Team 15, S1 2024)",
-  "scripts": {
-    "install": "cd frontend && npm ci && cd ../backend && npm ci",
-    "dev": "concurrently \"cd frontend && npm run dev\" \"cd backend && npm run dev\"",
-    "cypress:start": "concurrently \"cd frontend && npm run dev\" \"cd backend && npm run dev\"",
-    "cypress:open": "cypress open",
-    "cypress:run": "cypress run --project .",
-    "prettier": "prettier . --check",
-    "prettier:fix": "prettier . --write"
-  },
-  "license": "ISC",
-  "dependencies": {
-    "concurrently": "^8.2.2",
-    "cypress": "^13.8.1",
-    "cypress-real-events": "^1.12.0",
-    "cypress-visual-regression": "^5.0.0",
-    "typescript": "^5.4.5"
-  },
-  "devDependencies": {
-    "prettier": "^3.2.5"
-  }
+    "name": "aapc-website",
+    "version": "1.0.0",
+    "description": "Project by **Team Bit by Bit** (Team 15, S1 2024)",
+    "scripts": {
+        "install": "cd frontend && npm ci && cd ../backend && npm ci",
+        "dev": "concurrently \"cd frontend && npm run dev\" \"cd backend && npm run dev\"",
+        "cypress:start": "concurrently \"cd frontend && npm run dev\" \"cd backend && npm run dev\"",
+        "cypress:open": "cypress open",
+        "cypress:run": "cypress run --project .",
+        "prettier": "prettier . --check",
+        "prettier:fix": "prettier . --write"
+    },
+    "license": "ISC",
+    "dependencies": {
+        "concurrently": "^8.2.2",
+        "cypress": "^13.8.1",
+        "cypress-real-events": "^1.12.0",
+        "cypress-visual-regression": "^5.0.0",
+        "typescript": "^5.4.5"
+    },
+    "devDependencies": {
+        "prettier": "^3.2.5"
+    },
+    "prettier": "./prettier.config.mjs"
 }
