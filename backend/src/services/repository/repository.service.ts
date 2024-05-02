@@ -31,5 +31,5 @@ export default interface IRepository {
     createUser(u: User): Promise<User>
     editUser(username: string, u: User): Promise<User>
     deleteUser(username: string): Promise<void>
-    getAllPollenData?(): Promise<PollenData[]>
+    getAllPollenData(): Promise<PollenData[]>
 }
