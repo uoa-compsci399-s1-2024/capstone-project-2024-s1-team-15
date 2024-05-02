@@ -3,7 +3,7 @@ import { formatPollenData, FormattedPollenData } from "./formatData"
 import PollenTypeInput from "./PollenTypeInput"
 import dayjs from "dayjs"
 import DateInput from "./DateInput"
-import { PollenData } from "@/app/(cms)/pollen/edit/type/PollenDataType"
+import { PollenData } from "@aapc/types"
 import { memo, useEffect, useState } from "react"
 import MultiChart from "./MultiChart"
 
