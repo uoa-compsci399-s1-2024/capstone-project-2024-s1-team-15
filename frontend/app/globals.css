@@ -6,6 +6,10 @@ h1 {
     @apply text-4xl font-bold tracking-tight mb-8 mt-12;
 }
 
+h2 {
+    @apply text-3xl font-bold tracking-tight my-4;
+}
+
 a {
     @apply text-blue-700;
 }
