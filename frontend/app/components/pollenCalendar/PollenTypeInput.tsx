@@ -2,15 +2,15 @@ import Select from "react-select"
 
 export default function PollenTypeInput({
     allPollenTypes,
-    showPollenTypes,
+    displayPollenTypes,
 }: {
     allPollenTypes: string[]
-    showPollenTypes: any
+    displayPollenTypes: any
 }) {
     return (
         <Select
             closeMenuOnSelect={false}
-            onChange={(selectedOptions) => showPollenTypes(selectedOptions.map(({ value }) => value))}
+            onChange={(selectedOptions) => displayPollenTypes(selectedOptions.map(({ value }) => value))}
             isMulti
             options={allPollenTypes.map((name) => ({ value: name, label: name }))}
         />

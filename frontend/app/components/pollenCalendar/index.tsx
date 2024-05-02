@@ -14,22 +14,22 @@ const PollenCalendar = memo(function PollenCalendar({ pollenData }: { pollenData
 
     const [showingPollenTypeFilter, showPollenTypeFilter] = useState(false)
     const [allPollenTypes, setAllPollenTypes] = useState<string[]>([])
-    const [showingPollenTypes, showPollenTypes] = useState<string[]>([])
+    const [displayedPollenTypes, displayPollenTypes] = useState<string[]>([])
 
-    const [formattedPollenData, setFormattedData] = useState<null | FormattedPollenData>(null)
+    const [formattedPollenData, setFormattedPollenData] = useState<null | FormattedPollenData>(null)
     const [filteredPollenData, setFilteredPollenData] = useState<null | FormattedPollenData>(null)
 
     useEffect(() => {
         const formatted = formatPollenData(pollenData)
-        setFormattedData(formatted)
+        setFormattedPollenData(formatted)
 
         const allPollenNames = formatted.pollenTypes.map((pollenType) => pollenType)
         setAllPollenTypes(allPollenNames)
-        showPollenTypes(allPollenNames)
+        displayPollenTypes(allPollenNames)
     }, [pollenData])
 
     useEffect(() => {
-        if (!formattedPollenData || !showingPollenTypes.length) return setFilteredPollenData(null)
+        if (!formattedPollenData || !displayedPollenTypes.length) return setFilteredPollenData(null)
 
         const filtered: FormattedPollenData = {
             dailyTotals: formattedPollenData.dailyTotals,
@@ -38,14 +38,14 @@ const PollenCalendar = memo(function PollenCalendar({ pollenData }: { pollenData
         }
 
         formattedPollenData.pollenTypes.map((pollenType, index) => {
-            if (!showingPollenTypes.includes(pollenType)) return
+            if (!displayedPollenTypes.includes(pollenType)) return
 
             filtered.pollenTypes.push(pollenType)
             filtered.pollenValues.push(formattedPollenData.pollenValues[index])
         })
 
         setFilteredPollenData(filtered)
-    }, [formattedPollenData, showingPollenTypes])
+    }, [formattedPollenData, displayedPollenTypes])
 
     return (
         <>
@@ -60,7 +60,10 @@ const PollenCalendar = memo(function PollenCalendar({ pollenData }: { pollenData
                         </button>
                         <div>
                             {allPollenTypes && showingPollenTypeFilter && (
-                                <PollenTypeInput allPollenTypes={allPollenTypes} showPollenTypes={showPollenTypes} />
+                                <PollenTypeInput
+                                    allPollenTypes={allPollenTypes}
+                                    displayPollenTypes={displayPollenTypes}
+                                />
                             )}
                         </div>
                     </div>
@@ -82,7 +85,7 @@ const PollenCalendar = memo(function PollenCalendar({ pollenData }: { pollenData
                     </div>
                 </div>
 
-                {filteredPollenData && showingPollenTypes.length ? (
+                {filteredPollenData && displayedPollenTypes.length ? (
                     <div className="flex flex-col w-full mt-8">
                         <MultiChart
                             dateUpperLimit={dateUpperLimit}
