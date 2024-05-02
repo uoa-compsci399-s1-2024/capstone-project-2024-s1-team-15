@@ -20,7 +20,7 @@ export default class AuthRouter {
         )
 
         // scope: currentUser
-        router.post("/deactivate", Scope.currentUser,
+        router.post("/deactivate/:username", Scope.currentUser,
             expressAsyncHandler(AuthController.deactivate)
         )
 
