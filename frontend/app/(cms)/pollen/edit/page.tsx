@@ -32,7 +32,6 @@ export default function EditPollen() {
 
             // even with errors, if something was parsed, show a preview for it
             parseResults.pollenDataset && setPollenDataset(parseResults.pollenDataset)
-            console.log({ res: parseResults.pollenDataset })
         })
     }, [inputFile])
 
@@ -47,7 +46,6 @@ export default function EditPollen() {
             })
         }
         const uploadedFile = fileInputElement.files[0]
-        console.log({ uploadedFile })
 
         if (!uploadedFile.name.endsWith(".xlsx")) {
             return setError({
