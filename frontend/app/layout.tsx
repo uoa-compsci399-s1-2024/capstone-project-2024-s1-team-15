@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import localFont from "next/font/local"
 import "./globals.css"
 import React from "react"
-import Nav from "@/app/components/Nav"
+import Header from "@/app/components/Header"
 import { getMetadata } from "@/app/util"
 import Footer from "@/app/components/Footer"
 import AuthLayout from "@/app/components/AuthLayout"
@@ -19,7 +19,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     return (
         <html lang="en">
             <body className={`${inter.variable} font-sans`}>
-                <Nav />
+                <Header />
                 <div className={"w-[900px] px-6 mx-auto pb-12"}>
                     <AuthLayout>{children}</AuthLayout>
                 </div>
