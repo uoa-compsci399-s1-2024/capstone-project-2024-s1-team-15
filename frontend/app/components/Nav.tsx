@@ -17,8 +17,9 @@ function NavContext({ children }: { children: React.ReactNode }) {
     return (
         <div>
         <nav>
-            <div className={`fixed h-28 w-full flex justify-between items-center z-50`}>
+            <div className={`fixed h-28 w-full flex justify-between items-center z-50 bg-gradient-to-b from-white`}>
                 <div className={"pl-20"}>
+                <div className= {"bg-gradient-to-b from-white"}></div>
                     <span className={"font-bold text-5xl text-black tracking-tight"}>
                     <Link href={"/"} className="text-black">
                         AAPC
