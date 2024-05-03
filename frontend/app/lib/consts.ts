@@ -1,4 +1,5 @@
 import dotenv from "dotenv"
+import { UserScope } from "@aapc/types";
 
 dotenv.config()
 
@@ -31,6 +32,14 @@ export const ROUTES = {
     REDIRECT_AFTER_LOGIN: "/",
 
     EDIT_POLLEN_DATA: "/pollen/edit",
+}
+
+export const SCOPES = {
+    anonymous: [],
+    loggedIn: [UserScope.user, UserScope.regular, UserScope.premium, UserScope.maintainer, UserScope.admin],
+    premium: [UserScope.premium, UserScope.maintainer, UserScope.admin],
+    maintainer: [UserScope.maintainer, UserScope.admin],
+    admin: [UserScope.admin],
 }
 
 export const OPEN_AUTH_ROUTES = [ROUTES.LOGIN, ROUTES.FORGOT_PASSWORD] // no auth required for these ones

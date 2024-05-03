@@ -27,7 +27,7 @@ const config: Config = {
                 primary: "#059669",
                 secondary: "#9CA3AF",
                 admin: "#f35d5d",
-                maintainer: "#61bafa",
+                maintainer: "#37a0ec",
                 premium: "#ffcc6d",
                 user: "#c9c9c9"
             },

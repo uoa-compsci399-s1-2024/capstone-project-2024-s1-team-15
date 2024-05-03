@@ -5,7 +5,7 @@ import React from "react"
 import Nav from "@/app/components/Nav"
 import { getMetadata } from "@/app/lib/util"
 import Footer from "@/app/components/Footer"
-import { AuthLayout, AuthDashboard } from "@/app/components/auth"
+import { AuthLayout, AuthDashboard } from "@/app/(auth)/components"
 
 const inter = localFont({
     src: "./public/Inter.ttf",
@@ -22,7 +22,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                 <AuthLayout>
                     <Nav/>
                     <div className={"w-[900px] px-6 mx-auto pb-12"}>
-                        <AuthDashboard />
+                        <AuthDashboard/>
                         {children}
                     </div>
                     <Footer/>

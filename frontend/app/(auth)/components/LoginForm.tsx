@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect } from "react"
+import React from "react"
 import { useFormStatus, useFormState } from "react-dom"
 import { FormState } from "@/app/lib/types"
 import { login } from "@/app/lib/auth/services"
@@ -9,7 +9,7 @@ import { useAuth } from "@/app/lib/hooks"
 export default function LoginForm (): React.JSX.Element {
     const [ state, formAction ] = useFormState<FormState>(loginFormAction, {})
     const { pending } = useFormStatus()
-    const { setSession, user } = useAuth()
+    const { setSession } = useAuth()
 
     async function loginFormAction(_: FormState, formData?: any): Promise<FormState> {
         const username = formData.get("username")

@@ -13,7 +13,7 @@ const getUserFromString = (usr: Nullable<string>): Nullable<IUser> => {
 export default function AuthProvider({ children }: React.PropsWithChildren): React.JSX.Element {
     const [lsUser, setLSUser] = useLocalStorage("currentUser", null)
     const [token, setToken] = useLocalStorage("currentToken", null)
-    const [user, setUser] = useState<Nullable<IUser>>(getUserFromString(lsUser))
+    const [user, setUser] = useState<Nullable<IUser>>(null)
 
     useEffect(() => {
         setUser(getUserFromString(lsUser))

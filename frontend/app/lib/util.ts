@@ -1,6 +1,8 @@
+import jwt from "jsonwebtoken"
 import { Metadata } from "next"
+import { UserScope } from "@aapc/types"
+import { FailureResult, JWTPayload, SuccessResult } from "@/app/lib/types"
 import { WEBSITE_NAME } from "@/app/lib/consts"
-import { FailureResult, SuccessResult } from "@/app/lib/types";
 
 export function getMetadata(title: string = ""): Metadata {
     const t = `${title !== "" ? title + " - " : ""}${WEBSITE_NAME}`
@@ -21,4 +23,12 @@ export function fail(message?: string): FailureResult {
         success: false,
         message: message ?? ""
     }
+}
+
+export function decodeJwt(token: string): JWTPayload {
+    return <JWTPayload>jwt.decode(token)
+}
+
+export function getScopesFromToken(token: string): UserScope[] {
+    return decodeJwt(token).scopes
 }
