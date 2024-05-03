@@ -42,13 +42,30 @@ a {
 }
 
 .form-input {
-    @apply resize-none h-11 text-lg w-full px-4 pb-1 pt-2 bg-gray-500 bg-opacity-5 rounded-2xl shadow-inner;
+    @apply h-11 text-xs w-full px-4 pb-1 pt-2 bg-slate-100 bg-opacity-5 rounded-2xl shadow-inner;
 }
 
 .form-label {
-    @apply mt-7 mb-1.5 tracking-tight font-medium text-gray-400 uppercase text-xs;
+    @apply mt-7 mb-1.5 tracking-tight font-medium  uppercase text-xs;
 }
 
 .form-error {
     @apply text-red-500;
 }
+
+
+/*<-- Effects -->*/
+.hoverable {
+    @apply transition duration-300 ease-in-out shadow-md hover:shadow-lg transform hover:-translate-y-0.5 hover:scale-105;
+}
+/*<------------->*/
+
+
+
+/*<-- Buttons -->*/
+.exit-button {
+    @apply text-gray-700 text-3xl font-bold;
+}
+
+
+/*<------------->*/
