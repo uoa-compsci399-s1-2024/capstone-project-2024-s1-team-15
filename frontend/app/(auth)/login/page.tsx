@@ -1,46 +1,26 @@
 "use client"
 
-import { useAuth } from "@/app/(auth)/CMSAuthContext"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
+import LoginForm from "@/app/(auth)/components/LoginForm"
+import { useAuth } from "@/app/lib/hooks"
+import { verifyJwt } from "@/app/lib/auth/crypto"
+import { JWTPayload, Nullable } from "@/app/lib/types"
 
 export default function Login() {
-    const { login } = useAuth()
-    const [emailInput, setEmailInput] = useState("")
-    const [passwordInput, setPasswordInput] = useState("")
-    const [errorMessage, setErrorMessage] = useState(null)
+    const { token } = useAuth()
+    const [verified, setVerified] = useState<Nullable<JWTPayload>>(null)
+
+    useEffect(() => {
+        if (!token) return
+        verifyJwt(token).then((r) => {
+            setVerified(r)
+        })
+    }, [token])
 
     return (
-        <form className="flex flex-col items-start gap-4">
-            <label>
-                <span className="form-label">Email</span>
-                <input
-                    className="form-input"
-                    value={emailInput}
-                    onChange={(e) => setEmailInput(e.target.value)}
-                    type="text"
-                />
-            </label>
-
-            <label>
-                <span className="form-label">Password</span>
-                <input
-                    className="form-input"
-                    value={passwordInput}
-                    onChange={(e) => setPasswordInput(e.target.value)}
-                    type="password"
-                />
-            </label>
-
-            <button
-                className="button"
-                onClick={(e) => {
-                    e.preventDefault()
-
-                    setErrorMessage(login(emailInput, passwordInput)) // login returns undefined or error message
-                }}>
-                Login
-            </button>
-            {errorMessage && <p className="form-error">{errorMessage}</p>}
-        </form>
+        <>
+            <h1>Log in</h1>
+            <LoginForm/>
+        </>
     )
 }

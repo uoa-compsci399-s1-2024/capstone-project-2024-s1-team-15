@@ -2,7 +2,7 @@
 
 import React from "react"
 import ButtonLink from "@/app/components/ButtonLink"
-import { useAuth } from "../(auth)/CMSAuthContext"
+import { useAuth } from "../(auth)/login-legacy/CMSAuthContext"
 
 export default function Home() {
     const { currentUser } = useAuth()

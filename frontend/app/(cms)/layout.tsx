@@ -1,14 +1,14 @@
 "use client"
 
 import React, { useEffect } from "react"
-import { useAuth } from "../(auth)/CMSAuthContext"
 import { redirect } from "next/navigation"
+import { useAuth } from "@/app/lib/hooks"
 
 export default function CMSLayout({ children }: { children: React.ReactNode }) {
-    const { currentUser } = useAuth()
+    const { token } = useAuth()
 
     useEffect(() => {
-        if (!currentUser) {
+        if (!token) {
             redirect("/login")
         }
     })

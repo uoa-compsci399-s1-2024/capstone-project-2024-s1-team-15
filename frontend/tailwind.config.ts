@@ -26,6 +26,10 @@ const config: Config = {
             colors: {
                 primary: "#059669",
                 secondary: "#9CA3AF",
+                admin: "#f35d5d",
+                maintainer: "#61bafa",
+                premium: "#ffcc6d",
+                user: "#c9c9c9"
             },
         },
     },

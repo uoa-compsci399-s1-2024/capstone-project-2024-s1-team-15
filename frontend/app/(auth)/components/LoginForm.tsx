@@ -1,15 +1,15 @@
 "use client"
 
-import React, { useContext } from "react";
+import React, { useEffect } from "react"
 import { useFormStatus, useFormState } from "react-dom"
 import { FormState } from "@/app/lib/types"
 import { login } from "@/app/lib/auth/services"
-import AuthContext from "@/app/lib/auth/AuthContext";
+import { useAuth } from "@/app/lib/hooks"
 
 export default function LoginForm (): React.JSX.Element {
     const [ state, formAction ] = useFormState<FormState>(loginFormAction, {})
     const { pending } = useFormStatus()
-    const { setSession, user } = useContext(AuthContext)
+    const { setSession, user } = useAuth()
 
     async function loginFormAction(_: FormState, formData?: any): Promise<FormState> {
         const username = formData.get("username")
@@ -40,8 +40,7 @@ export default function LoginForm (): React.JSX.Element {
                 {pending ? "Logging in..." : "Log in"}
             </button>
             {state.isValidInput === false && <span>Enter both username and password.</span>}
-            {state.error && <span>{state.error}</span>}
-            {user && <span>{user.username}</span>}
+            {state.error && <p className={"form-error"}>{state.error}</p>}
         </form>
     )
 }
