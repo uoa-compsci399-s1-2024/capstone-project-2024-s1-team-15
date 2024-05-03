@@ -19,11 +19,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     return (
         <html lang="en">
             <body className={`${inter.variable} font-sans`}>
-                <Header />
-                <div className={"w-[900px] px-6 mx-auto pb-12"}>
-                    <AuthLayout>{children}</AuthLayout>
-                </div>
-                <Footer />
+                <AuthLayout>
+                    <Header />
+                    <div className={"w-[900px] px-6 mx-auto pb-12"}>{children}</div>
+                    <Footer />
+                </AuthLayout>
             </body>
         </html>
     )
