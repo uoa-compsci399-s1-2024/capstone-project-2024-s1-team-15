@@ -4,19 +4,18 @@ import React from "react"
 import Link from "next/link"
 import AuthProvider, { useAuth } from "../(auth)/CMSAuthContext"
 
-export default function Nav({ children }: { children: React.ReactNode }) {
+export default function TopBar({ children }: { children: React.ReactNode }) {
     return (
         <AuthProvider>
-            <NavContext>{children}</NavContext>
+            <TopBarContext>{children}</TopBarContext>
         </AuthProvider>
     )
 }
 
-function NavContext({ children }: { children: React.ReactNode }) {
+function TopBarContext({ children }: { children: React.ReactNode }) {
     const { currentUser, logout} = useAuth();
     return (
         <div>
-        <nav>
             <div className={`fixed h-28 w-full flex justify-between items-center z-50 bg-gradient-to-b from-white`}>
                 <div className={"pl-20"}>
                 <div className= {"bg-gradient-to-b from-white"}></div>
@@ -56,7 +55,6 @@ function NavContext({ children }: { children: React.ReactNode }) {
                 </div>
             </div>
             <div className={`h-28`}></div>
-        </nav>
         {children}
         </div>
     );

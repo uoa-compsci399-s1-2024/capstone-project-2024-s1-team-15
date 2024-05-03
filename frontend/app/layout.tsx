@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import localFont from "next/font/local"
 import "./globals.css"
 import React from "react"
-import Nav from "@/app/components/Nav"
+import TopBar from "@/app/components/TopBar"
 import { getMetadata } from "@/app/util"
 import Footer from "@/app/components/Footer"
 
@@ -18,9 +18,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     return (
         <html lang="en">
             <body className={`${inter.variable} font-sans`}>
-                    <Nav>
-                        <div className={"w-[900px] px-6 mx-auto pb-12"}>{children}</div>
-                    </Nav>
+                <TopBar>
+                    <div className={"w-[900px] px-6 mx-auto pb-12"}>{children}</div>
+                </TopBar>
                 <Footer />
             </body>
         </html>
