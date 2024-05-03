@@ -25,26 +25,8 @@ export type FailureResult = {
     message: string
 }
 
-type PrivilegedAccess = {
-    allowedScopes?: UserScope[]
-}
-
-interface RouteConfig extends PrivilegedAccess {
-    name?: string,
-    description?: string,
-    route?: string
-}
-
-export interface RouteConfigParent extends RouteConfig {
-    children: (RouteConfigLeaf | RouteConfigParent)[]
-}
-
-export interface RouteConfigLeaf extends RouteConfig {
-    route: string
-}
-
-export type JWTPayload = { username: string, scopes: UserScope[], iat: number }
-
 export type Result<S> = SuccessResult<S> | FailureResult
 
 export type Nullable<T> = null | T
+
+export type JWTPayload = { username: string, scopes: UserScope[], iat: number }
