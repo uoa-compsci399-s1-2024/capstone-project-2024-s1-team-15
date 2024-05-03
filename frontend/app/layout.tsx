@@ -18,7 +18,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     return (
         <html lang="en">
             <body className={`${inter.variable} font-sans`}>
-                <Nav>{children}</Nav>
+                    <Nav>
+                        <div className={"w-[900px] px-6 mx-auto pb-12"}>{children}</div>
+                    </Nav>
                 <Footer />
             </body>
         </html>
