@@ -15,7 +15,7 @@ type AuthContextValue = {
 const AuthContext = React.createContext({
     currentUser: null,
     login: () => {},
-    logout: () => {},
+
 } as AuthContextValue)
 
 export function useAuth() {
