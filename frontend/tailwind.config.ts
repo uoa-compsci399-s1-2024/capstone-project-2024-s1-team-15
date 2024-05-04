@@ -10,6 +10,7 @@ const config: Config = {
         extend: {
             fontFamily: {
                 sans: ["var(--font-inter)"],
+                roboto: ["'Roboto' sans-serif"],
             },
             backgroundImage: {
                 "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
