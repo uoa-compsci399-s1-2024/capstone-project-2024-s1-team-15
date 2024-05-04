@@ -7,13 +7,11 @@ import { UserScopeLabel } from "@/app/(auth)/components"
 import { UserScope } from "@aapc/types"
 import { Nullable } from "@/app/lib/types"
 
-export default function AuthDashboard(): React.JSX.Element | void {
+export default function AuthDashboard(): React.JSX.Element {
     const { user, token, clearSession } = useAuth()
-    let scopes: Nullable<UserScope[]> = null
-    if (token) {
-        const s = getScopesFromToken(token)
-        if (!s) return clearSession()  // Clear user session if JWT is invalid
-        scopes = s
+    let scopes: Nullable<UserScope[]> = getScopesFromToken(token)
+    if (token && !scopes) {
+        clearSession()
     }
 
     return (

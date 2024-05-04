@@ -8,14 +8,14 @@ export default function withPrivilege (checkScopeIncludesAny: UserScope[], Wrapp
     return (function ComponentWithState () {
         const pathname = usePathname()
         const { token, clearSession } = useAuth()
+        const scope = getScopesFromToken(token)
+
         if (checkScopeIncludesAny.length !== 0) {
-            if (!token || !getScopesFromToken(token)) {
+            if (!token || !scope) {
                 clearSession()
                 const message = "You must be logged in to view this page."
                 return redirect(`/login?from=${btoa(pathname)}&msg=${btoa(message)}`)
             }
-
-            const scope = getScopesFromToken(token) as UserScope[]
 
             if (!scope.some(s => checkScopeIncludesAny.includes(s))) {
                 const message = "You do not have the permission to view this page."

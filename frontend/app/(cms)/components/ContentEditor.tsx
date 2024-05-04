@@ -168,13 +168,12 @@ function BubbleBar({ editor }: { editor: Editor }): React.JSX.Element {
     )
 }
 
-export default function ContentEditor({
-    setEditorContent,
-    content = "",
-}: {
+type ContentEditorProps = {
     setEditorContent: Dispatch<SetStateAction<string>>
     content?: string
-}): React.JSX.Element {
+}
+
+export default function ContentEditor({ setEditorContent, content = "" }: ContentEditorProps): React.JSX.Element {
     const editor = useEditor({
         extensions: [StarterKit, Underline],
         content: content,
@@ -187,6 +186,7 @@ export default function ContentEditor({
             setEditorContent(editor.getHTML())
         },
     })
+
     if (!editor) return <></>
 
     return (

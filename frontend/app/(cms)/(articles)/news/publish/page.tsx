@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react"
-import ArticleForm from "@/app/components/ArticleForm"
+import ArticleForm from "@/app/(cms)/(articles)/components/ArticleForm"
 import { ArticleType } from "@aapc/types"
 import ButtonLink from "@/app/components/ButtonLink"
 
@@ -10,7 +10,7 @@ export default function CreateNewsPage() {
         <div>
             <h1>Publish a News Article</h1>
             <ButtonLink href={"/news/publish/example"} text={"Demonstration Example"} />
-            <ArticleForm articleType={ArticleType.news} actionType={"create"} />
+            <ArticleForm articleType={ArticleType.news} actionType={"publish"} />
         </div>
     )
 }

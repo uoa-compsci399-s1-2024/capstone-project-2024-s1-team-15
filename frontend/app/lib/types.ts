@@ -30,3 +30,10 @@ export type Result<S> = SuccessResult<S> | FailureResult
 export type Nullable<T> = null | T
 
 export type JWTPayload = { username: string, scopes: UserScope[], iat: number }
+
+export type ArticleOut = {
+    title: string
+    subtitle?: string
+    content: string
+    media?: string[]
+}

@@ -33,8 +33,15 @@ export function decodeJwt(token: string): Nullable<JWTPayload> {
     }
 }
 
-export function getScopesFromToken(token: string): Nullable<UserScope[]> {
+export function getScopesFromToken(token: Nullable<string>): Nullable<UserScope[]> {
+    if (!token) {
+        return null  // token is null
+    }
+
     const payload = decodeJwt(token)
-    if (!payload) return null
+    if (!payload) {
+        return null  // failed to retrieve scopes from token
+    }
+
     return payload.scopes
 }
