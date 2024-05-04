@@ -4,9 +4,17 @@ import React from "react"
 import { useAuth } from "@/app/lib/hooks"
 import { getScopesFromToken } from "@/app/lib/util"
 import { UserScopeLabel } from "@/app/(auth)/components"
+import { UserScope } from "@aapc/types"
+import { Nullable } from "@/app/lib/types"
 
-export default function AuthDashboard(): React.JSX.Element {
+export default function AuthDashboard(): React.JSX.Element | void {
     const { user, token, clearSession } = useAuth()
+    let scopes: Nullable<UserScope[]> = null
+    if (token) {
+        const s = getScopesFromToken(token)
+        if (!s) return clearSession()  // Clear user session if JWT is invalid
+        scopes = s
+    }
 
     return (
         <div>
@@ -15,7 +23,7 @@ export default function AuthDashboard(): React.JSX.Element {
                     <div>
                         <p>Logged in as <b className={"font-medium"}>{user.displayName}</b></p>
                     </div>
-                    { token && <UserScopeLabel scopes={getScopesFromToken(token)}/>}
+                    { scopes && <UserScopeLabel scopes={scopes}/>}
                     <button className="button" onClick={clearSession}>Logout</button>
                 </div>
             )}

@@ -3,7 +3,7 @@
 import React from "react"
 import { useFormStatus, useFormState } from "react-dom"
 import { FormState } from "@/app/lib/types"
-import { login } from "@/app/lib/auth/services"
+import { login } from "@/app/services/auth"
 import { useAuth } from "@/app/lib/hooks"
 
 export default function LoginForm (): React.JSX.Element {

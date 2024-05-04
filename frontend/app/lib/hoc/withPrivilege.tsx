@@ -7,14 +7,16 @@ import { getScopesFromToken } from "@/app/lib/util"
 export default function withPrivilege (checkScopeIncludesAny: UserScope[], WrappedComponent: React.JSX.Element) {
     return (function ComponentWithState () {
         const pathname = usePathname()
-        const { token } = useAuth()
+        const { token, clearSession } = useAuth()
         if (checkScopeIncludesAny.length !== 0) {
-            if (!token) {
+            if (!token || !getScopesFromToken(token)) {
+                clearSession()
                 const message = "You must be logged in to view this page."
                 return redirect(`/login?from=${btoa(pathname)}&msg=${btoa(message)}`)
             }
 
-            const scope = getScopesFromToken(token)
+            const scope = getScopesFromToken(token) as UserScope[]
+
             if (!scope.some(s => checkScopeIncludesAny.includes(s))) {
                 const message = "You do not have the permission to view this page."
                 return redirect(`/?msg=${btoa(message)}`)
