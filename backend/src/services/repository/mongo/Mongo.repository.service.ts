@@ -1,4 +1,4 @@
-import { Article, ArticleType, User } from "@aapc/types"
+import { Article, ArticleType, PollenData, User } from "@aapc/types"
 import { Collection, Db, Document, Filter, FindCursor, MongoClient, ServerApiVersion, WithId } from "mongodb"
 import { ArrayResult, ArrayResultOptions, Nullable, SortOptions } from "@/util/types/types"
 import IRepository from "@/services/repository/repository.service"
@@ -9,11 +9,13 @@ export default class MongoRepository implements IRepository {
     private readonly db: Db
     private readonly articles: Collection
     private readonly users: Collection
+    private pollenData: Collection
 
     constructor(uri: string) {
         this.db = new MongoClient(uri, { serverApi: ServerApiVersion.v1 }).db("AAPC")
         this.articles = this.db.collection("Articles")
         this.users = this.db.collection("Users")
+        this.pollenData = this.db.collection("PollenData")
     }
 
     async fetchMongoDocuments(
@@ -233,5 +235,9 @@ export default class MongoRepository implements IRepository {
             totalResults: rC,
             results: r,
         }
+    }
+
+    async getAllPollenData(): Promise<PollenData[]> {
+        return (await this.pollenData.find().toArray()) as object[] as PollenData[]
     }
 }
