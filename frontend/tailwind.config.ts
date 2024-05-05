@@ -28,6 +28,10 @@ const config: Config = {
                 primary: "#059669",
                 secondary: "#9CA3AF",
             },
+            transitionTimingFunction: {
+                // https://forum.figma.com/t/recreating-gentle-easing-using-bezier-curves/55312/3
+                "figma-gentle": "cubic-bezier(.47,0,.23,1.38)",
+            },
         },
     },
     plugins: [require("@tailwindcss/typography")],
