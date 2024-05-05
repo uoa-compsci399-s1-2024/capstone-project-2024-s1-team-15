@@ -15,9 +15,7 @@ export default function withPrivilege (checkScopeIncludesAny: UserScope[], Wrapp
                 clearSession()
                 const message = "You must be logged in to view this page."
                 return redirect(`/login?from=${btoa(pathname)}&msg=${btoa(message)}`)
-            }
-
-            if (!scope.some(s => checkScopeIncludesAny.includes(s))) {
+            } else if (!scope.some(s => checkScopeIncludesAny.includes(s))) {
                 const message = "You do not have the permission to view this page."
                 return redirect(`/?msg=${btoa(message)}`)
             }

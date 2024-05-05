@@ -28,6 +28,7 @@ export default function ArticleForm({ actionType, articleType, article }: Articl
 
     const [title, setTitle] = useState("")
     const [subtitle, setSubtitle] = useState( "")
+    const [initialEditorContent, setInitialEditorContent] = useState("")
     const [editorContent, setEditorContent] = useState("")
     const [error, setError] = useState<Nullable<string>>(null)
 
@@ -36,6 +37,7 @@ export default function ArticleForm({ actionType, articleType, article }: Articl
             setTitle(article.title)
             setSubtitle(article.subtitle)
             setEditorContent(article.content)
+            setInitialEditorContent(article.content)
         }
     }, [article])
 
@@ -110,30 +112,36 @@ export default function ArticleForm({ actionType, articleType, article }: Articl
     }
 
     return (
-        <>
-            <p className={"form-label"}>Title</p>
-            <textarea
-                id={"title-input"}
-                className={"form-input"}
-                onChange={updateTitle}
-                placeholder={"Enter title here... (required)"}
-                defaultValue={article?.title}
-            />
+        <div className={"space-y-6"}>
+            <div>
+                <p className={"form-label"}>Title</p>
+                <input
+                    id={"title-input"}
+                    className={"form-input"}
+                    onChange={updateTitle}
+                    placeholder={"Enter title here... (required)"}
+                    defaultValue={title}
+                />
+            </div>
 
-            <p className={"form-label"}>Subtitle</p>
-            <textarea
-                id={"subtitle-input"}
-                className={"form-input"}
-                onChange={updateSubtitle}
-                placeholder={"Enter subtitle here... (optional)"}
-                defaultValue={article?.subtitle}
-            />
+            <div>
+                <p className={"form-label"}>Subtitle</p>
+                <input
+                    id={"subtitle-input"}
+                    className={"form-input pb-1"}
+                    onChange={updateSubtitle}
+                    placeholder={"Enter subtitle here... (optional)"}
+                    defaultValue={subtitle}
+                />
+            </div>
 
-            <p className={"form-label"}>Content</p>
-            <ContentEditor setEditorContent={setEditorContent} content={article?.content} />
+            <div>
+                <p className={"form-label"}>Content</p>
+                <ContentEditor setEditorContent={setEditorContent} content={initialEditorContent}/>
+            </div>
 
-            <div className={""}>
-                <button className={"button mt-8 text-lg"} onClick={submitArticle}>
+            <div>
+                <button className={"button text-lg"} onClick={submitArticle}>
                     {actionType === "edit" ? "Edit" : "Publish"}&nbsp;
                     {articleType === ArticleType.news ? "News" : "Research"}
                 </button>
@@ -141,10 +149,15 @@ export default function ArticleForm({ actionType, articleType, article }: Articl
 
             { error && <span>{error}</span> }
 
-            <p className={"form-label"}>Article Preview</p>
-            <div className={"p-6 rounded-2xl border-dotted border-2 border-black border-opacity-30"}>
-                <ArticlePage article={new Article({ title: title, subtitle: subtitle, content: editorContent })} preview/>
+            <div>
+                <p className={"form-label"}>Article Preview</p>
+                <div className={"p-6 rounded-2xl border-dotted border-2 border-black border-opacity-30"}>
+                    <ArticlePage
+                        article={new Article({ title: title, subtitle: subtitle, content: editorContent })}
+                        preview
+                    />
+                </div>
             </div>
-        </>
+        </div>
     )
 }

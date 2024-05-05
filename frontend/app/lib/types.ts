@@ -1,10 +1,5 @@
 import { IUser, UserScope } from "@aapc/types"
 
-export type FormState = {
-    isValidInput?: boolean
-    error?: string
-}
-
 export type AuthCredential = {
     password: string,
     username: string

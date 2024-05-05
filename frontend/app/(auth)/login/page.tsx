@@ -1,16 +1,15 @@
 "use client"
 
-import React, { Suspense } from "react"
+import React from "react"
 import { redirect, useSearchParams } from "next/navigation"
 import { useAuth } from "@/app/lib/hooks"
 import { LoginForm } from "@/app/(auth)/components"
-import { Nullable } from "@/app/lib/types";
+import { Nullable } from "@/app/lib/types"
 
 export default function Login() {
     const { token } = useAuth()
 
     const searchParams = useSearchParams()
-    const errorMessageParam = searchParams.get("msg")
 
     if (token) {
         const fromPathParam = searchParams.get("from")
@@ -27,17 +26,10 @@ export default function Login() {
         }
     }
 
-    let errorMessage: Nullable<string>
-    try {
-        errorMessage = errorMessageParam ? atob(errorMessageParam) : null
-    } catch (e) {
-        errorMessage = null
-    }
-
     return (
-        <Suspense>
-            { errorMessage && <span className={"form-error mb-4 block"}>{errorMessage}</span> }
+        <>
+            <h1>Login</h1>
             <LoginForm/>
-        </Suspense>
+        </>
     )
 }

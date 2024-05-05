@@ -2,7 +2,7 @@
 
 "use client"
 
-import React, { Dispatch, SetStateAction } from "react"
+import React, { Dispatch, SetStateAction, useEffect } from "react"
 import { BubbleMenu, Editor, EditorContent, FloatingMenu, useEditor } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
 import { Underline } from "@tiptap/extension-underline"
@@ -178,7 +178,6 @@ type ContentEditorProps = {
 export default function ContentEditor({ setEditorContent, content = "" }: ContentEditorProps): React.JSX.Element {
     const editor = useEditor({
         extensions: [StarterKit, Underline],
-        content: content,
         editorProps: {
             attributes: {
                 class: "prose prose-slate dark:prose-invert max-w-full bg-gray-500 bg-opacity-5 rounded-xl min-h-48 p-6 shadow-inner overflow-scroll max-h-[620px]",
@@ -188,6 +187,10 @@ export default function ContentEditor({ setEditorContent, content = "" }: Conten
             setEditorContent(editor.getHTML())
         },
     })
+
+    useEffect(() => {
+        editor && editor.commands.setContent(content)
+    }, [content])
 
     if (!editor) return <></>
 

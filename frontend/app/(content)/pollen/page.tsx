@@ -7,6 +7,9 @@ import { getPollenData } from "@/app/services/pollen"
 import PageTemplate from "@/app/components/PageContentTemplate"
 import Slider, { Slide } from "@/app/components/Slider"
 import pollenTypesSlidesContent from "./pollenTypesSlidesContent.json"
+import Privileged from "@/app/components/Privileged";
+import { SCOPES } from "@/app/lib/consts";
+import ButtonLink from "@/app/components/ButtonLink";
 
 export default function Pollen() {
     const [pollenData, setPollenData] = useState<null | PollenData[]>(null)
@@ -50,6 +53,9 @@ export default function Pollen() {
                 </PageTemplate.HighlightSection>
                 <PageTemplate.RemainingPageContent>
                     <h2>Pollen Calendar</h2>
+                    <Privileged requiredScopes={SCOPES.maintainer}>
+                        <ButtonLink href={"/pollen/edit"} text={"Edit Pollen Data"}/>
+                    </Privileged>
                     <p>
                         The pollen season starts in spring, with some trees producing pollen earlier depending on
                         climate conditions. The season usually starts earlier in the north and finishes later in the
