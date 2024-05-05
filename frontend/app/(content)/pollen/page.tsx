@@ -1,6 +1,6 @@
 "use client"
 
-import PollenCalendar from "@/app/components/pollenCalendar"
+import { PollenCalendar } from "@/app/components/pollen"
 import PageTemplate from "@/app/components/PageContentTemplate"
 import { API_URI } from "@/app/consts"
 import { useEffect, useState } from "react"

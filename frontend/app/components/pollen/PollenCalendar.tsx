@@ -2,9 +2,9 @@ import { memo, useEffect, useState } from "react"
 import dayjs from "dayjs"
 import { PollenData } from "@/app/(cms)/pollen/edit/type/PollenDataType"
 import { formatPollenData, FormattedPollenData } from "@/app/(cms)/pollen/components/util/formatData"
-import PollenTypeInput from "@/app/(cms)/pollen/components/PollenTypeInput"
-import DateInput from "@/app/(cms)/pollen/components/DateInput"
-import MultiChart from "@/app/(cms)/pollen/components/MultiChart"
+import PollenTypeInput from "@/app/components/pollen/PollenTypeInput"
+import DateInput from "@/app/components/pollen/DateInput"
+import MultiChart from "@/app/components/pollen/MultiChart"
 
 const PollenCalendar = memo(function PollenCalendar({ pollenData }: { pollenData: PollenData[] }) {
     const [showingDateFilter, showDateFilter] = useState(false)
