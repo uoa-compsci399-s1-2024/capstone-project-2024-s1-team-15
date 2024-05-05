@@ -6,6 +6,7 @@ on:
   push:
     paths:
       - 'frontend/**'
+      - '.github/workflows/frontend-dev-preview.yml'
 
 jobs:
   deploy:
