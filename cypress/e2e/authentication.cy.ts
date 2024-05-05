@@ -1,4 +1,4 @@
-import { URLS } from "./consts"
+import { CMS_URLS, URLS } from "./consts"
 import { userIsLoggedOut, mockValidCredentials, loginAttempt, userIsLoggedIn } from "./authenticationUtils"
 
 describe("Authentication", () => {
@@ -16,10 +16,23 @@ describe("Authentication", () => {
         })
 
         it("invalid credentials", () => {
+            cy.url().should("eq", URLS.LOGIN)
             userIsLoggedOut()
             loginAttempt()
             cy.get("p").contains("Username and/or password incorrect.")
             userIsLoggedOut() // should still be logged out
+        })
+
+        it("should not show login page once logged in", () => {
+            userIsLoggedOut()
+            mockValidCredentials()
+            loginAttempt()
+            userIsLoggedIn()
+
+            cy.visit(URLS.LOGIN)
+            cy.url().should("not.be", URLS.LOGIN)
+
+            cy.contains("login").should("not.exist")
         })
     })
 
@@ -34,5 +47,10 @@ describe("Authentication", () => {
         cy.get("button").contains("Logout").click()
 
         userIsLoggedOut()
+
+        for (let url in CMS_URLS) {
+            cy.visit(url)
+            cy.url().should("be", URLS.LOGIN)
+        }
     })
 })

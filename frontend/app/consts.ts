@@ -44,3 +44,5 @@ export const PUBLIC_FRONT_END_PAGES: Page[] = [
 ]
 
 export const OPEN_AUTH_ROUTES = [ROUTES.LOGIN, ROUTES.FORGOT_PASSWORD] // no auth required for these ones
+
+export const CMS_ROUTES = [ROUTES.EDIT_POLLEN_DATA]
