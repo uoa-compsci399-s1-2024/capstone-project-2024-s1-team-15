@@ -1,6 +1,6 @@
 import { memo, useEffect, useState } from "react"
 import dayjs from "dayjs"
-import { PollenData } from "@/app/(cms)/pollen/edit/type/PollenDataType"
+import { PollenData } from "@aapc/types"
 import { formatPollenData, FormattedPollenData } from "@/app/(cms)/pollen/components/util/formatData"
 import PollenTypeInput from "@/app/components/pollen/PollenTypeInput"
 import DateInput from "@/app/components/pollen/DateInput"
