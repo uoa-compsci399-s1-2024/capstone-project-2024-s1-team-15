@@ -1,4 +1,5 @@
 import dotenv from "dotenv"
+import Page from "./type/PageType"
 
 dotenv.config()
 
@@ -32,5 +33,14 @@ export const ROUTES = {
 
     EDIT_POLLEN_DATA: "/pollen/edit",
 }
+
+export const PUBLIC_FRONT_END_PAGES: Page[] = [
+    { name: "Pollen", url: "/pollen" },
+    { name: "Health", url: "/health" },
+    { name: "Research", url: "/research" },
+    { name: "News", url: "/news" },
+    { name: "About", url: "/about" },
+    { name: "Contact", url: "/contact" },
+]
 
 export const OPEN_AUTH_ROUTES = [ROUTES.LOGIN, ROUTES.FORGOT_PASSWORD] // no auth required for these ones
