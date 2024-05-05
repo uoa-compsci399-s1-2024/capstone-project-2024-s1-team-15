@@ -4,7 +4,7 @@ import React, { useEffect, useState, useRef } from "react"
 import { parseSpreadsheet } from "./util/parseExcel"
 import parseAssumptions from "./util/parseAssumptions"
 import { PollenData } from "./type/PollenDataType"
-import PollenCalendar from "@/app/components/PollenCalendar"
+import PollenCalendar from "@/app/components/PollenCalendarTemp"
 
 type ParseError = {
     message: string
