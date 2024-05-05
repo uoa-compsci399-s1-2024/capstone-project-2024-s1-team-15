@@ -1,6 +1,8 @@
+"use client"
+
 import ContentEditor from "@/app/(cms)/components/ContentEditor"
 import { Article, ArticleType, IArticle } from "@aapc/types"
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import ArticlePage from "@/app/components/ArticlePage"
 import { ArticleOut, Nullable } from "@/app/lib/types"
 import { editNews, publishNews } from "@/app/services/news"
@@ -13,24 +15,28 @@ type ArticleFormProps = PublishArticleFormProps | EditArticleFormProps
 type PublishArticleFormProps = {
     actionType: "publish"
     articleType: ArticleType
-    article?: IArticle
+    articleJSONString?: string
 }
 
 type EditArticleFormProps = {
     actionType: "edit"
     articleType: ArticleType
-    article: IArticle
+    articleJSONString: string
 }
 
-export default function ArticleForm({ actionType, articleType, article }: ArticleFormProps) {
+export default function ArticleForm({ actionType, articleType, articleJSONString }: ArticleFormProps) {
     const router = useRouter()
     const { token } = useAuth()
-
     const [title, setTitle] = useState("")
     const [subtitle, setSubtitle] = useState( "")
     const [initialEditorContent, setInitialEditorContent] = useState("")
     const [editorContent, setEditorContent] = useState("")
     const [error, setError] = useState<Nullable<string>>(null)
+
+    const article = useMemo(
+        () => articleJSONString ? new Article(JSON.parse(articleJSONString)) : null,
+        [articleJSONString]
+    )
 
     useEffect(() => {
         if (article) {
@@ -62,7 +68,7 @@ export default function ArticleForm({ actionType, articleType, article }: Articl
                         })
                     } break
                     case "edit": {
-                        editNews(article.id, a, { token }).then(r => {
+                        editNews((article as IArticle).id, a, { token }).then(r => {
                             if (r.success) {
                                 setError(null)
                                 router.push(`/news/${r.result.id}`)
@@ -86,7 +92,7 @@ export default function ArticleForm({ actionType, articleType, article }: Articl
                         })
                     } break
                     case "edit": {
-                        editResearch(article.id, a, { token }).then(r => {
+                        editResearch((article as IArticle).id, a, { token }).then(r => {
                             if (r.success) {
                                 setError(null)
                                 router.push(`/research/${r.result.id}`)

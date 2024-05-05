@@ -189,7 +189,7 @@ export default function ContentEditor({ setEditorContent, content = "" }: Conten
     })
 
     useEffect(() => {
-        editor && editor.commands.setContent(content)
+        editor && editor.commands.setContent(content)  // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [content])
 
     if (!editor) return <></>

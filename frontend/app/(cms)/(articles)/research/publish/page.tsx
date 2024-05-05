@@ -1,4 +1,4 @@
-"use client"
+"use client"  // This can be turned into a server component when the Load Example function is removable
 
 import React, { useState } from "react"
 import ArticleForm from "@/app/(cms)/(articles)/components/ArticleForm"
@@ -28,7 +28,7 @@ export default function CreateResearchPage() {
                 </button>
             }
             <ArticleForm articleType={ArticleType.research} actionType={"publish"}
-                         article={exampleArticle ? exampleArticle : undefined}/>
+                         articleJSONString={exampleArticle ? JSON.stringify(exampleArticle) : undefined}/>
         </div>
     )
 }

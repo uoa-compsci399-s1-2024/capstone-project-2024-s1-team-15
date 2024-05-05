@@ -2,10 +2,12 @@ import React from "react"
 import ButtonLink from "@/app/components/ButtonLink"
 import { SCOPES } from "@/app/lib/consts"
 import Privileged from "@/app/components/Privileged"
+import MessageFromQuery from "@/app/components/MessageFromQuery";
 
 export default function Home() {
     return (
         <div>
+            <MessageFromQuery/>
             <h1>Home</h1>
             <div className={"space-y-2"}>
                 <ButtonLink href={"/news"} text={"View All News"} />

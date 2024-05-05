@@ -1,12 +1,11 @@
-import type { Metadata } from "next"
-import localFont from "next/font/local"
 import "./globals.css"
-import React, { Suspense } from "react"
-import Nav from "@/app/components/Nav"
+import React from "react"
+import localFont from "next/font/local"
+import type { Metadata } from "next"
 import { getMetadata } from "@/app/lib/util"
-import Footer from "@/app/components/Footer"
 import { AuthLayout } from "@/app/(auth)/components"
-import MessageFromQuery from "@/app/components/MessageFromQuery";
+import Nav from "@/app/components/Nav"
+import Footer from "@/app/components/Footer"
 
 const inter = localFont({
     src: "./public/Inter.ttf",
@@ -23,9 +22,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                 <AuthLayout>
                     <Nav/>
                     <div className={"w-[900px] px-6 mx-auto pb-12"}>
-                        <Suspense>
-                            <MessageFromQuery/>
-                        </Suspense>
                         {children}
                     </div>
                     <Footer/>

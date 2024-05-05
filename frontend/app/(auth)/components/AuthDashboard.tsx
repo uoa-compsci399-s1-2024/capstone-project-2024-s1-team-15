@@ -4,15 +4,13 @@ import React, { useRef } from "react"
 import { useAuth } from "@/app/lib/hooks"
 import { getScopesFromToken } from "@/app/lib/util"
 import { UserScopeLabel } from "@/app/(auth)/components"
-import { UserScope } from "@aapc/types"
-import { Nullable } from "@/app/lib/types"
 import LoginModal, { LoginModalRef } from "@/app/components/modals/LoginModal";
 
 export default function AuthDashboard(): React.JSX.Element {
     const { user, token, clearSession } = useAuth()
+    let scopes = getScopesFromToken(token)
     const ref = useRef<LoginModalRef>(null)
 
-    let scopes: Nullable<UserScope[]> = getScopesFromToken(token)
     if (token && !scopes) {
         clearSession()
     }

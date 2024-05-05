@@ -8,15 +8,12 @@ type ErrorModalProps = {
     onHide?: () => void
 }
 
-export default function ErrorModal({ msg, onHide }: ErrorModalProps) {
+export default function ErrorModal({ msg = "An error has occurred.", onHide }: ErrorModalProps) {
     const [hidden, setHidden] = useState(true)
 
     useEffect(() => {
-        if (msg === undefined) {
-            msg = "An error has occurred."
-        }
-        if (msg) setHidden(false)
-    }, [])
+        if (msg !== null) setHidden(false)
+    }, [msg])
 
     useEffect(() => {
         const s = document.getElementById("outer-error-modal")
@@ -27,7 +24,7 @@ export default function ErrorModal({ msg, onHide }: ErrorModalProps) {
             if (!modal.matches(":hover")) {
                 hideModal()
             }
-        })
+        })  // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const hideModal = () => {
