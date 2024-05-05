@@ -1,5 +1,5 @@
 import dayjs from "dayjs"
-import { FormattedPollenData } from "./formatData"
+import { FormattedPollenData } from "./util/formatData"
 import { memo } from "react"
 
 import "chartjs-adapter-dayjs-4/dist/chartjs-adapter-dayjs-4.esm"

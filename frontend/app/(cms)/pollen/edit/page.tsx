@@ -1,10 +1,10 @@
 "use client"
 
 import React, { useEffect, useState, useRef } from "react"
+import { PollenData } from "@aapc/types"
 import { parseSpreadsheet } from "./util/parseExcel"
 import parseAssumptions from "./util/parseAssumptions"
-import { PollenData } from "@aapc/types"
-import PollenCalendar from "@/app/components/pollenCalendar"
+import PollenCalendar from "@/app/(cms)/pollen/components/PollenCalendar"
 
 type ParseError = {
     message: string
