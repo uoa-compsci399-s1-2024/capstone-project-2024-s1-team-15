@@ -22,7 +22,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                 <AuthLayout>
                     <Nav/>
                     <div className={"w-[900px] px-6 mx-auto pb-12"}>
-                        <AuthDashboard/>
                         {children}
                     </div>
                     <Footer/>

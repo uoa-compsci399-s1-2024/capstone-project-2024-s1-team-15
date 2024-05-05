@@ -15,11 +15,11 @@ a {
 }
 
 .button {
-    @apply flex items-center justify-center py-2 px-4 bg-green-600 font-medium rounded-full text-sm transition-all bg-opacity-15 text-black hover:bg-opacity-100 hover:text-white;
+    @apply flex items-center justify-center py-2 px-4 bg-gray-500 font-medium rounded-full text-sm transition-all bg-opacity-15 text-black hover:bg-opacity-100 hover:text-white;
 }
 
 #editor button {
-    @apply h-8 w-8 rounded-md bg-green-600 bg-opacity-15
+    @apply h-8 w-8 rounded-md bg-gray-500 bg-opacity-15
     border-2 border-green-600 border-opacity-0 transition-all
     text-sm font-medium tracking-tight text-black
     hover:border-opacity-100 flex items-center justify-center;
@@ -42,13 +42,25 @@ a {
 }
 
 .form-input {
-    @apply resize-none h-11 text-lg w-full px-4 pb-1 pt-2 bg-gray-500 bg-opacity-5 rounded-2xl shadow-inner;
+    @apply resize-none h-11 text-xs w-full px-4 pb-1 pt-2 bg-slate-100 bg-opacity-5 rounded-2xl shadow-inner;
 }
 
 .form-label {
-    @apply mt-7 mb-1.5 tracking-tight font-medium text-gray-400 uppercase text-xs;
+    @apply mt-7 mb-1.5 tracking-tight font-medium uppercase text-xs;
 }
 
 .form-error {
     @apply text-red-500;
+}
+
+.hoverable{
+    @apply transition duration-300 ease-in-out shadow-md hover:shadow-lg transform hover:-translate-y-0.5 hover:scale-105;
+}
+
+.exit-button{
+    @apply text-gray-700 text-3xl font-bold;
+}
+
+.login-button{
+    @apply py-2 px-6 rounded-full text-black font-semibold text-xs w-28;
 }

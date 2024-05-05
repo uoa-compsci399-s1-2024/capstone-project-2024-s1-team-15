@@ -22,7 +22,7 @@ export default function AuthDashboard(): React.JSX.Element {
                         <p>Logged in as <b className={"font-medium"}>{user.displayName}</b></p>
                     </div>
                     { scopes && <UserScopeLabel scopes={scopes}/>}
-                    <button className="button" onClick={clearSession}>Logout</button>
+                    <button className="hoverable login-button" style={{backgroundColor: '#FFD166'}} onClick={clearSession}>Logout</button>
                 </div>
             )}
         </div>

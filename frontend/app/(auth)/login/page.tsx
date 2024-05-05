@@ -36,7 +36,6 @@ export default function Login() {
 
     return (
         <Suspense>
-            <h1>Log in</h1>
             { errorMessage && <span className={"form-error mb-4 block"}>{errorMessage}</span> }
             <LoginForm/>
         </Suspense>
