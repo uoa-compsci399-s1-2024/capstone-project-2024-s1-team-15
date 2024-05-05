@@ -1,28 +1,28 @@
 "use client"
 
 import { PollenCalendar } from "@/app/components/pollen"
-import PageTemplate from "@/app/components/PageContentTemplate"
-import { API_URI } from "@/app/consts"
 import { useEffect, useState } from "react"
 import { PollenData } from "@aapc/types"
+import { getPollenData } from "@/app/services/pollen"
+import PageTemplate from "@/app/components/PageContentTemplate"
 import Slider, { Slide } from "@/app/components/Slider"
 import pollenTypesSlidesContent from "./pollenTypesSlidesContent.json"
 
 export default function Pollen() {
     const [pollenData, setPollenData] = useState<null | PollenData[]>(null)
     const [selectedSlidePollenName, setSelectedSlidePollenName] = useState(pollenTypesSlidesContent[0].name)
-    const [selectedPollenSlideHTML, selectPollenSlideHTML] = useState<string | undefined>(undefined)
-
-    const getPollenData = async () => {
-        setPollenData((await (await fetch(API_URI + "/pollen-data", { method: "GET" })).json()) as PollenData[])
-    }
+    const [selectedPollenSlideHTML, setSelectedPollenSlideHTML] = useState<string | undefined>(undefined)
 
     useEffect(() => {
-        getPollenData()
+        getPollenData().then(r => {
+            setPollenData(r)
+        })
     }, [])
 
     useEffect(() => {
-        selectPollenSlideHTML(pollenTypesSlidesContent.find(({ name }) => name == selectedSlidePollenName)?.summaryHTML)
+        setSelectedPollenSlideHTML(
+            pollenTypesSlidesContent.find(({ name }) => name === selectedSlidePollenName)?.summaryHTML
+        )
     }, [selectedSlidePollenName])
 
     const pollenSlides = pollenTypesSlidesContent.map(({ name, summaryHTML }) => (
@@ -35,19 +35,17 @@ export default function Pollen() {
                 <PageTemplate.PageName>Pollen</PageTemplate.PageName>
                 <PageTemplate.HighlightSection>
                     {selectedSlidePollenName && selectedPollenSlideHTML && (
-                        <>
-                            <section>
-                                <p>
-                                    Types of Pollen: <span className="font-bold">{selectedSlidePollenName}</span>
-                                </p>
-                                <Slider
-                                    onSelectedSlideIndexChange={(index: number) =>
-                                        setSelectedSlidePollenName(pollenTypesSlidesContent[index].name)
-                                    }
-                                    slides={pollenSlides}
-                                />
-                            </section>
-                        </>
+                        <section>
+                            <p>
+                                Types of Pollen: <span className="font-bold">{selectedSlidePollenName}</span>
+                            </p>
+                            <Slider
+                                onSelectedSlideIndexChange={(index: number) =>
+                                    setSelectedSlidePollenName(pollenTypesSlidesContent[index].name)
+                                }
+                                slides={pollenSlides}
+                            />
+                        </section>
                     )}
                 </PageTemplate.HighlightSection>
                 <PageTemplate.RemainingPageContent>

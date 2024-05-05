@@ -5,7 +5,7 @@ import React from "react"
 import Nav from "@/app/components/Nav"
 import { getMetadata } from "@/app/lib/util"
 import Footer from "@/app/components/Footer"
-import { AuthLayout, AuthDashboard } from "@/app/(auth)/components"
+import { AuthLayout } from "@/app/(auth)/components"
 
 const inter = localFont({
     src: "./public/Inter.ttf",

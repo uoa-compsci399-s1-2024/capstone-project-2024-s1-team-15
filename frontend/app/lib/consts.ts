@@ -34,7 +34,7 @@ export const ROUTES = {
     EDIT_POLLEN_DATA: "/pollen/edit",
 }
 
-export const OPEN_AUTH_ROUTES = [ROUTES.LOGIN, ROUTES.FORGOT_PASSWORD] // no auth required for these ones
+export const OPEN_AUTH_ROUTES = [ROUTES.LOGIN, ROUTES.FORGOT_PASSWORD] // no auth required for these
 
 export const SCOPES = {
     anonymous: [],
