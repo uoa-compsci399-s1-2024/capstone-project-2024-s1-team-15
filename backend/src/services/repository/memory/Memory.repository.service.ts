@@ -1,9 +1,10 @@
-import { Article, IArticle, IUser, User } from "@aapc/types"
+import { Article, IArticle, IUser, User, PollenData, } from "@aapc/types"
 import { ArrayResult, ArrayResultOptions, Nullable, SortOptions } from "@/util/types/types"
 import IRepository from "@/services/repository/repository.service"
 import users from "@/services/repository/memory/data/users.json"
 import news from "@/services/repository/memory/data/news.json"
 import researches from "@/services/repository/memory/data/researches.json"
+import pollenData from "@/services/repository/memory/data/pollenData.json"
 import { Sorter } from "@/services/repository/memory/sorters/Sorter"
 import { ArticleSortFields } from "@/services/repository/memory/sorters/article.sorter"
 import { UserSortFields } from "@/services/repository/memory/sorters/user.sorter"
@@ -12,6 +13,7 @@ export default class MemoryRepository implements IRepository {
     private readonly users: User[]
     private readonly news: Article[]
     private readonly researches: Article[]
+    private pollenData: PollenData[]
 
     constructor() {
         this.users = []
@@ -34,6 +36,8 @@ export default class MemoryRepository implements IRepository {
                 this.researches.push(new Article(j))
             })
         })
+
+        this.pollenData = pollenData as any
     }
 
     handleArrayResultOptions<T, K extends SortOptions<T, any>>(
@@ -210,5 +214,9 @@ export default class MemoryRepository implements IRepository {
                 return
             }
         }
+    }
+
+    async getAllPollenData(): Promise<PollenData[]> {
+        return structuredClone(this.pollenData)
     }
 }

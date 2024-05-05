@@ -1,0 +1,14 @@
+[
+    {
+        "name": "Ragweed",
+        "summaryHTML": "<p>In the late summer and early fall, almost 50 million people in the U.S. have symptoms from an allergy to ragweed pollen. The symptoms can be mild, moderate, or severe for people with seasonal allergies.</p>"
+    },
+    {
+        "name": "Oak",
+        "summaryHTML": "<p>Oak pollen is a fine powder oak trees produce as part of their reproductive process. While essential for the tree's life cycle, these tiny particles may wreak havoc on the respiratory systems of people with allergies.</p>"
+    },
+    {
+        "name": "Grasses",
+        "summaryHTML": "<p>Airborne pollen from grass is lightweight and can blow a long way. New Zealand’s windy climate combined with large areas covered in grass, means living in urban areas can still be exposed to grass pollen.</p>"
+    }
+]

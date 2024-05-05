@@ -1,4 +1,4 @@
-import { PollenData } from "@/app/(cms)/pollen/edit/type/PollenDataType"
+import { PollenData } from "@aapc/types"
 import dayjs from "dayjs"
 
 // format that works well for charts

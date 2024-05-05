@@ -2,7 +2,7 @@ name: Backend (Development Preview)
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_BACKEND_DEV_ID }}
-on:
+on:    
   push:
     paths:
       - 'backend/**'

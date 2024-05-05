@@ -1,10 +1,10 @@
 "use client"
 
 import React, { useEffect, useState, useRef } from "react"
+import { PollenData } from "@aapc/types"
 import { parseSpreadsheet } from "./util/parseExcel"
+import { PollenCalendar } from "@/app/components/pollen"
 import parseAssumptions from "./util/parseAssumptions"
-import { PollenData } from "./type/PollenDataType"
-import PollenCalendar from "@/app/(cms)/pollen/components/PollenCalendar"
 
 type ParseError = {
     message: string
@@ -46,7 +46,6 @@ export default function EditPollen() {
             })
         }
         const uploadedFile = fileInputElement.files[0]
-        console.log({ uploadedFile })
 
         if (!uploadedFile.name.endsWith(".xlsx")) {
             return setError({
