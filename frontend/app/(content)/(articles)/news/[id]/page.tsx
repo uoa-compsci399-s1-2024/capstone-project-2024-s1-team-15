@@ -6,7 +6,7 @@ import { getMetadata } from "@/app/lib/util"
 import { SCOPES } from "@/app/lib/consts"
 import Privileged from "@/app/components/Privileged"
 import ButtonLink from "@/app/components/ButtonLink"
-import ArticlePage from "@/app/components/ArticlePage";
+import ArticlePage from "@/app/components/ArticlePage"
 
 type PageParams = { params: { id: string } }
 
@@ -20,10 +20,10 @@ export default async function NewsPage({ params }: PageParams) {
     if (!article) notFound()
 
     return (
-        <div className={"space-y-6 pr-80"}>
-            <ArticlePage article={article}/>
+        <div className={"space-y-6"}>
+            <ArticlePage article={article} />
             <Privileged requiredScopes={SCOPES.maintainer}>
-                <ButtonLink href={`/news/${params.id}/edit`} text={"Edit"}/>
+                <ButtonLink href={`/news/${params.id}/edit`} text={"Edit"} />
             </Privileged>
         </div>
     )

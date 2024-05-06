@@ -34,7 +34,7 @@ export default function Pollen() {
 
     return (
         <PageTemplate>
-            <PageTemplate.PageName>Pollen</PageTemplate.PageName>
+            <PageTemplate.PageName><div className="page-title">Pollen</div></PageTemplate.PageName>
             <PageTemplate.PageExplanation>
                 Pollen is a powdery substance produced by most types of flowers of seed plants for the purpose of sexual
                 reproduction. It consists of pollen grains, which produce male gametes. There are several different
@@ -43,7 +43,7 @@ export default function Pollen() {
             </PageTemplate.PageExplanation>
             <PageTemplate.HighlightSection>
                 {selectedSlidePollenName && selectedPollenSlideHTML && (
-                    <section>
+                    <section className="px-40">
                         <p>
                             Types of Pollen: <span className="font-bold">{selectedSlidePollenName}</span>
                         </p>

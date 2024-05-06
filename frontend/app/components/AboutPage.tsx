@@ -100,7 +100,7 @@ export default function AboutPage() {
                     <h2 className="font-semibold text-lg text-gray-600 text-center">
                         Academic Organisations
                     </h2>
-                    <p>These organisations are backing AAPC and are providing the tools, technologies and support to
+                    <p className="text-center">These organisations are backing AAPC and are providing the tools, technologies and support to
                         continue research into pollen.</p>
                     <div className="mt-6">
                         <ul className="flex gap-x-10 gap-y-6 flex-wrap items-center justify-center md:gap-x-16">

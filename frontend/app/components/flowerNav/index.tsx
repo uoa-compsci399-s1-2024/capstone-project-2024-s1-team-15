@@ -72,13 +72,16 @@ export default function FlowerNav() {
                     style={petalRotationStyle}
                     onClick={() => setSelectedPetalIndex(index)}
                     className={`absolute top-1/2 origin-right -translate-y-1/2 rotate-0`}>
-                    <Petal page={page} selected={selectedPetalIndex === index} />
+                    <Petal page={page} selected={page.url === selectedPageUrl && selectedPetalIndex === index} />
                 </div>
                 <div
                     style={oppositePetalRotationStyle}
                     onClick={() => setSelectedPetalIndex(index + pages.length)}
                     className={`absolute top-1/2 origin-right -translate-y-1/2 rotate-0`}>
-                    <Petal page={page} selected={selectedPetalIndex === index + pages.length} />
+                    <Petal
+                        page={page}
+                        selected={page.url === selectedPageUrl && selectedPetalIndex === index + pages.length}
+                    />
                 </div>
             </li>
         )
