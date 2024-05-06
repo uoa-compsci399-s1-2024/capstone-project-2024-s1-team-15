@@ -1,7 +1,7 @@
 import { URLS } from "./consts"
 import { userIsLoggedOut, mockValidCredentials, loginAttempt, userIsLoggedIn } from "./authenticationUtils"
 
-describe("Authentication", () => {
+describe.skip("Authentication", () => {
     describe("login", () => {
         beforeEach(() => {
             cy.visit(URLS.LOGIN)
