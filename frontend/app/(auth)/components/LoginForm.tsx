@@ -38,13 +38,13 @@ export default function LoginForm ({ closeModal }: { closeModal?: () => void }):
     return (
         <form className="flex flex-col items-start space-y-6 w-full" action={formAction} id={"login-form"}>
             <div className={"w-full"}>
-                <label><p className="form-label">Username</p></label>
+                <label htmlFor={"username"}><p className="form-label">Username</p></label>
                 <input name={"username"} className={"form-input bg-gray-100 max-w-lg"} type={"text"}
                        placeholder={"Enter your username..."}/>
             </div>
 
             <div className={"w-full"}>
-                <label><p className="form-label">Password</p></label>
+                <label htmlFor={"username"}><p className="form-label">Password</p></label>
                 <input name={"password"} className={"form-input bg-gray-100 max-w-lg"} type={"password"}
                        placeholder={"Enter your password..."}/>
             </div>
