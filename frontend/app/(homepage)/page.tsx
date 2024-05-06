@@ -10,7 +10,7 @@ export default function Home() {
                 <Image src={yellowback} alt="backgroundimg" className="pl-40 pt-5" />
             </div>
             <div className="fixed inset-0 z-[-1] pl-96 ml-60">
-                <Image src={pollenimg} alt="pollenimg" className="-mt-20 ml-20" />
+                <Image src={pollenimg} alt="pollenimg" className="-mt-20 ml-20 transition-transform duration-1000 transform hover:-translate-y-5"/>
             </div>
             <div className="fixed text-black pl-8">
                 <h1 className="text-3xl">Welcome to</h1>
