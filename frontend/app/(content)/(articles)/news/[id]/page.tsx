@@ -20,7 +20,7 @@ export default async function NewsPage({ params }: PageParams) {
     if (!article) notFound()
 
     return (
-        <div className={"space-y-6"}>
+        <div className={"space-y-6 pr-80"}>
             <ArticlePage article={article}/>
             <Privileged requiredScopes={SCOPES.maintainer}>
                 <ButtonLink href={`/news/${params.id}/edit`} text={"Edit"}/>
