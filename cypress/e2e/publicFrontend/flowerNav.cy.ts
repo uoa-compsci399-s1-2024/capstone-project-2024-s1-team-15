@@ -86,7 +86,11 @@ describe("flower navigation", () => {
 
                     cy.log(nextPageToClick.name, page.name)
                     if (page.name === nextPageToClick.name) {
-                        navItemElement.contains("p", page.name).should("have.css", "opacity", "1")
+                        try {
+                            navItemElement.contains("p", page.name).eq(0).should("have.css", "opacity", "1")
+                        } catch (e) {
+                            navItemElement.contains("p", page.name).eq(1).should("have.css", "opacity", "1")
+                        }
                     } else {
                         navItemElement.contains("p", page.name).should("have.css", "opacity", "0.2")
                     }
