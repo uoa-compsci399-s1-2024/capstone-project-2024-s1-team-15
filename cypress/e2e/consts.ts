@@ -1,4 +1,4 @@
-import { ROUTES } from "@/../../frontend/app/consts"
+import { ROUTES } from "@/../../frontend/app/lib/consts"
 
 let uiUri
 

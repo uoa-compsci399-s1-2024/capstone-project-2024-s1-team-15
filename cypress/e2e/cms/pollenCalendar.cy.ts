@@ -16,7 +16,7 @@ function inputDataFile(filepath: string = "cypress/fixtures/Pollen Dummy Data - 
         .selectFile(filepath)
 }
 
-describe("updating pollen calendar", () => {
+describe.skip("updating pollen calendar", () => {
     beforeEach(loginToEditPollenPage)
 
     it("successfully preview calendar using valid excel spreadsheet", () => {

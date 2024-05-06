@@ -5,6 +5,7 @@ const config: Config = {
         "./pages/**/*.{js,ts,jsx,tsx,mdx}",
         "./components/**/*.{js,ts,jsx,tsx,mdx}",
         "./app/**/*.{js,ts,jsx,tsx,mdx}",
+        "./node_modules/flowbite-react/lib/**/*.js"
     ],
     theme: {
         extend: {
@@ -24,12 +25,19 @@ const config: Config = {
                 },
             },
             colors: {
-                primary: "#059669",
+                primary: "#FFD166",
+                "primary-light": "#fff0ce",
                 secondary: "#9CA3AF",
+                admin: "#f35d5d",
+                maintainer: "#37a0ec",
+                premium: "#ffcc6d",
+                user: "#c9c9c9"
             },
         },
     },
-    plugins: [require("@tailwindcss/typography")],
+    plugins: [
+        require("@tailwindcss/typography")
+    ],
     darkMode: "selector",
 }
 export default config

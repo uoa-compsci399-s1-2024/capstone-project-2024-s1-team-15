@@ -1,14 +1,12 @@
 name: End-to-End Tests
 on:
-  pull_request: 
-    branches:
-       - '*'   
-    
   push:
     paths:
       - 'backend/**'
       - 'frontend/**'
       - 'cypress/**'
+      - '.github/workflows/end-to-end-tests.yml'
+
 jobs:
   test:
     runs-on: ubuntu-latest
