@@ -45,7 +45,16 @@ export default function ArticleForm({
     }
 
     return (
-        <>
+        <>  
+            <p className={"form-label"}>External Link</p>
+            <textarea
+                id={"externalLink"}
+                className={"form-input"}
+                onChange={updateTitle}
+                placeholder={"Enter an external link to a news article..."}
+               
+            />
+
             <p className={"form-label"}>Title</p>
             <textarea
                 id={"title"}
@@ -68,7 +77,7 @@ export default function ArticleForm({
             <ContentEditor setEditorContent={setEditorContent} content={article?.content} />
 
             <div className={""}>
-                <button className={"button mt-8 text-lg"}>
+                <button className={"button mt-8 text-lg"} onClick={submitArticle}>
                     Publish {articleType === ArticleType.news ? "News" : "Research"}
                 </button>
             </div>
