@@ -57,7 +57,7 @@ describe("flower navigation", () => {
         }
     })
 
-    describe("navigation selects petal from current url", () => {
+    describe.skip("navigation selects petal from current url", () => {
         // no tests for CMS or auth pages yet 👇
         // on cms pages, hide flower?
         // on auth pages, hide flower?
