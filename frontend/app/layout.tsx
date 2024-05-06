@@ -23,7 +23,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                 <AuthLayout>
                     <div className="relative">
                     <Header />
-                        <div className="absolute top-30 pt-5 right-0">
+                        <div className="fixed top-30 pt-5 right-0">
                             <FlowerNav />
                         </div>
                         <div className={`max-w-full px-32 pb-12`}>
