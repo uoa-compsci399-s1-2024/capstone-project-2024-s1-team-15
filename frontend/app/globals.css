@@ -84,3 +84,7 @@ a {
 .signup-button{
     @apply py-2 px-6 rounded-full text-black font-semibold text-xs w-28 bg-gray-300;
 }
+
+.page-title {
+    @apply text-3xl text-white font-bold bg-primary p-4 inline-block rounded-full w-auto md:text-left;
+}

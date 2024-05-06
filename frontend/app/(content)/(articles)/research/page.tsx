@@ -13,7 +13,7 @@ export default async function AllResearchPage() {
 
     return (
         <div>
-            <h1>All Research</h1>
+            <h1 className="page-title">All Research</h1>
             <Privileged requiredScopes={SCOPES.maintainer}>
                 <ButtonLink href={"/research/publish"} text={"Publish Research"}/>
             </Privileged>

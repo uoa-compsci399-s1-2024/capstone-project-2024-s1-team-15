@@ -12,16 +12,14 @@ export default async function AllNewsPage() {
     const news = await getAllNews()
 
     return (
-        <div className="pr-80">
-            <h1>All News</h1>
+        <div>
+            <h1 className="page-title">All News</h1>
             <Privileged requiredScopes={SCOPES.maintainer}>
-                <ButtonLink href={"/news/publish"} text={"Publish News"}/>
+                <ButtonLink href={"/news/publish"} text={"Publish News"} />
             </Privileged>
             <div className={"space-y-12 mt-6"}>
                 {news.data.map((a) => {
-                    return (
-                        <ArticleCard article={a} key={a.id}/>
-                    )
+                    return <ArticleCard article={a} key={a.id} />
                 })}
             </div>
         </div>

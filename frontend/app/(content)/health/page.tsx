@@ -24,7 +24,7 @@ const techniques = [
 export default function HealthPage() {
     return (
         <PageTemplate>
-            <PageTemplate.PageName>Health</PageTemplate.PageName>
+            <PageTemplate.PageName><div className="page-title">Health</div></PageTemplate.PageName>
             <PageTemplate.PageExplanation>
                 Hay fever is the common name to describe allergic rhinitis and involves a recurrent runny, stuffy, itchy
                 nose, and frequent sneezing. It can also affect your eyes, sinuses, throat and ears. Like any other

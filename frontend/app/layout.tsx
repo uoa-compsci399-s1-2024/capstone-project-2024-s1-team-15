@@ -22,13 +22,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <body className={`${inter.variable} font-sans`}>
                 <AuthLayout>
                     <div className="relative">
-                    <Header />
+                        <Header />
                         <div className="fixed top-30 pt-5 right-0">
                             <FlowerNav />
                         </div>
-                        <div className={`max-w-full px-32 pb-12`}>
-                            {children}
-                        </div>
+                        <div className={`max-w-full px-32 pb-12 pr-80`}>{children}</div>
                     </div>
                     <Footer />
                 </AuthLayout>
