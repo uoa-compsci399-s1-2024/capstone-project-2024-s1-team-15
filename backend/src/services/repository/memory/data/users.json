@@ -40,6 +40,14 @@
         "scopes": ["usr", "reg"]
     },
     {
+        "username": "premiumguy",
+        "email": "premium@example.com",
+        "displayName": "Mister Premium",
+        "verified": true,
+        "registeredAt": "2024-04-27T00:00:00.000000Z",
+        "scopes": ["usr", "prm"]
+    },
+    {
         "username": "aapctest27394962@gmail.com",
         "email": "aapctest27394962@gmail.com",
         "displayName": "Test Admin Account",

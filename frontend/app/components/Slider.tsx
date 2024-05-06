@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react"
-import { Children, PropsWithChildren } from "react"
 
 type Props = {
     slides: React.JSX.Element[]

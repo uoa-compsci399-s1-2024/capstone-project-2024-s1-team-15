@@ -4,7 +4,7 @@
 ![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
 ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
-Our frontend app will utilize Next.js's powerful server-side rendering features to supercharge the user experience, as
+Our frontend app will utilize Next.js' powerful server-side rendering features to supercharge the user experience, as
 well as TailwindCSS's
 unique approach to styling to provide an efficient, and aesthetically pleasing website.
 
@@ -36,7 +36,7 @@ Open [http://localhost:3001](http://localhost:3001) with your browser to access 
 
 # Deployment Rules
 
--   Any changes pushed to github on **any** branch will be deployed to Vercel Development Preview. This is not public.
+-   Any changes pushed to GitHub on **any** branch will be deployed to Vercel Development Preview. This is not public.
 -   Any changes pushed on the `dev` branch will be deployed to the **development** environment ([https://dev.aapc-nz.org](https://dev.aapc-nz.org)).
 -   Any changes pushed on the `main` branch will be deployed to the **production** environment ([https://www.aapc-nz.org](https://aapc-nz.org)).
 

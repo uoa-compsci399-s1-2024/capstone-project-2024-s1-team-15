@@ -115,7 +115,7 @@ const MultiChart = memo(function MultiChart({
 
                 ticks: {
                     // For a category axis, the val is the index so the lookup via getLabelForValue is needed
-                    callback: function (val: string | number, index: number) {
+                    callback: function (val: string | number, _: number) {
                         return Math.abs(val as number)
                     },
                 },

@@ -1,12 +1,12 @@
-import type { Metadata } from "next"
-import localFont from "next/font/local"
 import "./globals.css"
 import React from "react"
 import Header from "@/app/components/Header"
-import { getMetadata } from "@/app/util"
 import Footer from "@/app/components/Footer"
-import AuthLayout from "@/app/components/AuthLayout"
 import FlowerNav from "./components/flowerNav"
+import localFont from "next/font/local"
+import type { Metadata } from "next"
+import { getMetadata } from "@/app/lib/util"
+import { AuthLayout } from "@/app/(auth)/components"
 
 const inter = localFont({
     src: "./public/Inter.ttf",

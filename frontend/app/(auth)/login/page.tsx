@@ -1,46 +1,38 @@
 "use client"
 
-import { useAuth } from "@/app/(auth)/CMSAuthContext"
-import React, { useState } from "react"
+import React, { useEffect } from "react"
+import { redirect } from "next/navigation"
+import { useAuth } from "@/app/lib/hooks"
+import { LoginForm } from "@/app/(auth)/components"
+import { Nullable } from "@/app/lib/types"
+import MessageFromQuery from "@/app/components/MessageFromQuery";
 
 export default function Login() {
-    const { login } = useAuth()
-    const [emailInput, setEmailInput] = useState("")
-    const [passwordInput, setPasswordInput] = useState("")
-    const [errorMessage, setErrorMessage] = useState(null)
+    const { token } = useAuth()
+
+    useEffect(() => {
+        if (token) {
+            const params = (new URL(window.location.href)).searchParams
+            const fromPathParam = params.get("from")
+            let fromPath: Nullable<string>
+            try {
+                fromPath = fromPathParam ? atob(fromPathParam) : null
+            } catch (e) {
+                fromPath = null
+            }
+            if (!fromPath) {
+                redirect("/")
+            } else {
+                redirect(fromPath)
+            }
+        }
+    }, [token])
 
     return (
-        <form className="flex flex-col items-start gap-4">
-            <label>
-                <span className="form-label">Email</span>
-                <input
-                    className="form-input"
-                    value={emailInput}
-                    onChange={(e) => setEmailInput(e.target.value)}
-                    type="text"
-                />
-            </label>
-
-            <label>
-                <span className="form-label">Password</span>
-                <input
-                    className="form-input"
-                    value={passwordInput}
-                    onChange={(e) => setPasswordInput(e.target.value)}
-                    type="password"
-                />
-            </label>
-
-            <button
-                className="button"
-                onClick={(e) => {
-                    e.preventDefault()
-
-                    setErrorMessage(login(emailInput, passwordInput)) // login returns undefined or error message
-                }}>
-                Login
-            </button>
-            {errorMessage && <p className="form-error">{errorMessage}</p>}
-        </form>
+        <>
+            <MessageFromQuery/>
+            <h1>Login</h1>
+            <LoginForm/>
+        </>
     )
 }

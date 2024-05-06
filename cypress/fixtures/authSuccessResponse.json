@@ -1,10 +1,15 @@
 {
-    "token": "eyJhbGciOiJIUzI1NiI2cCI6IkpXVCJ9.eyJ1c2VybmFtZSI63cGN0ZXN0MjczOTQ5NjJAZtyufgaWwuY29tIiwicm9sZXMiOlsidXNlciJdLCJpYXQiOjE3MTQxNjg0Nzd9.0nN79nWs60zIwHqzcPQBOVzvwlaLLAMgDNOR2qDtR2c",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imtpd2loZWFsdGgiLCJzY29wZXMiOlsidXNyIiwicmVnIiwiYWRtIl0sImlhdCI6MTcxNDkxNDQ2N30.miBj1fUE73Z0VMzp8a2BsSCg9cL9LZ9_yUZ-2W45Jqc",
     "user": {
-        "username": "validemail@gmail.com",
-        "email": "validemail@gmail.com",
-        "displayName": "Admin",
+        "username": "kiwihealth",
+        "email": "kiwihealth@example.com",
+        "displayName": "Robert Garcia",
         "verified": true,
-        "registeredAt": "2024-04-26T21:54:37.898Z"
+        "registeredAt": "2024-03-08T00:00:00.000Z",
+        "scopes": [
+            "usr",
+            "reg",
+            "adm"
+        ]
     }
 }
