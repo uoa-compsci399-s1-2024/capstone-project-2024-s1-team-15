@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Global Styles */
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
 h1 {
     @apply text-4xl font-bold tracking-tight mb-8 mt-12;
@@ -28,7 +28,6 @@ a {
     @apply flex items-center justify-center py-2 px-4 bg-gray-500 font-medium rounded-full text-sm transition-all bg-opacity-15 text-black hover:bg-opacity-100 hover:text-white;
 }
 
-
 /* Styling for buttons in editor. */
 #editor button {
     @apply h-8 w-8 rounded-md bg-gray-500 bg-opacity-15
@@ -44,7 +43,6 @@ a {
 #editor button:disabled {
     @apply text-gray-500 text-opacity-40 bg-gray-500 bg-opacity-15 cursor-default hover:border-opacity-0;
 }
-
 
 /* Styling for form elements. */
 .form-field {
@@ -76,9 +74,9 @@ a {
 }
 
 .outer-modal {
-    @apply overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-40 justify-center items-center w-full h-[calc(100%)] max-h-full bg-black bg-opacity-40
+    @apply overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-40 justify-center items-center w-full h-[calc(100%)] max-h-full bg-black bg-opacity-40;
 }
 
 .inner-modal {
-    @apply relative shadow-2xl w-full m-auto mt-48 max-w-[530px] max-h-full rounded-xl z-50
+    @apply relative shadow-2xl w-full m-auto mt-48 max-w-[530px] max-h-full rounded-xl z-50;
 }

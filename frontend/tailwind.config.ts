@@ -11,6 +11,7 @@ const config: Config = {
         extend: {
             fontFamily: {
                 sans: ["var(--font-inter)"],
+                roboto: ["'Roboto' sans-serif"],
             },
             backgroundImage: {
                 "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
@@ -32,6 +33,10 @@ const config: Config = {
                 maintainer: "#37a0ec",
                 premium: "#ffcc6d",
                 user: "#c9c9c9"
+            },
+            transitionTimingFunction: {
+                // https://forum.figma.com/t/recreating-gentle-easing-using-bezier-curves/55312/3
+                "figma-gentle": "cubic-bezier(.47,0,.23,1.38)",
             },
         },
     },

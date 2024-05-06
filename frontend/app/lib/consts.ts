@@ -1,5 +1,6 @@
 import dotenv from "dotenv"
-import { UserScope } from "@aapc/types";
+import Page from "@/app/type/PageType"
+import { UserScope } from "@aapc/types"
 
 dotenv.config()
 
@@ -34,7 +35,16 @@ export const ROUTES = {
     EDIT_POLLEN_DATA: "/pollen/edit",
 }
 
-export const OPEN_AUTH_ROUTES = [ROUTES.LOGIN, ROUTES.FORGOT_PASSWORD] // no auth required for these
+export const PUBLIC_FRONT_END_PAGES: Page[] = [
+    { name: "Pollen", url: "/pollen" },
+    { name: "Health", url: "/health" },
+    { name: "Research", url: "/research" },
+    { name: "News", url: "/news" },
+    { name: "About", url: "/about" },
+    { name: "Contact", url: "/contact" },
+]
+
+export const OPEN_AUTH_ROUTES = [ROUTES.LOGIN, ROUTES.FORGOT_PASSWORD] // no auth required for these ones
 
 export const SCOPES = {
     anonymous: [],

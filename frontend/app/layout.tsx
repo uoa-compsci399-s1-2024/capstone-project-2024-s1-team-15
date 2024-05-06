@@ -1,11 +1,12 @@
 import "./globals.css"
 import React from "react"
+import Header from "@/app/components/Header"
+import Footer from "@/app/components/Footer"
+import FlowerNav from "./components/flowerNav"
 import localFont from "next/font/local"
 import type { Metadata } from "next"
 import { getMetadata } from "@/app/lib/util"
 import { AuthLayout } from "@/app/(auth)/components"
-import Nav from "@/app/components/Nav"
-import Footer from "@/app/components/Footer"
 
 const inter = localFont({
     src: "./public/Inter.ttf",
@@ -20,11 +21,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <html lang="en">
             <body className={`${inter.variable} font-sans`}>
                 <AuthLayout>
-                    <Nav/>
-                    <div className={"w-[900px] px-6 mx-auto pb-12"}>
-                        {children}
+                    <Header />
+                    <div className="flex">
+                        <div className={"max-w-[calc(100%-18rem)] flex-1 px-20 pb-12"}>{children}</div>
+                        <FlowerNav />
                     </div>
-                    <Footer/>
+                    <Footer />
                 </AuthLayout>
             </body>
         </html>
