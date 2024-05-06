@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation"
 import Petal from "./Petal"
 import Page from "@/app/type/PageType"
-import { PUBLIC_FRONT_END_PAGES as pages } from "@/app/consts"
+import { PUBLIC_FRONT_END_PAGES as pages } from "@/app/lib/consts"
 import { useEffect, useState } from "react"
 
 import { Roboto } from "next/font/google"
