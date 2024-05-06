@@ -32,7 +32,10 @@ export default function AuthDashboard(): React.JSX.Element {
                     <button className="hoverable login-button bg-primary" onClick={clearSession}>Logout</button>
                 </div>
             ) : (
-                <button className="hoverable login-button bg-primary" onClick={showLoginModal}>Login</button>
+                <div className="flex">
+                    <button className="hoverable login-button bg-primary mr-4" onClick={showLoginModal}>Log in</button>
+                    <button className="hoverable signup-button">Sign up</button> {/* Temporary */}
+                </div>
             )}
             <LoginModal ref={ref}/>
         </div>
