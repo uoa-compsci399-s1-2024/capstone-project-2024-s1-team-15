@@ -43,7 +43,7 @@ export default function Pollen() {
             </PageTemplate.PageExplanation>
             <PageTemplate.HighlightSection>
                 {selectedSlidePollenName && selectedPollenSlideHTML && (
-                    <section>
+                    <section className="px-40">
                         <p>
                             Types of Pollen: <span className="font-bold">{selectedSlidePollenName}</span>
                         </p>

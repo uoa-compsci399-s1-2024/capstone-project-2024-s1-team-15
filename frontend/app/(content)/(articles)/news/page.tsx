@@ -13,7 +13,7 @@ export default async function AllNewsPage() {
 
     return (
         <div>
-            <h1>All News</h1>
+            <h1 className="page-title">All News</h1>
             <Privileged requiredScopes={SCOPES.maintainer}>
                 <ButtonLink href={"/news/publish"} text={"Publish News"} />
             </Privileged>
