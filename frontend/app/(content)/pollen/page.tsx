@@ -33,7 +33,7 @@ export default function Pollen() {
     ))
 
     return (
-        <main>
+        <main className="pr-80">
             <PageTemplate>
                 <PageTemplate.PageName>Pollen</PageTemplate.PageName>
                 <PageTemplate.HighlightSection>

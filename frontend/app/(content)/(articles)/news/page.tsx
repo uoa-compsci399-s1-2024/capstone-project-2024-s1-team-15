@@ -12,7 +12,7 @@ export default async function AllNewsPage() {
     const news = await getAllNews()
 
     return (
-        <div>
+        <div className="pr-80">
             <h1>All News</h1>
             <Privileged requiredScopes={SCOPES.maintainer}>
                 <ButtonLink href={"/news/publish"} text={"Publish News"}/>
