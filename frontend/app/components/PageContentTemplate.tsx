@@ -6,12 +6,17 @@ function PageHeroSection({ children }: { children: React.ReactNode }) {
     let remainingPageContent = (
         <PageHeroSection.RemainingPageContent>No Page Content</PageHeroSection.RemainingPageContent>
     )
+    let pageExplanation = <PageHeroSection.PageExplanation></PageHeroSection.PageExplanation>
 
     Children.forEach(children, (child) => {
         if (!React.isValidElement(child)) return
 
         if (child.type === PageHeroSection.PageName) {
             return (pageName = child)
+        }
+
+        if (child.type === PageHeroSection.PageExplanation) {
+            return (pageExplanation = child)
         }
 
         if (child.type === PageHeroSection.HighlightSection) {
@@ -26,7 +31,8 @@ function PageHeroSection({ children }: { children: React.ReactNode }) {
     return (
         <main>
             <section>
-                <div className="page-explanation">{pageName}</div>
+                {pageName}
+                <div className="mb-5">{pageExplanation}</div>
 
                 {highlightSection && <div className="emphasized-first-section">{highlightSection}</div>}
             </section>
@@ -43,7 +49,9 @@ PageHeroSection.PageName = function pn(props: PropsWithChildren) {
         </>
     )
 }
-
+PageHeroSection.PageExplanation = function pe(props: PropsWithChildren) {
+    return <p>{props.children}</p>
+}
 PageHeroSection.HighlightSection = function hs(props: PropsWithChildren) {
     return <div>{props.children}</div>
 }
