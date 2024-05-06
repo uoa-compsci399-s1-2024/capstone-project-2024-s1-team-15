@@ -4,7 +4,7 @@ import AboutPage from "@/app/components/AboutPage"
 
 export default function About() {
     return (
-        <div>
+        <div className="pr-80">
             <h1 className="text-3xl text-white font-bold bg-purple-300 p-4 inline-block
             rounded-full w-auto md:text-left">About Us</h1>
             <p>AAPC stands for the Aotearoa Airborne Pollen Collective. It includes a group of researchers working together to understand more about pollen and its impacts on health in New Zealand.
