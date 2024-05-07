@@ -1,17 +1,13 @@
 "use client"
 
-import React, { useEffect } from "react"
-import { useAuth } from "../(auth)/CMSAuthContext"
-import { redirect } from "next/navigation"
+import React from "react"
+import { SCOPES } from "@/app/lib/consts"
+import { withPrivilege } from "@/app/lib/hoc"
 
 export default function CMSLayout({ children }: { children: React.ReactNode }) {
-    const { currentUser } = useAuth()
-
-    useEffect(() => {
-        if (!currentUser) {
-            redirect("/login")
-        }
-    })
-
-    return <div>{children}</div>
+    return withPrivilege(SCOPES.maintainer, (
+        <>
+            {children}
+        </>
+    ))
 }

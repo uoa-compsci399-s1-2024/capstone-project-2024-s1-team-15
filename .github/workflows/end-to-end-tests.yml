@@ -5,6 +5,8 @@ on:
       - 'backend/**'
       - 'frontend/**'
       - 'cypress/**'
+      - '.github/workflows/end-to-end-tests.yml'
+
 jobs:
   test:
     runs-on: ubuntu-latest

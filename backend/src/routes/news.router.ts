@@ -1,6 +1,8 @@
 import express, { Router } from "express"
 import expressAsyncHandler from "express-async-handler"
 import NewsController from "@/controllers/news.controller"
+import Scope from "@/middleware/Auth";
+import { SCOPES } from "@/util/const";
 
 export default class NewsRouter {
     static url = "/content/news"
@@ -8,12 +10,30 @@ export default class NewsRouter {
     static router(): Router {
         const router = express.Router()
 
-        router.get("/", expressAsyncHandler(NewsController.getNews))
-        router.post("/", expressAsyncHandler(NewsController.createNews))
+        // scope: anonymous
+        router.get("/",
+            expressAsyncHandler(NewsController.getNews)
+        )
 
-        router.get("/:id", expressAsyncHandler(NewsController.getNewsById))
-        router.put("/:id", expressAsyncHandler(NewsController.editNews))
-        router.delete("/:id", expressAsyncHandler(NewsController.deleteNews))
+        // scope: anonymous
+        router.get("/:id",
+            expressAsyncHandler(NewsController.getNewsById)
+        )
+
+        // scope: maintainer
+        router.post("/", Scope.has(SCOPES.maintainer),
+            expressAsyncHandler(NewsController.createNews)
+        )
+
+        // scope: maintainer
+        router.put("/:id", Scope.has(SCOPES.maintainer),
+            expressAsyncHandler(NewsController.editNews)
+        )
+
+        // scope: maintainer
+        router.delete("/:id", Scope.has(SCOPES.maintainer),
+            expressAsyncHandler(NewsController.deleteNews)
+        )
 
         return router
     }

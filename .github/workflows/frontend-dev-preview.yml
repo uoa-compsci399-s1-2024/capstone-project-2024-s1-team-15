@@ -2,10 +2,11 @@ name: Frontend (Development Preview)
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_FRONTEND_DEV_ID }}
-on:
+on:    
   push:
     paths:
       - 'frontend/**'
+      - '.github/workflows/frontend-dev-preview.yml'
 
 jobs:
   deploy:

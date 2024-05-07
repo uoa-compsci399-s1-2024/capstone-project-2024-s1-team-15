@@ -1,5 +1,5 @@
 import React from "react"
-import { getMetadata } from "@/app/util"
+import { getMetadata } from "@/app/lib/util"
 
 export const metadata = getMetadata()
 

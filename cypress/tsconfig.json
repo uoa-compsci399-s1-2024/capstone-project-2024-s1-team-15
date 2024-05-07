@@ -1,0 +1,7 @@
+{
+    "compilerOptions": {
+        "esModuleInterop": true,
+        "types": ["cypress", "cypress-visual-regression", "cypress-real-events"],
+        "resolveJsonModule": true
+    }
+}

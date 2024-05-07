@@ -1,11 +1,12 @@
-import type { Metadata } from "next"
-import localFont from "next/font/local"
 import "./globals.css"
 import React from "react"
-import Nav from "@/app/components/Nav"
-import { getMetadata } from "@/app/util"
+import Header from "@/app/components/Header"
 import Footer from "@/app/components/Footer"
-import AuthLayout from "@/app/components/AuthLayout"
+import FlowerNav from "./components/flowerNav"
+import localFont from "next/font/local"
+import type { Metadata } from "next"
+import { getMetadata } from "@/app/lib/util"
+import { AuthLayout } from "@/app/(auth)/components"
 
 const inter = localFont({
     src: "./public/Inter.ttf",
@@ -19,11 +20,16 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     return (
         <html lang="en">
             <body className={`${inter.variable} font-sans`}>
-                <Nav />
-                <div className={"w-[900px] px-6 mx-auto pb-12"}>
-                    <AuthLayout>{children}</AuthLayout>
-                </div>
-                <Footer />
+                <AuthLayout>
+                    <div className="relative">
+                        <Header />
+                        <div className="fixed top-30 pt-5 right-0">
+                            <FlowerNav />
+                        </div>
+                        <div className={`max-w-full px-32 pb-12 pr-80`}>{children}</div>
+                    </div>
+                    <Footer />
+                </AuthLayout>
             </body>
         </html>
     )

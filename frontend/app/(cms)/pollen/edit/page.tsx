@@ -1,10 +1,10 @@
 "use client"
 
 import React, { useEffect, useState, useRef } from "react"
+import { PollenData } from "@aapc/types"
 import { parseSpreadsheet } from "./util/parseExcel"
-
+import { PollenCalendar } from "@/app/components/pollen"
 import parseAssumptions from "./util/parseAssumptions"
-import { PollenData } from "./type/PollenDataType"
 
 type ParseError = {
     message: string
@@ -17,25 +17,21 @@ export default function EditPollen() {
     const fileInputReference = useRef(null)
 
     const [error, setError] = useState<Nullable<ParseError>>(null)
-    const [inputFile, setInputFile] = useState<Nullable<File>>(null)
+    const [inputFile, setInputFile] = useState<Nullable<File>>(null) // only store after filetype is checked though
     const [pollenDataset, setPollenDataset] = useState<Nullable<PollenData[]>>(null)
-
-    useEffect(() => {
-        if (error) setInputFile(null)
-    }, [error])
 
     useEffect(() => {
         if (!inputFile) return
         inputFile.arrayBuffer().then((res) => {
             const parseResults = parseSpreadsheet(res)
-            if (parseResults.errors) {
+            parseResults.errors &&
                 setError({
                     message: "These errors occurred while trying to parse the Excel spreadsheet:",
                     errors: parseResults.errors,
                 })
-            } else {
-                setPollenDataset(parseResults.pollenDataset)
-            }
+
+            // even with errors, if something was parsed, show a preview for it
+            parseResults.pollenDataset && setPollenDataset(parseResults.pollenDataset)
         })
     }, [inputFile])
 
@@ -50,7 +46,7 @@ export default function EditPollen() {
             })
         }
         const uploadedFile = fileInputElement.files[0]
-        console.log({ uploadedFile })
+
         if (!uploadedFile.name.endsWith(".xlsx")) {
             return setError({
                 message: `Uploaded file '${uploadedFile.name}' is not a .xlsx Excel spreadsheet.`,
@@ -90,20 +86,31 @@ export default function EditPollen() {
                     ))}
             </form>
 
-            {inputFile && pollenDataset && <div>Preview generated ✅</div>}
+            {inputFile && pollenDataset && (
+                <div className="mt-10">
+                    <h3 className="font-bold text-2xl my-2">Preview generated ✅</h3>
+                    <PollenCalendar pollenData={pollenDataset}></PollenCalendar>
 
-            <section className="mt-20">
-                <h2 className="text-2xl font-bold mb-5">Parser Assumptions ️</h2>
-                <p>
-                    The parsing algorithm that attempts to understand your Excel spreadsheet operates under these
-                    assumptions:
-                </p>
-                <ul className="list-disc pl-4 mt-5">
-                    {parseAssumptions.map((assumption) => {
-                        return <li key={assumption}>{assumption}</li>
-                    })}
-                </ul>
-            </section>
+                    <button type="submit" className="button" onClick={() => {}}>
+                        Update calendar on website
+                    </button>
+                </div>
+            )}
+
+            {error && (
+                <section className="mt-20">
+                    <h2 className="text-2xl font-bold mb-5">Parser Assumptions ️</h2>
+                    <p>
+                        The parsing algorithm that attempts to understand your Excel spreadsheet operates under these
+                        assumptions:
+                    </p>
+                    <ul className="list-disc pl-4 mt-5">
+                        {parseAssumptions.map((assumption) => {
+                            return <li key={assumption}>{assumption}</li>
+                        })}
+                    </ul>
+                </section>
+            )}
         </>
     )
 }
