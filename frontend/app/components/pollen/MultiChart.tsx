@@ -9,16 +9,20 @@ import { Chart } from "react-chartjs-2"
 
 import { ChartOptions } from "chart.js"
 
+type Props = {
+    dateUpperLimit: number
+    dateLowerLimit: number
+    showsDailyTotal: boolean
+    pollenData: FormattedPollenData
+}
+
 // includes bar chart & line chart on same axis
 const MultiChart = memo(function MultiChart({
     dateUpperLimit = dayjs("2024-07-24").valueOf(),
     dateLowerLimit = dayjs("2024-08-24").valueOf(),
     pollenData,
-}: {
-    dateUpperLimit: number
-    dateLowerLimit: number
-    pollenData: FormattedPollenData
-}) {
+    showsDailyTotal,
+}: Props) {
     const { pollenTypes, pollenValues, dailyTotals } = pollenData
 
     const chartData = {
@@ -51,7 +55,7 @@ const MultiChart = memo(function MultiChart({
                 }
             }),
 
-            {
+            showsDailyTotal && {
                 label: "Total Pollen",
                 data: dailyTotals,
                 borderColor: "black",
