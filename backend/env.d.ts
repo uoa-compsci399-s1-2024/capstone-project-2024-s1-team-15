@@ -7,6 +7,8 @@ declare global {
             JWT_SECRET?: string
             COGNITO_CLIENT_ID?: string
             COGNITO_USERPOOL_ID?: string
+            BREVO_CLIENT_EMAIL?: string
+            BREVO_CLIENT_PASSWORD?: string
         }
     }
 }
