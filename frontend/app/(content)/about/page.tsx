@@ -14,10 +14,14 @@ export default function About() {
                 Researchers are from different parts of New Zealand.
             </PageTemplate.PageExplanation>
 
-            <h2>Meet the Researchers!</h2>
+            <PageTemplate.HighlightSection>
+                <h2 className={"text-center"}>Meet the Researchers!</h2>
+            </PageTemplate.HighlightSection>
+
             <PageTemplate.RemainingPageContent>
                 <AboutPage />
             </PageTemplate.RemainingPageContent>
+
         </PageTemplate>
     )
 }
