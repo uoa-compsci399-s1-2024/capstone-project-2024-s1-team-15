@@ -1,6 +1,7 @@
 import dayjs from "dayjs"
 import { FormattedPollenData } from "../../(cms)/pollen/components/util/formatData"
 import { memo } from "react"
+import { dateFormat } from "."
 
 import "chartjs-adapter-dayjs-4/dist/chartjs-adapter-dayjs-4.esm"
 import "chart.js/auto"
@@ -20,7 +21,6 @@ const MultiChart = memo(function MultiChart({
 }) {
     const { pollenTypes, pollenValues, dailyTotals } = pollenData
 
-    const dateFormat = "DD/MM/YY"
     const chartData = {
         labels: pollenValues[0].map(({ x }) => dayjs(x).valueOf()),
         datasets: [
@@ -130,7 +130,9 @@ const MultiChart = memo(function MultiChart({
 
     return (
         <div className="flex">
-            {chartData && <Chart type="line" data={chartData as any} options={chartOptions} height="420"></Chart>}
+            {chartData && (
+                <Chart type="line" id="multi-chart" data={chartData as any} options={chartOptions} height="420"></Chart>
+            )}
         </div>
     )
 })
