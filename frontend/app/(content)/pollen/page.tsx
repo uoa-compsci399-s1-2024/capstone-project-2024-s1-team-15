@@ -35,11 +35,12 @@ export default function Pollen() {
     return (
         <PageTemplate>
             <PageTemplate.PageName><div className="page-title">Pollen</div></PageTemplate.PageName>
-            <PageTemplate.PageExplanation>
+            <PageTemplate.PageExplanation><div className="bg-primary page-text-box rounded-3xl">
                 Pollen is a powdery substance produced by most types of flowers of seed plants for the purpose of sexual
                 reproduction. It consists of pollen grains, which produce male gametes. There are several different
                 types of pollen. The most common include grass, oak and ragweed. For each plant/tree, the shape of the
                 pollen can be slightly different and affect the body in different ways.{" "}
+                </div>
             </PageTemplate.PageExplanation>
             <PageTemplate.HighlightSection>
                 {selectedSlidePollenName && selectedPollenSlideHTML && (
@@ -61,11 +62,15 @@ export default function Pollen() {
                 <Privileged requiredScopes={SCOPES.maintainer}>
                     <ButtonLink href={"/pollen/edit"} text={"Edit Pollen Data"} />
                 </Privileged>
-                <p>
-                    The pollen season starts in spring, with some trees producing pollen earlier depending on climate
-                    conditions. The season usually starts earlier in the north and finishes later in the south of New
-                    Zealand. Take a look at the pollen calendar below for a better idea of seasonal changes of pollen.
-                </p>
+                <div className="bg-purpleone">
+                    <p>
+                        The pollen season starts in spring, with some trees producing pollen earlier depending on climate
+                        conditions.<br/>
+                        The season usually starts earlier in the north and finishes later in the south of New Zealand.
+                        <br/><br/>
+                        Take a look at the pollen calendar below for a better idea of seasonal changes of pollen.
+                    </p>
+                </div>
                 {pollenData && <PollenCalendar pollenData={pollenData} />}
                 <p>
                     Become a premium member to access data for 65+ pollen types.

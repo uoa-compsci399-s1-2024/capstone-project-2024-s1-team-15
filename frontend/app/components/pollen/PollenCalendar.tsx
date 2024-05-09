@@ -48,8 +48,8 @@ const PollenCalendar = memo(function PollenCalendar({ pollenData }: { pollenData
 
     return (
         <>
-            <div className="flex flex-col">
-                <div className="flex flex-col  gap-4">
+            <div className="flex justify-between">
+                <div className="flex flex-col gap-4 bg-purpletwo px-5 py-5">
                     <p>Filter by</p>
                     <div className="flex gap-4 items-center">
                         <button
@@ -57,14 +57,6 @@ const PollenCalendar = memo(function PollenCalendar({ pollenData }: { pollenData
                             onClick={() => setShowsPollenTypeFilter((currentState) => !currentState)}>
                             Pollen Type
                         </button>
-                        <div>
-                            {allPollenTypes && showsPollenTypeFilter && (
-                                <PollenTypeInput
-                                    allPollenTypes={allPollenTypes}
-                                    displayPollenTypes={setDisplayedPollenTypes}
-                                />
-                            )}
-                        </div>
                     </div>
 
                     <div className="flex gap-4 items-center">
@@ -73,26 +65,32 @@ const PollenCalendar = memo(function PollenCalendar({ pollenData }: { pollenData
                             onClick={() => setShowsDateFilter((currentState) => !currentState)}>
                             Date
                         </button>
+                    </div>
+                    <div>
+                        {allPollenTypes && showsPollenTypeFilter && (
+                        <PollenTypeInput
+                            allPollenTypes={allPollenTypes}
+                            displayPollenTypes={setDisplayedPollenTypes}/>
+                        )}
                         {showsDateFilter && (
-                            <DateInput
-                                lowerLimit={dateLowerLimit}
-                                upperLimit={dateUpperLimit}
-                                setUpperLimit={setDateUpperLimit}
-                                setLowerLimit={setDateLowerLimit}
-                            />
+                        <DateInput
+                            lowerLimit={dateLowerLimit}
+                            upperLimit={dateUpperLimit}
+                            setUpperLimit={setDateUpperLimit}
+                            setLowerLimit={setDateLowerLimit}/>
                         )}
                     </div>
                 </div>
 
                 {filteredPollenData && displayedPollenTypes.length ? (
-                    <div className="flex flex-col w-full mt-8">
+                    <div className="flex flex-col mt-8">
                         <MultiChart
                             dateUpperLimit={dateUpperLimit}
                             dateLowerLimit={dateLowerLimit}
                             pollenData={filteredPollenData}></MultiChart>
                     </div>
                 ) : (
-                    <p>No pollen types selected 🥲</p>
+                    <p>No pollen types selected :/</p>
                 )}
             </div>
         </>

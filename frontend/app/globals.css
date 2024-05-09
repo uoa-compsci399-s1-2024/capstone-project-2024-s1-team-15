@@ -92,3 +92,7 @@ a {
 .page-title {
     @apply text-3xl text-white font-bold bg-primary p-4 inline-block rounded-full w-auto md:text-left;
 }
+
+.page-text-box{
+    @apply ml-80 text-xl px-28 py-28 border-20 border-third;
+}
