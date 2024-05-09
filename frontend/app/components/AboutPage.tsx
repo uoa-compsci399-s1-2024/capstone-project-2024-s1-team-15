@@ -24,14 +24,13 @@ export default function AboutPage() {
                                         height={40} />
                                 </div>
                                 <div className="ml-3">
-                                    <span className="block text-gray-900">Researchers Name</span>
-                                    <span className="block text-gray-400 text-sm">Email</span>
+                                    <span className="block text-gray-900">Amy Chan</span>
+                                    <span className="block text-gray-400 text-sm">a.chan@aucklanduni.ac.nz</span>
                                 </div>
                             </div>
                             <div className="pt-3 ml-4 mr-2 mb-3">
-                                <h3 className="text-xl text-gray-900">Researchers Role</h3>
-                                <p className="text-gray-400 text-sm mt-1">Lorem ipsum dolor sit amet, consectetur
-                                    adipiscing elit. Sed nec justo euismod, aliquet nunc vel, tincidunt urna.</p>
+                                <h3 className="text-xl text-gray-900">Researcher Role</h3>
+                                <p className="text-gray-400 text-sm mt-1">Dr Amy Chan is a senior clinical research fellow at the School of Pharmacy, University of Auckland, New Zealand, and holds an honorary post at the Centre of Behavioural Medicine, University College London. She is a clinical pharmacist academic and is currently in a joint-appointment between the University and Auckland District Health Board.</p>
                             </div>
                         </a>
                     </article>
@@ -52,14 +51,13 @@ export default function AboutPage() {
                                         height={40} />
                                 </div>
                                 <div className="ml-3">
-                                    <span className="block text-gray-900">Researchers Name</span>
-                                    <span className="block text-gray-400 text-sm">Email</span>
+                                    <span className="block text-gray-900">Katherine Holt</span>
+                                    <span className="block text-gray-400 text-sm">k.holt@massey.ac.nz</span>
                                 </div>
                             </div>
                             <div className="pt-3 ml-4 mr-2 mb-3">
-                                <h3 className="text-xl text-gray-900">Researchers Role</h3>
-                                <p className="text-gray-400 text-sm mt-1">Lorem ipsum dolor sit amet, consectetur
-                                    adipiscing elit. Sed nec justo euismod, aliquet nunc vel, tincidunt urna.</p>
+                                <h3 className="text-xl text-gray-900">Researcher Role</h3>
+                                <p className="text-gray-400 text-sm mt-1">I am from Ahuriri/Napier, Aotearoa/New Zealand. I have a PhD in Earth Science (2008, Massey University). My research is focused on using pollen to understand how the environment has changed in the past. I also apply my pollen knowledge to other fields. I operate a dedicated palynology lab which provides commercial pollen analysis services to the honey industry and other environmental interests.</p>
                             </div>
                         </a>
                     </article>
@@ -80,14 +78,13 @@ export default function AboutPage() {
                                         height={40} />
                                 </div>
                                 <div className="ml-3">
-                                    <span className="block text-gray-900">Researchers Name</span>
-                                    <span className="block text-gray-400 text-sm">Email</span>
+                                    <span className="block text-gray-900">Stuti Misra</span>
+                                    <span className="block text-gray-400 text-sm">s.misra@auckland.ac.nz</span>
                                 </div>
                             </div>
                             <div className="pt-3 ml-4 mr-2 mb-3">
-                                <h3 className="text-xl text-gray-900">Researchers Role</h3>
-                                <p className="text-gray-400 text-sm mt-1">Lorem ipsum dolor sit amet, consectetur
-                                    adipiscing elit. Sed nec justo euismod, aliquet nunc vel, tincidunt urna.</p>
+                                <h3 className="text-xl text-gray-900">Researcher Role</h3>
+                                <p className="text-gray-400 text-sm mt-1">Optometrist-Scientist with a demonstrated history of working in the medical practice industry. Special expertise in Ocular imaging, Ocular surface assessment, Dry Eye, Ophthalmic Medical Devices, Paediatric Ophthalmology, Lecturing, Public Speaking, and Scientific Writing. Strong research professional with a Doctor of Philosophy (PhD) focused in Ophthalmology from the University of Auckland.</p>
                             </div>
                         </a>
                     </article>
