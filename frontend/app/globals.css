@@ -11,7 +11,9 @@ h1 {
 h2 {
     @apply text-3xl font-bold tracking-tight my-4;
 }
-
+h3 {
+    @apply text-2xl font-bold tracking-tight my-2;
+}
 a {
     @apply text-blue-700;
 }
@@ -81,7 +83,7 @@ a {
     @apply relative shadow-2xl w-full m-auto mt-48 max-w-[530px] max-h-full rounded-xl z-50;
 }
 
-.signup-button{
+.signup-button {
     @apply py-2 px-6 rounded-full text-black font-semibold text-xs w-28 bg-gray-300;
 }
 

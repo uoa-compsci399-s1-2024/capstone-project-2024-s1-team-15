@@ -14,6 +14,7 @@ const PollenCalendar = memo(function PollenCalendar({ pollenData }: { pollenData
     const [showsPollenTypeFilter, setShowsPollenTypeFilter] = useState(false)
     const [allPollenTypes, setAllPollenTypes] = useState<string[]>([])
     const [displayedPollenTypes, setDisplayedPollenTypes] = useState<string[]>([])
+    const [showsDailyTotal, setShowsDailyTotal] = useState(true)
 
     const [formattedPollenData, setFormattedPollenData] = useState<null | FormattedPollenData>(null)
     const [filteredPollenData, setFilteredPollenData] = useState<null | FormattedPollenData>(null)
@@ -50,7 +51,8 @@ const PollenCalendar = memo(function PollenCalendar({ pollenData }: { pollenData
         <>
             <div className="flex flex-col">
                 <div className="flex flex-col  gap-4">
-                    <p>Filter by</p>
+                    <h3>Filter by</h3>
+
                     <div className="flex gap-4 items-center">
                         <button
                             className="button w-40 inline-block  text-nowrap"
@@ -62,6 +64,8 @@ const PollenCalendar = memo(function PollenCalendar({ pollenData }: { pollenData
                                 <PollenTypeInput
                                     allPollenTypes={allPollenTypes}
                                     displayPollenTypes={setDisplayedPollenTypes}
+                                    setShowsDailyTotal={setShowsDailyTotal}
+                                    showsDailyTotal={showsDailyTotal}
                                 />
                             )}
                         </div>
@@ -89,7 +93,9 @@ const PollenCalendar = memo(function PollenCalendar({ pollenData }: { pollenData
                         <MultiChart
                             dateUpperLimit={dateUpperLimit}
                             dateLowerLimit={dateLowerLimit}
-                            pollenData={filteredPollenData}></MultiChart>
+                            pollenData={filteredPollenData}
+                            showsDailyTotal={showsDailyTotal}
+                        />
                     </div>
                 ) : (
                     <p>No pollen types selected 🥲</p>
