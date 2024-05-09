@@ -4,7 +4,7 @@ import User, { IUser } from "./User";
  * An enum representing the two types of articles published to the website.
  */
 export enum ArticleType {
-    news, research
+    news, research, news_external, research_external
 }
 
 /**
