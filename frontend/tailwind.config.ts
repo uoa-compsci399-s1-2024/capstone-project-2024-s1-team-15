@@ -32,7 +32,9 @@ const config: Config = {
                 admin: "#f35d5d",
                 maintainer: "#37a0ec",
                 premium: "#ffcc6d",
-                user: "#c9c9c9"
+                user: "#c9c9c9",
+                background: "#fafafa"
+
             },
             transitionTimingFunction: {
                 // https://forum.figma.com/t/recreating-gentle-easing-using-bezier-curves/55312/3
