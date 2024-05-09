@@ -6,6 +6,7 @@ import { API_URI } from "../lib/consts"
 export default function ContactForm() {
     async function sendEmail(e: FormEvent<HTMLFormElement>) {
         e.preventDefault()
+        setPending(true)
 
         const contactFormInputs = JSON.stringify({
             name: nameInput,
@@ -13,16 +14,29 @@ export default function ContactForm() {
             message: messageInput,
         })
 
-        return await fetch(`${API_URI}/contact-aapc`, {
+        const contactAttemptResponse = await fetch(`${API_URI}/contact-aapc`, {
             method: "post",
             body: contactFormInputs,
             headers: { "Content-Type": "application/json", Accept: "*/*" },
         })
+
+        if (contactAttemptResponse.status === 200) {
+            setMessageSentSuccess("Message has been sent successfully ✅")
+            setMessageSentError(null)
+        } else {
+            setMessageSentSuccess(null)
+            setMessageSentError(await contactAttemptResponse.json())
+        }
+
+        setPending(false)
     }
 
     const [emailInput, setEmailInput] = useState("")
     const [nameInput, setNameInput] = useState("")
     const [messageInput, setMessageInput] = useState("")
+    const [messageSentError, setMessageSentError] = useState<null | string>(null)
+    const [messageSentSuccess, setMessageSentSuccess] = useState<null | string>(null)
+    const [pending, setPending] = useState(false)
 
     return (
         <>
@@ -86,9 +100,10 @@ export default function ContactForm() {
                         </div>
                     </div>
                 </div>
-
-                <button className={"button w-48"} type="submit">
-                    Send
+                {messageSentError && <p className={"form-error ml-1"}>{messageSentError}</p>}
+                {messageSentSuccess && <p className={"form-success ml-1"}>{messageSentSuccess}</p>}
+                <button disabled={pending} className={"button w-48"} type="submit">
+                    {pending ? "Sending message..." : "Send"}
                 </button>
             </form>
         </>
