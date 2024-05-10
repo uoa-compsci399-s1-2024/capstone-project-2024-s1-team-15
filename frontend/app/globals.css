@@ -63,6 +63,10 @@ a {
     @apply text-red-500;
 }
 
+.form-success {
+    @apply text-green-400;
+}
+
 .hoverable {
     @apply transition duration-300 ease-in-out shadow-md hover:shadow-lg transform hover:-translate-y-0.5 hover:scale-105;
 }
