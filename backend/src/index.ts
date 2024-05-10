@@ -13,7 +13,7 @@ const app: Express = express()
 const port = process.env.PORT || 3000
 
 // Use JSON parser middleware
-app.use(express.json())
+app.use(express.json({ limit: "5mb" }))
 
 // Use CORS middleware
 app.use(require("cors")())
