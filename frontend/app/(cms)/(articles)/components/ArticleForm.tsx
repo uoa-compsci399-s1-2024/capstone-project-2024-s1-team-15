@@ -52,6 +52,7 @@ export default function ArticleForm({ actionType, articleType, articleJSONString
             title: title,
             subtitle: subtitle,
             content: editorContent,
+            articleType: articleType,
             media: [],
         }
         switch (articleType) {

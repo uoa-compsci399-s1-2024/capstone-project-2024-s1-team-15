@@ -1,3 +1,5 @@
+"use client"
+
 import ContentEditor from "@/app/(cms)/components/ContentEditor"
 import { Article, ArticleType, IArticle } from "@aapc/types"
 import React, { useEffect, useMemo, useState } from "react"
@@ -50,6 +52,7 @@ export default function ExternalArticleForm({ actionType, articleType, articleJS
         const a: ArticleOut = {
             title: title,
             content: externalLink,
+            articleType: articleType,
             media: [],
         }
         switch (articleType) {
@@ -106,7 +109,7 @@ export default function ExternalArticleForm({ actionType, articleType, articleJS
     }
 
     const updateTitle = () => {
-        const e: HTMLTextAreaElement = document.getElementById("title-input")! as HTMLTextAreaElement
+        const e: HTMLTextAreaElement = document.getElementById("external-title-input")! as HTMLTextAreaElement
         setTitle(e.value)
     }
 
@@ -121,7 +124,7 @@ export default function ExternalArticleForm({ actionType, articleType, articleJS
             <div>
                 <p className={"form-label"}>Title</p>
                 <input
-                    id={"title-input"}
+                    id={"external-title-input"}
                     className={"form-input"}
                     placeholder={"Enter title here... (required)"}
                     defaultValue={title}
@@ -130,7 +133,7 @@ export default function ExternalArticleForm({ actionType, articleType, articleJS
             </div>
 
             <div>
-                <p className={"form-label"}>External</p>
+                <p className={"form-label"}>External Link</p>
                 <input 
                     id={"link-input"}
                     className={"form-input"}
@@ -143,7 +146,7 @@ export default function ExternalArticleForm({ actionType, articleType, articleJS
             <div>
                 <button className={"button text-lg"} onClick={submitArticle}>
                     {actionType === "edit" ? "Edit" : "Publish"}&nbsp;
-                    {articleType === ArticleType.news_external ? "External News" : "External Research"}
+                    {articleType === ArticleType.news_external ? "News" : "Research"}
                     
                 </button>
             </div>
