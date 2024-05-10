@@ -4,6 +4,7 @@ import React, { useState } from "react"
 import ArticleForm from "@/app/(cms)/(articles)/components/ArticleForm"
 import { Article, ArticleType } from "@aapc/types"
 import { Nullable } from "@/app/lib/types"
+import ExternalArticleForm from "../../components/ExternalArticleForm"
 
 export default function CreateNewsPage() {
     const [exampleArticle, setExampleArticle] = useState<Nullable<Article>>(null)
@@ -27,6 +28,9 @@ export default function CreateNewsPage() {
                     {exampleArticle ? "Reset" : "Load Example"}
                 </button>
             }
+            <h3>Use an external link</h3>
+            <ExternalArticleForm articleType={ArticleType.news_external} actionType={"publish"}></ExternalArticleForm>
+            <h3>Write an article yourself!</h3>
             <ArticleForm articleType={ArticleType.news} actionType={"publish"}
                          articleJSONString={exampleArticle ? JSON.stringify(exampleArticle) : undefined}/>
         </div>
