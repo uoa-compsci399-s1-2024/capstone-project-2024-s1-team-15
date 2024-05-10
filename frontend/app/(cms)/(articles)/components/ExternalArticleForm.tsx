@@ -3,7 +3,7 @@ import { Article, ArticleType, IArticle } from "@aapc/types"
 import React, { useEffect, useMemo, useState } from "react"
 import ArticlePage from "@/app/components/ArticlePage"
 import { ArticleOut, Nullable } from "@/app/lib/types"
-import { editNews, publishExternalNews } from "@/app/services/news"
+import { editNews, publishNews } from "@/app/services/news"
 import { editResearch, publishResearch } from "@/app/services/research"
 import { useAuth } from "@/app/lib/hooks"
 import { useRouter } from "next/navigation"
@@ -56,7 +56,7 @@ export default function ExternalArticleForm({ actionType, articleType, articleJS
             case ArticleType.news_external: {
                 switch (actionType) {
                     case "publish": {
-                        publishExternalNews(a, { token }).then(r => {
+                        publishNews(a, { token }).then(r => {
                             if (r.success) {
                                 setError(null)
                                 router.push(`/news/${r.result.id}`)
