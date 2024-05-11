@@ -14,19 +14,19 @@ export default async function AllResearchPage() {
 
     return (
         <PageTemplate>
-            <PageTemplate.PageName><div className="page-title">All Research</div></PageTemplate.PageName>
-            <PageTemplate.HighlightSection>
+            <PageTemplate.PageName>
+                <div className="page-title">All Research</div>
+            </PageTemplate.PageName>
+            <PageTemplate.RemainingPageContent>
                 <Privileged requiredScopes={SCOPES.maintainer}>
-                    <ButtonLink href={"/research/publish"} text={"Publish Research"}/>
+                    <ButtonLink href={"/research/publish"} text={"Publish Research"} />
                 </Privileged>
                 <div className={"space-y-12 mt-6"}>
                     {research.data.map((a) => {
-                        return (
-                            <ArticleCard article={a} key={a.id}/>
-                        )
+                        return <ArticleCard article={a} key={a.id} />
                     })}
                 </div>
-            </PageTemplate.HighlightSection>
+            </PageTemplate.RemainingPageContent>
         </PageTemplate>
     )
 }

@@ -14,8 +14,10 @@ export default async function AllNewsPage() {
 
     return (
         <PageTemplate>
-            <PageTemplate.PageName><div className="page-title">All News</div></PageTemplate.PageName>
-            <PageTemplate.HighlightSection>
+            <PageTemplate.PageName>
+                <div className="page-title">All News</div>
+            </PageTemplate.PageName>
+            <PageTemplate.RemainingPageContent>
                 <Privileged requiredScopes={SCOPES.maintainer}>
                     <ButtonLink href={"/news/publish"} text={"Publish News"} />
                 </Privileged>
@@ -24,7 +26,7 @@ export default async function AllNewsPage() {
                         return <ArticleCard article={a} key={a.id} />
                     })}
                 </div>
-            </PageTemplate.HighlightSection>
+            </PageTemplate.RemainingPageContent>
         </PageTemplate>
     )
 }
