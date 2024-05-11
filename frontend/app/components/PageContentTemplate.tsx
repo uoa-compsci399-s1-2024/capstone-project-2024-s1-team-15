@@ -50,7 +50,7 @@ PageHeroSection.PageName = function pn(props: PropsWithChildren) {
     )
 }
 PageHeroSection.PageExplanation = function pe(props: PropsWithChildren) {
-    return <p>{props.children}</p>
+    return <>{props.children}</>
 }
 PageHeroSection.HighlightSection = function hs(props: PropsWithChildren) {
     return <div>{props.children}</div>
