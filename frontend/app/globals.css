@@ -9,11 +9,15 @@ body{
 }
 
 h1 {
-    @apply text-4xl font-bold tracking-tight mb-8 mt-12;
+    @apply text-4xl font-bold tracking-tight my-4;
 }
 
 h2 {
     @apply text-3xl font-bold tracking-tight my-4;
+}
+
+h3 {
+    @apply text-xl font-bold tracking-tight;
 }
 
 a {
@@ -90,9 +94,5 @@ a {
 }
 
 .page-title {
-    @apply text-3xl text-white font-bold bg-primary p-4 inline-block rounded-full w-auto md:text-left;
-}
-
-.page-text-box{
-    @apply ml-80 text-xl px-28 py-28 border-20 border-third;
+    @apply text-3xl text-white font-bold bg-primary py-4 inline-block rounded-full w-auto md:text-left;
 }

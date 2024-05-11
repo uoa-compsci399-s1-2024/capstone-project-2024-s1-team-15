@@ -48,36 +48,36 @@ const PollenCalendar = memo(function PollenCalendar({ pollenData }: { pollenData
 
     return (
         <>
-            <div className="flex justify-between">
-                <div className="flex flex-col gap-4 bg-purpletwo px-5 py-5">
-                    <p>Filter by</p>
+            <div className="flex flex-col justify-between">
+                <div className="flex flex-col self-start gap-4 bg-purpletwo px-10 py-2 rounded-r-[3rem]">
+                    <h3 className="flex">Filter by</h3>
                     <div className="flex gap-4 items-center">
                         <button
-                            className="button w-40 inline-block  text-nowrap"
+                            className="login-button w-40 bg-primary hoverable "
                             onClick={() => setShowsPollenTypeFilter((currentState) => !currentState)}>
                             Pollen Type
                         </button>
-                    </div>
 
-                    <div className="flex gap-4 items-center">
                         <button
-                            className="button w-40 inline-block"
+                            className="bg-primary login-button w-40 hoverable"
                             onClick={() => setShowsDateFilter((currentState) => !currentState)}>
                             Date
                         </button>
                     </div>
                     <div>
                         {allPollenTypes && showsPollenTypeFilter && (
-                        <PollenTypeInput
-                            allPollenTypes={allPollenTypes}
-                            displayPollenTypes={setDisplayedPollenTypes}/>
+                            <PollenTypeInput
+                                allPollenTypes={allPollenTypes}
+                                displayPollenTypes={setDisplayedPollenTypes}
+                            />
                         )}
                         {showsDateFilter && (
-                        <DateInput
-                            lowerLimit={dateLowerLimit}
-                            upperLimit={dateUpperLimit}
-                            setUpperLimit={setDateUpperLimit}
-                            setLowerLimit={setDateLowerLimit}/>
+                            <DateInput
+                                lowerLimit={dateLowerLimit}
+                                upperLimit={dateUpperLimit}
+                                setUpperLimit={setDateUpperLimit}
+                                setLowerLimit={setDateLowerLimit}
+                            />
                         )}
                     </div>
                 </div>

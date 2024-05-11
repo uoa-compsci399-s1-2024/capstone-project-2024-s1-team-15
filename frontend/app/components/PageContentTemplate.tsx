@@ -30,11 +30,13 @@ function PageHeroSection({ children }: { children: React.ReactNode }) {
 
     return (
         <main>
-            <section>
-                {pageName}
-                <div className="mb-5">{pageExplanation}</div>
+            <section className="flex flex-row-reverse">
+                <div className="bg-primary p-4 border-20 border-third rounded-3xl max-w-[50%]">
+                    {pageName}
+                    <div className="mb-5">{pageExplanation}</div>
+                </div>
 
-                {highlightSection && <div className="emphasized-first-section">{highlightSection}</div>}
+                {highlightSection && <div className="max-w-[50%]">{highlightSection}</div>}
             </section>
             {remainingPageContent}
         </main>
@@ -42,12 +44,7 @@ function PageHeroSection({ children }: { children: React.ReactNode }) {
 }
 
 PageHeroSection.PageName = function pn(props: PropsWithChildren) {
-    return (
-        <>
-            <h1 className="m-0 p-0">{props.children}</h1>
-            <br />
-        </>
-    )
+    return <h1 className="page-title m-0 p-0">{props.children}</h1>
 }
 PageHeroSection.PageExplanation = function pe(props: PropsWithChildren) {
     return <>{props.children}</>
