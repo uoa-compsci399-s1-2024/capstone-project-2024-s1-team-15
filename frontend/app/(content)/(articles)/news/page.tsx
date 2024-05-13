@@ -14,21 +14,17 @@ export default async function AllNewsPage() {
     const news = await getAllNews()
 
     return (
-        <PageTemplate>
-            <PageTemplate.PageName><div className="page-title">All News</div></PageTemplate.PageName>
-            <PageTemplate.HighlightSection>
-                <Privileged requiredScopes={SCOPES.maintainer}>
-                    <ButtonLink href={"/news/publish"} text={"Publish News"} />
-                </Privileged>
-                <div className={"space-y-12 mt-6"}>
-                    {news.data.map((a) => {
-                        return <ArticleCard article={a} key={a.id} />
-                    })}
-                </div>
-            </PageTemplate.HighlightSection>
-            <PageTemplate.RemainingPageContent>
-                <Pagination />
-            </PageTemplate.RemainingPageContent>
-        </PageTemplate>
+        <>
+            <h1 className="page-title">All News</h1>
+            <Privileged requiredScopes={SCOPES.maintainer}>
+                <ButtonLink href={"/news/publish"} text={"Publish News"} />
+            </Privileged>
+            <div className={"space-y-12 mt-6"}>
+                {news.data.map((a) => {
+                    return <ArticleCard article={a} key={a.id} />
+                })}
+            </div>
+            <Pagination />
+        </>
     )
 }
