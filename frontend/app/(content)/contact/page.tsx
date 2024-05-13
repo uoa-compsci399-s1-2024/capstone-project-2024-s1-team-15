@@ -1,6 +1,7 @@
 import React from "react"
 import ContactForm from "@/app/components/ContactForm"
 import PageTemplate from "@/app/components/PageContentTemplate"
+import Copyright from "@/app/components/Copyright"
 
 export default function Contact() {
     return (
@@ -11,6 +12,7 @@ export default function Contact() {
             <PageTemplate.PageExplanation>Please fill in the form to contact the AAPC team</PageTemplate.PageExplanation>
             <PageTemplate.RemainingPageContent>
                 <ContactForm />
+                <Copyright />
             </PageTemplate.RemainingPageContent>
         </PageTemplate>
     )

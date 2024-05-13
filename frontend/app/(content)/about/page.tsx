@@ -1,6 +1,7 @@
 import React from "react"
 import AboutPage from "@/app/components/AboutPage"
 import PageTemplate from "@/app/components/PageContentTemplate"
+import Copyright from "@/app/components/Copyright"
 
 export default function About() {
     return (
@@ -20,6 +21,7 @@ export default function About() {
 
             <PageTemplate.RemainingPageContent>
                 <AboutPage />
+                <Copyright />
             </PageTemplate.RemainingPageContent>
 
         </PageTemplate>
