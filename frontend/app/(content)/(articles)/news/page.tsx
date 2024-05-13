@@ -5,7 +5,6 @@ import { getAllNews } from "@/app/services/news"
 import ArticleCard from "@/app/(content)/(articles)/components/ArticleCard"
 import Privileged from "@/app/components/Privileged"
 import ButtonLink from "@/app/components/ButtonLink"
-import PageTemplate from "@/app/components/PageContentTemplate"
 import Pagination from "@/app/components/Paginations"
 
 export const metadata = getMetadata("All News")
