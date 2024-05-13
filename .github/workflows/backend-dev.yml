@@ -24,6 +24,8 @@ jobs:
           echo JWT_SECRET=${{ secrets.JWT_SECRET_DEV }} >> .env
           echo COGNITO_CLIENT_ID=${{ secrets.COGNITO_CLIENT_ID }} >> .env
           echo COGNITO_USERPOOL_ID=${{ secrets.COGNITO_USERPOOL_ID }} >> .env
+          echo BREVO_CLIENT_EMAIL=${{ secrets.BREVO_CLIENT_EMAIL }} >> .env
+          echo BREVO_CLIENT_PASSWORD=${{ secrets.BREVO_CLIENT_PASSWORD }} >> .env
       - name: Install Vercel CLI
         working-directory: ./backend
         run: |

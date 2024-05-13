@@ -6,6 +6,7 @@ import AuthRouter from "@/routes/auth.router"
 import { errorHandler } from "@/middleware/ErrorHandler"
 import UserRouter from "@/routes/user.router"
 import PollenDataRouter from "./routes/pollenData.router"
+import ContactAAPCRouter from "./routes/contactAAPC.router"
 
 dotenv.config()
 
@@ -29,6 +30,7 @@ app.use(NewsRouter.url, NewsRouter.router())
 app.use(ResearchRouter.url, ResearchRouter.router())
 app.use(UserRouter.url, UserRouter.router())
 app.use(PollenDataRouter.url, PollenDataRouter.router())
+app.use(ContactAAPCRouter.url, ContactAAPCRouter.router())
 app.use(AuthRouter.url, AuthRouter.router())
 
 // Use Error Handler middleware
