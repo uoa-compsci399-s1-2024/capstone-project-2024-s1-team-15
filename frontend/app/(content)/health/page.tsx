@@ -40,7 +40,7 @@ export default function HealthPage() {
                     <h2 className="w-full text-left">Managing Symptoms</h2>
                     <h3 className="bg-purpletwo p-4 w-1/2 rounded-t-[2rem] text-center mb-0">Common Strategies</h3>
                 </div>
-                <ul className="list-none flex gap-4 flex-wrap w-full">
+                <ul className="list-none flex gap-4 flex-wrap w-full gap-y-16">
                     {techniques.map((technique) => {
                         return (
                             <TechniqueCard
