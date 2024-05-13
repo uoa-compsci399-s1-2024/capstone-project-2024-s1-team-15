@@ -17,6 +17,7 @@ export default function InteractiveBodyDiagram() {
         if (!bodyPartExplanationDialogRef.current) return
 
         bodyPartExplanationDialogRef.current.showModal()
+        document.documentElement.style.overflowY = "hidden"
     }, [selectedBodyPart, bodyPartExplanationDialogRef])
 
     return (
@@ -58,7 +59,7 @@ export default function InteractiveBodyDiagram() {
             {selectedBodyPart && (
                 <dialog
                     ref={bodyPartExplanationDialogRef}
-                    className="bg-green-200 p-4 rounded-lg relative max-w-[50%]  "
+                    className="bg-green-200 p-4 rounded-lg fixed max-w-[50%] "
                     onClick={(e) => {
                         if (!bodyPartExplanationDialogRef.current) return
 
@@ -68,6 +69,7 @@ export default function InteractiveBodyDiagram() {
                         if (e.clientX < left || e.clientX > right || e.clientY < top || e.clientY > bottom) {
                             bodyPartExplanationDialogRef.current.close()
                             setSelectedBodyPart(null)
+                            document.documentElement.style.overflowY = ""
                         }
                     }}
                     dangerouslySetInnerHTML={{
