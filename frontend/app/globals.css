@@ -4,6 +4,10 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
+body {
+    @apply bg-backgroundcolor;
+}
+
 h1 {
     @apply text-4xl font-bold tracking-tight mb-8 mt-12;
 }
@@ -11,7 +15,9 @@ h1 {
 h2 {
     @apply text-3xl font-bold tracking-tight my-4;
 }
-
+h3 {
+    @apply text-2xl font-bold tracking-tight my-2;
+}
 a {
     @apply text-blue-700;
 }
@@ -81,7 +87,7 @@ a {
     @apply relative shadow-2xl w-full m-auto mt-48 max-w-[530px] max-h-full rounded-xl z-50;
 }
 
-.signup-button{
+.signup-button {
     @apply py-2 px-6 rounded-full text-black font-semibold text-xs w-28 bg-gray-300;
 }
 
