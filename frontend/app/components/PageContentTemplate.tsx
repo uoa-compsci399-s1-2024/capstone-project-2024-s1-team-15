@@ -34,7 +34,7 @@ function PageHeroSection({ children }: { children: React.ReactNode }) {
                 {pageName}
                 <div className="mb-5">{pageExplanation}</div>
 
-                {highlightSection && <div className="emphasized-first-section">{highlightSection}</div>}
+                {highlightSection && <div className="w-1/2">{highlightSection}</div>}
             </section>
             {remainingPageContent}
         </main>
