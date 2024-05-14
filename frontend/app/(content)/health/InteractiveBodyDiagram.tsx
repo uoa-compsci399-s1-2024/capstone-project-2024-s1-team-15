@@ -31,7 +31,7 @@ export default function InteractiveBodyDiagram() {
                     Click a purple circle
                 </p>
                 <div
-                    className={`w-fit h-full group-hover:scale-[420%] ${selectedBodyPart ? "scale-[420%]" : ""} origin-[50%_8%] relative -top-2 transition-all`}>
+                    className={`w-fit h-full group-hover:scale-[450%] ${selectedBodyPart ? "scale-[450%]" : ""} origin-[50%_8%] relative -top-2 transition-all`}>
                     <ClickableBodyPart
                         onClick={() => setSelectedBodyPart("eye")}
                         location={{ x: 49.7, y: 13.4 }}
