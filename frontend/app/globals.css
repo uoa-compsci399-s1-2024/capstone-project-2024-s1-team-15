@@ -18,6 +18,11 @@ h2 {
 h3 {
     @apply text-2xl font-bold tracking-tight my-2;
 }
+
+h4 {
+    @apply text-base font-bold tracking-tight;
+}
+
 a {
     @apply text-blue-700;
 }
@@ -97,4 +102,8 @@ a {
 
 footer {
     @apply mt-8 bottom-0 inset-x-0;
+}
+
+.opacity-gradient {
+    mask-image: linear-gradient(rgb(0 0 0 / 100%), 85%, transparent);
 }

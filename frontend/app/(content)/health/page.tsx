@@ -9,9 +9,7 @@ import WashHandsImage from "./images/washHands.svg"
 import ShutWindowsImages from "./images/shutWindows.svg"
 import AvoidSmokingImage from "./images/avoidSmoking.svg"
 import TechniqueCard from "./TechniqueCard"
-
-import HumanCartoon from "./images/humanCartoon.svg"
-import Image from "next/image"
+import InteractiveBodyDiagram from "./InteractiveBodyDiagram"
 
 const techniques = [
     { name: "Wash bedding regularly", image: WashingMachineImage },
@@ -25,7 +23,9 @@ const techniques = [
 export default function HealthPage() {
     return (
         <PageTemplate>
-            <PageTemplate.PageName><div className="page-title">Health</div></PageTemplate.PageName>
+            <PageTemplate.PageName>
+                <div className="page-title">Health</div>
+            </PageTemplate.PageName>
             <PageTemplate.PageExplanation>
                 Hay fever is the common name to describe allergic rhinitis and involves a recurrent runny, stuffy, itchy
                 nose, and frequent sneezing. It can also affect your eyes, sinuses, throat and ears. Like any other
@@ -33,22 +33,15 @@ export default function HealthPage() {
                 house dust mite, pet, pollen and mould. The allergen comes into contact with the sensitive, moist lining
                 in your nose and sinuses and sets off the allergic response
             </PageTemplate.PageExplanation>
-            <PageTemplate.HighlightSection>
-                <section>
-                    <h2>Common Symptoms</h2>
-                    <div className="flex items-center gap-2">
-                        <Image src={HumanCartoon} alt="Human cartoon" width="240" />
-                        <p className="bg-green-200 p-4 rounded-lg mr-4">
-                            Allergic rhinitis is inflammation (redness and swelling) of the inside of the nose.
-                            It&apos;s caused by an allergen, such as pollen, dust, mould, or flakes of skin from certain
-                            animals. It&apos;s a very common condition.
-                        </p>
-                    </div>
-                </section>
+            <PageTemplate.HighlightSection title={<h3>Common Symptoms</h3>}>
+                <InteractiveBodyDiagram />
             </PageTemplate.HighlightSection>
             <PageTemplate.RemainingPageContent>
-                <h2>Managing Symptoms</h2>
-                <ul className="list-none flex gap-4">
+                <div className="bg-purpleone p-4 pl-8 pb-0 rounded-r-[4rem] text-center -ml-4 mb-4 flex flex-col items-center">
+                    <h2 className="w-full text-left">Managing Symptoms</h2>
+                    <h3 className="bg-purpletwo p-4 w-1/2 rounded-t-[2rem] text-center mb-0">Common Strategies</h3>
+                </div>
+                <ul className="list-none flex gap-4 flex-wrap w-full gap-y-16">
                     {techniques.map((technique) => {
                         return (
                             <TechniqueCard

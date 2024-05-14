@@ -55,6 +55,7 @@ export class NewArticleIn extends Validator<IArticleIn> implements IArticleIn {
     title: string
     subtitle: string
     content: string
+    articleType: ArticleType
     media: string[]
 
     constructor(obj: any) {
@@ -63,6 +64,7 @@ export class NewArticleIn extends Validator<IArticleIn> implements IArticleIn {
         this.title = this.checkMissing(obj, "title")
         this.subtitle = obj.subtitle ?? ""
         this.content = this.checkMissing(obj, "content")
+        this.articleType = obj.articleType
         this.media = obj.media ?? []
 
         if (this.errors.length > 0) {
@@ -70,14 +72,14 @@ export class NewArticleIn extends Validator<IArticleIn> implements IArticleIn {
         }
     }
 
-    toNewArticle(articleType: ArticleType, publisher: IUser): IArticle {
+    toNewArticle(publisher: IUser): IArticle {
         return new Article({
             id: getRandomID(), // TODO: implement id checks
             title: this.title,
             subtitle: this.subtitle,
             content: this.content,
             media: this.media,
-            articleType: articleType,
+            articleType: this.articleType,
             publisher: publisher,
             publishedAt: new Date().toISOString(),
             lastEditedAt: new Date().toISOString(),
