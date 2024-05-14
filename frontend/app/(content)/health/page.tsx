@@ -32,15 +32,15 @@ export default function HealthPage() {
                 house dust mite, pet, pollen and mould. The allergen comes into contact with the sensitive, moist lining
                 in your nose and sinuses and sets off the allergic response
             </PageTemplate.PageExplanation>
-            <PageTemplate.HighlightSection>
-                <section className="w-full">
-                    <h2 className="w-full ">Common Symptoms</h2>
-                    <InteractiveBodyDiagram />
-                </section>
+            <PageTemplate.HighlightSection title={<h3>Common Symptoms</h3>}>
+                <InteractiveBodyDiagram />
             </PageTemplate.HighlightSection>
             <PageTemplate.RemainingPageContent>
-                <h2>Managing Symptoms</h2>
-                <ul className="list-none flex gap-4">
+                <div className="bg-purpleone p-4 pl-8 pb-0 rounded-r-[4rem] text-center -ml-4 mb-4 flex flex-col items-center">
+                    <h2 className="w-full text-left">Managing Symptoms</h2>
+                    <h3 className="bg-purpletwo p-4 w-1/2 rounded-t-[2rem] text-center mb-0">Common Strategies</h3>
+                </div>
+                <ul className="list-none flex gap-4 flex-wrap w-full gap-y-16">
                     {techniques.map((technique) => {
                         return (
                             <TechniqueCard
