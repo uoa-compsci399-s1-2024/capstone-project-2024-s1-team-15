@@ -27,6 +27,10 @@ a {
     @apply text-blue-700;
 }
 
+ul.default {
+    @apply list-disc pl-8 mt-2;
+}
+
 *:focus {
     @apply outline-none;
 }
