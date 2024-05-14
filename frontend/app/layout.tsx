@@ -28,7 +28,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                         </div>
                         <div className={`max-w-full px-32 pb-12 pr-80`}>{children}</div>
                     </div>
-                    <Footer />
+                    {/*<Footer />*/}
                 </AuthLayout>
             </body>
         </html>

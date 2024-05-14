@@ -7,6 +7,7 @@ import Privileged from "@/app/components/Privileged"
 import ButtonLink from "@/app/components/ButtonLink"
 import PageTemplate from "@/app/components/PageContentTemplate"
 import Pagination from "@/app/components/Paginations"
+import Copyright from "@/app/components/Copyright"
 
 export const metadata = getMetadata("All News")
 
@@ -15,7 +16,9 @@ export default async function AllNewsPage() {
 
     return (
         <PageTemplate>
-            <PageTemplate.PageName><div className="page-title">All News</div></PageTemplate.PageName>
+            <PageTemplate.PageName>
+                <div className="page-title">All News</div>
+            </PageTemplate.PageName>
             <PageTemplate.HighlightSection>
                 <Privileged requiredScopes={SCOPES.maintainer}>
                     <ButtonLink href={"/news/publish"} text={"Publish News"} />
@@ -28,6 +31,7 @@ export default async function AllNewsPage() {
             </PageTemplate.HighlightSection>
             <PageTemplate.RemainingPageContent>
                 <Pagination />
+                <Copyright />
             </PageTemplate.RemainingPageContent>
         </PageTemplate>
     )

@@ -94,3 +94,7 @@ a {
 .page-title {
     @apply text-3xl text-white font-bold bg-primary p-4 inline-block rounded-full w-auto md:text-left;
 }
+
+footer {
+    @apply mt-8 bottom-0 inset-x-0;
+}

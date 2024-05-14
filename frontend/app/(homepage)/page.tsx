@@ -18,7 +18,7 @@ export default function Home() {
                 <h1 className="text-3xl">Welcome to</h1>
                 <h1 className="text-8xl ml-30 text-center">Aotearoa Airborne<br />Pollen Collective</h1>
                 <p className="text-2xl ml-30 text-center">Clearing the Air: Your Source for Pollen Awareness</p>
-                <div className="bottom-0">
+                <div className="fixed bottom-0 inset-x-0">
                     <Copyright />
                 </div>
             </div>

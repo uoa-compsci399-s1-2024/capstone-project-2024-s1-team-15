@@ -7,6 +7,7 @@ import Privileged from "@/app/components/Privileged"
 import ButtonLink from "@/app/components/ButtonLink"
 import PageTemplate from "@/app/components/PageContentTemplate"
 import Pagination from "@/app/components/Paginations"
+import Copyright from "@/app/components/Copyright"
 
 export const metadata = getMetadata("All Research")
 
@@ -30,6 +31,7 @@ export default async function AllResearchPage() {
             </PageTemplate.HighlightSection>
             <PageTemplate.RemainingPageContent>
                 <Pagination />
+                <Copyright />
             </PageTemplate.RemainingPageContent>
         </PageTemplate>
     )
