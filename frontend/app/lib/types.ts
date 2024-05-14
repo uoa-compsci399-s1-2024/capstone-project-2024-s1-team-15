@@ -1,4 +1,4 @@
-import { IUser, UserScope } from "@aapc/types"
+import { ArticleType, IUser, UserScope } from "@aapc/types"
 
 export type AuthCredential = {
     password: string,
@@ -30,5 +30,6 @@ export type ArticleOut = {
     title: string
     subtitle?: string
     content: string
+    articleType: ArticleType
     media?: string[]
 }

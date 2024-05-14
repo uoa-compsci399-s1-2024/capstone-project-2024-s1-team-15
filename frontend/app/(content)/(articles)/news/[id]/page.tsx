@@ -3,10 +3,12 @@ import { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { getNewsById } from "@/app/services/news"
 import { getMetadata } from "@/app/lib/util"
+import { ArticleType } from "@aapc/types"
 import { SCOPES } from "@/app/lib/consts"
 import Privileged from "@/app/components/Privileged"
 import ButtonLink from "@/app/components/ButtonLink"
 import ArticlePage from "@/app/components/ArticlePage"
+import ExternalLinkButton from "@/app/(cms)/(articles)/components/ExternalLinkButton"
 
 type PageParams = { params: { id: string } }
 
@@ -21,7 +23,22 @@ export default async function NewsPage({ params }: PageParams) {
 
     return (
         <div className={"space-y-6"}>
-            <ArticlePage article={article} />
+            {article.articleType == ArticleType.news &&
+                <ArticlePage article={article} />
+            }
+            {article.articleType == ArticleType.news_external &&
+                
+                <div className="flex flex-col">
+                    <h1>{article.title}</h1>
+                    <h2 className="text-red-500">This is an external article. To view it you will have to leave our website</h2>
+                    <div className="flex flex-row space-x-4">
+                        <ExternalLinkButton url={article.content} text={"Continue"}/>
+                        <ButtonLink href={'/news'} text={"Go Back"}/>
+                    </div>
+                    
+                </div>
+            }
+            
             <Privileged requiredScopes={SCOPES.maintainer}>
                 <ButtonLink href={`/news/${params.id}/edit`} text={"Edit"} />
             </Privileged>
