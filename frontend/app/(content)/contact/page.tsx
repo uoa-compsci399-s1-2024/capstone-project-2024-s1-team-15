@@ -1,17 +1,13 @@
 import React from "react"
 import ContactForm from "@/app/components/ContactForm"
-import PageTemplate from "@/app/components/PageContentTemplate"
 
 export default function Contact() {
     return (
-        <PageTemplate>
+        <>
+            <h1 className="page-title">Contact Us</h1>
 
-            <PageTemplate.PageName><div className="page-title">Contact Us</div></PageTemplate.PageName>
-
-            <PageTemplate.PageExplanation>Please fill in the form to contact the AAPC team</PageTemplate.PageExplanation>
-            <PageTemplate.RemainingPageContent>
-                <ContactForm />
-            </PageTemplate.RemainingPageContent>
-        </PageTemplate>
+            <p>Please fill in the form to contact the AAPC team</p>
+            <ContactForm />
+        </>
     )
 }
