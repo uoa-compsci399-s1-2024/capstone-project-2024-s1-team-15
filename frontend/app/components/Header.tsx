@@ -25,7 +25,7 @@ export default function Header(): React.JSX.Element {
                         </div>
 
                         <div className={`${showsNav ? "opacity-100" : "opacity-0 pointer-events-none"} transition-all`}>
-                            <FlowerNav />
+                            {showsNav && <FlowerNav />}
 
                             {/* clicking on this closes the nav 👇 */}
                             <div
