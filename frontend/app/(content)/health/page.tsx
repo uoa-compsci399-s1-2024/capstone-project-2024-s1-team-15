@@ -1,24 +1,10 @@
 import React from "react"
 import PageTemplate from "@/app/components/PageContentTemplate"
 
-import WashingMachineImage from "./images/washingMachine.svg"
-import DustFurniture from "./images/dustFurniture.svg"
-import NasalRinseImage from "./images/rinseNasalPassages.svg"
-import WashHandsImage from "./images/washHands.svg"
-import ShutWindowsImages from "./images/shutWindows.svg"
-import AvoidSmokingImage from "./images/avoidSmoking.svg"
 import TechniqueCard from "./TechniqueCard"
 import InteractiveBodyDiagram from "./InteractiveBodyDiagram"
 import SourceLink, { LearnMoreLink } from "@/app/components/SourceLink"
-
-const techniques = [
-    { name: "Wash bedding regularly", image: WashingMachineImage },
-    { name: "Dust frequently", image: DustFurniture },
-    { name: "Rinse nasal passages", image: NasalRinseImage },
-    { name: "Wash hands after playing with pets", image: WashHandsImage },
-    { name: "Shut windows during pollen season", image: ShutWindowsImages },
-    { name: "Avoid smoke and fragrances", image: AvoidSmokingImage },
-]
+import commonStrategies from "./CommonStrategies"
 
 export default function HealthPage() {
     return (
@@ -56,15 +42,18 @@ export default function HealthPage() {
                     <h3 className="bg-purpletwo p-4 w-1/2 rounded-t-[2rem] text-center mb-0">Common Strategies</h3>
                 </div>
                 <ul className="list-none flex gap-4 flex-wrap w-full gap-y-16">
-                    {techniques.map((technique) => {
-                        return (
-                            <TechniqueCard
-                                key={technique.name}
-                                image={technique.image}
-                                name={technique.name}></TechniqueCard>
-                        )
-                    })}
+                    {Object.entries(commonStrategies).map(([name, { image }]) => (
+                        <TechniqueCard key={name} image={image} name={name} />
+                    ))}
                 </ul>
+                <p className="mt-8">
+                    For more in-depth tips on dealing with Hayfever, take a look at this article:{" "}
+                    <a
+                        href="https://www.auckland.ac.nz/en/news/2023/11/06/seven-tips-amy-chan-allergies.html"
+                        target="_blank">
+                        Seven tips to combat seasonal allergies
+                    </a>
+                </p>
             </PageTemplate.RemainingPageContent>
         </PageTemplate>
     )
