@@ -124,7 +124,7 @@ export default function FlowerNav() {
     return (
         <>
             {flowerRotationStyle && (
-                <nav className="w-[18rem] overflow-hidden ">
+                <nav className="w-[18rem] overflow-hidden fixed top-30 pt-5 right-0">
                     <div
                         style={flowerRotationStyle}
                         className={`relative w-[32rem] h-[32rem] rotate-0 ${roboto.className} text-[1.8rem] transition-transform duration-[800ms]  ease-figma-gentle list-none p-0 m-0 `}>

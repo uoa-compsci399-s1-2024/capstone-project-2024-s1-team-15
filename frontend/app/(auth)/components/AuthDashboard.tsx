@@ -22,7 +22,7 @@ export default function AuthDashboard(): React.JSX.Element {
     }
 
     return (
-        <div>
+        <>
             {user ? (
                 <div className={"flex flex-row space-x-4 items-center justify-start leading-none"}>
                     <div>
@@ -32,12 +32,14 @@ export default function AuthDashboard(): React.JSX.Element {
                     <button className="hoverable login-button bg-primary" onClick={clearSession}>Logout</button>
                 </div>
             ) : (
-                <div className="flex">
-                    <button className="hoverable login-button bg-primary mr-4" onClick={showLoginModal}>Log in</button>
+                <div className="flex gap-4">
+                    <button className="hoverable login-button bg-primary" onClick={showLoginModal}>
+                        Log in
+                    </button>
                     <button className="hoverable signup-button">Sign up</button> {/* Temporary */}
                 </div>
             )}
             <LoginModal ref={ref}/>
-        </div>
+        </>
     )
 }

@@ -10,6 +10,12 @@ export default function Header(): React.JSX.Element {
     const [showsNav, setShowsNav] = useState(false)
 
     return (
+        <header className="h-28">
+            <div className="fixed h-28 px-4 z-30 w-full flex justify-between items-center bg-gradient-to-b from-white">
+                <Link href="/" className="font-bold text-5xl text-black tracking-tight">
+                    AAPC
+                </Link>
+
                 <div className="flex items-center gap-4">
                     <AuthDashboard />
 
@@ -29,7 +35,6 @@ export default function Header(): React.JSX.Element {
                     </div>
                 </div>
             </div>
-            <div className={`h-28`}></div>
         </header>
     )
 }
