@@ -52,8 +52,8 @@ function calculatePetalAngle(petalIndex: number): number {
 export default function FlowerNav() {
     const [flowerRotationAngle, setFlowerRotationAngle] = useState<number | null>(null)
     const [flowerRotationStyle, setFlowerRotationStyle] = useState<object | null>({})
-    const selectedPageUrl = usePathname()
-    const pageIndexForCurrentUrl = pages.findIndex(({ url }) => url === selectedPageUrl)
+    const currentPageUrl = usePathname()
+    const pageIndexForCurrentUrl = pages.findIndex(({ url }) => url === currentPageUrl)
 
     const [selectedPetalIndex, setSelectedPetalIndex] = useState(
         pageIndexForCurrentUrl === -1 ? 0 : pageIndexForCurrentUrl
@@ -72,7 +72,7 @@ export default function FlowerNav() {
                     style={petalRotationStyle}
                     onClick={() => setSelectedPetalIndex(index)}
                     className={`absolute top-1/2 origin-right -translate-y-1/2 rotate-0`}>
-                    <Petal page={page} selected={page.url === selectedPageUrl && selectedPetalIndex === index} />
+                    <Petal page={page} selected={page.url === currentPageUrl && selectedPetalIndex === index} />
                 </div>
                 <div
                     style={oppositePetalRotationStyle}
@@ -80,12 +80,23 @@ export default function FlowerNav() {
                     className={`absolute top-1/2 origin-right -translate-y-1/2 rotate-0`}>
                     <Petal
                         page={page}
-                        selected={page.url === selectedPageUrl && selectedPetalIndex === index + pages.length}
+                        selected={page.url === currentPageUrl && selectedPetalIndex === index + pages.length}
                     />
                 </div>
             </li>
         )
     })
+
+    useEffect(() => {
+        const pageIndexForCurrentUrl = pages.findIndex(({ url }) => url === currentPageUrl)
+
+        if (pageIndexForCurrentUrl === -1) return
+
+        if (selectedPetalIndex % pages.length === pageIndexForCurrentUrl) return
+
+        setSelectedPetalIndex(pageIndexForCurrentUrl === -1 ? 0 : pageIndexForCurrentUrl)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentPageUrl])
 
     useEffect(() => {
         setSelectedPetalRotationAngle((previousPetalAngle1) => {
