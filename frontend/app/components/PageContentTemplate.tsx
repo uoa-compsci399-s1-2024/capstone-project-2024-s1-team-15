@@ -47,7 +47,7 @@ function PageHeroSection({ children }: { children: React.ReactNode }) {
 PageHeroSection.PageName = function pn(props: PropsWithChildren) {
     return (
         <>
-            <h1 className="m-0 p-0">{props.children}</h1>
+            <h1 className="m-0 p-0 text-white">{props.children}</h1>
             <br />
         </>
     )
