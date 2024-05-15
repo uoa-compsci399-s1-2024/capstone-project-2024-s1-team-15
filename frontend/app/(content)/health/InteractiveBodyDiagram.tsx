@@ -88,7 +88,6 @@ type Props = {
 }
 
 function ClickableBodyPart({ onClick, location, selected }: Props) {
-    console.log({ selected })
     return (
         <button
             className={`border-[#601872] border-[0.05px] border-solid ${selected ? "bg-[#601872] opacity-60" : ""} hover:bg-[#601872] w-[5px] h-[5px] inline-block absolute top-5 rounded-xl opacity-0 group-hover:opacity-60 transition-all`}
