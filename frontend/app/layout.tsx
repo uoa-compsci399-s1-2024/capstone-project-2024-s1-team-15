@@ -23,10 +23,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                 <AuthLayout>
                     <div className="relative">
                         <Header />
-                        <div className="fixed top-30 pt-5 right-0">
+                        <div className="md:block hidden">
                             <FlowerNav />
                         </div>
-                        <div className={`max-w-full pl-4 pb-12 pr-80`}>{children}</div>
+                        <div className="max-w-full px-4 pb-12 md:pr-80">{children}</div>
                     </div>
                     <Footer />
                 </AuthLayout>
