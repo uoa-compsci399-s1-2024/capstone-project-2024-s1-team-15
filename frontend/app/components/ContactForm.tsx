@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react"
 import { API_URI } from "../lib/consts"
+import ReCAPTCHA from "react-google-recaptcha"
 
 export default function ContactForm() {
     async function sendEmail(e: FormEvent<HTMLFormElement>) {
@@ -100,6 +101,9 @@ export default function ContactForm() {
                         </div>
                     </div>
                 </div>
+
+                <ReCAPTCHA sitekey="6LdQe94pAAAAAAtYGxiatB310mro7rNvoElcP8-T" />
+
                 {messageSentError && <p className={"form-error ml-1"}>{messageSentError}</p>}
                 {messageSentSuccess && <p className={"form-success ml-1"}>{messageSentSuccess}</p>}
                 <button disabled={pending} className={"button w-48"} type="submit">
