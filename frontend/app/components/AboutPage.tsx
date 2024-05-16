@@ -3,38 +3,36 @@ import Image from "next/image"
 export default function AboutPage() {
     return (
         <>
-            <section className="mt-12 mx-auto px-4 max-w-screen-xl md:px-8">
-                <div className="mt-12 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-                    <ResearcherProfileCard
-                        name="Amy Chan"
-                        email="a.chan@aucklanduni.ac.nz"
-                        bio="Dr Amy Chan is a senior clinical research fellow at the School of Pharmacy,
+            <section className="mt-12 mx-auto max-w-screen-xl flex flex-wrap gap-2 justify-center">
+                <ResearcherProfileCard
+                    name="Amy Chan"
+                    email="a.chan@aucklanduni.ac.nz"
+                    bio="Dr Amy Chan is a senior clinical research fellow at the School of Pharmacy,
                                     University of Auckland, New Zealand, and holds an honorary post at the Centre of
                                     Behavioural Medicine, University College London. She is a clinical pharmacist
                                     academic and is currently in a joint-appointment between the University and Auckland
                                     District Health Board."
-                    />
+                />
 
-                    <ResearcherProfileCard
-                        name="Katherine Holt"
-                        email="k.holt@massey.ac.nz"
-                        bio="I am from Ahuriri/Napier, Aotearoa/New Zealand. I have a PhD in Earth Science (2008,
+                <ResearcherProfileCard
+                    name="Katherine Holt"
+                    email="k.holt@massey.ac.nz"
+                    bio="I am from Ahuriri/Napier, Aotearoa/New Zealand. I have a PhD in Earth Science (2008,
                                     Massey University). My research is focused on using pollen to understand how the
                                     environment has changed in the past. I also apply my pollen knowledge to other
                                     fields. I operate a dedicated palynology lab which provides commercial pollen
                                     analysis services to the honey industry and other environmental interests."
-                    />
+                />
 
-                    <ResearcherProfileCard
-                        name="Stuti Misra"
-                        email="s.misra@auckland.ac.nz"
-                        bio=" Optometrist-Scientist with a demonstrated history of working in the medical practice
+                <ResearcherProfileCard
+                    name="Stuti Misra"
+                    email="s.misra@auckland.ac.nz"
+                    bio=" Optometrist-Scientist with a demonstrated history of working in the medical practice
                                     industry. Special expertise in Ocular imaging, Ocular surface assessment, Dry Eye,
                                     Ophthalmic Medical Devices, Paediatric Ophthalmology, Lecturing, Public Speaking,
                                     and Scientific Writing. Strong research professional with a Doctor of Philosophy
                                     (PhD) focused in Ophthalmology from the University of Auckland."
-                    />
-                </div>
+                />
             </section>
 
             <div className="py-14">
@@ -104,7 +102,7 @@ type CardProps = {
 
 function ResearcherProfileCard({ name, email, bio, headerPicture, profilePicture }: CardProps) {
     return (
-        <article className="max-w-xs mx-auto mt-4 shadow-lg border rounded-md duration-300 hover:shadow-sm">
+        <article className="w-full md:w-[17rem] mt-4 shadow-lg border rounded-md duration-300 hover:shadow-sm">
             <Image
                 src={
                     headerPicture ||
@@ -136,7 +134,7 @@ function ResearcherProfileCard({ name, email, bio, headerPicture, profilePicture
                     </a>
                 </div>
             </div>
-            <div className="pt-3 ml-4 mr-2 mb-3">
+            <div className="pt-3 mr-2 mb-3 ml-4">
                 <h3 className="text-xl text-gray-900">Researcher</h3>
                 <p className="text-gray-400 text-sm mt-1">{bio}</p>
             </div>
