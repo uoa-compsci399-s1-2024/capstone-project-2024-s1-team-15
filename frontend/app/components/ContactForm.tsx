@@ -35,6 +35,7 @@ export default function ContactForm() {
     const [emailInput, setEmailInput] = useState("")
     const [nameInput, setNameInput] = useState("")
     const [messageInput, setMessageInput] = useState("")
+    const [recaptchaPassed, setRecaptchaPassed] = useState<boolean | null>(null)
     const [messageSentError, setMessageSentError] = useState<null | string>(null)
     const [messageSentSuccess, setMessageSentSuccess] = useState<null | string>(null)
     const [pending, setPending] = useState(false)
@@ -102,11 +103,14 @@ export default function ContactForm() {
                     </div>
                 </div>
 
-                <ReCAPTCHA sitekey="6LdQe94pAAAAAAtYGxiatB310mro7rNvoElcP8-T" />
+                <ReCAPTCHA
+                    sitekey="6LdQe94pAAAAAAtYGxiatB310mro7rNvoElcP8-T"
+                    onChange={(successToken: null | string) => setRecaptchaPassed(successToken ? true : false)}
+                />
 
                 {messageSentError && <p className={"form-error ml-1"}>{messageSentError}</p>}
                 {messageSentSuccess && <p className={"form-success ml-1"}>{messageSentSuccess}</p>}
-                <button disabled={pending} className={"button w-48"} type="submit">
+                <button disabled={!recaptchaPassed || pending} className={"button w-48"} type="submit">
                     {pending ? "Sending message..." : "Send"}
                 </button>
             </form>
