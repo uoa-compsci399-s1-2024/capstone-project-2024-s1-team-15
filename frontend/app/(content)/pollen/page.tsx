@@ -6,14 +6,18 @@ import { PollenData } from "@aapc/types"
 import { getPollenData } from "@/app/services/pollen"
 import PageTemplate from "@/app/components/PageContentTemplate"
 import Slider, { Slide } from "@/app/components/Slider"
-import pollenTypesSlidesContent from "./pollenTypesSlidesContent.json"
+import pollenTypegrass from "./pollenType-grass.json"
+import pollenTypetree from "./pollenType-tree.json"
+import pollenTypeweed from "./pollenType-weed-herb.json"
 import Privileged from "@/app/components/Privileged"
 import { SCOPES } from "@/app/lib/consts"
 import ButtonLink from "@/app/components/ButtonLink"
 
 export default function Pollen() {
     const [pollenData, setPollenData] = useState<null | PollenData[]>(null)
-    const [selectedSlidePollenName, setSelectedSlidePollenName] = useState(pollenTypesSlidesContent[0].name)
+    const [selectedSlidePollenNameGrass, setSelectedSlidePollenNameGrass] = useState(pollenTypegrass[0].name)
+    const [selectedSlidePollenNameTree, setSelectedSlidePollenNameTree] = useState(pollenTypetree[0].name)
+    const [selectedSlidePollenNameWeed, setSelectedSlidePollenNameWeed] = useState(pollenTypeweed[0].name)
     const [selectedPollenSlideHTML, setSelectedPollenSlideHTML] = useState<string | undefined>(undefined)
 
     useEffect(() => {
@@ -22,13 +26,36 @@ export default function Pollen() {
         })
     }, [])
 
+    /* Pollen Type Grass */
     useEffect(() => {
         setSelectedPollenSlideHTML(
-            pollenTypesSlidesContent.find(({ name }) => name === selectedSlidePollenName)?.summaryHTML
+            pollenTypegrass.find(({ name }) => name === selectedSlidePollenNameGrass)?.summaryHTML
         )
-    }, [selectedSlidePollenName])
+    }, [selectedSlidePollenNameGrass])
 
-    const pollenSlides = pollenTypesSlidesContent.map(({ name, summaryHTML }) => (
+    const pollenSlidesGrass = pollenTypegrass.map(({ name, summaryHTML }) => (
+        <Slide key={name} slideContent={summaryHTML}></Slide>
+    ))
+
+    /* Pollen Type Tree */
+    useEffect(() => {
+        setSelectedPollenSlideHTML(
+            pollenTypetree.find(({ name }) => name === selectedSlidePollenNameTree)?.summaryHTML
+        )
+    }, [selectedSlidePollenNameTree])
+
+    const pollenSlidesTree = pollenTypetree.map(({ name, summaryHTML }) => (
+        <Slide key={name} slideContent={summaryHTML}></Slide>
+    ))
+    
+    /* Pollen Type Weed */
+    useEffect(() => {
+        setSelectedPollenSlideHTML(
+            pollenTypeweed.find(({ name }) => name === selectedSlidePollenNameWeed)?.summaryHTML
+        )
+    }, [selectedSlidePollenNameWeed])
+
+    const pollenSlidesWeed = pollenTypeweed.map(({ name, summaryHTML }) => (
         <Slide key={name} slideContent={summaryHTML}></Slide>
     ))
 
@@ -46,15 +73,41 @@ export default function Pollen() {
             <PageTemplate.HighlightSection
                 title={
                     <h3>
-                        Types of Pollen: <span className="font-semibold text-base">{selectedSlidePollenName}</span>
+                        Types of Grass Pollen: <span className="font-semibold text-base">{selectedSlidePollenNameGrass}</span>
                     </h3>
                 }>
-                {selectedSlidePollenName && selectedPollenSlideHTML && (
+                {selectedSlidePollenNameGrass && selectedPollenSlideHTML && (
                     <Slider
                         onSelectedSlideIndexChange={(index: number) =>
-                            setSelectedSlidePollenName(pollenTypesSlidesContent[index].name)
+                            setSelectedSlidePollenNameGrass(pollenTypegrass[index].name)
                         }
-                        slides={pollenSlides}
+                        slides={pollenSlidesGrass}
+                    />
+                )}
+                {
+                    <h3>
+                        Types of Tree Pollen: <span className="font-semibold text-base">{selectedSlidePollenNameTree}</span>
+                    </h3>
+                }
+                {selectedSlidePollenNameTree && selectedPollenSlideHTML && (
+                    <Slider
+                        onSelectedSlideIndexChange={(index: number) =>
+                            setSelectedSlidePollenNameTree(pollenTypetree[index].name)
+                        }
+                        slides={pollenSlidesTree}
+                    />
+                )}
+                {
+                    <h3>
+                        Types of Weed Pollen: <span className="font-semibold text-base">{selectedSlidePollenNameWeed}</span>
+                    </h3>
+                }
+                {selectedSlidePollenNameWeed && selectedPollenSlideHTML && (
+                    <Slider
+                        onSelectedSlideIndexChange={(index: number) =>
+                            setSelectedSlidePollenNameWeed(pollenTypeweed[index].name)
+                        }
+                        slides={pollenSlidesWeed}
                     />
                 )}
             </PageTemplate.HighlightSection>
