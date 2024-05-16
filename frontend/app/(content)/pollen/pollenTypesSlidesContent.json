@@ -1,11 +1,11 @@
 [
     {
-        "name": "Ragweed",
-        "summaryHTML": "<p>In the late summer and early fall, almost 50 million people in the U.S. have symptoms from an allergy to ragweed pollen. The symptoms can be mild, moderate, or severe for people with seasonal allergies.</p>"
+        "name": "Pine (Pinus) - Tree subtype",
+        "summaryHTML": "<p>Radiata pine plantations are common throughout the country. Pine trees produce copious amounts of pollen which can be seen as a yellow dust on surfaces during the pine pollen season in early August. Pine pollen grains are large (50 – 100 microns) and characterised by a large round body (corpus) with two smaller ‘bladders’ attached. It can look like a silhouette of Mickey Mouse. </p>"
     },
     {
-        "name": "Oak",
-        "summaryHTML": "<p>Oak pollen is a fine powder oak trees produce as part of their reproductive process. While essential for the tree's life cycle, these tiny particles may wreak havoc on the respiratory systems of people with allergies.</p>"
+        "name": "Birch (Betula) - Tree subtype",
+        "summaryHTML": "<p>Pollen from birches like silver birch is highly allergenic to some people. Its pollen is small to medium in size (10-25 microns). It is oblate (flattened sphere) in shape, with three protruding pores around its middle. It has a smooth surface.</p>"
     },
     {
         "name": "Grasses",
