@@ -7,6 +7,7 @@ import localFont from "next/font/local"
 import type { Metadata } from "next"
 import { getMetadata } from "@/app/lib/util"
 import { AuthLayout } from "@/app/(auth)/components"
+import Copyright from "@/app/components/Copyright"
 
 const inter = localFont({
     src: "./public/Inter.ttf",
@@ -26,7 +27,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                         <div className="fixed top-30 pt-5 right-0">
                             <FlowerNav />
                         </div>
-                        <div className={`max-w-full pl-4 pb-12 pr-80`}>{children}</div>
+                        <div className={`max-w-full pl-4 pr-80`}>{children}</div>
                     </div>
                     {/*<Footer />*/}
                 </AuthLayout>
