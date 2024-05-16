@@ -216,7 +216,15 @@ export default class MemoryRepository implements IRepository {
         }
     }
 
-    async getAllPollenData(): Promise<PollenData[]> {
+    async getPollenDataset(): Promise<PollenData[]> {
         return structuredClone(this.pollenData)
+    }
+
+    async deletePollenDataset(): Promise<any> {
+        this.pollenData = []
+    }
+
+    async createPollenDataset(pollenData: PollenData[]): Promise<any> {
+        this.pollenData = pollenData
     }
 }

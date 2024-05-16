@@ -237,7 +237,17 @@ export default class MongoRepository implements IRepository {
         }
     }
 
-    async getAllPollenData(): Promise<PollenData[]> {
+    async getPollenDataset(): Promise<PollenData[]> {
         return (await this.pollenData.find().toArray()) as object[] as PollenData[]
+    }
+
+    async deletePollenDataset(): Promise<any> {
+        await this.pollenData.deleteMany()
+    }
+
+    async createPollenDataset(pollenData: PollenData[]): Promise<any> {
+        await this.deletePollenDataset()
+
+        await this.pollenData.insertMany(pollenData)
     }
 }
