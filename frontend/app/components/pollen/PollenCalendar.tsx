@@ -8,8 +8,8 @@ import MultiChart from "@/app/components/pollen/MultiChart"
 
 const PollenCalendar = memo(function PollenCalendar({ pollenData }: { pollenData: PollenData[] }) {
     const [showsDateFilter, setShowsDateFilter] = useState(false)
-    const [dateLowerLimit, setDateLowerLimit] = useState(dayjs("2024-11-28").valueOf())
-    const [dateUpperLimit, setDateUpperLimit] = useState(dayjs("2024-12-2").valueOf())
+    const [dateLowerLimit, setDateLowerLimit] = useState(dayjs().subtract(1, "week").valueOf())
+    const [dateUpperLimit, setDateUpperLimit] = useState(dayjs().valueOf())
 
     const [showsPollenTypeFilter, setShowsPollenTypeFilter] = useState(false)
     const [allPollenTypes, setAllPollenTypes] = useState<string[]>([])
