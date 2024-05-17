@@ -25,11 +25,16 @@ export default function AuthDashboard(): React.JSX.Element {
         <div>
             {user ? (
                 <div className={"flex flex-row space-x-4 items-center justify-start leading-none"}>
-                    <div>
-                        <p>Logged in as <b className={"font-medium"}>{user.displayName}</b></p>
-                    </div>
-                    { scopes && <UserScopeLabel scopes={scopes}/>}
-                    <button className="hoverable login-button bg-primary" onClick={clearSession}>Logout</button>
+                    <p>
+                        Logged in as <b className={"font-medium"}>{user.displayName}</b>
+                    </p>
+                    {scopes && <UserScopeLabel scopes={scopes} />}
+                    <button className="hoverable login-button bg-primary text-nowrap" onClick={() => {}}>
+                        Change Password
+                    </button>
+                    <button className="hoverable login-button bg-primary" onClick={clearSession}>
+                        Logout
+                    </button>
                 </div>
             ) : (
                 <div className="flex">
