@@ -33,7 +33,6 @@ export default function DateInput({
                     defaultValue={lowerLimitString}
                     onChange={(e) => {
                         const newDateValue = makeTimestampForDateMidday(e.target.valueAsNumber)
-                        console.log({ newInput: dayjs(newDateValue).format(dateFormat) })
                         if (dateWithinRange(newDateValue)) {
                             setLowerLimit(newDateValue)
                             setInputError(null)
