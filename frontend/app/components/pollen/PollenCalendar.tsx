@@ -5,11 +5,14 @@ import { formatPollenData, FormattedPollenData } from "@/app/(cms)/pollen/compon
 import PollenTypeInput from "@/app/components/pollen/PollenTypeInput"
 import DateInput from "@/app/components/pollen/DateInput"
 import MultiChart from "@/app/components/pollen/MultiChart"
+import { makeTimestampForDateMidday } from "./util"
 
 const PollenCalendar = memo(function PollenCalendar({ pollenData }: { pollenData: PollenData[] }) {
     const [showsDateFilter, setShowsDateFilter] = useState(false)
-    const [dateLowerLimit, setDateLowerLimit] = useState(dayjs().subtract(1, "week").valueOf())
-    const [dateUpperLimit, setDateUpperLimit] = useState(dayjs().valueOf())
+    const [dateLowerLimit, setDateLowerLimit] = useState(
+        makeTimestampForDateMidday(dayjs().subtract(1, "week").valueOf())
+    )
+    const [dateUpperLimit, setDateUpperLimit] = useState(makeTimestampForDateMidday(dayjs().valueOf()))
 
     const [showsPollenTypeFilter, setShowsPollenTypeFilter] = useState(false)
     const [allPollenTypes, setAllPollenTypes] = useState<string[]>([])
