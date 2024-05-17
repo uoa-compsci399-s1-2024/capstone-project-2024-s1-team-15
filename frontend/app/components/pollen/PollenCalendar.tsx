@@ -125,7 +125,7 @@ const PollenCalendar = memo(function PollenCalendar({ pollenData }: { pollenData
                     </div>
                 ) : displayedPollenTypes.length ? (
                     <p>
-                        No pollen data in range: {dayjs(dateLowerLimit).format(dateFormat)} to
+                        No pollen data in range: {dayjs(dateLowerLimit).format(dateFormat)} to{" "}
                         {dayjs(dateUpperLimit).format(dateFormat)}. Try adjusting the date filter range above.
                     </p>
                 ) : (
