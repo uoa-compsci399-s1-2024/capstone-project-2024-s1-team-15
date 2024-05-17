@@ -1,5 +1,6 @@
 import { read, utils, WorkSheet } from "xlsx"
 import { PollenData, PollenValue } from "@aapc/types"
+import dayjs from "dayjs"
 
 export function parseSpreadsheet(spreadsheet: ArrayBuffer): { pollenDataset: PollenData[] | null; errors?: string[] } {
     let parsingErrors: string[] = []
@@ -38,10 +39,21 @@ export function parseSpreadsheet(spreadsheet: ArrayBuffer): { pollenDataset: Pol
         }
     })
 
+    consolidatedPollenDataset = sortValuesByDate(consolidatedPollenDataset)
+
     return {
         pollenDataset: consolidatedPollenDataset.length ? consolidatedPollenDataset : null,
         errors: parsingErrors.length ? parsingErrors : undefined,
     }
+}
+
+function sortValuesByDate(pollenDataset: PollenData[]): PollenData[] {
+    return pollenDataset.map((pollenType) => {
+        pollenType.pollenValues = pollenType.pollenValues.sort(
+            (value1, value2) => dayjs(value1.date).valueOf() - dayjs(value2.date).valueOf()
+        )
+        return pollenType
+    })
 }
 
 function combinePollenDatasets(pollenDataset1: PollenData[], pollenDataset2: PollenData[]): PollenData[] {
