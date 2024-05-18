@@ -23,7 +23,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                 <AuthLayout>
                     <div className="relative h-full flex flex-col">
                         <Header />
-                        <div className="fixed top-30 pt-5 right-0">
+                        <div className="fixed top-28 pt-5 right-0">
                             <FlowerNav />
                         </div>
                         <div className={`max-w-full flex-1 pl-4 pr-80 flex justify-between flex-col `}>
