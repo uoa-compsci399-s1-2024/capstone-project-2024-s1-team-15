@@ -1,6 +1,5 @@
 import React from "react"
 import PageTemplate from "@/app/components/PageContentTemplate"
-import Copyright from "@/app/components/Copyright"
 
 import WashingMachineImage from "./images/washingMachine.svg"
 import DustFurniture from "./images/dustFurniture.svg"
@@ -51,7 +50,6 @@ export default function HealthPage() {
                         )
                     })}
                 </ul>
-                <Copyright />
             </PageTemplate.RemainingPageContent>
         </PageTemplate>
     )

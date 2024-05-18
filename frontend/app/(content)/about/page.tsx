@@ -1,7 +1,5 @@
 import React from "react"
 import AboutPage from "@/app/components/AboutPage"
-import Copyright from "@/app/components/Copyright"
-
 
 export default function About() {
     return (
@@ -18,7 +16,6 @@ export default function About() {
 
             <h2 className={"text-center"}>Meet the Researchers!</h2>
             <AboutPage />
-            <Copyright />
         </>
     )
 }

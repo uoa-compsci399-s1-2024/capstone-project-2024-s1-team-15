@@ -10,8 +10,6 @@ import pollenTypesSlidesContent from "./pollenTypesSlidesContent.json"
 import Privileged from "@/app/components/Privileged"
 import { SCOPES } from "@/app/lib/consts"
 import ButtonLink from "@/app/components/ButtonLink"
-import Copyright from "@/app/components/Copyright"
-
 
 export default function Pollen() {
     const [pollenData, setPollenData] = useState<null | PollenData[]>(null)
@@ -76,7 +74,6 @@ export default function Pollen() {
                     <span className="italic text-red-400">NOTE: Do premium members get any additional features?</span>
                 </p>
                 <button className="button">Go premium</button>
-                <Copyright />
             </PageTemplate.RemainingPageContent>
         </PageTemplate>
     )

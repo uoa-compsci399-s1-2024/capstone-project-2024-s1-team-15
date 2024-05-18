@@ -1,7 +1,5 @@
 import React from "react"
 import ContactForm from "@/app/components/ContactForm"
-import Copyright from "@/app/components/Copyright"
-
 
 export default function Contact() {
     return (
@@ -10,7 +8,6 @@ export default function Contact() {
 
             <p>Please fill in the form to contact the AAPC team</p>
             <ContactForm />
-            <Copyright />
         </>
     )
 }

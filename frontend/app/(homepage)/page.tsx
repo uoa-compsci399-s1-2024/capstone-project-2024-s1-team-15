@@ -2,7 +2,6 @@ import React from "react";
 import Image from "next/image";
 import yellowback from "./homepageback.svg";
 import pollenimg from "./pollenimg.svg";
-import Copyright from "@/app/components/Copyright"
 
 export default function Home() {
     return (
@@ -14,14 +13,11 @@ export default function Home() {
                 <Image src={pollenimg} alt="pollenimg"
                        className="-mt-20 ml-20 transition-transform duration-1000 transform hover:-translate-y-5" />
             </div>
-            <div className="fixed text-black pl-8">
+            <div className="text-black pl-8 w-fit">
                 <h1 className="text-3xl">Welcome to</h1>
-                <h1 className="text-8xl ml-30 text-center">Aotearoa Airborne<br />Pollen Collective</h1>
-                <p className="text-2xl ml-30 text-center">Clearing the Air: Your Source for Pollen Awareness</p>
-                <div className="fixed bottom-0 inset-x-0">
-                    <Copyright />
-                </div>
+                <h1 className="text-8xl text-center">Aotearoa Airborne<br />Pollen Collective</h1>
+                <p className="text-2xl ml-30 text-center">Clearing the Air: Your Source for Pollen Awareness</p>  
             </div>
         </div>
-    );
+    )
 }
