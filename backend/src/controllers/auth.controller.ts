@@ -38,7 +38,11 @@ export default class AuthController {
 
     static changePassword: RequestHandler = async (req, res, next) => {
         const body = validate(ChangePasswordIn, req.body)
-        res.status(200).send(body)
+        const username = req.params.username
+
+        await AUTH.authServiceProvider.changePassword(username, body.currentPassword, body.newPassword)
+
+        res.sendStatus(200)
         next()
     }
 
