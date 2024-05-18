@@ -50,22 +50,22 @@ export default class AWSCognitoAuthService implements IAuthService {
         if (!(await this.authenticateUser(username, oldPassword)))
             throw Error("Current username & password is incorrect.")
 
-        user.authenticateUser(authDetails, {
-            onSuccess: function (result) {
-                user.changePassword(oldPassword, newPassword, (err, result) => {
-                    if (err) {
-                        console.log(err)
-                    } else {
-                        console.log("Successfully changed password of the user.")
-                        console.log(result)
-                    }
-                })
-            },
-            onFailure: function (err) {
-                console.log(err)
-                throw err
-            },
-        })
+        await new Promise((resolve, reject) =>
+            user.authenticateUser(authDetails, {
+                onSuccess: function (result) {
+                    user.changePassword(oldPassword, newPassword, (err, result) => {
+                        if (err) {
+                            reject(err)
+                        } else {
+                            resolve("Password changed.")
+                        }
+                    })
+                },
+                onFailure: function (err) {
+                    reject(err)
+                },
+            })
+        )
     }
 
     async createUser(username: string, password: string): Promise<null> {
