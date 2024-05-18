@@ -1,7 +1,7 @@
 "use client"
 
 import { PollenCalendar } from "@/app/components/pollen"
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { PollenData } from "@aapc/types"
 import { getPollenData } from "@/app/services/pollen"
 import PageTemplate from "@/app/components/PageContentTemplate"
