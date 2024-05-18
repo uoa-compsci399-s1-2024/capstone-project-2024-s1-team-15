@@ -29,10 +29,21 @@ const config: Config = {
                 primary: "#FFD166",
                 "primary-light": "#fff0ce",
                 secondary: "#9CA3AF",
+                third: "#FFE9B6",
+
                 admin: "#f35d5d",
                 maintainer: "#37a0ec",
                 premium: "#ffcc6d",
-                user: "#c9c9c9"
+                user: "#c9c9c9",
+
+                backgroundcolor: "#fafafa",
+                purpleone: "#F5EDFF",
+                purpletwo: "#E6CFFF",
+            },
+            borderWidth: {
+                DEFAULT: "1px",
+                "0": "0",
+                "20": "20px",
             },
             transitionTimingFunction: {
                 // https://forum.figma.com/t/recreating-gentle-easing-using-bezier-curves/55312/3

@@ -1,6 +1,7 @@
 import dayjs from "dayjs"
 import { FormattedPollenData } from "../../(cms)/pollen/components/util/formatData"
 import { memo } from "react"
+import { dateFormat } from "."
 
 import "chartjs-adapter-dayjs-4/dist/chartjs-adapter-dayjs-4.esm"
 import "chart.js/auto"
@@ -8,19 +9,22 @@ import { Chart } from "react-chartjs-2"
 
 import { ChartOptions } from "chart.js"
 
+type Props = {
+    dateUpperLimit: number
+    dateLowerLimit: number
+    showsDailyTotal: boolean
+    pollenData: FormattedPollenData
+}
+
 // includes bar chart & line chart on same axis
 const MultiChart = memo(function MultiChart({
     dateUpperLimit = dayjs("2024-07-24").valueOf(),
     dateLowerLimit = dayjs("2024-08-24").valueOf(),
     pollenData,
-}: {
-    dateUpperLimit: number
-    dateLowerLimit: number
-    pollenData: FormattedPollenData
-}) {
+    showsDailyTotal,
+}: Props) {
     const { pollenTypes, pollenValues, dailyTotals } = pollenData
 
-    const dateFormat = "DD/MM/YY"
     const chartData = {
         labels: pollenValues[0].map(({ x }) => dayjs(x).valueOf()),
         datasets: [
@@ -51,7 +55,7 @@ const MultiChart = memo(function MultiChart({
                 }
             }),
 
-            {
+            showsDailyTotal && {
                 label: "Total Pollen",
                 data: dailyTotals,
                 borderColor: "black",
@@ -61,9 +65,17 @@ const MultiChart = memo(function MultiChart({
             },
         ],
     }
+
     const chartOptions: ChartOptions = {
         plugins: {
-            legend: { display: false },
+            legend: {
+                labels: {
+                    filter: (item, data) =>
+                        item.datasetIndex != undefined &&
+                        ((item.datasetIndex >= 0 && item.datasetIndex < pollenTypes.length) ||
+                            (showsDailyTotal && item.text === "Total Pollen")),
+                },
+            },
             tooltip: {
                 callbacks: {
                     title: function (context) {
@@ -130,7 +142,9 @@ const MultiChart = memo(function MultiChart({
 
     return (
         <div className="flex">
-            {chartData && <Chart type="line" data={chartData as any} options={chartOptions} height="420"></Chart>}
+            {chartData && (
+                <Chart type="line" id="multi-chart" data={chartData as any} options={chartOptions} height="420"></Chart>
+            )}
         </div>
     )
 })

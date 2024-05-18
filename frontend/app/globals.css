@@ -4,12 +4,23 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
+body {
+    @apply bg-backgroundcolor;
+}
+
 h1 {
     @apply text-4xl font-bold tracking-tight mb-8 mt-12;
 }
 
 h2 {
     @apply text-3xl font-bold tracking-tight my-4;
+}
+h3 {
+    @apply text-2xl font-bold tracking-tight my-2;
+}
+
+h4 {
+    @apply text-base font-bold tracking-tight;
 }
 
 a {
@@ -61,6 +72,10 @@ a {
     @apply text-red-500;
 }
 
+.form-success {
+    @apply text-green-400;
+}
+
 .hoverable {
     @apply transition duration-300 ease-in-out shadow-md hover:shadow-lg transform hover:-translate-y-0.5 hover:scale-105;
 }
@@ -81,10 +96,18 @@ a {
     @apply relative shadow-2xl w-full m-auto mt-48 max-w-[530px] max-h-full rounded-xl z-50;
 }
 
-.signup-button{
+.signup-button {
     @apply py-2 px-6 rounded-full text-black font-semibold text-xs w-28 bg-gray-300;
 }
 
 .page-title {
     @apply text-3xl text-white font-bold bg-primary p-4 inline-block rounded-full w-auto md:text-left;
+}
+
+footer {
+    @apply mt-8 bottom-0 inset-x-0;
+}
+
+.opacity-gradient {
+    mask-image: linear-gradient(rgb(0 0 0 / 100%), 85%, transparent);
 }

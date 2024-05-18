@@ -34,7 +34,7 @@ export default class NewsController {
     static createNews: RequestHandler = async (req, res, next) => {
         const body = validate(NewArticleIn, req.body)
         // TODO: use auth headers to auto fill user
-        const n = body.toNewArticle(ArticleType.news, DUMMY_USER)
+        const n = body.toNewArticle(DUMMY_USER)
         await DB.createNews(n)
         res.location(`/content/news/${n.id}`)
         res.status(201).json(n).send()

@@ -9,6 +9,7 @@ export default class PollenDataRouter {
         const router = express.Router()
 
         router.get("/", expressAsyncHandler(PollenDataController.getPollenData))
+        router.post("/", express.raw({ type: "*/*" }), expressAsyncHandler(PollenDataController.createPollenData))
 
         return router
     }

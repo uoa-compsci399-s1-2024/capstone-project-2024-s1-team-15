@@ -5,6 +5,7 @@ import { getAllNews } from "@/app/services/news"
 import ArticleCard from "@/app/(content)/(articles)/components/ArticleCard"
 import Privileged from "@/app/components/Privileged"
 import ButtonLink from "@/app/components/ButtonLink"
+import Pagination from "@/app/components/Paginations"
 
 export const metadata = getMetadata("All News")
 
@@ -12,7 +13,7 @@ export default async function AllNewsPage() {
     const news = await getAllNews()
 
     return (
-        <div>
+        <>
             <h1 className="page-title">All News</h1>
             <Privileged requiredScopes={SCOPES.maintainer}>
                 <ButtonLink href={"/news/publish"} text={"Publish News"} />
@@ -22,6 +23,7 @@ export default async function AllNewsPage() {
                     return <ArticleCard article={a} key={a.id} />
                 })}
             </div>
-        </div>
+            <Pagination />
+        </>
     )
 }

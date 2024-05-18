@@ -35,7 +35,7 @@ export default class ResearchController {
     static createResearch: RequestHandler = async (req, res, next) => {
         const body = validate(NewArticleIn, req.body)
         // TODO: use auth headers to auto fill user
-        const n = body.toNewArticle(ArticleType.research, DUMMY_USER)
+        const n = body.toNewArticle(DUMMY_USER)
         await DB.createResearch(n)
         res.location(`/content/research/${n.id}`)
         res.status(201).json(n).send()
