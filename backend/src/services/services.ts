@@ -38,6 +38,10 @@ switch (process.env.ENV) {
         if (!process.env.BREVO_CLIENT_PASSWORD) {
             missingEnvVariables.push("BREVO_CLIENT_PASSWORD")
         }
+        if (!process.env.GOOGLE_RECAPTCHA_SECRET_KEY) {
+            console.error("Google ReCaptcha is not active because the secret key is missing from environment")
+            console.log("Ignore this error, if you don't want Google ReCaptcha")
+        }
 
         if (missingEnvVariables.length > 0) {
             throw new Error("Missing environment variables " + missingEnvVariables.toString())

@@ -21,3 +21,10 @@ export async function createPollenData(pollenDataset: PollenData[], options?: Fe
         body: JSON.stringify(pollenDataset),
     })
 }
+
+export async function deletePollenData(options?: FetchOptions): Promise<Response> {
+    return await fetch(`${API_URI}/pollen-data`, {
+        method: "delete",
+        headers: getHeaders(options),
+    })
+}
