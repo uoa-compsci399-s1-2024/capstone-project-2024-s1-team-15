@@ -1,7 +1,7 @@
 "use client"
 
 import { PollenCalendar } from "@/app/components/pollen"
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { PollenData } from "@aapc/types"
 import { getPollenData } from "@/app/services/pollen"
 import PageTemplate from "@/app/components/PageContentTemplate"
@@ -9,7 +9,7 @@ import Slider, { Slide } from "@/app/components/Slider"
 import pollenTypesSlidesContent from "./pollenTypesSlidesContent.json"
 import Privileged from "@/app/components/Privileged"
 import { SCOPES } from "@/app/lib/consts"
-import ButtonLink from "@/app/components/ButtonLink"
+import Link from "next/link"
 
 export default function Pollen() {
     const [pollenData, setPollenData] = useState<null | PollenData[]>(null)
@@ -34,9 +34,7 @@ export default function Pollen() {
 
     return (
         <PageTemplate>
-            <PageTemplate.PageName>
-                <div className="page-title">Pollen</div>
-            </PageTemplate.PageName>
+            <PageTemplate.PageName>Pollen</PageTemplate.PageName>
             <PageTemplate.PageExplanation>
                 Pollen is a powdery substance produced by most types of flowers of seed plants for the purpose of sexual
                 reproduction. It consists of pollen grains, which produce male gametes. There are several different
@@ -61,7 +59,14 @@ export default function Pollen() {
             <PageTemplate.RemainingPageContent>
                 <h2>Pollen Calendar</h2>
                 <Privileged requiredScopes={SCOPES.maintainer}>
-                    <ButtonLink href={"/pollen/edit"} text={"Edit Pollen Data"} />
+                    <div className="flex gap-2">
+                        <Link className="button w-48 cms" href={"/pollen/edit"}>
+                            Edit Pollen Data
+                        </Link>
+                        <Link className="button w-48 cms" href={"/pollen/delete"}>
+                            Delete Pollen Data
+                        </Link>
+                    </div>
                 </Privileged>
                 <p>
                     The pollen season starts in spring, with some trees producing pollen earlier depending on climate
