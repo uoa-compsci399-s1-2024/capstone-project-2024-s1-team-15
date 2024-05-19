@@ -19,24 +19,40 @@ export const metadata: Metadata = getMetadata()
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     return (
         <html lang="en">
-            <body className={`${inter.variable} font-sans max-w-screen`}>
+            <body className={`${inter.variable} font-sans max-w-screen min-h-screen flex flex-col`}>
                 <AuthLayout>
-                    <header className={"h-header-mobile mb-2 sm:h-header-tablet sm:mb-4 md:h-header-desktop md:mb-6"}>
+                    {/* Header */}
+                    <header className={`w-screen
+                        h-header-mobile pb-2
+                        sm:h-header-tablet sm:pb-4
+                        md:h-header-desktop md:pb-6
+                    `}>
                         <Header/>
                     </header>
 
                     <div className="relative">
-                        <nav className="fixed pt-5 right-0 lg:block hidden">
+                        {/* Flower Nav - Only shown on desktop, desktop wide, desktop ultra-wide viewports */}
+                        <nav className="fixed pt-5 right-0 hidden lg:block">
                             <FlowerNav/>
                         </nav>
 
-                        <main className={`max-w-screen xl:max-w-content-max px-3 sm:px-4 md:px-5 lg:mr-nav lg:px-6 xl:ml-auto 2xl:mx-auto flex justify-between flex-col`}>
+                        {/* Main Content */}
+                        <main className={`max-w-screen xl:max-w-content-max px-3 flex justify-between flex-col
+                            sm:px-4
+                            md:px-6
+                            lg:mr-nav lg:px-8
+                            xl:ml-auto
+                            2xl:mx-auto
+                        `}>
                             {children}
                         </main>
                     </div>
 
-                    <footer>
-                        <Copyright/>
+                    {/* Footer */}
+                    <footer className={"mt-auto"}>
+                        <div className={`mt-2 sm:mt-4 md:mt-8`}>
+                            <Copyright/>
+                        </div>
                     </footer>
                 </AuthLayout>
             </body>

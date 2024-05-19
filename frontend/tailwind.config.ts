@@ -17,22 +17,21 @@ const config: Config = {
             // Expand content div
             'lg': "1120px", // Above 1120 (content-min + nav): Display flower nav
             // Expand content div
-            'xl': "1368px", // Above 1368 (content-max + nav)
+            'xl': "1440px", // Above 1440 (content-max + nav):
             // Expand left margin
-            '2xl': "1656px" // Above 1656 (content-max + nav + nav)
+            '2xl': "1728px" // Above 1728 (content-max + nav + nav)
             // Expand both margins
         },
         extend: {
             spacing: {
-                "content-max": "1080px",
-                "content-min-desktop": "832px",
-                "content-min-tablet": "540px",
+                "content-max": "1152px",
+                "content-min": "832px",
                 "nav": "288px",
 
                 "header-desktop": "96px",
                 "header-tablet": "72px",
                 "header-mobile": "56px",
-                "footer": "48px"
+                "footer": "56px"
             },
             fontFamily: {
                 sans: ["var(--font-inter)"],
