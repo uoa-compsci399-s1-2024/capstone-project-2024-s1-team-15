@@ -24,6 +24,8 @@ const PollenCalendar = memo(function PollenCalendar({ pollenData }: { pollenData
     const [filteredPollenData, setFilteredPollenData] = useState<null | FormattedPollenData>(null)
 
     useEffect(() => {
+        if (!pollenData.length) return setFormattedPollenData(null)
+
         const formatted = formatPollenData(pollenData)
         setFormattedPollenData(formatted)
 
@@ -73,6 +75,16 @@ const PollenCalendar = memo(function PollenCalendar({ pollenData }: { pollenData
         setFilteredPollenData(filtered)
     }, [formattedPollenData, displayedPollenTypes, dateLowerLimit, dateUpperLimit])
 
+    if (!pollenData.length)
+        return (
+            <>
+                <br />
+                <b>There is no pollen data at the moment, come back later 🙂</b>
+                <br />
+                <br />
+            </>
+        )
+
     return (
         <>
             <div className="flex flex-col">
@@ -113,7 +125,6 @@ const PollenCalendar = memo(function PollenCalendar({ pollenData }: { pollenData
                         )}
                     </div>
                 </div>
-
                 {filteredPollenData && displayedPollenTypes.length ? (
                     <div className="flex flex-col w-full mt-8">
                         <MultiChart
