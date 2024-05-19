@@ -110,22 +110,34 @@ export default function About() {
                         Natasha and Calista Ngadi assisting in operating the airborne sampler.
                     </p>
 
-                    <h2>Our Aim</h2>
+                    <h2>Our Aims</h2>
+                    <h4>Health</h4>
                     <p>
                         AAPC’s aim is to better understand how airborne pollen levels vary through time and what the
                         implications are for sufferers of eye conditions and allergic respiratory diseases. By building
-                        a long- term record of pollen variation through the year, our health researchers will be able to
+                        a long-term record of pollen variation through the year, our health researchers will be able to
                         look for relationships between pollen levels and occurrences of eye and respiratory conditions
                         to better understand causative relationships. Knowing which pollen is connected with periods of
-                        increased symptoms and when helps to inform diagnoses and treatments for patients. Furthermore,
-                        building a Picture of the long-term variation in pollen levels can help us understand how
-                        environmental processes like climate variability and climate change might impact pollen levels
-                        in the future. This will, in turn, help decision-makers plan to ensure that the health system
-                        has the capacity to deal with changes in pollen-related conditions in the future. This
-                        contributes to making our communities more resilient in the face of climate change. We are
-                        focussing on Tamaki Makaurau as it is our most populous city and has a high concentration of
-                        People who suffer from hay fever and other respiratory and ophthalmologic conditions. But it is
-                        our hope to eventually be able to expand our work to other centres in Aotearoa.
+                        increased symptoms and when helps to inform diagnoses and treatments for patients.
+                        <br />
+                        <br />
+                    </p>
+                    <h4>Climate Change</h4>
+                    <p>
+                        Furthermore, building a picture of the long-term variation in pollen levels can help us
+                        understand how environmental processes like climate variability and climate change might impact
+                        pollen levels in the future. This will, in turn, help decision-makers plan to ensure that the
+                        health system has the capacity to deal with changes in pollen-related conditions in the future.
+                        This contributes to making our communities more resilient in the face of climate change.
+                        <br />
+                        <br />
+                    </p>
+
+                    <h4>Auckland</h4>
+                    <p>
+                        We are focussing on Tamaki Makaurau as it is our most populous city and has a high concentration
+                        of people who suffer from hay fever and other respiratory and ophthalmologic conditions. But it
+                        is our hope to eventually be able to expand our work to other centres in Aotearoa.
                     </p>
 
                     <h2>Academic Organisations</h2>
