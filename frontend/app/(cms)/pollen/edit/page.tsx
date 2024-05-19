@@ -5,6 +5,9 @@ import { PollenData } from "@aapc/types"
 import { parseSpreadsheet } from "./util/parseExcel"
 import { PollenCalendar } from "@/app/components/pollen"
 import parseAssumptions from "./util/parseAssumptions"
+import Link from "next/link"
+import { createPollenData } from "@/app/services/pollen"
+import { useAuth } from "@/app/lib/hooks"
 
 type ParseError = {
     message: string
@@ -15,10 +18,15 @@ type Nullable<T> = T | null
 
 export default function EditPollen() {
     const fileInputReference = useRef(null)
+    const { token } = useAuth()
 
     const [error, setError] = useState<Nullable<ParseError>>(null)
     const [inputFile, setInputFile] = useState<Nullable<File>>(null) // only store after filetype is checked though
     const [pollenDataset, setPollenDataset] = useState<Nullable<PollenData[]>>(null)
+
+    const [updateDbPending, setUpdateDbPending] = useState(false)
+    const [updateDbError, setUpdateDbError] = useState<null | string>(null)
+    const [updateDbSuccess, setUpdateDbSuccess] = useState(false)
 
     useEffect(() => {
         if (!inputFile) return
@@ -56,6 +64,26 @@ export default function EditPollen() {
         setInputFile(uploadedFile)
     }
 
+    async function updateDatabase(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+        e.preventDefault()
+
+        if (!pollenDataset) return
+
+        setUpdateDbPending(true)
+
+        const updateDatabaseResponse = await createPollenData(pollenDataset, { token })
+
+        if (updateDatabaseResponse.status === 201) {
+            setUpdateDbError(null)
+            setUpdateDbSuccess(true)
+        } else {
+            setUpdateDbError(await updateDatabaseResponse.json())
+            setUpdateDbSuccess(false)
+        }
+
+        setUpdateDbPending(false)
+    }
+
     return (
         <>
             <form className="flex flex-col items-start gap-2">
@@ -91,9 +119,16 @@ export default function EditPollen() {
                     <h3 className="font-bold text-2xl my-2">Preview generated ✅</h3>
                     <PollenCalendar pollenData={pollenDataset}></PollenCalendar>
 
-                    <button type="submit" className="button" onClick={() => {}}>
-                        Update calendar on website
+                    <button type="submit" disabled={updateDbPending} className="button" onClick={updateDatabase}>
+                        {updateDbPending ? "Updating..." : "Update calendar on website"}
                     </button>
+
+                    {updateDbError && <p className="form-error">{updateDbError}</p>}
+                    {updateDbSuccess && (
+                        <p className="form-success">
+                            Pollen Calendar has been updated. Take a look here: <Link href="/pollen">Pollen Page</Link>
+                        </p>
+                    )}
                 </div>
             )}
 

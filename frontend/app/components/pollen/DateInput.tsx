@@ -1,6 +1,7 @@
 import dayjs from "dayjs"
 import { useState } from "react"
 import { dateFormat } from "."
+import { makeTimestampForDateMidday } from "./util"
 
 export default function DateInput({
     lowerLimit,
@@ -18,10 +19,6 @@ export default function DateInput({
     const errorMessage = (newDateValue: number) =>
         `No pollen data for ${dayjs(newDateValue).format(dateFormat)}. Possible date range for available data is from ${dayjs(lowestPossibleValue).format(dateFormat)} to ${dayjs(highestPossibleValue).format(dateFormat)}.`
 
-    function makeTimestampForDateMidday(timestamp: number) {
-        return dayjs(timestamp).set("hour", 0).set("minute", 0).set("second", 0).set("millisecond", 0).valueOf()
-    }
-
     function dateWithinRange(date: number): boolean {
         return date >= lowestPossibleValue && date <= highestPossibleValue
     }
@@ -36,7 +33,6 @@ export default function DateInput({
                     defaultValue={lowerLimitString}
                     onChange={(e) => {
                         const newDateValue = makeTimestampForDateMidday(e.target.valueAsNumber)
-                        console.log({ newInput: dayjs(newDateValue).format(dateFormat) })
                         if (dateWithinRange(newDateValue)) {
                             setLowerLimit(newDateValue)
                             setInputError(null)

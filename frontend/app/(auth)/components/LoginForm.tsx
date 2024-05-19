@@ -44,7 +44,7 @@ export default function LoginForm ({ closeModal }: { closeModal?: () => void }):
             </div>
 
             <div className={"w-full"}>
-                <label htmlFor={"username"}><p className="form-label">Password</p></label>
+                <label htmlFor={"password"}><p className="form-label">Password</p></label>
                 <input name={"password"} className={"form-input bg-gray-100 max-w-lg"} type={"password"}
                        placeholder={"Enter your password..."}/>
             </div>
