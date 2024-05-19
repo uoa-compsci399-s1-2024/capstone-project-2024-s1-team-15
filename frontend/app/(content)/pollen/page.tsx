@@ -34,19 +34,19 @@ export default function Pollen() {
 
     return (
         <PageTemplate>
-            <PageTemplate.PageName>
-                <div className="page-title">Pollen</div>
-            </PageTemplate.PageName>
+            <PageTemplate.PageName name={'Pollen'}/>
             <PageTemplate.PageExplanation>
-                Pollen is a powdery substance produced by most types of flowers of seed plants for the purpose of sexual
-                reproduction. It consists of pollen grains, which produce male gametes. There are several different
-                types of pollen. The most common include grass, oak and ragweed. For each plant/tree, the shape of the
-                pollen can be slightly different and affect the body in different ways.{" "}
+                <p>
+                    Pollen is a powdery substance produced by most types of flowers of seed plants for the purpose of
+                    sexual reproduction. It consists of pollen grains, which produce male gametes. There are several
+                    different types of pollen. The most common include grass, oak and ragweed. For each plant/tree,
+                    the shape of the pollen can be slightly different and affect the body in different ways.
+                </p>
             </PageTemplate.PageExplanation>
             <PageTemplate.HighlightSection
                 title={
                     <h3>
-                        Types of Pollen: <span className="font-semibold text-base">{selectedSlidePollenName}</span>
+                        Types of Pollen: <span className="font-medium text-2xl">{selectedSlidePollenName}</span>
                     </h3>
                 }>
                 {selectedSlidePollenName && selectedPollenSlideHTML && (

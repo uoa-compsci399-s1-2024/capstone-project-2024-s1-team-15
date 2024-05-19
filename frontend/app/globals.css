@@ -15,6 +15,7 @@ h1 {
 h2 {
     @apply text-3xl font-bold tracking-tight my-4;
 }
+
 h3 {
     @apply text-2xl font-bold tracking-tight my-2;
 }
@@ -101,7 +102,10 @@ a {
 }
 
 .page-title {
-    @apply text-3xl text-white font-bold bg-primary p-4 inline-block rounded-full w-auto md:text-left;
+    @apply block text-white font-bold bg-primary rounded-full shadow-lg
+        text-xl px-5 py-2 mt-2 mb-4 mx-auto w-full text-center
+        sm:text-2xl sm:px-7 sm:py-2.5 sm:mb-6
+        md:text-3xl md:px-9 md:py-3 md:mt-12 md:mb-8 md:mx-0 md:w-max;
 }
 
 .opacity-gradient {

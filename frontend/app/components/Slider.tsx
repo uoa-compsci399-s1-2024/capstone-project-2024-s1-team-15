@@ -13,20 +13,24 @@ function Slider({ slides, onSelectedSlideIndexChange }: Props) {
     }, [onSelectedSlideIndexChange, selectedSlideIndex])
 
     return (
-        <div className="flex gap-4 items-center">
-            {selectedSlideIndex != 0 && (
-                <button className="button" onClick={() => setSelectedSlideIndex((curr) => curr - 1)}>
-                    {"<<"}
-                </button>
-            )}
+        <div className="flex gap-4">
+            <button
+                className={`button h-max disabled:text-gray-400 disabled:bg-gray-200 disabled:cursor-not-allowed`}
+                disabled={selectedSlideIndex === 0}
+                onClick={() => setSelectedSlideIndex(curr => curr - 1)}
+            >
+                ⮜
+            </button>
 
             {slides[selectedSlideIndex]}
 
-            {selectedSlideIndex != slides.length - 1 && (
-                <button className="button" onClick={() => setSelectedSlideIndex((curr) => curr + 1)}>
-                    {">>"}
-                </button>
-            )}
+            <button
+                className={`button h-max disabled:text-gray-400 disabled:bg-gray-200 disabled:cursor-not-allowed`}
+                disabled={selectedSlideIndex === (slides.length - 1)}
+                onClick={() => setSelectedSlideIndex(curr => curr + 1)}
+            >
+                ⮞
+            </button>
         </div>
     )
 }
