@@ -41,6 +41,7 @@ export default async function ResearchPage({ params }: PageParams) {
             
             <Privileged requiredScopes={SCOPES.maintainer}>
                 <ButtonLink href={`/research/${params.id}/edit`} text={"Edit"} />
+                <ButtonLink href={`/research/${params.id}/delete`} text={"Delete"} />
             </Privileged>
         </div>
     )

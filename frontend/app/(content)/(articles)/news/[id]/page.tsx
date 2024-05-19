@@ -9,6 +9,7 @@ import Privileged from "@/app/components/Privileged"
 import ButtonLink from "@/app/components/ButtonLink"
 import ArticlePage from "@/app/components/ArticlePage"
 import ExternalLinkButton from "@/app/(cms)/(articles)/components/ExternalLinkButton"
+import DeleteButton from "@/app/(cms)/(articles)/components/DeleteButton"
 
 type PageParams = { params: { id: string } }
 
@@ -41,7 +42,9 @@ export default async function NewsPage({ params }: PageParams) {
             
             <Privileged requiredScopes={SCOPES.maintainer}>
                 <ButtonLink href={`/news/${params.id}/edit`} text={"Edit"} />
+                <ButtonLink href={`/news/${params.id}/delete`} text={"Delete"} />
             </Privileged>
+           
         </div>
     )
 }
