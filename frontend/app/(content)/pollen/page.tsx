@@ -9,7 +9,7 @@ import Slider, { Slide } from "@/app/components/Slider"
 import pollenTypesSlidesContent from "./pollenTypesSlidesContent.json"
 import Privileged from "@/app/components/Privileged"
 import { SCOPES } from "@/app/lib/consts"
-import ButtonLink from "@/app/components/ButtonLink"
+import Link from "next/link"
 
 export default function Pollen() {
     const [pollenData, setPollenData] = useState<null | PollenData[]>(null)
@@ -59,7 +59,14 @@ export default function Pollen() {
             <PageTemplate.RemainingPageContent>
                 <h2>Pollen Calendar</h2>
                 <Privileged requiredScopes={SCOPES.maintainer}>
-                    <ButtonLink href={"/pollen/edit"} text={"Edit Pollen Data"} />
+                    <div className="flex gap-2">
+                        <Link className="button w-48 cms" href={"/pollen/edit"}>
+                            Edit Pollen Data
+                        </Link>
+                        <Link className="button w-48 cms" href={"/pollen/delete"}>
+                            Delete Pollen Data
+                        </Link>
+                    </div>
                 </Privileged>
                 <p>
                     The pollen season starts in spring, with some trees producing pollen earlier depending on climate
