@@ -9,6 +9,7 @@ declare global {
             COGNITO_USERPOOL_ID?: string
             BREVO_CLIENT_EMAIL?: string
             BREVO_CLIENT_PASSWORD?: string
+            GOOGLE_RECAPTCHA_SECRET_KEY?: string
         }
     }
 }
