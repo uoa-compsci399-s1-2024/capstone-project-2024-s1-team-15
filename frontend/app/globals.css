@@ -47,6 +47,10 @@ ul.default {
     @apply bg-maintainer text-white hoverable;
 }
 
+figcaption {
+    @apply text-gray-400 text-sm text-center;
+}
+
 /* Styling for buttons in editor. */
 #editor button {
     @apply h-8 w-8 rounded-md bg-gray-500 bg-opacity-15
@@ -118,4 +122,9 @@ footer {
 
 .opacity-gradient {
     mask-image: linear-gradient(rgb(0 0 0 / 100%), 85%, transparent);
+}
+
+/* about page styling */
+.about-page h2 {
+    @apply mt-14;
 }

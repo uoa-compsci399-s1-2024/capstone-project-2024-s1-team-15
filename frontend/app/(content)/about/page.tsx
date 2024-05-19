@@ -8,6 +8,8 @@ import stutiHeaderImage from "./images/researchers/stutiHeaderImage.jpg"
 import katherineHeaderImage from "./images/researchers/katHeaderImage.jpg"
 import amyHeaderImage from "./images/researchers/amyHeaderImage.jpeg"
 
+import teamPicture from "./images/Team AWMM roof.jpeg"
+
 import aucklandMuseumLogo from "./images/organisations/aucklandMuseum.png"
 import allergyNZLogo from "./images/organisations/allergyNZ.png"
 import masseyLogo from "./images/organisations/masseyUniversity.png"
@@ -18,7 +20,7 @@ export default function About() {
     return (
         <>
             <h1 className="page-title mb-8">About Us</h1>
-            <div className=" max-w-screen-xl mx-auto">
+            <div className="about-page max-w-screen-xl mx-auto">
                 <p>
                     Aotearoa Airborne Pollen Collaborative (AAPC) is a research collaboration between researchers at the
                     University of Auckland Medical School, Victoria University of Wellington, and Massey University.
@@ -29,7 +31,7 @@ export default function About() {
 
                 <h2>Meet the Researchers!</h2>
 
-                <section className="mt-12  flex flex-wrap gap-2 pt-4">
+                <section className="flex flex-wrap gap-2 pt-4">
                     <ProfileCard
                         name="Amy Chan"
                         email="a.chan@aucklanduni.ac.nz"
@@ -80,19 +82,32 @@ export default function About() {
                 </section>
 
                 <div className="py-14">
-                    <h2>Our Story</h2>
+                    <div className="flex items-center mb-8">
+                        <div className="flex-1">
+                            <h2>Our Story</h2>
+                            <p className="">
+                                AAPC has its beginnings in 2022, when overlapping research interests brought Associate
+                                Professor Amy Chan, Associate Professor Stuti Misra, Professor Rewi Newnham and Dr Kat
+                                Holt together in a Zoom room. Stuti and Amy were seeking data on airborne pollen levels
+                                as part of their research, while Rewi and Kat were focused on a long-standing goal to
+                                establish airborne pollen monitoring in New Zealand.
+                            </p>
+                        </div>
+
+                        <figure className="flex-1 h-96">
+                            <Image src={teamPicture} alt="" className="object-contain w-full h-full" />
+                            <figcaption>Team AWMM on Auckland Museum Roof</figcaption>
+                        </figure>
+                    </div>
+
                     <p>
-                        AAPC has its beginnings in 2022, when overlapping research interests brought Associate Professor
-                        Amy Chan, Associate Professor Stuti Misra, Professor Rewi Newnham and Dr Kat Holt together in a
-                        Zoom room. Stuti and Amy were seeking data on airborne pollen levels as part of their research,
-                        while Rewi and Kat were focused on a long-standing goal to establish airborne pollen monitoring
-                        in New Zealand. Our shared interest in generating modern airborne pollen data resulted in a
-                        collaboration to install an airborne pollen sampler on the roof of the Auckland War Memorial
-                        Museum and collect pollen data for one year. This was made possible by the generous cooperation
-                        of the AWWM Botany team and operations staff. Amy was able to Support this work through her
-                        Auckland Medical Research Foundation fellowship, and the University of Auckland PhD Student
-                        Laura McDonald (Kai Tahu) was coopted to undertake the pollen counting work, with sisters and
-                        fellow UoA students Natasha and Calista Ngadi assisting in operating the airborne sampler.
+                        Our shared interest in generating modern airborne pollen data resulted in a collaboration to
+                        install an airborne pollen sampler on the roof of the Auckland War Memorial Museum and collect
+                        pollen data for one year. This was made possible by the generous cooperation of the AWWM Botany
+                        team and operations staff. Amy was able to support this work through her Auckland Medical
+                        Research Foundation fellowship, and the University of Auckland PhD Student Laura McDonald (Kai
+                        Tahu) was coopted to undertake the pollen counting work, with sisters and fellow UoA students
+                        Natasha and Calista Ngadi assisting in operating the airborne sampler.
                     </p>
 
                     <h2>Our Aim</h2>
