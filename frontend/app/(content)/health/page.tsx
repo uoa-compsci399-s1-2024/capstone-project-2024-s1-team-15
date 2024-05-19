@@ -56,7 +56,7 @@ export default function HealthPage() {
             </PageTemplate.HighlightSection>
 
             <PageTemplate.RemainingPageContent>
-                <div className={`bg-purpleone rounded-r-[4rem] mb-4 flex flex-col items-center
+                <div className={`bg-accent-light rounded-r-[4rem] mb-4 flex flex-col items-center
                     -ml-pc pl-[calc(theme(spacing.pc)+0.375rem)] pr-pc py-2
                     sm:-ml-pc-sm sm:pl-[calc(theme(spacing.pc-sm)+0.5rem)] sm:pr-pc-sm sm:py-3
                     md:-ml-pc-md md:pl-[calc(theme(spacing.pc-md)+0.75rem)] md:pr-pc-md md:py-4
@@ -65,8 +65,8 @@ export default function HealthPage() {
                     xl:pr-0
                 `}>
                     <h2 className="w-full text-left my-1.5 sm:my-2.5 md:my-4">Managing Symptoms</h2>
-                    <div className="bg-purpletwo py-2 sm:py-2.5 md:py-3 px-8 w-1/2 min-w-max rounded-full">
-                        <h3 className={`m-0`}>Common Strategies</h3>
+                    <div className="bg-accent-dark py-2 sm:py-2.5 md:py-3 px-8 w-1/2 min-w-max rounded-full">
+                        <h3 className={`m-0 text-center`}>Common Strategies</h3>
                     </div>
                 </div>
                 <div className="flex gap-x-4 flex-wrap w-full gap-y-12 justify-center">

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-    @apply bg-backgroundcolor;
+    @apply bg-background;
 }
 
 h1 {
@@ -22,7 +22,7 @@ h4 {
     @apply text-[17px] sm:text-[18px] md:text-[22px] font-bold tracking-tight;
 }
 
-p, span {
+p, span, a {
     @apply text-[14px] sm:text-[15px] md:text-[16px]
 }
 
@@ -104,7 +104,7 @@ ul.default {
 }
 
 .inner-modal {
-    @apply relative shadow-2xl w-full m-auto mt-48 max-w-[530px] max-h-full rounded-xl z-50;
+    @apply relative drop-shadow-2xl w-full px-pc sm:px-pc-sm md:px-pc-md m-auto mt-48 max-w-[540px] max-h-full rounded-xl z-50;
 }
 
 .signup-button {
@@ -115,7 +115,7 @@ ul.default {
     @apply block text-white font-bold bg-primary rounded-full shadow-lg
         text-xl py-1.5 mt-2 mb-4 mx-auto w-full text-center
         sm:text-2xl sm:py-2 sm:mb-6
-        md:text-3xl md:px-9 md:py-3 md:mt-12 md:mb-8 md:mx-0 md:w-max;
+        md:text-3xl md:px-9 md:py-3 md:mt-6 md:mb-6 md:mx-0 md:w-max;
 }
 
 .opacity-gradient {

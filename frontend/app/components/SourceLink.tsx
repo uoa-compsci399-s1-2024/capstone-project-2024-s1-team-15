@@ -7,6 +7,7 @@ import Link from "next/link"
 export default function SourceLink({ sourceUrl }: { sourceUrl: string }) {
     return (
         <span>
+            {" "}
             [
             <Link href={sourceUrl} target="_blank">
                 Source
@@ -18,6 +19,7 @@ export default function SourceLink({ sourceUrl }: { sourceUrl: string }) {
 export function LearnMoreLink({ sourceUrl }: { sourceUrl: string }) {
     return (
         <span>
+            {" "}
             [
             <Link href={sourceUrl} target="_blank">
                 Learn more

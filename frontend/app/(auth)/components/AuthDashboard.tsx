@@ -7,7 +7,7 @@ import { UserScopeLabel } from "@/app/(auth)/components"
 import LoginModal, { LoginModalRef } from "@/app/components/modals/LoginModal"
 import ChangePasswordModal, { ChangePasswordModalRef } from "@/app/components/modals/ChangePasswordModal"
 
-export default function AuthDashboard(): React.JSX.Element {
+export default function AuthDashboard({ dashboardLocation }: { dashboardLocation: string }): React.JSX.Element {
     const { user, token, clearSession } = useAuth()
     let scopes = getScopesFromToken(token)
     const ref = useRef<LoginModalRef>(null)
@@ -26,27 +26,36 @@ export default function AuthDashboard(): React.JSX.Element {
     return (
         <div>
             {user ? (
-                <div className={"flex flex-row space-x-4 items-center justify-start leading-none"}>
-                    <p>
-                        Logged in as <b className={"font-medium"}>{user.displayName}</b>
-                    </p>
-                    {scopes && <UserScopeLabel scopes={scopes} />}
-                    <button
-                        className="hoverable login-button bg-primary text-nowrap"
-                        onClick={() => changePasswordModalRef.current?.showModal()}>
-                        Change Password
-                    </button>
-                    <button className="hoverable login-button bg-primary" onClick={clearSession}>
-                        Logout
-                    </button>
+                <div className={`flex items-center justify-start leading-none
+                    flex-col space-y-4
+                    md:flex-row md:space-x-4 md:space-y-0`}>
+                    <div className={`flex items-center justify-center
+                        flex-col space-y-2
+                        md:flex-row md:space-x-4 md:space-y-0
+                    `}>
+                        <p>
+                            Logged in as <b className={"font-medium"}>{user.displayName}</b>
+                        </p>
+                        {scopes && <UserScopeLabel scopes={scopes}/>}
+                    </div>
+                    <div className={`space-x-4`}>
+                        <button
+                            className="hoverable login-button bg-primary text-nowrap"
+                            onClick={() => changePasswordModalRef.current?.showModal()}>
+                            Change Password
+                        </button>
+                        <button className="hoverable login-button bg-primary" onClick={clearSession}>
+                            Logout
+                        </button>
+                    </div>
                 </div>
             ) : (
-                <div className="flex">
+                <div className="flex justify-center">
                     <button className="hoverable login-button bg-primary mr-4" onClick={showLoginModal}>Log in</button>
                     <button className="hoverable signup-button">Sign up</button> {/* Temporary */}
                 </div>
             )}
-            <LoginModal ref={ref} />
+            <LoginModal ref={ref} modalId={`${dashboardLocation}-auth-dashboard`}/>
             <ChangePasswordModal ref={changePasswordModalRef} />
         </div>
     )

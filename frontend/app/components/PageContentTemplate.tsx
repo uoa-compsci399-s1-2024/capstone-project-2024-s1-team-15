@@ -2,21 +2,17 @@ import React, { PropsWithChildren, Children } from "react"
 
 function PageHeroSection({ children }: { children: React.ReactNode }) {
     let pageName = (
-        <PageHeroSection.PageName name={"No Page Name"}/>
+        <PageHeroSection.PageName name={"No Title"}/>
     )
 
     let highlightSection = null
 
     let remainingPageContent = (
-        <PageHeroSection.RemainingPageContent>
-            No Page Content
-        </PageHeroSection.RemainingPageContent>
+        <PageHeroSection.RemainingPageContent/>
     )
 
     let pageExplanation = (
-        <PageHeroSection.PageExplanation>
-
-        </PageHeroSection.PageExplanation>
+        <PageHeroSection.PageExplanation/>
     )
 
     Children.forEach(children, (child) => {
@@ -42,7 +38,7 @@ function PageHeroSection({ children }: { children: React.ReactNode }) {
     return (
         <>
             <section className="flex md:flex-row-reverse flex-col items-start mb-6">
-                <div className={`bg-primary border-third basis-1/2
+                <div className={`bg-primary border-tertiary basis-1/2
                     border-8 rounded-[30px] p-4
                     sm:border-[12px] sm:rounded-[36px] sm:p-5
                     md:border-20 md:rounded-[42px] md:p-6`}>
@@ -74,21 +70,21 @@ PageHeroSection.PageExplanation = function _(props: PropsWithChildren) {
 PageHeroSection.HighlightSection = function _(props: PropsWithChildren & { title: string | React.JSX.Element }) {
     return (
         <>
-            <div className={`bg-purpletwo text-center mb-6
-                p-2 rounded-full
-                sm:p-2.5 
+            <div className={`bg-accent-dark text-center mb-6
+                py-1 px-6 rounded-full
+                sm:py-2 sm:px-8
                 md:p-4 md:rounded-none md:rounded-l-full
             `}>
                 {props.title}
             </div>
-            <div className={`px-4`}>
+            <div className={`p-0 md:pr-4`}>
                 {props.children}
             </div>
         </>
     )
 }
 
-PageHeroSection.RemainingPageContent = function rpc(props: PropsWithChildren) {
+PageHeroSection.RemainingPageContent = function _(props: PropsWithChildren) {
     return <>{props.children}</>
 }
 

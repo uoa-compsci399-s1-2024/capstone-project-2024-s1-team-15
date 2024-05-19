@@ -7,6 +7,7 @@ import type { Metadata } from "next"
 import { getMetadata } from "@/app/lib/util"
 import { AuthLayout } from "@/app/(auth)/components"
 import Copyright from "@/app/components/Copyright"
+import MobileNavModal from "@/app/components/modals/MobileNavModal";
 
 const inter = localFont({
     src: "./public/Inter.ttf",
