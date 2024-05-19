@@ -6,7 +6,7 @@ export default function About() {
         <>
             <h1 className="page-title mb-8">About Us</h1>
             
-            <div className="px-10">
+            <div className="px-12">
             <p className="text-center">
             Aotearoa Airborne Pollen Collaborative (AAPC) is a research collaboration between researchers at
             the University of Auckland Medical School, Victoria University of Wellington, and Massey University.
