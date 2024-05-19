@@ -6,13 +6,6 @@ import Page from "@/app/type/PageType"
 import { PUBLIC_FRONT_END_PAGES as pages } from "@/app/lib/consts"
 import React, { useEffect, useState } from "react"
 
-import { Roboto } from "next/font/google"
-
-const roboto = Roboto({
-    weight: "900",
-    subsets: ["latin"],
-})
-
 const degreesInCircle = 360
 const numTimesEachPageShows = 2 //times in flower
 const numPages = pages.length
@@ -112,7 +105,7 @@ export default function FlowerNav() {
             <div className="w-nav overflow-hidden">
                 <div
                     style={flowerRotationStyle}
-                    className={`relative w-[32rem] h-[32rem] rotate-0 ${roboto.className} text-[1.8rem] transition-transform duration-[800ms]  ease-figma-gentle list-none p-0 m-0 `}>
+                    className={`relative w-[32rem] h-[32rem] rotate-0 text-[1.8rem] transition-transform duration-[800ms]  ease-figma-gentle list-none p-0 m-0 `}>
                     {Petals}
                 </div>
             </div>

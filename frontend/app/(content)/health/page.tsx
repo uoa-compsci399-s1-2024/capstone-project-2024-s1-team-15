@@ -20,17 +20,26 @@ export default function HealthPage() {
                     </p>
                     <ul className="default">
                         <li>
-                            house dust mite{" "}
-                            <LearnMoreLink
-                                sourceUrl="https://www.allergy.org.nz/conditions/environmental-allergies/seed/#:~:text=House%20dust%20mites%20are%20microscopic,that%20causes%20so%20much%20misery."/>
+                            <p>
+                                house dust mite
+                                <LearnMoreLink sourceUrl="https://www.allergy.org.nz/conditions/environmental-allergies/seed/#:~:text=House%20dust%20mites%20are%20microscopic,that%20causes%20so%20much%20misery."/>
+                            </p>
                         </li>
                         <li>
-                            animal hair <span className="text-gray-600">- do you have pets?</span>
+                            <p>
+                                animal hair <span className="text-gray-600">- do you have pets?</span>
+                            </p>
                         </li>
-                        <li>mould</li>
                         <li>
-                            pollen from grasses, weeds or trees <br/>
-                            <LearnMoreLink sourceUrl="./pollen"/>
+                            <p>
+                                mould
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                pollen from grasses, weeds or trees <br/>
+                                <LearnMoreLink sourceUrl="./pollen"/>
+                            </p>
                         </li>
                     </ul>
                     <br/>

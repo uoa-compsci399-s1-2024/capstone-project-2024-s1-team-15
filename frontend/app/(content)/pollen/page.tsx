@@ -46,7 +46,7 @@ export default function Pollen() {
             <PageTemplate.HighlightSection
                 title={
                     <h3>
-                        Types of Pollen: <span className="font-medium text-2xl">{selectedSlidePollenName}</span>
+                        Types of Pollen: <b className={"font-medium"}>{selectedSlidePollenName}</b>
                     </h3>
                 }>
                 {selectedSlidePollenName && selectedPollenSlideHTML && (
