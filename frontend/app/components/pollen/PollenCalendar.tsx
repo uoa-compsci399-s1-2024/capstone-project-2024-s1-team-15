@@ -5,11 +5,15 @@ import { formatPollenData, FormattedPollenData } from "@/app/(cms)/pollen/compon
 import PollenTypeInput from "@/app/components/pollen/PollenTypeInput"
 import DateInput from "@/app/components/pollen/DateInput"
 import MultiChart from "@/app/components/pollen/MultiChart"
+import { makeTimestampForDateMidday } from "./util"
+import { dateFormat } from "."
 
 const PollenCalendar = memo(function PollenCalendar({ pollenData }: { pollenData: PollenData[] }) {
     const [showsDateFilter, setShowsDateFilter] = useState(false)
-    const [dateLowerLimit, setDateLowerLimit] = useState(dayjs().subtract(1, "week").valueOf())
-    const [dateUpperLimit, setDateUpperLimit] = useState(dayjs().valueOf())
+    const [dateLowerLimit, setDateLowerLimit] = useState(
+        makeTimestampForDateMidday(dayjs().subtract(1, "week").valueOf())
+    )
+    const [dateUpperLimit, setDateUpperLimit] = useState(makeTimestampForDateMidday(dayjs().valueOf()))
 
     const [showsPollenTypeFilter, setShowsPollenTypeFilter] = useState(false)
     const [allPollenTypes, setAllPollenTypes] = useState<string[]>([])
@@ -31,10 +35,20 @@ const PollenCalendar = memo(function PollenCalendar({ pollenData }: { pollenData
     }, [pollenData])
 
     useEffect(() => {
+        function isDateWithinFilterRange(date: number) {
+            return dateLowerLimit <= date && date <= dateUpperLimit
+        }
+
         if (!formattedPollenData || !displayedPollenTypes.length) return setFilteredPollenData(null)
 
         const filtered: FormattedPollenData = {
-            dailyTotals: formattedPollenData.dailyTotals,
+            dailyTotals: formattedPollenData.dailyTotals.filter(
+                ({ x }, i) =>
+                    isDateWithinFilterRange(x) ||
+                    (i - 1 >= 0 && isDateWithinFilterRange(formattedPollenData.dailyTotals[i - 1].x)) ||
+                    (i + 1 < formattedPollenData.dailyTotals.length &&
+                        isDateWithinFilterRange(formattedPollenData.dailyTotals[i + 1].x))
+            ),
             pollenTypes: [],
             pollenValues: [],
         }
@@ -42,12 +56,24 @@ const PollenCalendar = memo(function PollenCalendar({ pollenData }: { pollenData
         formattedPollenData.pollenTypes.map((pollenType, index) => {
             if (!displayedPollenTypes.includes(pollenType)) return
 
+            let valuesInDateRange = formattedPollenData.pollenValues[index].filter(
+                ({ x }, i) =>
+                    isDateWithinFilterRange(x) ||
+                    (i - 1 >= 0 && isDateWithinFilterRange(formattedPollenData.pollenValues[index][i - 1].x)) ||
+                    (i + 1 < formattedPollenData.pollenValues[index].length &&
+                        isDateWithinFilterRange(formattedPollenData.pollenValues[index][i + 1].x))
+            )
+
+            if (!valuesInDateRange.length) return
+
             filtered.pollenTypes.push(pollenType)
-            filtered.pollenValues.push(formattedPollenData.pollenValues[index])
+            filtered.pollenValues.push(valuesInDateRange)
         })
 
+        if (!filtered.dailyTotals.length && !filtered.pollenValues.length) return setFilteredPollenData(null)
+
         setFilteredPollenData(filtered)
-    }, [formattedPollenData, displayedPollenTypes])
+    }, [formattedPollenData, displayedPollenTypes, dateLowerLimit, dateUpperLimit])
 
     if (!pollenData.length)
         return (
@@ -108,6 +134,11 @@ const PollenCalendar = memo(function PollenCalendar({ pollenData }: { pollenData
                             showsDailyTotal={showsDailyTotal}
                         />
                     </div>
+                ) : displayedPollenTypes.length ? (
+                    <p>
+                        No pollen data in range: {dayjs(dateLowerLimit).format(dateFormat)} to{" "}
+                        {dayjs(dateUpperLimit).format(dateFormat)}. Try adjusting the date filter range above.
+                    </p>
                 ) : (
                     <p>No pollen types selected 🥲</p>
                 )}
