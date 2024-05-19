@@ -76,7 +76,7 @@ export default function AboutPage() {
                             <div className="pt-3 ml-4 mr-2 mb-3">
                                 <h3 className="text-xl text-gray-900">About Me</h3>
                                 <p className="text-gray-400 text-sm mt-1">
-                                My Research centres on using pollen to understand the environment in the past. Through extracting
+                                My research centres on using pollen to understand the environment in the past. Through extracting
                                 pollen preserved in ancient sediments, it is possible to work out what the vegetation once was and
                                 how it has changed in response to Events like natural disasters, climate change and human impacts. I
                                 am also interested in determining how recent environmental changes are impacting the pollen
@@ -128,8 +128,44 @@ export default function AboutPage() {
                 </div>
             </section>
 
+
+
             <div className="py-14">
                 <div className="max-w-screen-xl mx-auto px-4 md:px-8">
+
+                    <h2 className="font-semibold text-lg text-gray-600 text-center">Our Story</h2>
+                    <p className="text-center">
+                    AAPC has its beginnings in 2022, when overlapping Research interests brought Associate Professor
+                    Amy Chan, Associate Professor Stuti Misra, Professor Rewi Newnham and Dr Kat Holt together in a
+                    Zoom room. Stuti and Amy were seeking data on airborne pollen levels as part of their research,
+                    while Rewi and Kat were focused on a long-standing goal to establish airborne pollen monitoring in
+                    New Zealand. Our shared interest in generating modern airborne pollen data resulted in a
+                    collaboration to install an airborne pollen sampler on the roof of the Auckland War Memorial
+                    Museum and collect pollen data for one year. This was made possible by the generous cooperation
+                    of the AWWM Botany team and operations staff. Amy was able to Support this work through her
+                    Auckland Medical Research Foundation fellowship, and the University of Auckland PhD Student Laura
+                    McDonald (Kai Tahu) was coopted to undertake the pollen counting work, with sisters and fellow
+                    UoA students Natasha and Calista Ngadi assisting in operating the airborne sampler.    
+                    </p>
+
+                    <h2 className="font-semibold text-lg text-gray-600 text-center">Our Aim</h2>
+                    <p className="text-center">
+                    AAPC’s aim is to better understand how airborne pollen levels vary through time and what the
+                    implications are for sufferers of eye conditions and allergic respiratory diseases. By building a long-
+                    term record of pollen variation through the year, our health researchers will be able to look for
+                    relationships between pollen levels and occurrences of eye and respiratory conditions to better
+                    understand causative relationships. Knowing which pollen is connected with periods of increased
+                    symptoms and when helps to inform diagnoses and treatments for patients. Furthermore, building a
+                    Picture of the long-term variation in pollen levels can help us understand how environmental
+                    processes like climate variability and climate change might impact pollen levels in the future. This
+                    will, in turn, help decision-makers plan to ensure that the health system has the capacity to deal with
+                    changes in pollen-related conditions in the future. This contributes to making our communities more
+                    resilient in the face of climate change. We are focussing on Tamaki Makaurau as it is our most
+                    populous city and has a high concentration of People who suffer from hay fever and other
+                    respiratory and ophthalmologic conditions. But it is our hope to eventually be able to expand our
+                    work to other centres in Aotearoa.    
+                    </p>
+
                     <h2 className="font-semibold text-lg text-gray-600 text-center">Academic Organisations</h2>
                     <p className="text-center">
                         These organisations are backing AAPC and are providing the tools, technologies and support to
