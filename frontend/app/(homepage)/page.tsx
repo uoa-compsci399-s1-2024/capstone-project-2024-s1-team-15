@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
-import yellowback from "./homepageback.svg";
-import pollenimg from "./pollenimg.svg";
+import yellowback from "../public/homepageback.svg";
+import pollenimg from "../public/pollenimg.svg";
 
 export default function Home() {
     return (

@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation"
 import Petal from "./Petal"
 import Page from "@/app/type/PageType"
 import { PUBLIC_FRONT_END_PAGES as pages } from "@/app/lib/consts"
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 
 import { Roboto } from "next/font/google"
 
@@ -95,10 +95,7 @@ export default function FlowerNav() {
             const angleChange = calculateClosestAngleBetweenPetals(previousPetalAngle, petalAngleForNewPage)
 
             setFlowerRotationAngle((previousFlowerAngle) => {
-                const finalAngleOfFlower =
-                    previousFlowerAngle != null ? previousFlowerAngle + angleChange : petalAngleForNewPage
-
-                return finalAngleOfFlower
+                return previousFlowerAngle != null ? previousFlowerAngle + angleChange : petalAngleForNewPage
             })
 
             return petalAngleForNewPage
@@ -111,16 +108,14 @@ export default function FlowerNav() {
     }, [flowerRotationAngle])
 
     return (
-        <>
-            {flowerRotationStyle && (
-                <nav className="w-[18rem] overflow-hidden ">
-                    <div
-                        style={flowerRotationStyle}
-                        className={`relative w-[32rem] h-[32rem] rotate-0 ${roboto.className} text-[1.8rem] transition-transform duration-[800ms]  ease-figma-gentle list-none p-0 m-0 `}>
-                        {Petals}
-                    </div>
-                </nav>
-            )}
-        </>
+        flowerRotationStyle && (
+            <div className="w-nav overflow-hidden">
+                <div
+                    style={flowerRotationStyle}
+                    className={`relative w-[32rem] h-[32rem] rotate-0 ${roboto.className} text-[1.8rem] transition-transform duration-[800ms]  ease-figma-gentle list-none p-0 m-0 `}>
+                    {Petals}
+                </div>
+            </div>
+        )
     )
 }

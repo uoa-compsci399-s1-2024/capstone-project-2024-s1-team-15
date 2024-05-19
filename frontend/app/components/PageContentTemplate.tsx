@@ -29,7 +29,7 @@ function PageHeroSection({ children }: { children: React.ReactNode }) {
     })
 
     return (
-        <main>
+        <>
             <section className="flex flex-row-reverse items-start">
                 <div className="bg-primary p-4 border-20 border-third rounded-3xl max-w-[50%]">
                     {pageName}
@@ -40,7 +40,7 @@ function PageHeroSection({ children }: { children: React.ReactNode }) {
             </section>
 
             {remainingPageContent}
-        </main>
+        </>
     )
 }
 

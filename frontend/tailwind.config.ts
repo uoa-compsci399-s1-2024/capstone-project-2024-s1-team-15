@@ -8,7 +8,32 @@ const config: Config = {
         "./node_modules/flowbite-react/lib/**/*.js"
     ],
     theme: {
+        screens: {
+            // Below 540: Display content in mobile style
+            // Expand content div
+            'sm': "540px", // Above 540: Display content in tablet style
+            // Expand content div
+            'md': "832px", // Above 832: Display content in desktop style
+            // Expand content div
+            'lg': "1120px", // Above 1120 (content-min + nav): Display flower nav
+            // Expand content div
+            'xl': "1368px", // Above 1368 (content-max + nav)
+            // Expand left margin
+            '2xl': "1656px" // Above 1656 (content-max + nav + nav)
+            // Expand both margins
+        },
         extend: {
+            spacing: {
+                "content-max": "1080px",
+                "content-min-desktop": "832px",
+                "content-min-tablet": "540px",
+                "nav": "288px",
+
+                "header-desktop": "96px",
+                "header-tablet": "72px",
+                "header-mobile": "56px",
+                "footer": "48px"
+            },
             fontFamily: {
                 sans: ["var(--font-inter)"],
                 roboto: ["'Roboto' sans-serif"],
