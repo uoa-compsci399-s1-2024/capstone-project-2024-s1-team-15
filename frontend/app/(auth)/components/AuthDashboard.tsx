@@ -26,20 +26,23 @@ export default function AuthDashboard(): React.JSX.Element {
     return (
         <div>
             {user ? (
-                <div className={"flex flex-row space-x-4 items-center justify-start leading-none"}>
-                    <p>
-                        Logged in as <b className={"font-medium"}>{user.displayName}</b>
-                    </p>
-                    {scopes && <UserScopeLabel scopes={scopes} />}
-                    <button
-                        className="hoverable login-button bg-primary text-nowrap"
-                        onClick={() => changePasswordModalRef.current?.showModal()}>
-                        Change Password
-                    </button>
-                    <button className="hoverable login-button bg-primary" onClick={clearSession}>
-                        Logout
-                    </button>
-                </div>
+                <>
+                    <div className={"flex flex-row space-x-4 items-center justify-start leading-none"}>
+                        <p>
+                            Logged in as <b className={"font-medium"}>{user.displayName}</b>
+                        </p>
+                        {scopes && <UserScopeLabel scopes={scopes} />}
+                        <button
+                            className="hoverable login-button bg-primary text-nowrap"
+                            onClick={() => changePasswordModalRef.current?.showModal()}>
+                            Change Password
+                        </button>
+                        <button className="hoverable login-button bg-primary" onClick={clearSession}>
+                            Logout
+                        </button>
+                    </div>
+                    <ChangePasswordModal ref={changePasswordModalRef} />
+                </>
             ) : (
                 <div className="flex">
                     <button className="hoverable login-button bg-primary mr-4" onClick={showLoginModal}>Log in</button>
@@ -47,7 +50,6 @@ export default function AuthDashboard(): React.JSX.Element {
                 </div>
             )}
             <LoginModal ref={ref} />
-            <ChangePasswordModal ref={changePasswordModalRef} />
         </div>
     )
 }
