@@ -32,6 +32,10 @@ a {
     @apply text-blue-700;
 }
 
+ul.default {
+    @apply list-disc pl-8 mt-2;
+}
+
 *:focus {
     @apply outline-none;
 }
@@ -42,6 +46,10 @@ a {
 
 .button {
     @apply flex items-center justify-center py-2 px-4 bg-gray-500 font-medium rounded-full text-sm transition-all bg-opacity-15 text-black hover:bg-opacity-100 hover:text-white;
+}
+
+.button.cms {
+    @apply bg-maintainer text-white hoverable;
 }
 
 /* Styling for buttons in editor. */
@@ -90,7 +98,7 @@ a {
 }
 
 .login-button {
-    @apply py-2 px-6 rounded-full text-black font-semibold text-xs w-28;
+    @apply py-2 px-6 rounded-full text-black font-semibold text-xs min-w-28;
 }
 
 .outer-modal {

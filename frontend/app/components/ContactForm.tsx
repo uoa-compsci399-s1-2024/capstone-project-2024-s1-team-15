@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react"
 import { API_URI } from "../lib/consts"
+import ReCAPTCHA from "react-google-recaptcha"
 
 export default function ContactForm() {
     async function sendEmail(e: FormEvent<HTMLFormElement>) {
@@ -12,6 +13,7 @@ export default function ContactForm() {
             name: nameInput,
             email: emailInput,
             message: messageInput,
+            recaptchaToken,
         })
 
         const contactAttemptResponse = await fetch(`${API_URI}/contact-aapc`, {
@@ -25,7 +27,7 @@ export default function ContactForm() {
             setMessageSentError(null)
         } else {
             setMessageSentSuccess(null)
-            setMessageSentError(await contactAttemptResponse.json())
+            setMessageSentError((await contactAttemptResponse.json()).message)
         }
 
         setPending(false)
@@ -34,6 +36,7 @@ export default function ContactForm() {
     const [emailInput, setEmailInput] = useState("")
     const [nameInput, setNameInput] = useState("")
     const [messageInput, setMessageInput] = useState("")
+    const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null)
     const [messageSentError, setMessageSentError] = useState<null | string>(null)
     const [messageSentSuccess, setMessageSentSuccess] = useState<null | string>(null)
     const [pending, setPending] = useState(false)
@@ -100,9 +103,15 @@ export default function ContactForm() {
                         </div>
                     </div>
                 </div>
+
+                <ReCAPTCHA
+                    sitekey="6LdQe94pAAAAAAtYGxiatB310mro7rNvoElcP8-T"
+                    onChange={(successToken: null | string) => setRecaptchaToken(successToken)}
+                />
+
                 {messageSentError && <p className={"form-error ml-1"}>{messageSentError}</p>}
                 {messageSentSuccess && <p className={"form-success ml-1"}>{messageSentSuccess}</p>}
-                <button disabled={pending} className={"button w-48"} type="submit">
+                <button disabled={!recaptchaToken || pending} className={"button w-48"} type="submit">
                     {pending ? "Sending message..." : "Send"}
                 </button>
             </form>
