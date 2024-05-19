@@ -24,6 +24,10 @@ const config: Config = {
         },
         extend: {
             spacing: {
+                "pc": "12px", // pc -> padding-content
+                "pc-sm": "16px",
+                "pc-md": "24px",
+
                 "content-max": "1152px",
                 "content-min": "832px",
                 "nav": "288px",

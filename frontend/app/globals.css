@@ -9,19 +9,23 @@ body {
 }
 
 h1 {
-    @apply text-4xl font-bold tracking-tight mb-8 mt-12;
+    @apply text-[26px] sm:text-[30px] md:text-[36px] font-bold tracking-tight mb-8 mt-12;
 }
 
 h2 {
-    @apply text-3xl font-bold tracking-tight my-4;
+    @apply text-[23px] sm:text-[26px] md:text-[32px] font-bold tracking-tight my-4;
 }
 
 h3 {
-    @apply text-2xl font-bold tracking-tight my-2;
+    @apply text-[20px] sm:text-[22px] lg:text-[26px] font-bold tracking-tight my-2;
 }
 
 h4 {
-    @apply text-base font-bold tracking-tight;
+    @apply text-[17px] sm:text-[18px] md:text-[22px] font-bold tracking-tight;
+}
+
+p {
+    @apply text-[14px] sm:text-[15px] md:text-[16px]
 }
 
 a {
@@ -103,8 +107,8 @@ a {
 
 .page-title {
     @apply block text-white font-bold bg-primary rounded-full shadow-lg
-        text-xl px-5 py-2 mt-2 mb-4 mx-auto w-full text-center
-        sm:text-2xl sm:px-7 sm:py-2.5 sm:mb-6
+        text-xl py-1.5 mt-2 mb-4 mx-auto w-full text-center
+        sm:text-2xl sm:py-2 sm:mb-6
         md:text-3xl md:px-9 md:py-3 md:mt-12 md:mb-8 md:mx-0 md:w-max;
 }
 

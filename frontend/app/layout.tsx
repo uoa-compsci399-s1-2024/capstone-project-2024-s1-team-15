@@ -37,10 +37,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                         </nav>
 
                         {/* Main Content */}
-                        <main className={`max-w-screen xl:max-w-content-max px-3 flex justify-between flex-col
-                            sm:px-4
-                            md:px-6
-                            lg:mr-nav lg:px-8
+                        <main className={`max-w-screen xl:max-w-content-max px-pc flex justify-between flex-col
+                            sm:px-pc-sm
+                            md:px-pc-md
+                            lg:mr-nav
                             xl:ml-auto
                             2xl:mx-auto
                         `}>

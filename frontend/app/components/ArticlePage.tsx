@@ -12,7 +12,7 @@ export default function ArticlePage({ article, preview }: ArticlePageProps): Rea
     const hasSubtitle = article.subtitle !== ""
 
     return (
-        <article className={`prose prose-slate max-w-max ${preview? "mt-2" : "mt-8"}`}>
+        <article className={`prose-sm md:prose prose-slate max-w-max ${preview? "mt-2" : "mt-8"}`}>
             <h1 className={hasSubtitle ? "mb-4" : "mb-10"}>{article.title}</h1>
             {hasSubtitle ? <span className={"subtitle"}>{article.subtitle}</span> : null}
             {article.content && html}
