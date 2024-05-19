@@ -36,7 +36,7 @@ export default function AboutPage() {
                                 </div>
                             </div>
                             <div className="pt-3 ml-4 mr-2 mb-3">
-                                <h3 className="text-xl text-gray-900">Researcher</h3>
+                                <h3 className="text-xl text-gray-900">About Me</h3>
                                 <p className="text-gray-400 text-sm mt-1">
                                     Dr Amy Chan is a senior clinical research fellow at the School of Pharmacy,
                                     University of Auckland, New Zealand, and holds an honorary post at the Centre of
@@ -74,13 +74,13 @@ export default function AboutPage() {
                                 </div>
                             </div>
                             <div className="pt-3 ml-4 mr-2 mb-3">
-                                <h3 className="text-xl text-gray-900">Researcher</h3>
+                                <h3 className="text-xl text-gray-900">About Me</h3>
                                 <p className="text-gray-400 text-sm mt-1">
                                 My Research centres on using pollen to understand the environment in the past. Through extracting
-                                pollen preserved in ancient sediments, iti s possible to work out what the vegetation once was and
-                                how it has chnaged in response to Events like natural disasters, climate chnage and human impacts. I
-                                am also interested in determining how recent environmental changes are impacting what pollen
-                                types are present in the air at different times of the year. This is very important for helping those
+                                pollen preserved in ancient sediments, it is possible to work out what the vegetation once was and
+                                how it has changed in response to Events like natural disasters, climate change and human impacts. I
+                                am also interested in determining how recent environmental changes are impacting the pollen
+                                types that are present in the air at different times of the year. This is very important for helping those
                                 suffering from hay fever and other-pollen related conditions manage their symptoms, and what
                                 drives my involvement in AAPC.
                                 </p>
@@ -114,7 +114,7 @@ export default function AboutPage() {
                                 </div>
                             </div>
                             <div className="pt-3 ml-4 mr-2 mb-3">
-                                <h3 className="text-xl text-gray-900">Researcher</h3>
+                                <h3 className="text-xl text-gray-900">About Me</h3>
                                 <p className="text-gray-400 text-sm mt-1">
                                 Associate Professor Stuti Misra is an optometrist-scientist in the Department of Ophthalmology at the University of Auckland. 
                                 She specialises in ocular surface disorders, ocular imaging, tear film and dry eye assessment, and community eye health. 
