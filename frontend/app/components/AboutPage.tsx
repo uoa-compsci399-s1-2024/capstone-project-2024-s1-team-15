@@ -23,11 +23,9 @@ export default function AboutPage() {
                             <div className="flex items-center mt-2 pt-3 ml-4 mr-2">
                                 <div className="flex-none w-10 h-10 rounded-full">
                                     <Image
-                                        src= {amy}
-                                        className="w-full h-full rounded-full"
+                                        src={amy}
+                                        className="w-full h-full rounded-full object-cover"
                                         alt="Researchers Name"
-                                        width={40}
-                                        height={40}
                                     />
                                 </div>
                                 <div className="ml-3">
@@ -61,11 +59,9 @@ export default function AboutPage() {
                             <div className="flex items-center mt-2 pt-3 ml-4 mr-2">
                                 <div className="flex-none w-10 h-10 rounded-full">
                                     <Image
-                                        src= {katherine}
-                                        className="w-full h-full rounded-full"
+                                        src={katherine}
+                                        className="w-full h-full rounded-full object-cover"
                                         alt="Researchers Name"
-                                        width={40}
-                                        height={40}
                                     />
                                 </div>
                                 <div className="ml-3">
@@ -101,11 +97,9 @@ export default function AboutPage() {
                             <div className="flex items-center mt-2 pt-3 ml-4 mr-2">
                                 <div className="flex-none w-10 h-10 rounded-full">
                                     <Image
-                                        src= {stuti}
-                                        className="w-full h-full rounded-full"
+                                        src={stuti}
+                                        className="w-full h-full rounded-full object-cover"
                                         alt="Researchers Name"
-                                        width={40}
-                                        height={40}
                                     />
                                 </div>
                                 <div className="ml-3">
