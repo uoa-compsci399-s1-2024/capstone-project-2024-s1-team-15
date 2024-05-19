@@ -1,7 +1,7 @@
 "use client"
 
 import { PollenCalendar } from "@/app/components/pollen"
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { PollenData } from "@aapc/types"
 import { getPollenData } from "@/app/services/pollen"
 import PageTemplate from "@/app/components/PageContentTemplate"
@@ -34,9 +34,7 @@ export default function Pollen() {
 
     return (
         <PageTemplate>
-            <PageTemplate.PageName>
-                <div className="page-title">Pollen</div>
-            </PageTemplate.PageName>
+            <PageTemplate.PageName>Pollen</PageTemplate.PageName>
             <PageTemplate.PageExplanation>
                 Pollen is a powdery substance produced by most types of flowers of seed plants for the purpose of sexual
                 reproduction. It consists of pollen grains, which produce male gametes. There are several different

@@ -27,6 +27,10 @@ a {
     @apply text-blue-700;
 }
 
+ul.default {
+    @apply list-disc pl-8 mt-2;
+}
+
 *:focus {
     @apply outline-none;
 }
@@ -106,6 +110,10 @@ a {
 
 .page-title {
     @apply text-3xl text-white font-bold bg-primary p-4 inline-block rounded-full w-auto md:text-left;
+}
+
+footer {
+    @apply mt-8 bottom-0 inset-x-0;
 }
 
 .opacity-gradient {
