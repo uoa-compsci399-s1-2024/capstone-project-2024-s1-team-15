@@ -3,11 +3,13 @@ import { API_URI } from "@/app/lib/consts"
 import { ArticleOut, Nullable, Result } from "@/app/lib/types"
 import { FetchOptions, getHeaders } from "@/app/services/lib/util"
 import { fail, success } from "@/app/lib/util";
+import revalidateArticle from "./revalidator";
 
 export async function getResearchById(id: string, options?: FetchOptions): Promise<Nullable<IArticle>> {
     const response = await fetch(API_URI + `/content/research/${id}`, {
         method: "get",
-        headers: getHeaders(options)
+        headers: getHeaders(options),
+        next: { tags: ["article"]}
     })
     if (response.status === 404) {
         return null
@@ -44,5 +46,6 @@ export async function editResearch(id: string, a: ArticleOut, options?: FetchOpt
     if (response.status >= 400) {
         return fail((await response.json()).message)
     }
+    revalidateArticle()
     return success(new Article(await response.json()))
 }
