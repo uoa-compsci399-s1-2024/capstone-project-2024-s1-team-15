@@ -25,9 +25,17 @@ const LoginModal = forwardRef(
             s.addEventListener("click", () => {
                 const modal = document.getElementById(`inner-${modalId}`)
                 if (!modal) return
-                if (!modal.matches(":hover")) {
+                if (!modal.matches(":hover") && !modal.classList.contains("touch-hover")) {
                     setHidden(true)
                 }
+            })
+            const m = document.getElementById(`inner-${modalId}`)
+            if (!m) return
+            m.addEventListener("touchstart", () => {
+                m.classList.add("touch-hover")
+            })
+            m.addEventListener("touchend", () => {
+                setTimeout(() => m.classList.remove("touch-hover"), 200)
             })  // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [])
 
