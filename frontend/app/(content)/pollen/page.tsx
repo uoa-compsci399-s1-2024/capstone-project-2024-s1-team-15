@@ -13,9 +13,15 @@ import Privileged from "@/app/components/Privileged"
 import { SCOPES } from "@/app/lib/consts"
 import Link from "next/link"
 
+type PollenType = {
+    name: string
+    scientificName?: string
+    summaryHTML: string
+}
+
 export default function Pollen() {
     const [pollenData, setPollenData] = useState<null | PollenData[]>(null)
-    const [selectedSlidePollenName, setSelectedSlidePollenName] = useState(pollenTypegrass[0].name)
+    const [selectedSlidePollen, setSelectedSlidePollen] = useState<PollenType>(pollenTypegrass[0])
     const [selectedPollenSlideHTML, setSelectedPollenSlideHTML] = useState<string | undefined>(undefined)
     const [pollenType, setPollenType] = useState<"grass" | "tree" | "weed">("grass")
     const [sliderKey, setSliderKey] = useState(0) // To reset the slider component
@@ -35,30 +41,32 @@ export default function Pollen() {
         } else {
             pollenArray = pollenTypeweed
         }
-        setSelectedPollenSlideHTML(pollenArray.find(({ name }) => name === selectedSlidePollenName)?.summaryHTML)
-    }, [selectedSlidePollenName, pollenType])
+        setSelectedPollenSlideHTML(pollenArray.find(({ name }) => name === selectedSlidePollen.name)?.summaryHTML)
+    }, [selectedSlidePollen, pollenType])
 
-    const pollenSlides = (pollenArray: { name: string; summaryHTML: string }[]) =>
-        pollenArray.map(({ name, summaryHTML }) => <Slide key={name} slideContent={summaryHTML}></Slide>)
+    const pollenSlides = (pollenArray: PollenType[]) =>
+        pollenArray.map(({ name, summaryHTML }) => (
+            <Slide key={name} slideContent={<div dangerouslySetInnerHTML={{ __html: summaryHTML }}></div>}></Slide>
+        ))
 
     const handleSlideIndexChange = (index: number) => {
         const pollenArray =
             pollenType === "grass" ? pollenTypegrass : pollenType === "tree" ? pollenTypetree : pollenTypeweed
 
         if (index >= 0 && index < pollenArray.length) {
-            setSelectedSlidePollenName(pollenArray[index].name)
+            setSelectedSlidePollen(pollenArray[index])
         }
     }
 
     const handlePollenTypeChange = (newPollenType: "grass" | "tree" | "weed") => {
         setPollenType(newPollenType)
-        const newSelectedName =
+        const newSelectedPollen =
             newPollenType === "grass"
-                ? pollenTypegrass[0].name
+                ? pollenTypegrass[0]
                 : newPollenType === "tree"
-                  ? pollenTypetree[0].name
-                  : pollenTypeweed[0].name
-        setSelectedSlidePollenName(newSelectedName)
+                  ? pollenTypetree[0]
+                  : pollenTypeweed[0]
+        setSelectedSlidePollen(newSelectedPollen)
         setSliderKey((prevKey) => prevKey + 1) // Force re-render of the Slider component to reset it
     }
 
@@ -87,27 +95,18 @@ export default function Pollen() {
                             Pollen:
                         </span>
 
-                        {selectedSlidePollenName}
+                        <span className="flex-col relative inline-flex">
+                            <span>{selectedSlidePollen.name}</span>
+
+                            {selectedSlidePollen.scientificName && (
+                                <span className="text-gray-500 text-[0.6rem] leading-3   absolute top-full text-nowrap left-0 font-normal w-full text-center">
+                                    Scientific name: {selectedSlidePollen.scientificName}
+                                </span>
+                            )}
+                        </span>
                     </h3>
                 }>
-                <div className="flex items-center space-x-2">
-                    <span className="font-semibold">Change pollen type =</span>
-                    <select
-                        className="bg-gray-100 border border-gray-300 rounded-lg p-2 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        value={pollenType}
-                        onChange={(e) => handlePollenTypeChange(e.target.value as "grass" | "tree" | "weed")}>
-                        <option className="p-2" value="grass">
-                            Grass
-                        </option>
-                        <option className="p-2" value="tree">
-                            Tree
-                        </option>
-                        <option className="p-2" value="weed">
-                            Weed
-                        </option>
-                    </select>
-                </div>
-                {selectedSlidePollenName && selectedPollenSlideHTML && (
+                {selectedSlidePollen && selectedPollenSlideHTML && (
                     <Slider
                         key={sliderKey} // Adding key to reset the Slider component
                         onSelectedSlideIndexChange={handleSlideIndexChange}
