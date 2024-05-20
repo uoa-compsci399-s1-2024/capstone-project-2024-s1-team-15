@@ -6,6 +6,7 @@ import ArticleCard from "@/app/(content)/(articles)/components/ArticleCard"
 import Privileged from "@/app/components/Privileged"
 import ButtonLink from "@/app/components/ButtonLink"
 import Pagination from "@/app/components/Paginations"
+import SearchBar from "@/app/components/SearchBar"
 
 export const metadata = getMetadata("All News")
 
@@ -14,7 +15,15 @@ export default async function AllNewsPage() {
 
     return (
         <>
-            <h1 className="page-title">All News</h1>
+
+            <div className="max-w-screen-xl mr-auto">
+                <div className="items-start justify-between gap-x-4 sm:flex">
+                    <h1 className="page-title">All News</h1>
+                    <SearchBar />
+                </div>
+            </div>
+
+
             <Privileged requiredScopes={SCOPES.maintainer}>
                 <ButtonLink href={"/news/publish"} text={"Publish News"} />
             </Privileged>
