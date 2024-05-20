@@ -15,11 +15,9 @@ export default async function AllResearchPage() {
 
     return (
         <>
-            <div className="max-w-screen-xl mr-auto">
-                <div className="items-center justify-between gap-x-4 sm:flex">
-                    <h1 className="page-title">All Research</h1>
-                    <SearchBar />
-                </div>
+            <div className="max-w-screen-xl mr-auto items-center justify-between gap-x-4 sm:flex">
+                <h1 className="page-title">All Research</h1>
+                <SearchBar />
             </div>
             <Privileged requiredScopes={SCOPES.maintainer}>
                 <ButtonLink href={"/research/publish"} text={"Publish Research"} />
