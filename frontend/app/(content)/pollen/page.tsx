@@ -15,10 +15,10 @@ import ButtonLink from "@/app/components/ButtonLink"
 
 export default function Pollen() {
     const [pollenData, setPollenData] = useState<null | PollenData[]>(null)
-    const [selectedSlidePollenNameGrass, setSelectedSlidePollenNameGrass] = useState(pollenTypegrass[0].name)
-    const [selectedSlidePollenNameTree, setSelectedSlidePollenNameTree] = useState(pollenTypetree[0].name)
-    const [selectedSlidePollenNameWeed, setSelectedSlidePollenNameWeed] = useState(pollenTypeweed[0].name)
+    const [selectedSlidePollenName, setSelectedSlidePollenName] = useState(pollenTypegrass[0].name)
     const [selectedPollenSlideHTML, setSelectedPollenSlideHTML] = useState<string | undefined>(undefined)
+    const [pollenType, setPollenType] = useState<"grass" | "tree" | "weed">("grass")
+    const [sliderKey, setSliderKey] = useState(0) // To reset the slider component
 
     useEffect(() => {
         getPollenData().then((r) => {
@@ -26,38 +26,46 @@ export default function Pollen() {
         })
     }, [])
 
-    /* Pollen Type Grass */
     useEffect(() => {
+        let pollenArray;
+        if (pollenType === "grass") {
+            pollenArray = pollenTypegrass;
+        } else if (pollenType === "tree") {
+            pollenArray = pollenTypetree;
+        } else {
+            pollenArray = pollenTypeweed;
+        }
         setSelectedPollenSlideHTML(
-            pollenTypegrass.find(({ name }) => name === selectedSlidePollenNameGrass)?.summaryHTML
+            pollenArray.find(({ name }) => name === selectedSlidePollenName)?.summaryHTML
         )
-    }, [selectedSlidePollenNameGrass])
+    }, [selectedSlidePollenName, pollenType])
 
-    const pollenSlidesGrass = pollenTypegrass.map(({ name, summaryHTML }) => (
-        <Slide key={name} slideContent={summaryHTML}></Slide>
-    ))
+    const pollenSlides = (pollenArray: { name: string; summaryHTML: string }[]) =>
+        pollenArray.map(({ name, summaryHTML }) => (
+            <Slide key={name} slideContent={summaryHTML}></Slide>
+        ))
 
-    /* Pollen Type Tree */
-    useEffect(() => {
-        setSelectedPollenSlideHTML(
-            pollenTypetree.find(({ name }) => name === selectedSlidePollenNameTree)?.summaryHTML
-        )
-    }, [selectedSlidePollenNameTree])
+    const handleSlideIndexChange = (index: number) => {
+        const pollenArray =
+            pollenType === "grass" ? pollenTypegrass :
+            pollenType === "tree" ? pollenTypetree :
+            pollenTypeweed;
 
-    const pollenSlidesTree = pollenTypetree.map(({ name, summaryHTML }) => (
-        <Slide key={name} slideContent={summaryHTML}></Slide>
-    ))
-    
-    /* Pollen Type Weed */
-    useEffect(() => {
-        setSelectedPollenSlideHTML(
-            pollenTypeweed.find(({ name }) => name === selectedSlidePollenNameWeed)?.summaryHTML
-        )
-    }, [selectedSlidePollenNameWeed])
+        if (index >= 0 && index < pollenArray.length) {
+            setSelectedSlidePollenName(pollenArray[index].name);
+        }
+    }
 
-    const pollenSlidesWeed = pollenTypeweed.map(({ name, summaryHTML }) => (
-        <Slide key={name} slideContent={summaryHTML}></Slide>
-    ))
+    const handlePollenTypeChange = (newPollenType: "grass" | "tree" | "weed") => {
+        setPollenType(newPollenType);
+        const newSelectedName = newPollenType === "grass"
+            ? pollenTypegrass[0].name
+            : newPollenType === "tree"
+            ? pollenTypetree[0].name
+            : pollenTypeweed[0].name;
+        setSelectedSlidePollenName(newSelectedName);
+        setSliderKey(prevKey => prevKey + 1); // Force re-render of the Slider component to reset it
+    }
 
     return (
         <PageTemplate>
@@ -68,46 +76,38 @@ export default function Pollen() {
                 Pollen is a powdery substance produced by most types of flowers of seed plants for the purpose of sexual
                 reproduction. It consists of pollen grains, which produce male gametes. There are several different
                 types of pollen. The most common include grass, oak and ragweed. For each plant/tree, the shape of the
-                pollen can be slightly different and affect the body in different ways.{" "}
+                pollen can be slightly different and affect the body in different ways.
             </PageTemplate.PageExplanation>
             <PageTemplate.HighlightSection
                 title={
                     <h3>
-                        Types of Grass Pollen: <span className="font-semibold text-base">{selectedSlidePollenNameGrass}</span>
-                    </h3>
-                }>
-                {selectedSlidePollenNameGrass && selectedPollenSlideHTML && (
-                    <Slider
-                        onSelectedSlideIndexChange={(index: number) =>
-                            setSelectedSlidePollenNameGrass(pollenTypegrass[index].name)
-                        }
-                        slides={pollenSlidesGrass}
-                    />
-                )}
-                {
-                    <h3>
-                        Types of Tree Pollen: <span className="font-semibold text-base">{selectedSlidePollenNameTree}</span>
+                        Types of {pollenType.charAt(0).toUpperCase() + pollenType.slice(1)} Pollen: <span className="font-semibold text-base">{selectedSlidePollenName}</span>
                     </h3>
                 }
-                {selectedSlidePollenNameTree && selectedPollenSlideHTML && (
+            >
+                <div className="flex items-center space-x-2">
+                    <span className="font-semibold">Change pollen type =</span>
+                    <select
+                        className="bg-gray-100 border border-gray-300 rounded-lg p-2 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        value={pollenType}
+                        onChange={(e) => handlePollenTypeChange(e.target.value as "grass" | "tree" | "weed")}
+                    >
+                        <option className="p-2" value="grass">Grass</option>
+                        <option className="p-2" value="tree">Tree</option>
+                        <option className="p-2" value="weed">Weed</option>
+                    </select>
+                </div>
+                {selectedSlidePollenName && selectedPollenSlideHTML && (
                     <Slider
-                        onSelectedSlideIndexChange={(index: number) =>
-                            setSelectedSlidePollenNameTree(pollenTypetree[index].name)
+                        key={sliderKey} // Adding key to reset the Slider component
+                        onSelectedSlideIndexChange={handleSlideIndexChange}
+                        slides={
+                            pollenType === "grass"
+                                ? pollenSlides(pollenTypegrass)
+                                : pollenType === "tree"
+                                ? pollenSlides(pollenTypetree)
+                                : pollenSlides(pollenTypeweed)
                         }
-                        slides={pollenSlidesTree}
-                    />
-                )}
-                {
-                    <h3>
-                        Types of Weed Pollen: <span className="font-semibold text-base">{selectedSlidePollenNameWeed}</span>
-                    </h3>
-                }
-                {selectedSlidePollenNameWeed && selectedPollenSlideHTML && (
-                    <Slider
-                        onSelectedSlideIndexChange={(index: number) =>
-                            setSelectedSlidePollenNameWeed(pollenTypeweed[index].name)
-                        }
-                        slides={pollenSlidesWeed}
                     />
                 )}
             </PageTemplate.HighlightSection>
@@ -116,10 +116,14 @@ export default function Pollen() {
                 <Privileged requiredScopes={SCOPES.maintainer}>
                     <ButtonLink href={"/pollen/edit"} text={"Edit Pollen Data"} />
                 </Privileged>
-                <p>
+                <p className="bg-purpleone rounded-r-[4rem] pb-4 pt-8 -mt-8 px-10">
                     The pollen season starts in spring, with some trees producing pollen earlier depending on climate
-                    conditions. The season usually starts earlier in the north and finishes later in the south of New
-                    Zealand. Take a look at the pollen calendar below for a better idea of seasonal changes of pollen.
+                    conditions.
+                    <br />
+                    The season usually starts earlier in the north and finishes later in the south of New Zealand.
+                    <br />
+                    <br />
+                    Take a look at the pollen calendar below for a better idea of seasonal changes of pollen.
                 </p>
                 {pollenData && <PollenCalendar pollenData={pollenData} />}
                 <p>
