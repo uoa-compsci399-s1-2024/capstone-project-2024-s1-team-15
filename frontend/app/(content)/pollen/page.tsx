@@ -88,7 +88,7 @@ export default function Pollen() {
                                 onChange={(e) => handlePollenTypeChange(e.target.value as "grass" | "tree" | "weed")}>
                                 <option value="grass">Grass</option>
                                 <option value="tree">Tree</option>
-                                <option value="weed">Weed</option>
+                                <option value="weed">Weed / Herb</option>
                             </select>
                             Pollen:
                         </span>
