@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react"
 import { PollenData } from "@aapc/types"
 import { getPollenData } from "@/app/services/pollen"
 import PageTemplate from "@/app/components/PageContentTemplate"
-import Slider, { Slide } from "@/app/components/Slider"
+import Slider, { Slide } from "@/app/components/slider/Slider"
 import pollenTypegrass from "./pollenType-grass.json"
 import pollenTypetree from "./pollenType-tree.json"
 import pollenTypeweed from "./pollenType-weed-herb.json"
@@ -27,44 +27,39 @@ export default function Pollen() {
     }, [])
 
     useEffect(() => {
-        let pollenArray;
+        let pollenArray
         if (pollenType === "grass") {
-            pollenArray = pollenTypegrass;
+            pollenArray = pollenTypegrass
         } else if (pollenType === "tree") {
-            pollenArray = pollenTypetree;
+            pollenArray = pollenTypetree
         } else {
-            pollenArray = pollenTypeweed;
+            pollenArray = pollenTypeweed
         }
-        setSelectedPollenSlideHTML(
-            pollenArray.find(({ name }) => name === selectedSlidePollenName)?.summaryHTML
-        )
+        setSelectedPollenSlideHTML(pollenArray.find(({ name }) => name === selectedSlidePollenName)?.summaryHTML)
     }, [selectedSlidePollenName, pollenType])
 
     const pollenSlides = (pollenArray: { name: string; summaryHTML: string }[]) =>
-        pollenArray.map(({ name, summaryHTML }) => (
-            <Slide key={name} slideContent={summaryHTML}></Slide>
-        ))
+        pollenArray.map(({ name, summaryHTML }) => <Slide key={name} slideContent={summaryHTML}></Slide>)
 
     const handleSlideIndexChange = (index: number) => {
         const pollenArray =
-            pollenType === "grass" ? pollenTypegrass :
-            pollenType === "tree" ? pollenTypetree :
-            pollenTypeweed;
+            pollenType === "grass" ? pollenTypegrass : pollenType === "tree" ? pollenTypetree : pollenTypeweed
 
         if (index >= 0 && index < pollenArray.length) {
-            setSelectedSlidePollenName(pollenArray[index].name);
+            setSelectedSlidePollenName(pollenArray[index].name)
         }
     }
 
     const handlePollenTypeChange = (newPollenType: "grass" | "tree" | "weed") => {
-        setPollenType(newPollenType);
-        const newSelectedName = newPollenType === "grass"
-            ? pollenTypegrass[0].name
-            : newPollenType === "tree"
-            ? pollenTypetree[0].name
-            : pollenTypeweed[0].name;
-        setSelectedSlidePollenName(newSelectedName);
-        setSliderKey(prevKey => prevKey + 1); // Force re-render of the Slider component to reset it
+        setPollenType(newPollenType)
+        const newSelectedName =
+            newPollenType === "grass"
+                ? pollenTypegrass[0].name
+                : newPollenType === "tree"
+                  ? pollenTypetree[0].name
+                  : pollenTypeweed[0].name
+        setSelectedSlidePollenName(newSelectedName)
+        setSliderKey((prevKey) => prevKey + 1) // Force re-render of the Slider component to reset it
     }
 
     return (
@@ -78,21 +73,38 @@ export default function Pollen() {
             </PageTemplate.PageExplanation>
             <PageTemplate.HighlightSection
                 title={
-                    <h3>
-                        Types of {pollenType.charAt(0).toUpperCase() + pollenType.slice(1)} Pollen: <span className="font-semibold text-base">{selectedSlidePollenName}</span>
+                    <h3 className="flex flex-wrap items-center justify-center gap-2">
+                        <span className="font-semibold text-base">
+                            Types of
+                            <select
+                                className="bg-gray-100 border border-gray-300 rounded-lg p-1 mx-2 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                value={pollenType}
+                                onChange={(e) => handlePollenTypeChange(e.target.value as "grass" | "tree" | "weed")}>
+                                <option value="grass">Grass</option>
+                                <option value="tree">Tree</option>
+                                <option value="weed">Weed</option>
+                            </select>
+                            Pollen:
+                        </span>
+
+                        {selectedSlidePollenName}
                     </h3>
-                }
-            >
+                }>
                 <div className="flex items-center space-x-2">
                     <span className="font-semibold">Change pollen type =</span>
                     <select
                         className="bg-gray-100 border border-gray-300 rounded-lg p-2 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                         value={pollenType}
-                        onChange={(e) => handlePollenTypeChange(e.target.value as "grass" | "tree" | "weed")}
-                    >
-                        <option className="p-2" value="grass">Grass</option>
-                        <option className="p-2" value="tree">Tree</option>
-                        <option className="p-2" value="weed">Weed</option>
+                        onChange={(e) => handlePollenTypeChange(e.target.value as "grass" | "tree" | "weed")}>
+                        <option className="p-2" value="grass">
+                            Grass
+                        </option>
+                        <option className="p-2" value="tree">
+                            Tree
+                        </option>
+                        <option className="p-2" value="weed">
+                            Weed
+                        </option>
                     </select>
                 </div>
                 {selectedSlidePollenName && selectedPollenSlideHTML && (
@@ -103,8 +115,8 @@ export default function Pollen() {
                             pollenType === "grass"
                                 ? pollenSlides(pollenTypegrass)
                                 : pollenType === "tree"
-                                ? pollenSlides(pollenTypetree)
-                                : pollenSlides(pollenTypeweed)
+                                  ? pollenSlides(pollenTypetree)
+                                  : pollenSlides(pollenTypeweed)
                         }
                     />
                 )}
