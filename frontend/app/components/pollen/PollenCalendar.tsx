@@ -89,7 +89,7 @@ const PollenCalendar = memo(function PollenCalendar({ pollenData }: { pollenData
         <>
             <div className="flex flex-col justify-between">
                 <div className="flex flex-col self-start gap-4 bg-purpletwo px-10 py-2 rounded-r-[3rem]">
-                    <h3 className="flex">Filter by</h3>
+                    <h4 className="flex">Filter by</h4>
                     <div className="flex gap-4 items-center">
                         <button
                             className="login-button w-40 bg-primary hoverable"
