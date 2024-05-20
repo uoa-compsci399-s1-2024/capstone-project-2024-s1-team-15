@@ -16,6 +16,8 @@ import masseyLogo from "./images/organisations/masseyUniversity.png"
 import victoriaLogo from "./images/organisations/victoriaUniversityOfWellington.png"
 import uoaLogo from "./images/organisations/universityOfAuckland.png"
 
+import { FaTwitter } from "react-icons/fa"
+
 export default function About() {
     return (
         <>
@@ -61,6 +63,11 @@ export default function About() {
                         </>
                         profilePicture={katherine}
                         headerImage={katherineHeaderImage}
+                        socials=<div>
+                            <a href="https://x.com/pollenkat">
+                                <FaTwitter />
+                            </a>
+                        </div>
                     />
 
                     <ProfileCard
@@ -203,7 +210,7 @@ function OrganisationImage({ name, websiteLink, logoImage }: any) {
     )
 }
 
-function ProfileCard({ name, email, bio, headerImage, profilePicture }: any) {
+function ProfileCard({ name, email, bio, headerImage, profilePicture, socials }: any) {
     return (
         <article className="mx-4 p-4 min-w-56 flex-1 relative z-0 shadow-lg border rounded-md duration-300 hover:shadow-sm bg-white">
             <div className="flex-none mx-auto h-48 w-48 rounded-full overflow-hidden">
@@ -212,9 +219,12 @@ function ProfileCard({ name, email, bio, headerImage, profilePicture }: any) {
 
             <div className="mt-4">
                 <span className="block text-gray-900 text-lg">{name}</span>
-                <a href={`mailto:${email}`} className="">
-                    <span className="inline-block text-gray-400 text-sm">{email}</span>
-                </a>
+                <div className="flex items-center justify-between">
+                    <a href={`mailto:${email}`}>
+                        <span className="inline-block text-gray-400 text-sm">{email}</span>
+                    </a>
+                    {socials}
+                </div>
                 <h3 className="text-xl text-gray-900">About Me</h3>
                 <p className="text-gray-600 text-sm mt-1">{bio}</p>
             </div>
