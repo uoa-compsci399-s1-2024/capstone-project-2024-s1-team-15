@@ -23,6 +23,10 @@ h4 {
     @apply text-base font-bold tracking-tight;
 }
 
+h5 {
+    @apply underline underline-offset-2;
+}
+
 a {
     @apply text-blue-700;
 }

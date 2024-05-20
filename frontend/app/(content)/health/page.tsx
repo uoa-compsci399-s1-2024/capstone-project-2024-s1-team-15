@@ -1,12 +1,17 @@
-import React from "react"
+"use client"
+
+import React, { useState } from "react"
 import PageTemplate from "@/app/components/PageContentTemplate"
 
-import TechniqueCard from "./TechniqueCard"
+import StrategyCard from "./StrategyCard"
 import InteractiveBodyDiagram from "./InteractiveBodyDiagram"
 import SourceLink, { LearnMoreLink } from "@/app/components/SourceLink"
-import commonStrategies from "./CommonStrategies"
+import strategies from "./commonStrategies"
+import ExplanationDialog from "./ExplanationDialog"
 
 export default function HealthPage() {
+    const [selectedTechnique, selectTechnique] = useState<null | string>(null)
+
     return (
         <PageTemplate>
             <PageTemplate.PageName>Health</PageTemplate.PageName>
@@ -42,10 +47,22 @@ export default function HealthPage() {
                     <h3 className="bg-purpletwo p-4 w-1/2 rounded-t-[2rem] text-center mb-0">Common Strategies</h3>
                 </div>
                 <ul className="list-none flex gap-4 flex-wrap w-full gap-y-16">
-                    {Object.entries(commonStrategies).map(([name, { image }]) => (
-                        <TechniqueCard key={name} image={image} name={name} />
+                    {Object.entries(strategies).map(([name, { image, explanation }]) => (
+                        <StrategyCard
+                            key={name}
+                            image={image}
+                            name={name}
+                            explanation={explanation}
+                            onClick={() => selectTechnique(name)}
+                        />
                     ))}
                 </ul>
+                {selectedTechnique && (
+                    <ExplanationDialog onClose={() => selectTechnique(null)}>
+                        {strategies[selectedTechnique as keyof typeof strategies].explanation}
+                    </ExplanationDialog>
+                )}
+
                 <p className="mt-8">
                     For more in-depth tips on dealing with Hayfever, take a look at this article:{" "}
                     <a
