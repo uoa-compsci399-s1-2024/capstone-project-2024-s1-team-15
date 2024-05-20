@@ -10,9 +10,6 @@ export default function Contact() {
             <h3 className="text-xl font-bold bg-purpletwo text-white py-2 px-4 rounded-full inline-block mb-4">
                 Contact us
             </h3>
-            <p className="text-gray-700 bg-gray-200 p-4 rounded-xl border border-yellow-400 mb-6">
-                Hi there, write your message here and we will get back to you via the Reply-to email
-            </p>
             <ContactForm />
         </div>
         <div className="fixed inset-0 z-[-1] pl-96 ml-60">
