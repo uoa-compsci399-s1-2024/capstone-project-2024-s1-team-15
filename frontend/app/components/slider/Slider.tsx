@@ -26,7 +26,7 @@ function Slider({ slides, onSelectedSlideIndexChange }: Props) {
                 />
             </button>
 
-            <div className="flex-1">{slides[selectedSlideIndex]}</div>
+            <div className="flex-1 text-balance">{slides[selectedSlideIndex]}</div>
 
             <button
                 className={`w-10 hover:bg-slate-200 transition-colors rounded-md ${selectedSlideIndex === slides.length - 1 ? "invisible" : ""}`}
