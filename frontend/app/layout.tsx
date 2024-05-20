@@ -1,13 +1,12 @@
 import "./globals.css"
 import React from "react"
-import Header from "@/app/components/Header"
-import FlowerNav from "./components/flowerNav"
-import localFont from "next/font/local"
 import type { Metadata } from "next"
+import Header from "@/app/components/Header"
+import FlowerNav from "@/app/components/flowerNav"
+import localFont from "next/font/local"
 import { getMetadata } from "@/app/lib/util"
 import { AuthLayout } from "@/app/(auth)/components"
 import Copyright from "@/app/components/Copyright"
-import MobileNavModal from "@/app/components/modals/MobileNavModal";
 
 const inter = localFont({
     src: "./public/Inter.ttf",

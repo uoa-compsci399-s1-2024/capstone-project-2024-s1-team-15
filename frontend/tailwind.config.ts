@@ -63,7 +63,7 @@ const config: Config = {
 
                 "admin": "#f35d5d",
                 "maintainer": "#37a0ec",
-                "premium": "#ffcc6d",
+                "premium": "#ffd78f",
                 "user": "#c9c9c9",
 
                 "background": "#fafafa",

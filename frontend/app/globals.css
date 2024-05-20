@@ -99,7 +99,7 @@ figcaption {
     @apply text-gray-700 text-3xl font-bold;
 }
 
-.login-button {
+.auth-button {
     @apply py-2 px-6 rounded-full text-black font-semibold text-xs min-w-28;
 }
 
@@ -109,10 +109,6 @@ figcaption {
 
 .inner-modal {
     @apply relative drop-shadow-2xl w-full px-pc sm:px-pc-sm md:px-pc-md m-auto mt-48 max-w-[540px] max-h-full rounded-xl z-50;
-}
-
-.signup-button {
-    @apply py-2 px-6 rounded-full text-black font-semibold text-xs w-28 bg-gray-300;
 }
 
 .page-title {
