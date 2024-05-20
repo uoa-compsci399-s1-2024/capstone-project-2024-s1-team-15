@@ -13,7 +13,7 @@ function Slider({ slides, onSelectedSlideIndexChange }: Props) {
     }, [onSelectedSlideIndexChange, selectedSlideIndex])
 
     return (
-        <div className="flex gap-4 items-center">
+        <div className="flex gap-4 items-center mx-20">
             {selectedSlideIndex != 0 && (
                 <button className="button" onClick={() => setSelectedSlideIndex((curr) => curr - 1)}>
                     <svg className="rotate-180 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
