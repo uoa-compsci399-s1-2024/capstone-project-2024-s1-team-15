@@ -12,6 +12,8 @@ import pollenTypeweed from "./pollenType-weed-herb.json"
 import Privileged from "@/app/components/Privileged"
 import { SCOPES } from "@/app/lib/consts"
 import Link from "next/link"
+import ImageSlider from "./components/ImageSlider"
+import pollenImages from "./components/PollenImages"
 
 type PollenType = {
     name: string
@@ -105,21 +107,32 @@ export default function Pollen() {
                     </h3>
                 }>
                 {selectedSlidePollen && selectedPollenSlideHTML && (
-                    <Slider
-                        key={sliderKey} // Adding key to reset the Slider component
-                        onSelectedSlideIndexChange={handleSlideIndexChange}
-                        slides={
-                            pollenType === "grass"
-                                ? pollenSlides(pollenTypegrass)
-                                : pollenType === "tree"
-                                  ? pollenSlides(pollenTypetree)
-                                  : pollenSlides(pollenTypeweed)
-                        }
-                    />
+                    <>
+                        <Slider
+                            key={sliderKey} // Adding key to reset the Slider component
+                            onSelectedSlideIndexChange={handleSlideIndexChange}
+                            slides={
+                                pollenType === "grass"
+                                    ? pollenSlides(pollenTypegrass)
+                                    : pollenType === "tree"
+                                      ? pollenSlides(pollenTypetree)
+                                      : pollenSlides(pollenTypeweed)
+                            }
+                        />
+
+                        {/* images */}
+                        {selectedSlidePollen.name in pollenImages &&
+                            pollenImages[selectedSlidePollen.name as keyof typeof pollenImages].length === 2 && (
+                                <ImageSlider
+                                    img1={pollenImages[selectedSlidePollen.name as keyof typeof pollenImages][0]}
+                                    img2={pollenImages[selectedSlidePollen.name as keyof typeof pollenImages][1]}
+                                />
+                            )}
+                    </>
                 )}
             </PageTemplate.HighlightSection>
             <PageTemplate.RemainingPageContent>
-                <h2>Pollen Calendar</h2>
+                <h2 className="mt-16">Pollen Calendar</h2>
                 <Privileged requiredScopes={SCOPES.maintainer}>
                     <div className="flex gap-2">
                         <Link className="button w-48 cms" href={"/pollen/edit"}>

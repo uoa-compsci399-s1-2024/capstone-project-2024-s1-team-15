@@ -124,6 +124,20 @@ footer {
     mask-image: linear-gradient(rgb(0 0 0 / 100%), 85%, transparent);
 }
 
+/* pollen page */
+
+.slider-images .img-container {
+    @apply w-full h-full;
+}
+
+.slider-images .img-container img {
+    @apply h-full object-cover rounded-md overflow-hidden;
+}
+
+.slider-images figcaption {
+    @apply text-balance text-[0.5rem] leading-3;
+}
+
 /* about page styling */
 .about-page h2 {
     @apply mt-14;
