@@ -87,44 +87,47 @@ const PollenCalendar = memo(function PollenCalendar({ pollenData }: { pollenData
 
     return (
         <>
-            <div className="flex flex-col justify-between">
-                <div className="flex flex-col  gap-4">
-                    <h3>Filter by</h3>
+            <div className="flex flex-col items-start">
+                <div className="flex flex-col gap-4 bg-purpletwo rounded-r-full -ml-4 pl-4 pr-8 py-4">
+                    <h4>Filter by</h4>
 
-                    <div className="flex gap-4 items-center">
-                        <button
-                            className="button w-40 inline-block  text-nowrap"
-                            onClick={() => setShowsPollenTypeFilter((currentState) => !currentState)}>
-                            Pollen Type
-                        </button>
-                        <div>
-                            {allPollenTypes && showsPollenTypeFilter && (
-                                <PollenTypeInput
-                                    allPollenTypes={allPollenTypes}
-                                    displayPollenTypes={setDisplayedPollenTypes}
-                                    setShowsDailyTotal={setShowsDailyTotal}
-                                    showsDailyTotal={showsDailyTotal}
+                    <div className="flex flex-wrap">
+                        <div className="flex gap-4 items-center">
+                            <button
+                                className="login-button bg-primary hoverable w-40 inline-block"
+                                onClick={() => setShowsPollenTypeFilter((currentState) => !currentState)}>
+                                Pollen Type
+                            </button>
+                            <div>
+                                {allPollenTypes && showsPollenTypeFilter && (
+                                    <PollenTypeInput
+                                        allPollenTypes={allPollenTypes}
+                                        displayPollenTypes={setDisplayedPollenTypes}
+                                        setShowsDailyTotal={setShowsDailyTotal}
+                                        showsDailyTotal={showsDailyTotal}
+                                    />
+                                )}
+                            </div>
+                        </div>
+
+                        <div className="flex gap-4 items-center">
+                            <button
+                                className="login-button bg-primary hoverable w-40 inline-block"
+                                onClick={() => setShowsDateFilter((currentState) => !currentState)}>
+                                Date
+                            </button>
+                            {showsDateFilter && (
+                                <DateInput
+                                    lowerLimit={dateLowerLimit}
+                                    upperLimit={dateUpperLimit}
+                                    setUpperLimit={setDateUpperLimit}
+                                    setLowerLimit={setDateLowerLimit}
                                 />
                             )}
                         </div>
                     </div>
-
-                    <div className="flex gap-4 items-center">
-                        <button
-                            className="button w-40 inline-block"
-                            onClick={() => setShowsDateFilter((currentState) => !currentState)}>
-                            Date
-                        </button>
-                        {showsDateFilter && (
-                            <DateInput
-                                lowerLimit={dateLowerLimit}
-                                upperLimit={dateUpperLimit}
-                                setUpperLimit={setDateUpperLimit}
-                                setLowerLimit={setDateLowerLimit}
-                            />
-                        )}
-                    </div>
                 </div>
+
                 {filteredPollenData && displayedPollenTypes.length ? (
                     <div className="flex flex-col w-full mt-8">
                         <MultiChart

@@ -133,7 +133,8 @@ export default function Pollen() {
                         </Link>
                     </div>
                 </Privileged>
-                <p className="bg-purpleone rounded-r-[4rem] pb-4 pt-8 -mt-8 px-10">
+
+                <p className="bg-purpleone rounded-r-[4rem] pb-4 pt-8 -mt-8 pr-10 pl-4 -ml-4">
                     The pollen season starts in spring, with some trees producing pollen earlier depending on climate
                     conditions.
                     <br />
