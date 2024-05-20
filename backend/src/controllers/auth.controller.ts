@@ -1,5 +1,5 @@
 import { RequestHandler } from "express"
-import { UnauthorizedError } from "@/errors/HTTPErrors"
+import { BadRequestError, UnauthorizedError } from "@/errors/HTTPErrors"
 import { AUTH, DB } from "@/services/services"
 import { ChangePasswordIn, DeactivateIn, LoginIn, RegisterIn } from "@/util/validation/input.types"
 import { validate } from "@/util/functions"
@@ -38,7 +38,15 @@ export default class AuthController {
 
     static changePassword: RequestHandler = async (req, res, next) => {
         const body = validate(ChangePasswordIn, req.body)
-        res.status(200).send(body)
+        const username = req.params.username
+
+        try {
+            await AUTH.authServiceProvider.changePassword(username, body.currentPassword, body.newPassword)
+        } catch (error: any) {
+            throw new BadRequestError(`Password couldn't be changed: ${error.message}`)
+        }
+
+        res.sendStatus(200)
         next()
     }
 

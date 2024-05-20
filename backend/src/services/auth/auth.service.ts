@@ -3,12 +3,12 @@ import { Nullable } from "@/util/types/types"
 import { IUser, UserScope } from "@aapc/types"
 
 export type JWTPayload = {
-    username: string,
+    username: string
     scopes: UserScope[]
 }
 
 export default class AuthContext {
-    private readonly authServiceProvider: IAuthService
+    readonly authServiceProvider: IAuthService
     private readonly jwtSecret: string
 
     constructor(authServiceProvider: IAuthService, jwtSecret: string = "local") {
@@ -24,7 +24,7 @@ export default class AuthContext {
         if (await this.authServiceProvider.authenticateUser(user.username, password)) {
             return this.issueToken({
                 username: user.username,
-                scopes: user.scopes
+                scopes: user.scopes,
             })
         }
         return null
@@ -42,6 +42,6 @@ export default class AuthContext {
 export interface IAuthService {
     authenticateUser(username: string, password: string): Promise<boolean>
     createUser(username: string, password: string): Promise<null>
-    changePassword(username: string, oldPassword: string, newPassword: string): Promise<null>
+    changePassword(username: string, oldPassword: string, newPassword: string): Promise<void>
     resetPassword(username: string, newPassword: string): Promise<null>
 }
