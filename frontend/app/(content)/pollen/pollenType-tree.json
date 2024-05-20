@@ -1,46 +1,46 @@
 [
     {
-        "name": "Pine (Pinus) - Tree subtype",
+        "name": "Pine (Pinus)",
         "summaryHTML": "<p>Radiata pine plantations are common throughout the country. Pine trees produce copious amounts of pollen which can be seen as a yellow dust on surfaces during the pine pollen season in early August. Pine pollen grains are large (50 – 100 microns) and characterised by a large round body (corpus) with two smaller ‘bladders’ attached. It can look like a silhouette of Mickey Mouse.</p>"
     },
     {
-        "name": "Birch (Betula) - Tree subtype",
+        "name": "Birch (Betula)",
         "summaryHTML": "<p>Pollen from birches like silver birch is highly allergenic to some people. Its pollen is small to medium in size (10-25 microns). It is oblate (flattened sphere) in shape, with three protruding pores around its middle. It has a smooth surface.</p>"
     },
     {
-        "name": "Oak (Quercus) - Tree subtype",
+        "name": "Oak (Quercus)",
         "summaryHTML": "<p>Oak pollen is another allergenic pollen type which is prominent in springtime. Oak pollen is spheroidal in shape, with three long openings distributed around its middle, and medium sized (~30 microns). Its surface is covered with numerous small bumps.</p>"
     },
     {
-        "name": "Cypresses and cedars - Tree subtype",
+        "name": "Cypresses and cedars",
         "summaryHTML": "<p>Cypresses (including macrocarpa) and cedars have similar pollen. It is round, with no surface ornamentation, and tends to break open to form a shape resembling 1980’s video game hero ‘pac-man’. Pollen grains are medium sized (~30 microns). Different species of this group are actively releasing pollen throughout much of the year, but it is most prominent during early spring.</p>"
     },
     {
-        "name": "Wattle (Acacia) - Tree subtype",
+        "name": "Wattle (Acacia)",
         "summaryHTML": "<p>Wattle trees are one of the earliest flowering species we monitor. Their distinctive yellow flowers can be seen as early as June. Their pollen grains are a distinctive disc shape and are composed of numerous smaller mini pollen grains called ‘monads’.  It is estimated that only about 5% of people are sensitive to Acacia pollen*. Their pollen grains can be quite large (100 microns or more), thus limiting their ability to get drawn very far into the nasal passages.</p>"
     },
     {
-        "name": "Alder (Alus) - Tree subtype",
+        "name": "Alder (Alus)",
         "summaryHTML": "<p>Alder pollen is released in late winter to early spring. It’s small (21-25 microns) and a very oblate shape, almost becoming discoid, with 5 protruding pores distributed around its middle. Each pore is linked to its neighbour by two thickened arches. Its surface is smooth. Alder is one of a number of introduced deciduous trees which cause allergic responses.</p>"
     },
     {
-        "name": "Native beech (Fuscospora) - Tree subtype",
+        "name": "Native beech (Fuscospora)",
         "summaryHTML": "<p>New Zealand has 4 species of Fuscospora beech, all of which produce copious amounts of pollen in some years. The pollen is discoid in shape, with between 5 to 10 vertical slit openings distributed evenly around its middle. Its surface is has widely dispersed small spines. Pollen grains are medium sized (25 microns). It has yet to be confirmed whether New Zealand native beeches are, in fact, allergenic. More research is needed in this area.</p>"
     },
     {
-        "name": "Elm (Ulmus) - Tree subtype",
+        "name": "Elm (Ulmus)",
         "summaryHTML": "<p>Another introduced deciduous tree species, Elms are a prominent specimen tree in urban areas, and also occur is more rural areas. Their pollen is medium sized (26-30 microns) and can be found in the air from late winter through to mid spring. It is somewhat similar in shape to Alder pollen, but has a lumpy surface, and lacks the thickened arcs linking its apertures.</p>"
     },
     {
-        "name": "Maples, Sycamores (Acer) - Tree subtype",
+        "name": "Maples, Sycamores (Acer)",
         "summaryHTML": "<p>Maples and sycamores are common specimen trees in urban areas through New Zealand. Like Alder, Elms, Birches and Oaks, they are another example of an introduced deciduous tree with allergenic properties. Maples and Acers typically release pollen throughout the spring months. They have medium-sized (31 – 35 micron), spheroidal pollen, with three slit-like openings, and a surface texture resembling fingerprints.</p>"
     },
     {
-        "name": "Native podocarps (Rimu, Totara, Matai, etc.) - Tree subtype",
+        "name": "Native podocarps (Rimu, Totara, Matai, etc.)",
         "summaryHTML": "<p>Native podocarps are conifers and share a similar pollen morphology to pine pollen. Specifically, a large central body with 2 (or sometimes 3) air bladders attached. Pollen grains are typically large or very large (50 – 100 microns). As is the case with native beeches, allergenicity of podocarp pollen is unconfirmed and needs more work. Podocarps release pollen in late spring through summer, and their pollen will be most prominent in places which are near to areas of native bush.</p>"
     },
     {
-        "name": "Olive (Olea) - Tree subtypes",
+        "name": "Olive (Olea)",
         "summaryHTML": "<p>Olive pollen is understood to be particularly allergenic, according to overseas research. It has a relatively small (21-25 microns), spheroidal pollen grain with three slit like apertures, and a surface texture like very fine honeycomb. Olives have become more prominent in New Zealand in recent decades, but as a horticultural crop and as a garden plant.</p>"
     }
 ]

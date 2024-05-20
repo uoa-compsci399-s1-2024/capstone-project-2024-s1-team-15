@@ -79,22 +79,19 @@ export default function Pollen() {
             <PageTemplate.HighlightSection
                 title={
                     <h3>
-                        Types of {pollenType.charAt(0).toUpperCase() + pollenType.slice(1)} Pollen: <span className="font-semibold text-base">{selectedSlidePollenName}</span>
+                        Types of {
+                            <select
+                                className="p-2 bg-purpleone rounded-[4rem] text-black font-semibold text-base border-2 border-purple-600 "
+                                value={pollenType}
+                                onChange={(e) => handlePollenTypeChange(e.target.value as "grass" | "tree" | "weed")}>
+                                <option className="p-2" value="grass">Grass</option>
+                                <option className="p-2" value="tree">Tree</option>
+                                <option className="p-2" value="weed">Weed / Herb</option>
+                            </select>
+                        } Pollen: <span className="font-semibold text-base">{selectedSlidePollenName}</span>
                     </h3>
                 }
             >
-                <div className="flex items-center space-x-2">
-                    <span className="font-semibold">Change pollen type =</span>
-                    <select
-                        className="bg-gray-100 border border-gray-300 rounded-lg p-2 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        value={pollenType}
-                        onChange={(e) => handlePollenTypeChange(e.target.value as "grass" | "tree" | "weed")}
-                    >
-                        <option className="p-2" value="grass">Grass</option>
-                        <option className="p-2" value="tree">Tree</option>
-                        <option className="p-2" value="weed">Weed</option>
-                    </select>
-                </div>
                 {selectedSlidePollenName && selectedPollenSlideHTML && (
                     <Slider
                         key={sliderKey} // Adding key to reset the Slider component
