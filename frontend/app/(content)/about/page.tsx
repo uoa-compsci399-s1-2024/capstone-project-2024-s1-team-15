@@ -82,10 +82,10 @@ export default function About() {
                 </section>
 
                 <div className="py-14">
-                    <div className="flex items-center mb-8">
-                        <div className="flex-1">
-                            <h2>Our Story</h2>
-                            <p className="">
+                    <div className="mb-8">
+                        <div>
+                            <h2 style={{ marginTop: 0 }}>Our Story</h2>
+                            <p>
                                 AAPC has its beginnings in 2022, when overlapping research interests brought Associate
                                 Professor Amy Chan, Associate Professor Stuti Misra, Professor Rewi Newnham and Dr Kat
                                 Holt together in a Zoom room. Stuti and Amy were seeking data on airborne pollen levels
@@ -94,9 +94,19 @@ export default function About() {
                             </p>
                         </div>
 
-                        <figure className="flex-1 h-96">
-                            <Image src={teamPicture} alt="" className="object-contain w-full h-full" />
-                            <figcaption>Team AWMM on Auckland Museum Roof</figcaption>
+                        <figure className="flex flex-col md:items-center md:gap-4 md:flex-row mt-4">
+                            <div className="h-96">
+                                <Image
+                                    src={teamPicture}
+                                    alt="Team AWMM on Auckland Museum Rook"
+                                    className="object-contain w-full h-full flex-1"
+                                />
+                            </div>
+                            <figcaption className="flex-1 text-left max-w-[50%] text-balance">
+                                Team AWMM on Auckland Museum Roof. <br />
+                                From L to R: Natasha Ngadi, Professor Rewi Newnham, Laura Mcdonald, Dr Kat Holt, Assoc.
+                                Prof. Amy Chan, Assoc. Prof Stuti Misra.
+                            </figcaption>
                         </figure>
                     </div>
 
