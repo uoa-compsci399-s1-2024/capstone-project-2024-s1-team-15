@@ -115,7 +115,7 @@ export default class MongoRepository implements IRepository {
         options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>
     ): Promise<ArrayResult<Article>> {
         const r: Article[] = []
-        const q: Filter<any> = { articleType: ArticleType.news }
+        const q: Filter<any> = {$or: [{articleType: ArticleType.news}, {articleType: ArticleType.news_external}]}
         const rC = await this.articles.countDocuments(q)
         const result = await this.fetchMongoDocuments(this.articles.find(q), options)
         for (const document of result) {
@@ -131,7 +131,7 @@ export default class MongoRepository implements IRepository {
         options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>
     ): Promise<ArrayResult<Article>> {
         const r: Article[] = []
-        const q: Filter<any> = { articleType: ArticleType.research }
+        const q: Filter<any> = {$or: [{articleType: ArticleType.research}, {articleType: ArticleType.research_external}]}
         const rC = await this.articles.countDocuments(q)
         const result = await this.fetchMongoDocuments(this.articles.find(q), options)
         for (const document of result) {
@@ -157,7 +157,7 @@ export default class MongoRepository implements IRepository {
     }
 
     async getNewsById(id: string): Promise<Nullable<Article>> {
-        const n = await this.articles.findOne({ articleType: 0, id: id })
+        const n = await this.articles.findOne({$and: [{$or: [{articleType: ArticleType.news},{articleType: ArticleType.news_external}]},{id: id}]})
         if (n === null) {
             return null
         }
@@ -165,7 +165,7 @@ export default class MongoRepository implements IRepository {
     }
 
     async getResearchById(id: string): Promise<Nullable<Article>> {
-        const r = await this.articles.findOne({ articleType: 1, id: id })
+        const r = await this.articles.findOne({$and: [{$or: [{articleType: ArticleType.research},{articleType: ArticleType.research_external}]},{id: id}]})
         if (r === null) {
             return null
         }
