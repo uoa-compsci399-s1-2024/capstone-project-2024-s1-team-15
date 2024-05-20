@@ -45,9 +45,7 @@ export default function Pollen() {
     }, [selectedSlidePollen, pollenType])
 
     const pollenSlides = (pollenArray: PollenType[]) =>
-        pollenArray.map(({ name, summaryHTML }) => (
-            <Slide key={name} slideContent={<div dangerouslySetInnerHTML={{ __html: summaryHTML }}></div>}></Slide>
-        ))
+        pollenArray.map(({ name, summaryHTML }) => <Slide key={name} slideContent={summaryHTML}></Slide>)
 
     const handleSlideIndexChange = (index: number) => {
         const pollenArray =
