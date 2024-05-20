@@ -81,7 +81,7 @@ export default function Pollen() {
                     <h3>
                         Types of {
                             <select
-                                className="p-2 bg-purpleone rounded-[4rem] text-black font-semibold text-base border-2 border-purple-600 "
+                                className="p-2 bg-purpleone rounded-[4rem] text-black font-semibold text-base border-2 border-purple-600 hover:bg-purpletwo transition duration-300 ease-in-out"
                                 value={pollenType}
                                 onChange={(e) => handlePollenTypeChange(e.target.value as "grass" | "tree" | "weed")}>
                                 <option className="p-2" value="grass">Grass</option>
