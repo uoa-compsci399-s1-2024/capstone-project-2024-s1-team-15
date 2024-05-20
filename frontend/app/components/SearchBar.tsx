@@ -3,7 +3,7 @@ import React from "react";
 export default function SearchBar() {
 
     return (
-        <div className="pb-4 mb-4 sm:mt-0 flex justify-start">
+        <div className="py-4 sm:mt-4 flex justify-start">
             <div className="relative">
                 <svg className="w-6 h-6 text-gray-400 absolute left-3 inset-y-0 my-auto"
                      xmlns="http://www.w3.org/2000/svg"
