@@ -13,14 +13,14 @@ function Slider({ slides, onSelectedSlideIndexChange }: Props) {
     }, [onSelectedSlideIndexChange, selectedSlideIndex])
 
     return (
-        <div className="flex gap-4 items-center mx-20">
+        <div className="flex gap-4">
             <button
                     className="button h-max disabled:text-gray-400 disabled:bg-gray-200 disabled:cursor-not-allowed"
                     disabled={selectedSlideIndex === 0}
                     onClick={() => setSelectedSlideIndex((curr) => curr - 1)}
                 >
                 <svg className="rotate-180 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
                 </svg>
             </button>
 
@@ -33,7 +33,7 @@ function Slider({ slides, onSelectedSlideIndexChange }: Props) {
                 onClick={() => setSelectedSlideIndex((curr) => curr + 1)}
             >
                 <svg className="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
                 </svg>
             </button>
         </div>
