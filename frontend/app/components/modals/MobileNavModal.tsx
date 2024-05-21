@@ -50,12 +50,12 @@ const MobileNavModal = forwardRef(
                     sm:mt-header-tablet sm:mx-pc-sm
                     md:mt-header-desktop md:mx-pc-md
                 `}>
-                    <NavLink href={"/health"} title={"Health"}/>
                     <NavLink href={"/pollen"} title={"Pollen"}/>
-                    <NavLink href={"/contact"} title={"Contact"}/>
-                    <NavLink href={"/about"} title={"About"}/>
-                    <NavLink href={"/news"} title={"News"}/>
+                    <NavLink href={"/health"} title={"Health"}/>
                     <NavLink href={"/research"} title={"Research"}/>
+                    <NavLink href={"/news"} title={"News"}/>
+                    <NavLink href={"/about"} title={"About"}/>
+                    <NavLink href={"/contact"} title={"Contact"}/>
                 </div>
             </div>
         )
