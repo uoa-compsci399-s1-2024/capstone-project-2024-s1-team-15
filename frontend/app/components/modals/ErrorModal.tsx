@@ -18,6 +18,7 @@ const ErrorModal = forwardRef(
 
         useEffect(() => {
             setHidden(msg === null)
+            // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [msg]);
 
         return (
