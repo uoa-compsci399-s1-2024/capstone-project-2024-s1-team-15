@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import React, { useEffect, useRef, useState } from "react"
+import React, { useRef, useState } from "react"
 import { MdOutlineAccountCircle } from "react-icons/md"
 import { FiMenu } from "react-icons/fi"
 import { IoClose } from "react-icons/io5"

@@ -24,7 +24,7 @@ export default function DateInput({
     }
 
     return (
-        <div className={"max-w-96 flex flex-col md:flex-row flex-grow gap-x-4 gap-y-2"}>
+        <div className={"max-w-96 flex flex-col sm:flex-row flex-grow gap-x-4 gap-y-2"}>
             <label className="form-label flex flex-col gap-y-1">
                 From
                 <input

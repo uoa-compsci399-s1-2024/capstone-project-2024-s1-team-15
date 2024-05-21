@@ -15,7 +15,7 @@ export default function PollenTypeInput({
     setShowsDailyTotal,
 }: Props) {
     return (
-        <div className="flex flex-col md:flex-row gap-x-4 gap-y-2 items-start">
+        <div className="flex flex-col sm:flex-row gap-x-4 gap-y-2 items-start">
             <label className="form-label flex flex-col gap-y-1">
                 Show pollen types
                 <Select
