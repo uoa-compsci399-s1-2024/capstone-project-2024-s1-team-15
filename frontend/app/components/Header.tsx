@@ -1,19 +1,28 @@
 "use client"
 
-import React, { useRef } from "react"
 import Link from "next/link"
-import { AuthDashboard } from "@/app/(auth)/components"
+import React, { useEffect, useRef, useState } from "react"
+import { MdOutlineAccountCircle } from "react-icons/md"
 import { FiMenu } from "react-icons/fi"
-import { MdOutlineAccountCircle } from "react-icons/md";
-import MobileNavModal, { MobileNavModalRef } from "@/app/components/modals/MobileNavModal"
-import MobileAuthModal, { MobileAuthModalRef } from "@/app/components/modals/MobileAuthModal";
+import { IoClose } from "react-icons/io5"
+import { AuthDashboard } from "@/app/(auth)/components"
+import { MobileNavModal, MobileAuthModal } from "@/app/components/modals"
+import { ModalRef } from "@/app/lib/hooks/useModal"
 
 export default function Header(): React.JSX.Element {
-    const mobileNavModalRef = useRef<MobileNavModalRef>(null)
-    const mobileAuthModalRef = useRef<MobileAuthModalRef>(null)
+    const mobileNavModalRef = useRef<ModalRef>(null)
+    const mobileAuthModalRef = useRef<ModalRef>(null)
+
+    const defaultNavIcon = <FiMenu size={"100%"}/>
+    const defaultAuthIcon = <MdOutlineAccountCircle size={"100%"}/>
+    const defaultCloseIcon = <IoClose size={"100%"}/>
+
+    const [navIcon, setNavIcon] = useState<React.JSX.Element>(defaultNavIcon)
+    const [authIcon, setAuthIcon] = useState<React.JSX.Element>(defaultAuthIcon)
 
     const toggleMobileNavModal = () => {
         if (mobileNavModalRef.current) {
+            setNavIcon(mobileNavModalRef.current.hidden ? defaultCloseIcon : defaultNavIcon)
             mobileNavModalRef.current.toggleModal()
         }
     }
@@ -21,11 +30,13 @@ export default function Header(): React.JSX.Element {
     const hideMobileNavModal = () => {
         if (mobileNavModalRef.current) {
             mobileNavModalRef.current.hideModal()
+            setNavIcon(defaultNavIcon)
         }
     }
 
     const toggleMobileAuthModal = () => {
         if (mobileAuthModalRef.current) {
+            setAuthIcon(mobileAuthModalRef.current.hidden ? defaultCloseIcon : defaultAuthIcon)
             mobileAuthModalRef.current.toggleModal()
         }
     }
@@ -33,6 +44,7 @@ export default function Header(): React.JSX.Element {
     const hideMobileAuthModal = () => {
         if (mobileAuthModalRef.current) {
             mobileAuthModalRef.current.hideModal()
+            setAuthIcon(defaultAuthIcon)
         }
     }
 
@@ -60,7 +72,7 @@ export default function Header(): React.JSX.Element {
                     hideMobileAuthModal()
                 }}>
                     <div className={"m-1.5 p-2.5 sm:m-2 sm:p-3 md:m-2.5 md:p-4 rounded-xl"}>
-                        <FiMenu size={"1x"}/>
+                        {navIcon}
                     </div>
                 </button>
 
@@ -88,7 +100,7 @@ export default function Header(): React.JSX.Element {
                     hideMobileNavModal()
                 }}>
                     <div className={"m-1.5 p-2.5 sm:m-2 sm:p-3 md:m-2.5 md:p-4 rounded-xl"}>
-                        <MdOutlineAccountCircle size={"1x"}/>
+                        {authIcon}
                     </div>
                 </button>
             </div>

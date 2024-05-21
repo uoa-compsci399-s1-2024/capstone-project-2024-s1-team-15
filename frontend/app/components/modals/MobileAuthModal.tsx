@@ -2,20 +2,17 @@
 
 import React, { ForwardedRef, forwardRef, useEffect, useImperativeHandle, useState } from "react"
 import { AuthDashboard } from "@/app/(auth)/components";
-
-export type MobileAuthModalRef = {
-    toggleModal: () => void,
-    hideModal: () => void
-}
+import { ModalRef } from "@/app/lib/hooks/useModal";
 
 const MobileAuthModal = forwardRef(
-    function MobileAuthModal(_, ref: ForwardedRef<MobileAuthModalRef>): React.JSX.Element {
+    function MobileAuthModal(_, ref: ForwardedRef<ModalRef>): React.JSX.Element {
         const [hidden, setHidden] = useState(true)
 
         const toggleModal = () => setHidden(v => !v)
         const hideModal = () => setHidden(true)
+        const showModal = () => setHidden(false)
 
-        useImperativeHandle(ref, () => ({ toggleModal, hideModal }))
+        useImperativeHandle(ref, () => ({ showModal, toggleModal, hideModal, hidden }))
 
         useEffect(() => {
             const s = document.getElementById("mobile-auth")

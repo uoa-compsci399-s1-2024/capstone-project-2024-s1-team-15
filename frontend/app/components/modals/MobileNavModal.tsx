@@ -2,20 +2,17 @@
 
 import React, { ForwardedRef, forwardRef, useEffect, useImperativeHandle, useState } from "react"
 import Link from "next/link"
-
-export type MobileNavModalRef = {
-    toggleModal: () => void,
-    hideModal: () => void
-}
+import { ModalRef } from "@/app/lib/hooks/useModal";
 
 const MobileNavModal = forwardRef(
-    function MobileNavModal(_, ref: ForwardedRef<MobileNavModalRef>): React.JSX.Element {
+    function MobileNavModal(_, ref: ForwardedRef<ModalRef>): React.JSX.Element {
         const [hidden, setHidden] = useState(true)
 
         const toggleModal = () => setHidden(v => !v)
         const hideModal = () => setHidden(true)
+        const showModal = () => setHidden(false)
 
-        useImperativeHandle(ref, () => ({ toggleModal, hideModal }))
+        useImperativeHandle(ref, () => ({ showModal, toggleModal, hideModal, hidden }))
 
         useEffect(() => {
             const s = document.getElementById("mobile-nav")

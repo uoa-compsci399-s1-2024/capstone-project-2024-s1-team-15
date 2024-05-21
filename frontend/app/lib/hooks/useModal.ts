@@ -4,6 +4,7 @@ export type ModalRef = {
     hideModal: () => void
     showModal: () => void
     toggleModal: () => void
+    hidden?: boolean
 }
 
 export default function useModal(
