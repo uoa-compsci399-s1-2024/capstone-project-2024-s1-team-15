@@ -19,7 +19,7 @@ export const metadata: Metadata = getMetadata()
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     return (
         <html lang="en">
-            <body className={`${inter.variable} font-sans max-w-screen min-h-screen flex flex-col`}>
+            <body className={`${inter.variable} font-sans max-w-screen min-h-screen flex flex-col overflow-x-hidden`}>
                 <AuthLayout>
                     {/* Header */}
                     <header className={`w-screen
