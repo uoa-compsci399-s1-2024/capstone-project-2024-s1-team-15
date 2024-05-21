@@ -87,14 +87,28 @@ const PollenCalendar = memo(function PollenCalendar({ pollenData }: { pollenData
 
     return (
         <>
-            <div className="flex flex-col items-start">
-                <div className="flex flex-col gap-4 bg-purpletwo rounded-r-full -ml-4 pl-4 pr-8 py-4">
-                    <h4>Filter by</h4>
-
+            <div className="flex flex-col justify-between mt-2 sm:mt-3 md:mt-0">
+                <div
+                    className={`flex flex-col flex-shrink-0 self-start bg-accent-dark mb-4 w-auto
+                    -ml-pc px-[calc(theme(spacing.pc)+0.625rem)] pr-6 pb-2 mt-4 rounded-r-[2rem] gap-y-2 
+                    
+                    sm:-ml-pc-sm sm:px-[calc(theme(spacing.pc-sm)+0.75rem)] sm:pr-7 sm:pb-2.5 sm:gap-y-2.5
+                    sm:max-w-[calc(100%+theme(spacing.pc-sm)-4rem)] sm:rounded-r-[3rem]
+                    
+                    md:-ml-pc-md md:px-[calc(theme(spacing.pc-md)+0.875rem)] md:gap-y-3 md:pb-3 md:pt-2 md:mt-0
+                    md:rounded-br-[2rem] md:rounded-r-none md:max-w-[calc(100%+theme(spacing.pc-md)-5rem)]
+                    
+                    xl:-ml-[calc(100vw-theme(spacing.content-max)-theme(spacing.nav)+theme(spacing.pc-md))]
+                    xl:pl-[calc(100vw-theme(spacing.content-max)-theme(spacing.nav)+theme(spacing.pc-md)+0.85rem)]
+                    xl:max-w-[calc(100%+100vw-theme(spacing.content-max)-theme(spacing.nav)+theme(spacing.pc-md)-5rem)]
+                `}>
                     <div className="flex flex-wrap">
-                        <div className="flex gap-4 items-center">
+                        {/* <h4>Filter by</h4> */}
+                        <h4 className="-mt-3 sm:-mt-4 md:mt-0 drop-shadow-md md:drop-shadow-none w-full">Filter by</h4>
+
+                        <div className="flex gap-y-2 flex-col">
                             <button
-                                className="login-button bg-primary hoverable w-40 inline-block"
+                                className="button w-40 bg-primary"
                                 onClick={() => setShowsPollenTypeFilter((currentState) => !currentState)}>
                                 Pollen Type
                             </button>
@@ -102,49 +116,48 @@ const PollenCalendar = memo(function PollenCalendar({ pollenData }: { pollenData
                                 {allPollenTypes && showsPollenTypeFilter && (
                                     <PollenTypeInput
                                         allPollenTypes={allPollenTypes}
-                                        displayPollenTypes={setDisplayedPollenTypes}
+                                        setDisplayedPollenTypes={setDisplayedPollenTypes}
                                         setShowsDailyTotal={setShowsDailyTotal}
                                         showsDailyTotal={showsDailyTotal}
                                     />
                                 )}
                             </div>
-                        </div>
-
-                        <div className="flex gap-4 items-center">
-                            <button
-                                className="login-button bg-primary hoverable w-40 inline-block"
-                                onClick={() => setShowsDateFilter((currentState) => !currentState)}>
-                                Date
-                            </button>
-                            {showsDateFilter && (
-                                <DateInput
-                                    lowerLimit={dateLowerLimit}
-                                    upperLimit={dateUpperLimit}
-                                    setUpperLimit={setDateUpperLimit}
-                                    setLowerLimit={setDateLowerLimit}
-                                />
-                            )}
+                            <div className="flex gap-y-2 flex-col">
+                                <button
+                                    className="button w-40 bg-primary"
+                                    onClick={() => setShowsDateFilter((currentState) => !currentState)}>
+                                    Date
+                                </button>
+                                {showsDateFilter && (
+                                    <DateInput
+                                        lowerLimit={dateLowerLimit}
+                                        upperLimit={dateUpperLimit}
+                                        setUpperLimit={setDateUpperLimit}
+                                        setLowerLimit={setDateLowerLimit}
+                                    />
+                                )}
+                            </div>
                         </div>
                     </div>
+
+                    {filteredPollenData && displayedPollenTypes.length ? (
+                        <div className="flex flex-col w-full mt-8">
+                            <MultiChart
+                                dateUpperLimit={dateUpperLimit}
+                                dateLowerLimit={dateLowerLimit}
+                                pollenData={filteredPollenData}
+                                showsDailyTotal={showsDailyTotal}
+                            />
+                        </div>
+                    ) : displayedPollenTypes.length ? (
+                        <p>
+                            No pollen data in range: {dayjs(dateLowerLimit).format(dateFormat)} to{" "}
+                            {dayjs(dateUpperLimit).format(dateFormat)}. Try adjusting the date filter range above.
+                        </p>
+                    ) : (
+                        <p>No pollen types selected 🥲</p>
+                    )}
                 </div>
-
-                {filteredPollenData && displayedPollenTypes.length ? (
-                    <div className="flex flex-col w-full mt-8">
-                        <MultiChart
-                            dateUpperLimit={dateUpperLimit}
-                            dateLowerLimit={dateLowerLimit}
-                            pollenData={filteredPollenData}
-                            showsDailyTotal={showsDailyTotal}
-                        />
-                    </div>
-                ) : displayedPollenTypes.length ? (
-                    <p>
-                        No pollen data in range: {dayjs(dateLowerLimit).format(dateFormat)} to{" "}
-                        {dayjs(dateUpperLimit).format(dateFormat)}. Try adjusting the date filter range above.
-                    </p>
-                ) : (
-                    <p>No pollen types selected 🥲</p>
-                )}
             </div>
         </>
     )

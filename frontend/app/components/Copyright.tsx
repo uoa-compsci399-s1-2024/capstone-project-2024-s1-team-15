@@ -1,10 +1,7 @@
 export default function Copyright() {
-
     return (
-
-        <footer className="w-full mx-auto p-1 md:py-8">
-                <span className="block text-sm text-gray-500 text-center dark:text-gray-400">© 2024 AAPC - Aotearoa Airborne Pollen Collective</span>
-        </footer>
-
-    );
+        <div className="w-full h-footer flex justify-center items-center py-3">
+            <p className={`block text-gray-500 text-[11px] sm:text-[12px] md:text-[13px]`}>© 2024 AAPC - Aotearoa Airborne Pollen Collective</p>
+        </div>
+    )
 }
