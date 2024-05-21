@@ -6,15 +6,19 @@ import { PollenData } from "@aapc/types"
 import { getPollenData } from "@/app/services/pollen"
 import PageTemplate from "@/app/components/PageContentTemplate"
 import Slider, { Slide } from "@/app/components/Slider"
-import pollenTypesSlidesContent from "./pollenTypesSlidesContent.json"
+import pollenTypegrass from "./pollenType-grass.json"
+import pollenTypetree from "./pollenType-tree.json"
+import pollenTypeweed from "./pollenType-weed-herb.json"
 import Privileged from "@/app/components/Privileged"
 import { SCOPES } from "@/app/lib/consts"
 import Link from "next/link"
 
 export default function Pollen() {
     const [pollenData, setPollenData] = useState<null | PollenData[]>(null)
-    const [selectedSlidePollenName, setSelectedSlidePollenName] = useState(pollenTypesSlidesContent[0].name)
+    const [selectedSlidePollenName, setSelectedSlidePollenName] = useState(pollenTypegrass[0].name)
     const [selectedPollenSlideHTML, setSelectedPollenSlideHTML] = useState<string | undefined>(undefined)
+    const [pollenType, setPollenType] = useState<"grass" | "tree" | "weed">("grass")
+    const [sliderKey, setSliderKey] = useState(0) // To reset the slider component
 
     useEffect(() => {
         getPollenData().then((r) => {
@@ -23,14 +27,45 @@ export default function Pollen() {
     }, [])
 
     useEffect(() => {
+        let pollenArray;
+        if (pollenType === "grass") {
+            pollenArray = pollenTypegrass;
+        } else if (pollenType === "tree") {
+            pollenArray = pollenTypetree;
+        } else {
+            pollenArray = pollenTypeweed;
+        }
         setSelectedPollenSlideHTML(
-            pollenTypesSlidesContent.find(({ name }) => name === selectedSlidePollenName)?.summaryHTML
+            pollenArray.find(({ name }) => name === selectedSlidePollenName)?.summaryHTML
         )
-    }, [selectedSlidePollenName])
+    }, [selectedSlidePollenName, pollenType])
 
-    const pollenSlides = pollenTypesSlidesContent.map(({ name, summaryHTML }) => (
-        <Slide key={name} slideContent={summaryHTML}></Slide>
-    ))
+    const pollenSlides = (pollenArray: { name: string; summaryHTML: string }[]) =>
+        pollenArray.map(({ name, summaryHTML }) => (
+            <Slide key={name} slideContent={summaryHTML}></Slide>
+        ))
+
+    const handleSlideIndexChange = (index: number) => {
+        const pollenArray =
+            pollenType === "grass" ? pollenTypegrass :
+            pollenType === "tree" ? pollenTypetree :
+            pollenTypeweed;
+
+        if (index >= 0 && index < pollenArray.length) {
+            setSelectedSlidePollenName(pollenArray[index].name);
+        }
+    }
+
+    const handlePollenTypeChange = (newPollenType: "grass" | "tree" | "weed") => {
+        setPollenType(newPollenType);
+        const newSelectedName = newPollenType === "grass"
+            ? pollenTypegrass[0].name
+            : newPollenType === "tree"
+            ? pollenTypetree[0].name
+            : pollenTypeweed[0].name;
+        setSelectedSlidePollenName(newSelectedName);
+        setSliderKey(prevKey => prevKey + 1); // Force re-render of the Slider component to reset it
+    }
 
     return (
         <PageTemplate>
@@ -46,15 +81,30 @@ export default function Pollen() {
             <PageTemplate.HighlightSection
                 title={
                     <h3>
-                        Types of Pollen: <b className={"font-medium"}>{selectedSlidePollenName}</b>
+                        Types of {
+                            <select
+                                className="p-2 bg-purpleone rounded-[4rem] text-black font-semibold text-base border-2 border-purple-600 hover:bg-purpletwo transition duration-300 ease-in-out"
+                                value={pollenType}
+                                onChange={(e) => handlePollenTypeChange(e.target.value as "grass" | "tree" | "weed")}>
+                                <option className="p-2" value="grass">Grass</option>
+                                <option className="p-2" value="tree">Tree</option>
+                                <option className="p-2" value="weed">Weed / Herb</option>
+                            </select>
+                        } Pollen: <span className="font-semibold text-base">{selectedSlidePollenName}</span>
                     </h3>
-                }>
+                }
+            >
                 {selectedSlidePollenName && selectedPollenSlideHTML && (
                     <Slider
-                        onSelectedSlideIndexChange={(index: number) =>
-                            setSelectedSlidePollenName(pollenTypesSlidesContent[index].name)
+                        key={sliderKey} // Adding key to reset the Slider component
+                        onSelectedSlideIndexChange={handleSlideIndexChange}
+                        slides={
+                            pollenType === "grass"
+                                ? pollenSlides(pollenTypegrass)
+                                : pollenType === "tree"
+                                ? pollenSlides(pollenTypetree)
+                                : pollenSlides(pollenTypeweed)
                         }
-                        slides={pollenSlides}
                     />
                 )}
             </PageTemplate.HighlightSection>
@@ -70,10 +120,14 @@ export default function Pollen() {
                         </Link>
                     </div>
                 </Privileged>
-                <p>
+                <p className="bg-purpleone rounded-r-[4rem] pb-4 pt-8 -mt-8 px-10">
                     The pollen season starts in spring, with some trees producing pollen earlier depending on climate
-                    conditions. The season usually starts earlier in the north and finishes later in the south of New
-                    Zealand. Take a look at the pollen calendar below for a better idea of seasonal changes of pollen.
+                    conditions.
+                    <br />
+                    The season usually starts earlier in the north and finishes later in the south of New Zealand.
+                    <br />
+                    <br />
+                    Take a look at the pollen calendar below for a better idea of seasonal changes of pollen.
                 </p>
                 {pollenData && <PollenCalendar pollenData={pollenData} />}
                 <p>

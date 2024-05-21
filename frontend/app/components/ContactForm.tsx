@@ -43,77 +43,71 @@ export default function ContactForm() {
 
     return (
         <>
-            <form onSubmit={sendEmail} className="py-4 my-4 border-t flex flex-col gap-5">
-                <div className="flex flex-col gap-2 ">
-                    <label htmlFor="fullname" className="font-bold text-gray-800">
+            <form onSubmit={sendEmail} className="space-y-6">
+                <div>
+                    <label htmlFor="fullname" className="sr-only">
                         Full Name
                     </label>
-                    <div className="flex items-center justify-center group rounded-lg text-sm font-semibold w-full focus-within:bg-gradient-to-r focus-within:from-yellow-300 focus-within:to-purple-500 bg-yellow-300 p-[2px] focus-within:p-[2px] focus-within:shadow-md">
-                        <div className="bg-white w-full py-2 px-3 rounded-lg flex justify-between items-center group">
-                            <input
-                                type="text"
-                                id="fullname"
-                                minLength={1}
-                                maxLength={50}
-                                placeholder="Type your full name here..."
-                                className="w-full h-6 group outline-none placeholder-gray-500 "
-                                defaultValue={nameInput}
-                                onChange={({ target }) => setNameInput(target.value)}
-                            />
-                        </div>
-                    </div>
+                    <input
+                        type="text"
+                        id="fullname"
+                        minLength={1}
+                        maxLength={50}
+                        placeholder="Full Name"
+                        className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-300"
+                        defaultValue={nameInput}
+                        onChange={({ target }) => setNameInput(target.value)}
+                    />
                 </div>
 
-                <div className="flex flex-col gap-2">
-                    <label htmlFor="email" className="font-bold text-gray-800">
-                        Email
+                <div>
+                    <label htmlFor="email" className="sr-only">
+                        Reply-to Email
                     </label>
-                    <div className="flex items-center justify-center group rounded-lg text-sm font-semibold w-full focus-within:bg-gradient-to-r focus-within:from-yellow-300 focus-within:to-purple-500 bg-yellow-300 p-[2px] focus-within:p-[2px] focus-within:shadow-md">
-                        <div className="bg-white w-full py-2 px-3 rounded-lg flex justify-between items-center group">
-                            <input
-                                type="text"
-                                id="email"
-                                minLength={6}
-                                maxLength={50}
-                                required
-                                placeholder="Type your email here..."
-                                className="w-full h-6 group outline-none placeholder-gray-500 "
-                                defaultValue={emailInput}
-                                onChange={({ target }) => setEmailInput(target.value)}
-                            />
-                        </div>
-                    </div>
+                    <input
+                        type="email"
+                        id="email"
+                        minLength={1}
+                        maxLength={50}
+                        placeholder="Reply-to email"
+                        className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-300"
+                        defaultValue={emailInput}
+                        onChange={({ target }) => setEmailInput(target.value)}
+                    />
                 </div>
 
-                <div className="flex flex-col gap-2">
-                    <label htmlFor="message" className="font-bold text-gray-800">
+                <div>
+                    <label htmlFor="message" className="sr-only">
                         Your Message
                     </label>
-                    <div className="flex items-center justify-center group rounded-lg text-sm font-semibold w-full focus-within:bg-gradient-to-r focus-within:from-yellow-300 focus-within:to-purple-500 bg-yellow-300 p-[2px] focus-within:p-[2px] focus-within:shadow-md">
-                        <div className="bg-white w-full py-2 px-3 rounded-lg flex justify-between items-center group">
-                            <textarea
-                                id="message"
-                                minLength={2}
-                                maxLength={500}
-                                required
-                                placeholder="Type your message here..."
-                                className="w-full group outline-none placeholder-gray-500 h-32"
-                                defaultValue={messageInput}
-                                onChange={({ target }) => setMessageInput(target.value)}></textarea>
-                        </div>
-                    </div>
+                    <textarea
+                        id="message"
+                        minLength={2}
+                        maxLength={500}
+                        required
+                        placeholder="Hi there, write your message here and we will get back to you via the Reply-to email"
+                        className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-300 h-32"
+                        defaultValue={messageInput}
+                        onChange={({ target }) => setMessageInput(target.value)}
+                    ></textarea>
                 </div>
 
-                <ReCAPTCHA
-                    sitekey="6LdQe94pAAAAAAtYGxiatB310mro7rNvoElcP8-T"
-                    onChange={(successToken: null | string) => setRecaptchaToken(successToken)}
-                />
+                <div className="flex justify-between items-center">
+                    <ReCAPTCHA
+                        sitekey="6LdQe94pAAAAAAtYGxiatB310mro7rNvoElcP8-T"
+                        onChange={(successToken: null | string) => setRecaptchaToken(successToken)}
+                    />
+                    <button
+                        disabled={!recaptchaToken || pending}
+                        className="hoverable w-40 bg-yellow-300 hover:bg-yellow-400 text-black hover:text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
+                        type="submit"
+                    >
+                        {pending ? "Sending..." : "Send"}
+                    </button>
+                </div>
 
-                {messageSentError && <p className={"form-error ml-1"}>{messageSentError}</p>}
-                {messageSentSuccess && <p className={"form-success ml-1"}>{messageSentSuccess}</p>}
-                <button disabled={!recaptchaToken || pending} className={"button w-48"} type="submit">
-                    {pending ? "Sending message..." : "Send"}
-                </button>
+                {messageSentError && <p className="text-red-500">{messageSentError}</p>}
+                {messageSentSuccess && <p className="text-green-500">{messageSentSuccess}</p>}
             </form>
         </>
     )
