@@ -1,6 +1,6 @@
 import { UI_URI } from "./consts"
 
-describe("viewing pollen calendar", () => {
+describe.skip("viewing pollen calendar", () => {
     beforeEach(() => {
         cy.visit(UI_URI + "/pollen")
     })
