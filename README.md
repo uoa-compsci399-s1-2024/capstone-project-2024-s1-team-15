@@ -30,7 +30,7 @@ Both apps will be written using TypeScript to ensure type safety and maintainabi
 - **Arnav Shekaran** - Designer / Developer
 - **Gautham Gunasheelan** - Designer / Back-End Developer
 - **Stanley Wu** - Designer / Front-End Developer
-- **Samuel Kim** - Designer / Front-End Developer
+- **Samuel Kim** - UI/UX Designer / Front-End Developer
 
 ## Project Description
 
