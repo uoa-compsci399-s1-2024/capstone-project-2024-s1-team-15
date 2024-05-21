@@ -3,30 +3,30 @@ import Switch from "react-switch"
 
 type Props = {
     allPollenTypes: string[]
-    displayPollenTypes: any
-    setShowsDailyTotal: (isChecked: boolean) => any
+    setDisplayedPollenTypes: (displayedPollenTypes: string[]) => void
     showsDailyTotal: boolean
+    setShowsDailyTotal: (isChecked: boolean) => void
 }
 
 export default function PollenTypeInput({
     allPollenTypes,
-    displayPollenTypes,
+    setDisplayedPollenTypes,
     showsDailyTotal,
     setShowsDailyTotal,
 }: Props) {
     return (
-        <div className="flex gap-8 items-start">
-            <label className="form-label flex flex-col">
-                Choose pollen types
+        <div className="flex flex-col md:flex-row gap-x-4 gap-y-2 items-start">
+            <label className="form-label flex flex-col gap-y-1">
+                Show pollen types
                 <Select
                     closeMenuOnSelect={false}
-                    onChange={(selectedOptions) => displayPollenTypes(selectedOptions.map(({ value }) => value))}
+                    onChange={(selectedOptions) => setDisplayedPollenTypes(selectedOptions.map(({ value }) => value))}
                     isMulti
                     options={allPollenTypes.map((name) => ({ value: name, label: name }))}
                 />
             </label>
 
-            <label className="form-label flex flex-col">
+            <label className="form-label flex flex-col gap-y-1 shrink-0">
                 Show daily total
                 <Switch checked={showsDailyTotal} onChange={(isChecked) => setShowsDailyTotal(isChecked)} />
             </label>

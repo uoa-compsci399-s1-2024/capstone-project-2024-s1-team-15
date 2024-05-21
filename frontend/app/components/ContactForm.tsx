@@ -69,7 +69,7 @@ export default function ContactForm() {
                         id="email"
                         minLength={1}
                         maxLength={50}
-                        placeholder="Reply-to email"
+                        placeholder="Your Email"
                         className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-300"
                         defaultValue={emailInput}
                         onChange={({ target }) => setEmailInput(target.value)}
@@ -85,14 +85,14 @@ export default function ContactForm() {
                         minLength={2}
                         maxLength={500}
                         required
-                        placeholder="Hi there, write your message here and we will get back to you via the Reply-to email"
+                        placeholder="Hi there! Please write your message to us here, and we will get back to you soon."
                         className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-300 h-32"
                         defaultValue={messageInput}
                         onChange={({ target }) => setMessageInput(target.value)}
                     ></textarea>
                 </div>
 
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between md:items-center gap-x-4 gap-y-2 flex-col md:flex-row">
                     <ReCAPTCHA
                         sitekey="6LdQe94pAAAAAAtYGxiatB310mro7rNvoElcP8-T"
                         onChange={(successToken: null | string) => setRecaptchaToken(successToken)}
