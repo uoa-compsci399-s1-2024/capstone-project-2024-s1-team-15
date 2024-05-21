@@ -99,7 +99,7 @@ export default function About() {
 
                 <h2>Meet the Researchers!</h2>
 
-                <section className="flex flex-wrap gap-x-4 gap-y-6">
+                <section className="flex flex-col md:flex-row md:flex-wrap gap-x-4 gap-y-6">
                     {profiles.map(p => (
                         <ProfileCard profile={p} key={p.name}/>
                     ))}
