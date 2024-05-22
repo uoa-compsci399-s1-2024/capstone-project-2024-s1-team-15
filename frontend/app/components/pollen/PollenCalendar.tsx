@@ -139,25 +139,24 @@ const PollenCalendar = memo(function PollenCalendar({ pollenData }: { pollenData
                             </div>
                         </div>
                     </div>
-
-                    {filteredPollenData && displayedPollenTypes.length ? (
-                        <div className="flex flex-col w-full mt-8">
-                            <MultiChart
-                                dateUpperLimit={dateUpperLimit}
-                                dateLowerLimit={dateLowerLimit}
-                                pollenData={filteredPollenData}
-                                showsDailyTotal={showsDailyTotal}
-                            />
-                        </div>
-                    ) : displayedPollenTypes.length ? (
-                        <p>
-                            No pollen data in range: {dayjs(dateLowerLimit).format(dateFormat)} to{" "}
-                            {dayjs(dateUpperLimit).format(dateFormat)}. Try adjusting the date filter range above.
-                        </p>
-                    ) : (
-                        <p>No pollen types selected 🥲</p>
-                    )}
                 </div>
+                {filteredPollenData && displayedPollenTypes.length ? (
+                    <div className="flex flex-col w-full mt-8">
+                        <MultiChart
+                            dateUpperLimit={dateUpperLimit}
+                            dateLowerLimit={dateLowerLimit}
+                            pollenData={filteredPollenData}
+                            showsDailyTotal={showsDailyTotal}
+                        />
+                    </div>
+                ) : displayedPollenTypes.length ? (
+                    <p>
+                        No pollen data in range: {dayjs(dateLowerLimit).format(dateFormat)} to{" "}
+                        {dayjs(dateUpperLimit).format(dateFormat)}. Try adjusting the date filter range above.
+                    </p>
+                ) : (
+                    <p>No pollen types selected 🥲</p>
+                )}
             </div>
         </>
     )
