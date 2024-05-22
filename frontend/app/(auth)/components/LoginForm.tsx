@@ -5,6 +5,7 @@ import { useFormStatus, useFormState } from "react-dom"
 import { login } from "@/app/services/auth"
 import { useAuth } from "@/app/lib/hooks"
 import Button from "@/app/components/Button";
+import icons from "@/app/lib/icons";
 
 type FormState = {
     error?: string
@@ -51,7 +52,12 @@ export default function LoginForm ({ onSuccess, id }: { onSuccess?: () => void, 
 
             {state.error && <p className={"form-error ml-1"}>{state.error}</p>}
 
-            <Button disabled={pending} type={"submit"} text={pending ? "Logging in..." : "Log in"}/>
+            <Button
+                disabled={pending}
+                type={"submit"}
+                text={pending ? "Logging in..." : "Log in"}
+                icon={icons.login}
+            />
         </form>
     )
 }
