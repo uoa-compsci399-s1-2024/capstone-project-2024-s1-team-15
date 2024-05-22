@@ -14,7 +14,12 @@ export default function ArticlePage({ article, preview }: ArticlePageProps): Rea
     return (
         <article className={`prose-sm md:prose prose-slate max-w-full ${preview? "mt-2" : "mt-8"}`}>
             <h1 className={hasSubtitle ? "mb-4" : "mb-10"}>{article.title}</h1>
-            {hasSubtitle ? <span className={"subtitle"}>{article.subtitle}</span> : null}
+            <div className="flex items-center justify-between mb-10">
+                {hasSubtitle ? <span className={"subtitle"}>{article.subtitle}</span> : null}
+                <p>
+                    By <a href={`/profile/${article.publisher.username}`}>{article.publisher.displayName}</a>
+                </p>
+            </div>
             {article.content && html}
         </article>
     )
