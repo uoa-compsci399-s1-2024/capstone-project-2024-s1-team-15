@@ -4,15 +4,16 @@ import React from "react"
 import { useFormStatus, useFormState } from "react-dom"
 import { login } from "@/app/services/auth"
 import { useAuth } from "@/app/lib/hooks"
-import Button from "@/app/components/Button";
-import icons from "@/app/lib/icons";
+import Button from "@/app/components/Button"
+import icons from "@/app/lib/icons"
+import Link from "next/link"
 
 type FormState = {
     error?: string
 }
 
-export default function LoginForm ({ onSuccess, id }: { onSuccess?: () => void, id?: string }): React.JSX.Element {
-    const [ state, formAction ] = useFormState<FormState>(loginFormAction, {})
+export default function LoginForm({ onSuccess, id }: { onSuccess?: () => void; id?: string }): React.JSX.Element {
+    const [state, formAction] = useFormState<FormState>(loginFormAction, {})
     const { pending } = useFormStatus()
     const { setSession } = useAuth()
     const formId = id ? id + "-login-form" : "login-form"
@@ -29,7 +30,6 @@ export default function LoginForm ({ onSuccess, id }: { onSuccess?: () => void, 
             const formElement = document.getElementById(formId) as HTMLFormElement
             formElement.reset()
             setSession(loginResults.result)
-
         } else {
             return { error: loginResults.message }
         }
@@ -37,27 +37,44 @@ export default function LoginForm ({ onSuccess, id }: { onSuccess?: () => void, 
     }
 
     return (
-        <form className="flex flex-col items-start space-y-6 w-full" action={formAction} id={formId}>
-            <div className={"w-full"}>
-                <label htmlFor={"username"}><p className="form-label">Username</p></label>
-                <input name={"username"} className={"form-input bg-gray-100 max-w-lg"} type={"text"}
-                       placeholder={"Enter your username..."}/>
-            </div>
+        <>
+            <form className="flex flex-col items-start space-y-6 w-full" action={formAction} id={formId}>
+                <div className={"w-full"}>
+                    <label htmlFor={"username"}>
+                        <p className="form-label">Username</p>
+                    </label>
+                    <input
+                        name={"username"}
+                        className={"form-input bg-gray-100 max-w-lg"}
+                        type={"text"}
+                        placeholder={"Enter your username..."}
+                    />
+                </div>
 
-            <div className={"w-full"}>
-                <label htmlFor={"password"}><p className="form-label">Password</p></label>
-                <input name={"password"} className={"form-input bg-gray-100 max-w-lg"} type={"password"}
-                       placeholder={"Enter your password..."}/>
-            </div>
+                <div className={"w-full"}>
+                    <label htmlFor={"password"}>
+                        <p className="form-label">Password</p>
+                    </label>
+                    <input
+                        name={"password"}
+                        className={"form-input bg-gray-100 max-w-lg"}
+                        type={"password"}
+                        placeholder={"Enter your password..."}
+                    />
+                </div>
 
-            {state.error && <p className={"form-error ml-1"}>{state.error}</p>}
+                {state.error && <p className={"form-error ml-1"}>{state.error}</p>}
 
-            <Button
-                disabled={pending}
-                type={"submit"}
-                text={pending ? "Logging in..." : "Log in"}
-                icon={icons.login}
-            />
-        </form>
+                <Button
+                    disabled={pending}
+                    type={"submit"}
+                    text={pending ? "Logging in..." : "Log in"}
+                    icon={icons.login}
+                />
+            </form>
+            <Link className="mt-4 inline-block" href="/forgot-password">
+                Forgot your password?
+            </Link>
+        </>
     )
 }
