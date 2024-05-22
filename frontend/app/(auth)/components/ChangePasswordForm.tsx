@@ -9,23 +9,24 @@ type FormState = {
     error?: string
 }
 
-export default function ChangePasswordForm(): React.JSX.Element {
+export default function ChangePasswordForm({ id }: { id?: string }): React.JSX.Element {
     const [state, formAction] = useFormState<FormState>(changePasswordAction, {})
+    const [success, setSuccess] = useState(false)
     const { pending } = useFormStatus()
     const { token, user } = useAuth()
-    const [success, setSuccess] = useState(false)
+    const formId = id ? id + "-change-password-form" : "change-password-form"
 
     async function changePasswordAction(_: FormState, formData?: any): Promise<FormState> {
         const currentPassword = formData.get("password")
         const newPassword = formData.get("new-password")
         const confirmNewPassword = formData.get("confirm-new-password")
         if (!newPassword || !currentPassword || !confirmNewPassword) {
-            return { error: "Both current password and new password and confirm new password are required." }
+            return { error: "All fields are required." }
         }
 
         if (newPassword != confirmNewPassword) return { error: "New password & confirm new password don't match." }
 
-        if (!user) return { error: "Login before changing your password." }
+        if (!user) return { error: "You must be logged in before you can perform this action." }
 
         let changePasswordResults = await changePassword(
             {
@@ -36,9 +37,8 @@ export default function ChangePasswordForm(): React.JSX.Element {
             { token }
         )
         if (changePasswordResults.success) {
-            const formElement = document.getElementById("change-password-form") as HTMLFormElement
+            const formElement = document.getElementById(formId) as HTMLFormElement
             formElement.reset()
-            // show success message
             setSuccess(true)
         } else {
             return { error: changePasswordResults.message }
@@ -51,7 +51,7 @@ export default function ChangePasswordForm(): React.JSX.Element {
     }, [state.error])
 
     return (
-        <form className="flex flex-col items-start space-y-6 w-full" action={formAction} id={"change-password-form"}>
+        <form className="flex flex-col items-start space-y-6 w-full" action={formAction} id={formId}>
             <div className={"w-full"}>
                 <label htmlFor={"password"}>
                     <p className="form-label">Current Password</p>
@@ -87,8 +87,11 @@ export default function ChangePasswordForm(): React.JSX.Element {
                     placeholder={"Confirm your new password..."}
                 />
             </div>
+
             {state.error && <p className={"form-error ml-1"}>{state.error}</p>}
+
             {success && <p className="form-success">Password has been changed</p>}
+
             <button disabled={pending} type={"submit"} className="button">
                 {pending ? "Changing password..." : "Change password"}
             </button>

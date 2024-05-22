@@ -9,10 +9,11 @@ type FormState = {
     error?: string
 }
 
-export default function LoginForm ({ closeModal }: { closeModal?: () => void }): React.JSX.Element {
+export default function LoginForm ({ onSuccess, id }: { onSuccess?: () => void, id?: string }): React.JSX.Element {
     const [ state, formAction ] = useFormState<FormState>(loginFormAction, {})
     const { pending } = useFormStatus()
     const { setSession } = useAuth()
+    const formId = id ? id + "-login-form" : "login-form"
 
     async function loginFormAction(_: FormState, formData?: any): Promise<FormState> {
         const username = formData.get("username")
@@ -22,11 +23,9 @@ export default function LoginForm ({ closeModal }: { closeModal?: () => void }):
         }
         let loginResults = await login({ username, password })
         if (loginResults.success) {
-            closeModal && closeModal();
-            (() => {
-                const formElement = document.getElementById("login-form") as HTMLFormElement
-                formElement.reset()
-            })();
+            onSuccess && onSuccess()
+            const formElement = document.getElementById(formId) as HTMLFormElement
+            formElement.reset()
             setSession(loginResults.result)
 
         } else {
@@ -36,7 +35,7 @@ export default function LoginForm ({ closeModal }: { closeModal?: () => void }):
     }
 
     return (
-        <form className="flex flex-col items-start space-y-6 w-full" action={formAction} id={"login-form"}>
+        <form className="flex flex-col items-start space-y-6 w-full" action={formAction} id={formId}>
             <div className={"w-full"}>
                 <label htmlFor={"username"}><p className="form-label">Username</p></label>
                 <input name={"username"} className={"form-input bg-gray-100 max-w-lg"} type={"text"}
@@ -48,7 +47,9 @@ export default function LoginForm ({ closeModal }: { closeModal?: () => void }):
                 <input name={"password"} className={"form-input bg-gray-100 max-w-lg"} type={"password"}
                        placeholder={"Enter your password..."}/>
             </div>
+
             {state.error && <p className={"form-error ml-1"}>{state.error}</p>}
+
             <button disabled={pending} type={"submit"} className="button">
                 {pending ? "Logging in..." : "Login"}
             </button>

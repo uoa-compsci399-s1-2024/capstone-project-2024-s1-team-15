@@ -69,12 +69,14 @@ export default function Pollen() {
 
     return (
         <PageTemplate>
-            <PageTemplate.PageName>Pollen</PageTemplate.PageName>
+            <PageTemplate.PageName name={'Pollen'}/>
             <PageTemplate.PageExplanation>
-                Pollen is a powdery substance produced by most types of flowers of seed plants for the purpose of sexual
-                reproduction. It consists of pollen grains, which produce male gametes. There are several different
-                types of pollen. The most common include grass, oak and ragweed. For each plant/tree, the shape of the
-                pollen can be slightly different and affect the body in different ways.
+                <p>
+                    Pollen is a powdery substance produced by most types of flowers of seed plants for the purpose of
+                    sexual reproduction. It consists of pollen grains, which produce male gametes. There are several
+                    different types of pollen. The most common include grass, oak and ragweed. For each plant/tree,
+                    the shape of the pollen can be slightly different and affect the body in different ways.
+                </p>
             </PageTemplate.PageExplanation>
             <PageTemplate.HighlightSection
                 title={
@@ -107,7 +109,7 @@ export default function Pollen() {
                 )}
             </PageTemplate.HighlightSection>
             <PageTemplate.RemainingPageContent>
-                <h2>Pollen Calendar</h2>
+                <h2 className={"drop-shadow-lg"}>Pollen Calendar</h2>
                 <Privileged requiredScopes={SCOPES.maintainer}>
                     <div className="flex gap-2">
                         <Link className="button w-48 cms" href={"/pollen/edit"}>
@@ -118,13 +120,19 @@ export default function Pollen() {
                         </Link>
                     </div>
                 </Privileged>
-                <p className="bg-purpleone rounded-r-[4rem] pb-4 pt-8 -mt-8 px-10">
+                <p className={`bg-accent-light pb-4 pt-8 
+                    -ml-pc pl-[calc(theme(spacing.pc)+0.625rem)] pr-pc -mt-8 rounded-r-[2rem]
+                    
+                    sm:-ml-pc-sm sm:pl-[calc(theme(spacing.pc-sm)+0.75rem)] sm:pr-pc-sm sm:-mt-9 sm:rounded-r-[3rem]
+                    
+                    md:-ml-pc-md md:pl-[calc(theme(spacing.pc-md)+0.875rem)] md:pr-pc-md md:-mt-10 md:rounded-r-[4rem]
+                    
+                    xl:-ml-[calc(100vw-theme(spacing.content-max)-theme(spacing.nav)+theme(spacing.pc-md))]
+                    xl:pl-[calc(100vw-theme(spacing.content-max)-theme(spacing.nav)+theme(spacing.pc-md)+0.875rem)]
+                `}>
                     The pollen season starts in spring, with some trees producing pollen earlier depending on climate
-                    conditions.
-                    <br />
-                    The season usually starts earlier in the north and finishes later in the south of New Zealand.
-                    <br />
-                    <br />
+                    conditions. The season usually starts earlier in the north and finishes later in the south of New Zealand.
+                    <br /><br />
                     Take a look at the pollen calendar below for a better idea of seasonal changes of pollen.
                 </p>
                 {pollenData && <PollenCalendar pollenData={pollenData} />}
