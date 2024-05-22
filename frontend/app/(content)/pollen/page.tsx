@@ -168,7 +168,10 @@ export default function Pollen() {
 
                 <p>
                     If you want access to all available pollen data, please send us a message via the{" "}
-                    <Link href="/contact">contact form</Link>.
+                    <Link href="/contact" target="_blank">
+                        contact form
+                    </Link>
+                    .
                 </p>
             </PageTemplate.RemainingPageContent>
         </PageTemplate>
