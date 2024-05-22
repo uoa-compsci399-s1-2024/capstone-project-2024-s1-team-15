@@ -1,17 +1,22 @@
 "use client"
 
-import { PollenCalendar } from "@/app/components/pollen"
 import React, { useEffect, useState } from "react"
+import { IoRoseOutline } from "react-icons/io5"
 import { PollenData } from "@aapc/types"
+
+import { SCOPES } from "@/app/lib/consts"
+import icons from "@/app/lib/icons"
 import { getPollenData } from "@/app/services/pollen"
 import PageTemplate from "@/app/components/PageContentTemplate"
+import { PollenCalendar } from "@/app/components/pollen"
 import Slider, { Slide } from "@/app/components/Slider"
+import Button from "@/app/components/Button"
+import Privileged from "@/app/components/Privileged"
+import ButtonLink from "@/app/components/ButtonLink"
+
 import pollenTypegrass from "./pollenType-grass.json"
 import pollenTypetree from "./pollenType-tree.json"
 import pollenTypeweed from "./pollenType-weed-herb.json"
-import Privileged from "@/app/components/Privileged"
-import { SCOPES } from "@/app/lib/consts"
-import Link from "next/link"
 
 export default function Pollen() {
     const [pollenData, setPollenData] = useState<null | PollenData[]>(null)
@@ -110,16 +115,6 @@ export default function Pollen() {
             </PageTemplate.HighlightSection>
             <PageTemplate.RemainingPageContent>
                 <h2 className={"drop-shadow-lg"}>Pollen Calendar</h2>
-                <Privileged requiredScopes={SCOPES.maintainer}>
-                    <div className="flex gap-2">
-                        <Link className="button w-48 cms" href={"/pollen/edit"}>
-                            Edit Pollen Data
-                        </Link>
-                        <Link className="button w-48 cms" href={"/pollen/delete"}>
-                            Delete Pollen Data
-                        </Link>
-                    </div>
-                </Privileged>
                 <p className={`bg-accent-light pb-4 pt-8 
                     -ml-pc pl-[calc(theme(spacing.pc)+0.625rem)] pr-pc -mt-8 rounded-r-[2rem]
                     
@@ -136,11 +131,17 @@ export default function Pollen() {
                     Take a look at the pollen calendar below for a better idea of seasonal changes of pollen.
                 </p>
                 {pollenData && <PollenCalendar pollenData={pollenData} />}
-                <p>
-                    Become a premium member to access data for 65+ pollen types.
-                    <span className="italic text-red-400">NOTE: Do premium members get any additional features?</span>
+                <Privileged requiredScopes={SCOPES.maintainer}>
+                    <div className="flex gap-x-4 my-4">
+                        <ButtonLink theme={"cms"} href={"/pollen/edit"} text={"Update Pollen Data"} icon={icons.edit}/>
+                        <ButtonLink theme={"cms"} href={"/pollen/delete"} text={"Delete Pollen Data"} icon={icons.trash}/>
+                    </div>
+                </Privileged>
+                <p className={"mb-4"}>
+                    Become a premium member to access data for 65+ pollen types.&nbsp;
+                    <span className="italic text-red-500">NOTE: Do premium members get any additional features?</span>
                 </p>
-                <button className="button">Go premium</button>
+                <Button text={"Go Premium!"} icon={<IoRoseOutline size={"100%"}/>}/>
             </PageTemplate.RemainingPageContent>
         </PageTemplate>
     )

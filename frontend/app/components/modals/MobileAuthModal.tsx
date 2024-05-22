@@ -1,11 +1,11 @@
 "use client"
 
 import React, { ForwardedRef, forwardRef, useEffect, useImperativeHandle, useState } from "react"
-import { AuthDashboard } from "@/app/(auth)/components";
-import { ModalRef } from "@/app/lib/hooks/useModal";
+import { ModalRef } from "@/app/lib/hooks/useModal"
+import { AuthDashboard } from "@/app/(auth)/components"
 
 const MobileAuthModal = forwardRef(
-    function MobileAuthModal(_, ref: ForwardedRef<ModalRef>): React.JSX.Element {
+    function MobileAuthModal({ onClose }: { onClose: () => void }, ref: ForwardedRef<ModalRef>): React.JSX.Element {
         const [hidden, setHidden] = useState(true)
 
         const toggleModal = () => setHidden(v => !v)
@@ -21,6 +21,7 @@ const MobileAuthModal = forwardRef(
                 const modal = document.getElementById("inner-mobile-auth")
                 if (!modal) return
                 if (!modal.matches(":hover") && !modal.matches(":active")) {
+                    onClose()
                     setHidden(true)
                 }
             }) // eslint-disable-next-line react-hooks/exhaustive-deps

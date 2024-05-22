@@ -4,6 +4,7 @@ import React from "react"
 import { useFormStatus, useFormState } from "react-dom"
 import { login } from "@/app/services/auth"
 import { useAuth } from "@/app/lib/hooks"
+import Button from "@/app/components/Button";
 
 type FormState = {
     error?: string
@@ -50,9 +51,7 @@ export default function LoginForm ({ onSuccess, id }: { onSuccess?: () => void, 
 
             {state.error && <p className={"form-error ml-1"}>{state.error}</p>}
 
-            <button disabled={pending} type={"submit"} className="button">
-                {pending ? "Logging in..." : "Login"}
-            </button>
+            <Button disabled={pending} type={"submit"} text={pending ? "Logging in..." : "Log in"}/>
         </form>
     )
 }

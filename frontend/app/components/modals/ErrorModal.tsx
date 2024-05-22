@@ -4,7 +4,8 @@ import { Nullable } from "@/app/lib/types";
 import React, { ForwardedRef, forwardRef, useEffect } from "react"
 import Modal from "@/app/components/modals/components/Modal"
 import useModal, { ModalRef } from "@/app/lib/hooks/useModal"
-import CloseModalButton from "@/app/components/modals/components/CloseModalButton"
+import Button from "@/app/components/Button"
+import icons from "@/app/lib/icons"
 
 type ErrorModalProps = {
     msg?: Nullable<string>,
@@ -24,10 +25,11 @@ const ErrorModal = forwardRef(
         return (
             <Modal modalId={id} hidden={hidden} innerClassName={"flex-row flex bg-red-500 p-4 sm:p-5 md:p-6"}>
                 <p className={"text-white flex-grow"}>{msg}</p>
-                <CloseModalButton onClick={() => {
-                    setHidden(true)
-                    onHide && onHide()
-                }} dark/>
+                <Button
+                    theme={"dark"}
+                    onClick={() => { setHidden(true); onHide && onHide() }}
+                    icon={icons.close}
+                />
             </Modal>
         )
     }

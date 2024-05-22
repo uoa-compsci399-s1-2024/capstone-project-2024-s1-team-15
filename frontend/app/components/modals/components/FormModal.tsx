@@ -1,6 +1,7 @@
 import React, { PropsWithChildren, SetStateAction } from "react"
 import Modal from "@/app/components/modals/components/Modal"
-import CloseModalButton from "@/app/components/modals/components/CloseModalButton";
+import Button from "@/app/components/Button"
+import icons from "@/app/lib/icons"
 
 type FormModalProps = {
     modalId: string,
@@ -14,7 +15,11 @@ export default function FormModal({ name, modalId, hidden, setHidden, children }
         <Modal modalId={modalId} hidden={hidden} innerClassName={`flex flex-col p-4 sm:p-5 md:p-6 bg-white`}>
             <div className={"flex flex-row mb-3"}>
                 <h2 className={`font-bold grow ml-2 mt-1 mb-3`}>{name}</h2>
-                <CloseModalButton onClick={() => setHidden(true)}/>
+                <Button
+                    theme={"secondary"}
+                    icon={icons.close}
+                    onClick={() => setHidden(true)}
+                />
             </div>
             <div>
                 {children}

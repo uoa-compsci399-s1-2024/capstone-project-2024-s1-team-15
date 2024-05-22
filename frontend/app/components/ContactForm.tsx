@@ -3,6 +3,8 @@
 import { FormEvent, useState } from "react"
 import { API_URI } from "../lib/consts"
 import ReCAPTCHA from "react-google-recaptcha"
+import Button from "@/app/components/Button";
+import icons from "@/app/lib/icons";
 
 export default function ContactForm() {
     async function sendEmail(e: FormEvent<HTMLFormElement>) {
@@ -23,7 +25,8 @@ export default function ContactForm() {
         })
 
         if (contactAttemptResponse.status === 200) {
-            setMessageSentSuccess("Message has been sent successfully ✅")
+            setMessageSentSuccess("Message has been sent successfully ✅");
+            (document.getElementById("contact-form") as HTMLFormElement).reset()
             setMessageSentError(null)
         } else {
             setMessageSentSuccess(null)
@@ -43,7 +46,7 @@ export default function ContactForm() {
 
     return (
         <>
-            <form onSubmit={sendEmail} className="space-y-6">
+            <form onSubmit={sendEmail} className="space-y-6" id={"contact-form"}>
                 <div>
                     <label htmlFor="fullname" className="sr-only">
                         Full Name
@@ -53,9 +56,9 @@ export default function ContactForm() {
                         id="fullname"
                         minLength={1}
                         maxLength={50}
+                        required
                         placeholder="Full Name"
                         className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-300"
-                        defaultValue={nameInput}
                         onChange={({ target }) => setNameInput(target.value)}
                     />
                 </div>
@@ -69,9 +72,9 @@ export default function ContactForm() {
                         id="email"
                         minLength={1}
                         maxLength={50}
+                        required
                         placeholder="Your Email"
                         className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-300"
-                        defaultValue={emailInput}
                         onChange={({ target }) => setEmailInput(target.value)}
                     />
                 </div>
@@ -82,12 +85,11 @@ export default function ContactForm() {
                     </label>
                     <textarea
                         id="message"
-                        minLength={2}
-                        maxLength={500}
+                        minLength={1}
+                        maxLength={3500}
                         required
                         placeholder="Hi there! Please write your message to us here, and we will get back to you soon."
                         className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-300 h-32"
-                        defaultValue={messageInput}
                         onChange={({ target }) => setMessageInput(target.value)}
                     ></textarea>
                 </div>
@@ -97,13 +99,13 @@ export default function ContactForm() {
                         sitekey="6LdQe94pAAAAAAtYGxiatB310mro7rNvoElcP8-T"
                         onChange={(successToken: null | string) => setRecaptchaToken(successToken)}
                     />
-                    <button
+                    <Button
+                        type={"submit"}
                         disabled={!recaptchaToken || pending}
-                        className="hoverable w-40 bg-yellow-300 hover:bg-yellow-400 text-black hover:text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
-                        type="submit"
-                    >
-                        {pending ? "Sending..." : "Send"}
-                    </button>
+                        text={pending ? "Sending..." : "Send to AAPC"}
+                        title={!recaptchaToken ? "You must complete the ReCAPTCHA first." : undefined}
+                        icon={icons.send}
+                    />
                 </div>
 
                 {messageSentError && <p className="text-red-500">{messageSentError}</p>}
