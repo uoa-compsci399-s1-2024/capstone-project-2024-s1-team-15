@@ -166,7 +166,7 @@ export default function Pollen() {
                 </p>
                 {pollenData && <PollenCalendar pollenData={pollenData} />}
 
-                <p>
+                <p className="mt-4">
                     If you want access to all available pollen data, please send us a message via the{" "}
                     <Link href="/contact" target="_blank">
                         contact form
