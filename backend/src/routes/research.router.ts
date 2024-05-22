@@ -16,9 +16,9 @@ export default class ResearchRouter {
         )
 
         // scope: anonymous
-        router.get("/:id",
-            expressAsyncHandler(ResearchController.getResearchById)
-        )
+        router.get("/:id", expressAsyncHandler(ResearchController.getResearchById))
+
+        router.get("/by-user/:username", expressAsyncHandler(ResearchController.getAllResearchByUser))
 
         // scope: maintainer
         router.post("/", Scope.has(SCOPES.maintainer),
