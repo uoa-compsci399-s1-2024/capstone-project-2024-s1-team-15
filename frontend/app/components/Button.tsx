@@ -3,7 +3,7 @@ import React from "react"
 export type ButtonProps = {
     onClick?: () => void
     className?: string
-    theme?: "primary" | "secondary" | "red" | "green" | "cms" | "dark"
+    theme?: "primary" | "secondary" | "red" | "green" | "cms" | "overlay"
     icon?: React.JSX.Element
     text?: string
     disabled?: boolean
@@ -34,8 +34,8 @@ export default function Button(
             colorClass = "bg-green-500 bg-opacity-40 disabled:bg-opacity-20 disabled:hover:bg-opacity-20"
             break
         }
-        case "dark": {
-            colorClass = "bg-black bg-opacity-10 disabled:bg-opacity-5 disabled:hover:bg-opacity-5"
+        case "overlay": {
+            colorClass = "bg-black bg-opacity-10 disabled:bg-opacity-5 disabled:hover:bg-opacity-5 text-white"
             break
         }
         case "cms": {
@@ -62,7 +62,7 @@ export default function Button(
     }
 
     return (
-        <div className={`rounded-full ${!(theme === "dark") && 'bg-white'} shrink-0 grow-0 w-max h-max`}>
+        <div className={`rounded-full ${!(theme === "overlay") && 'bg-white'} shrink-0 grow-0 w-max h-max`}>
             <button
                 type={type}
                 disabled={disabled}
@@ -70,7 +70,7 @@ export default function Button(
                 title={title}
                 className={`${colorClass} ${className} font-medium w-auto rounded-full group gap-x-3 drop-shadow-md
                 flex ${leftIcon? "flex-row-reverse" : "flex-row"} items-center ${alignmentClass} flex-grow
-                hover:text-white ${theme === "dark"? 'hover:bg-opacity-30' : 'hover:bg-opacity-100'} 
+                hover:text-white ${theme === "overlay"? 'hover:bg-opacity-30' : 'hover:bg-opacity-100'} 
                 hover:drop-shadow-xl transition
                 disabled:drop-shadow-none disabled:hover:drop-shadow-none disabled:cursor-not-allowed
                 disabled:text-gray-400 disabled:hover:text-gray-400 

@@ -26,7 +26,7 @@ const ErrorModal = forwardRef(
             <Modal modalId={id} hidden={hidden} innerClassName={"flex-row flex bg-red-500 p-4 sm:p-5 md:p-6"}>
                 <p className={"text-white flex-grow"}>{msg}</p>
                 <Button
-                    theme={"dark"}
+                    theme={"overlay"}
                     onClick={() => { setHidden(true); onHide && onHide() }}
                     icon={icons.close}
                 />
