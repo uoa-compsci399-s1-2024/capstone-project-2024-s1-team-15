@@ -165,11 +165,11 @@ export default function Pollen() {
                     Take a look at the pollen calendar below for a better idea of seasonal changes of pollen.
                 </p>
                 {pollenData && <PollenCalendar pollenData={pollenData} />}
+
                 <p>
-                    Become a premium member to access data for 65+ pollen types.
-                    <span className="italic text-red-400">NOTE: Do premium members get any additional features?</span>
+                    If you want access to all available pollen data, please send us a message via the{" "}
+                    <Link href="/contact">contact form</Link>.
                 </p>
-                <button className="button">Go premium</button>
             </PageTemplate.RemainingPageContent>
         </PageTemplate>
     )
