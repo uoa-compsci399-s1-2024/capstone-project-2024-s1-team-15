@@ -8,6 +8,7 @@ import { editNews, publishNews } from "@/app/services/news"
 import { editResearch, publishResearch } from "@/app/services/research"
 import { useAuth } from "@/app/lib/hooks"
 import Button from "@/app/components/Button"
+import icons from "@/app/lib/icons";
 
 type ArticleFormProps = PublishArticleFormProps | EditArticleFormProps
 
@@ -138,9 +139,11 @@ export default function ExternalArticleForm({ actionType, articleType, articleJS
             </div>
 
             <div>
-                <Button onClick={submitArticle} text={
-                    `${actionType === "edit" ? "Edit" : "Publish"} ${articleType === ArticleType.news_external ? "News" : "Research"}`
-                }/>
+                <Button
+                    onClick={submitArticle}
+                    text={`${actionType === "edit" ? "Edit" : "Publish"} External ${articleType === ArticleType.news_external ? "News" : "Research"}`}
+                    icon={icons.add}
+                />
             </div>
 
             { error && <span>{error}</span> }

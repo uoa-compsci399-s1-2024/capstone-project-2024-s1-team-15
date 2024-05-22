@@ -10,6 +10,7 @@ import { editResearch, publishResearch } from "@/app/services/research"
 import { useAuth } from "@/app/lib/hooks"
 import { useRouter } from "next/navigation"
 import Button from "@/app/components/Button";
+import icons from "@/app/lib/icons";
 
 type ArticleFormProps = PublishArticleFormProps | EditArticleFormProps
 
@@ -149,8 +150,10 @@ export default function ArticleForm({ actionType, articleType, articleJSONString
             </div>
 
             <div>
-                <Button onClick={submitArticle} text={
-                    `${ actionType === "edit" ? "Edit" : "Publish"} ${articleType === ArticleType.news ? "News" : "Research"}`}
+                <Button
+                    onClick={submitArticle}
+                    text={`${ actionType === "edit" ? "Edit" : "Publish"} ${articleType === ArticleType.news ? "News" : "Research"}`}
+                    icon={icons.add}
                 />
             </div>
 
