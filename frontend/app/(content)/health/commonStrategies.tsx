@@ -5,6 +5,7 @@ import WashHandsImage from "./images/washHands.svg"
 import ShutWindowsImages from "./images/shutWindows.svg"
 import AvoidSmokingImage from "./images/avoidSmoking.svg"
 import NasalRinseExplanation from "./components/commonStrategies/explanations/NasalRinse"
+import RedEyeImage from "./images/redeye.svg"
 
 const strategies = {
     "Wash bedding regularly": {
@@ -19,6 +20,7 @@ const strategies = {
     "Wash hands after playing with pets": { image: WashHandsImage, explanation: null },
     "Shut windows during pollen season": { image: ShutWindowsImages, explanation: null },
     "Avoid smoke and fragrances": { image: AvoidSmokingImage, explanation: <>Smoke bad, fragrance bad :)</> },
+    "Use artificial tears": { image: RedEyeImage, explanation: null },
 }
 
 export default strategies

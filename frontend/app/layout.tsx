@@ -1,9 +1,9 @@
 import "./globals.css"
 import React from "react"
-import Header from "@/app/components/Header"
-import FlowerNav from "./components/flowerNav"
-import localFont from "next/font/local"
 import type { Metadata } from "next"
+import Header from "@/app/components/Header"
+import FlowerNav from "@/app/components/flowerNav"
+import localFont from "next/font/local"
 import { getMetadata } from "@/app/lib/util"
 import { AuthLayout } from "@/app/(auth)/components"
 import Copyright from "@/app/components/Copyright"
@@ -19,18 +19,41 @@ export const metadata: Metadata = getMetadata()
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     return (
         <html lang="en">
-            <body className={`${inter.variable} font-sans h-screen`}>
+            <body className={`${inter.variable} font-sans max-w-screen min-h-screen flex flex-col overflow-x-hidden`}>
                 <AuthLayout>
-                    <div className="relative h-full flex flex-col">
-                        <Header />
-                        <div className="fixed top-28 pt-5 right-0">
-                            <FlowerNav />
-                        </div>
-                        <div className={`max-w-full flex-1 pl-4 pr-80 flex justify-between flex-col `}>
-                            <div>{children}</div>
-                            <Copyright />
-                        </div>
+                    {/* Header */}
+                    <header className={`w-screen
+                        h-header-mobile pb-2
+                        sm:h-header-tablet sm:pb-4
+                        md:h-header-desktop md:pb-6
+                    `}>
+                        <Header/>
+                    </header>
+
+                    <div className="relative">
+                        {/* Flower Nav - Only shown on desktop, desktop wide, desktop ultra-wide viewports */}
+                        <nav className="fixed pt-5 right-0 hidden lg:block">
+                            <FlowerNav/>
+                        </nav>
+
+                        {/* Main Content */}
+                        <main className={`max-w-screen xl:max-w-content-max px-pc flex justify-between flex-col
+                            sm:px-pc-sm
+                            md:px-pc-md
+                            lg:mr-nav
+                            xl:ml-auto
+                            2xl:mx-auto
+                        `}>
+                            {children}
+                        </main>
                     </div>
+
+                    {/* Footer */}
+                    <footer className={"mt-auto"}>
+                        <div className={`mt-2 sm:mt-4 md:mt-8`}>
+                            <Copyright/>
+                        </div>
+                    </footer>
                 </AuthLayout>
             </body>
         </html>

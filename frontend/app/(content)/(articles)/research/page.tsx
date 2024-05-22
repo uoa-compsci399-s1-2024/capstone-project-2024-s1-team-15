@@ -6,6 +6,7 @@ import ArticleCard from "@/app/(content)/(articles)/components/ArticleCard"
 import Privileged from "@/app/components/Privileged"
 import ButtonLink from "@/app/components/ButtonLink"
 import Pagination from "@/app/components/Paginations"
+import SearchBar from "@/app/components/SearchBar"
 
 export const metadata = getMetadata("All Research")
 
@@ -14,7 +15,10 @@ export default async function AllResearchPage() {
 
     return (
         <>
-            <h1 className="page-title">All Research</h1>
+            <div className="max-w-screen-xl mr-auto items-center justify-between gap-x-4 sm:flex">
+                <h1 className="page-title">All Research</h1>
+                <SearchBar />
+            </div>
             <Privileged requiredScopes={SCOPES.maintainer}>
                 <ButtonLink href={"/research/publish"} text={"Publish Research"} />
             </Privileged>

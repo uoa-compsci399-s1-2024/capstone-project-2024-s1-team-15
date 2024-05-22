@@ -1,11 +1,13 @@
 import React from "react";
 import Image from "next/image";
-import yellowback from "./homepageback.svg";
-import pollenimg from "./pollenimg.svg";
+import yellowback from "../public/homepageback.svg";
+import pollenimg from "../public/pollenimg.svg";
+import MessageFromQuery from "@/app/components/MessageFromQuery";
 
 export default function Home() {
     return (
         <div className="relative">
+            <MessageFromQuery/>
             <div className="fixed inset-0 z-[-1] pl-11 pt-20 ml-4 mt-10">
                 <Image src={yellowback} alt="backgroundimg" className="pl-40 pt-5" />
             </div>

@@ -31,7 +31,7 @@ export default function Login() {
     return (
         <>
             <MessageFromQuery/>
-            <h1>Login</h1>
+            <h1 className={"page-title"}>Login</h1>
             <LoginForm/>
         </>
     )
