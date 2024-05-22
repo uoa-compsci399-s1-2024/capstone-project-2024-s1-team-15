@@ -16,7 +16,8 @@ export let DB: IRepository
 export let MAILER: IMailer
 
 switch (process.env.ENV) {
-    case "DEV" || "PROD": {
+    case "DEV":
+    case "PROD": {
         console.log(`Environment: ${process.env.ENV}`)
         const missingEnvVariables: string[] = []
 
