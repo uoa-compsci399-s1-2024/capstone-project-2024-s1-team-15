@@ -45,6 +45,14 @@ This project aims to develop an online website to showcase our current and futur
 to contact us if they are interested. We also want to a place to host the pollen data so the public can search a calendar and see their
 pollen data for the day but this may be in a 'freemium' type view
 
+## Use of Pollen Images
+
+We have used pollen images from [PalDat](https://www.paldat.org/)
+
+and we have followed their citation instructions:
+
+> Notice: If you use a picture from PalDat you have to cite the name of the photographer of the picture and PalDat (2000 onwards, <www.paldat.org>).
+
 ## Project Clients
 Amy Chan
 
