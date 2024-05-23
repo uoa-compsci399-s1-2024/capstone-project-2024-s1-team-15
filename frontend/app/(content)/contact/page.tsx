@@ -1,7 +1,7 @@
-import React from "react";
-import Image from "next/image";
-import ContactForm from "@/app/components/ContactForm";
-import pollenImg from "@/app/public/pollenimg.svg";
+import React from "react"
+import Image from "next/image"
+import ContactForm from "@/app/components/ContactForm"
+import pollenImg from "@/app/public/pollenimg.svg"
 
 export default function Contact() {
     return (
