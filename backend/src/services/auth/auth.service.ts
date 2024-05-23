@@ -43,5 +43,6 @@ export interface IAuthService {
     authenticateUser(username: string, password: string): Promise<boolean>
     createUser(username: string, password: string): Promise<null>
     changePassword(username: string, oldPassword: string, newPassword: string): Promise<void>
-    resetPassword(username: string, newPassword: string): Promise<null>
+    sendResetPasswordEmail(username: string): Promise<void>
+    resetPassword(username: string, verificationCode: string, newPassword: string): Promise<void>
 }

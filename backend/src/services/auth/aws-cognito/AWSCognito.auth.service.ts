@@ -72,7 +72,31 @@ export default class AWSCognitoAuthService implements IAuthService {
         return null
     }
 
-    async resetPassword(username: string, newPassword: string): Promise<null> {
-        return null
+    async sendResetPasswordEmail(email: string) {
+        const user = new CognitoUser({
+            Username: email,
+            Pool: this.adminUserPool,
+        })
+
+        await new Promise((resolve, reject) =>
+            user.forgotPassword({
+                onSuccess: resolve,
+                onFailure: reject,
+            })
+        )
+    }
+
+    async resetPassword(email: string, verificationCode: string, newPassword: string) {
+        const user = new CognitoUser({
+            Username: email,
+            Pool: this.adminUserPool,
+        })
+
+        await new Promise((resolve, reject) =>
+            user.confirmPassword(verificationCode, newPassword, {
+                onSuccess: resolve,
+                onFailure: reject,
+            })
+        )
     }
 }
