@@ -23,6 +23,21 @@ export async function getAllNews(options?: FetchOptions): Promise<IPaginator<IAr
     return new Paginator(Article, await response.json())
 }
 
+export async function getNewsByUser(
+    username: string,
+    searchInput?: string,
+    options?: FetchOptions
+): Promise<IPaginator<IArticle>> {
+    const response = await fetch(
+        `${API_URI}/content/news/by-user/${username}?` + new URLSearchParams({ t: searchInput || "", pp: "100" }),
+        {
+            method: "get",
+            headers: getHeaders(options),
+        }
+    )
+    return new Paginator(Article, await response.json())
+}
+
 export async function publishNews(a: ArticleOut, options?: FetchOptions): Promise<Result<IArticle>> {
     const response = await fetch(API_URI + `/content/news`, {
         method: "post",

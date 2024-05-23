@@ -22,8 +22,10 @@ h4 {
     @apply text-[17px] sm:text-[18px] md:text-[22px] font-bold tracking-tight;
 }
 
-p, span, a {
-    @apply text-[14px] sm:text-[15px] md:text-[16px]
+p,
+span,
+a {
+    @apply text-[14px] sm:text-[15px] md:text-[16px];
 }
 
 a {
@@ -52,6 +54,10 @@ ul.default {
 
 figcaption {
     @apply text-gray-400 text-sm text-center;
+}
+
+hr {
+    @apply border-2;
 }
 
 /* Styling for buttons in editor. */
