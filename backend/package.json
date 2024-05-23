@@ -16,7 +16,6 @@
         "@aapc/types": "^0.5.3",
         "@aws-sdk/client-s3": "^3.582.0",
         "amazon-cognito-identity-js": "^6.3.12",
-        "aws-sdk": "^2.1626.0",
         "cors": "^2.8.5",
         "dotenv": "^16.4.5",
         "express": "^4.19.2",
@@ -25,8 +24,7 @@
         "image-size": "^1.1.1",
         "jsonwebtoken": "^9.0.2",
         "mongodb": "^6.5.0",
-        "nodemailer": "^6.9.13",
-        "uuid": "^9.0.1"
+        "nodemailer": "^6.9.13"
     },
     "devDependencies": {
         "@types/express": "^4.17.21",
