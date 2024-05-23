@@ -62,10 +62,10 @@ export default function AuthDashboard({ dashboardLocation }: { dashboardLocation
                 </div>
             ) : (
                 <div className="flex justify-center gap-x-4">
-                    <Button
-                        text={"Sign up"}
-                        icon={icons.signup}
-                    />
+                    {/*<Button*/}
+                    {/*    text={"Sign up"}*/}
+                    {/*    icon={icons.signup}*/}
+                    {/*/>*/}
                     <Button
                         text={"Log in"}
                         theme={"secondary"}
