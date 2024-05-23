@@ -1,10 +1,12 @@
 "use client"
 
 import React, { useRef } from "react"
+import icons from "@/app/lib/icons"
 import { useAuth } from "@/app/lib/hooks"
 import { getScopesFromToken } from "@/app/lib/util"
 import { UserScopeLabel } from "@/app/(auth)/components"
 import { LoginModal, ChangePasswordModal } from "@/app/components/modals"
+import Button from "@/app/components/Button"
 import { ModalRef } from "@/app/lib/hooks/useModal"
 
 export default function AuthDashboard({ dashboardLocation }: { dashboardLocation: string }): React.JSX.Element {
@@ -44,19 +46,32 @@ export default function AuthDashboard({ dashboardLocation }: { dashboardLocation
                         </p>
                         {scopes && <UserScopeLabel scopes={scopes}/>}
                     </div>
-                    <div className={`space-x-4`}>
-                        <button className="hoverable auth-button bg-primary text-nowrap" onClick={showChangePasswordModal}>
-                            Change Password
-                        </button>
-                        <button className="hoverable auth-button bg-primary" onClick={clearSession}>
-                            Logout
-                        </button>
+                    <div className={`flex justify-center gap-x-4`}>
+                        <Button
+                            text={"Change Password"}
+                            icon={icons.user}
+                            onClick={showChangePasswordModal}
+                        />
+                        <Button
+                            text={"Log out"}
+                            theme={"secondary"}
+                            icon={icons.logout}
+                            onClick={clearSession}
+                        />
                     </div>
                 </div>
             ) : (
-                <div className="flex justify-center">
-                    <button className="hoverable auth-button bg-primary mr-4" onClick={showLoginModal}>Login</button>
-                    <button className="hoverable auth-button bg-gray-200">Sign up</button> {/* Temporary */}
+                <div className="flex justify-center gap-x-4">
+                    {/*<Button*/}
+                    {/*    text={"Sign up"}*/}
+                    {/*    icon={icons.signup}*/}
+                    {/*/>*/}
+                    <Button
+                        text={"Log in"}
+                        theme={"secondary"}
+                        icon={icons.login}
+                        onClick={showLoginModal}
+                    />
                 </div>
             )}
             <LoginModal ref={loginRef} modalId={`${dashboardLocation}-login`}/>

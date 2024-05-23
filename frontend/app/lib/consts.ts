@@ -44,8 +44,6 @@ export const PUBLIC_FRONT_END_PAGES: Page[] = [
     { name: "Contact", url: "/contact" },
 ]
 
-export const OPEN_AUTH_ROUTES = [ROUTES.LOGIN, ROUTES.FORGOT_PASSWORD] // no auth required for these ones
-
 export const SCOPES = {
     anonymous: [],
     loggedIn: [UserScope.user, UserScope.regular, UserScope.premium, UserScope.maintainer, UserScope.admin],

@@ -1,11 +1,11 @@
 "use client"
 
 import React, { ForwardedRef, forwardRef, useEffect, useImperativeHandle, useState } from "react"
+import { ModalRef } from "@/app/lib/hooks/useModal"
 import Link from "next/link"
-import { ModalRef } from "@/app/lib/hooks/useModal";
 
 const MobileNavModal = forwardRef(
-    function MobileNavModal(_, ref: ForwardedRef<ModalRef>): React.JSX.Element {
+    function MobileNavModal({ onClose }: { onClose: () => void }, ref: ForwardedRef<ModalRef>): React.JSX.Element {
         const [hidden, setHidden] = useState(true)
 
         const toggleModal = () => setHidden(v => !v)
@@ -21,6 +21,7 @@ const MobileNavModal = forwardRef(
                 const modal = document.getElementById("inner-mobile-nav")
                 if (!modal) return
                 if (!modal.matches(":hover")) {
+                    onClose()
                     setHidden(true)
                 }
             }) // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -32,7 +33,10 @@ const MobileNavModal = forwardRef(
                     py-2 text-[12px]
                     sm:py-2.5 sm:text-[13.5px]
                     md:py-3.5 md:text-[16px]
-                `} onClick={() => setHidden(true)}>
+                `} onClick={() => {
+                    onClose()
+                    setHidden(true)
+                }}>
                     {title}
                 </Link>
             )

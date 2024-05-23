@@ -1,21 +1,19 @@
 "use client"
 
-import Link from "next/link"
 import React, { useRef, useState } from "react"
-import { MdOutlineAccountCircle } from "react-icons/md"
-import { FiMenu } from "react-icons/fi"
-import { IoClose } from "react-icons/io5"
+import Link from "next/link"
+import icons from "@/app/lib/icons"
+import { ModalRef } from "@/app/lib/hooks/useModal"
 import { AuthDashboard } from "@/app/(auth)/components"
 import { MobileNavModal, MobileAuthModal } from "@/app/components/modals"
-import { ModalRef } from "@/app/lib/hooks/useModal"
 
 export default function Header(): React.JSX.Element {
     const mobileNavModalRef = useRef<ModalRef>(null)
     const mobileAuthModalRef = useRef<ModalRef>(null)
 
-    const defaultNavIcon = <FiMenu size={"100%"}/>
-    const defaultAuthIcon = <MdOutlineAccountCircle size={"100%"}/>
-    const defaultCloseIcon = <IoClose size={"100%"}/>
+    const defaultNavIcon = icons.burger
+    const defaultAuthIcon = icons.user
+    const defaultCloseIcon = icons.close
 
     const [navIcon, setNavIcon] = useState<React.JSX.Element>(defaultNavIcon)
     const [authIcon, setAuthIcon] = useState<React.JSX.Element>(defaultAuthIcon)
@@ -51,10 +49,10 @@ export default function Header(): React.JSX.Element {
     return (
         <>
             <div className={"lg:hidden"}>
-                <MobileNavModal ref={mobileNavModalRef}/>
+                <MobileNavModal onClose={() => setNavIcon(defaultNavIcon)} ref={mobileNavModalRef}/>
             </div>
             <div className={'md:hidden'}>
-                <MobileAuthModal ref={mobileAuthModalRef}/>
+                <MobileAuthModal onClose={() => setAuthIcon(defaultAuthIcon)} ref={mobileAuthModalRef}/>
             </div>
             <div className={`fixed top-0 w-full flex items-center z-30 bg-gradient-to-b from-white
                 h-header-mobile justify-between
