@@ -66,7 +66,7 @@ export default function ForgotPasswordForm({ id }: { id?: string }): React.JSX.E
             <Button
                 disabled={pending}
                 type={"submit"}
-                text={pending ? "Sending Email..." : "Send Reset Password Email"}
+                text={pending ? "Sending email..." : "Send reset password email"}
                 icon={icons.send}
             />
         </form>
