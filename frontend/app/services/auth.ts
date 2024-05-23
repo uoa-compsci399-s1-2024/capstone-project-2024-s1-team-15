@@ -42,3 +42,19 @@ export async function changePassword(
         return success({})
     }
 }
+
+export async function sendResetPasswordEmail(
+    credentials: { username: string },
+    options?: FetchOptions
+): Promise<Result<{ partiallyCensoredUserEmail: string }>> {
+    const res = await fetch(`${API_URI}/auth/password/forgot/${credentials.username}`, {
+        method: "post", // because it sends an email
+        headers: getHeaders(options),
+    })
+
+    if (res.status !== 200) {
+        return fail((await res.json()).message)
+    } else {
+        return success(await res.json())
+    }
+}

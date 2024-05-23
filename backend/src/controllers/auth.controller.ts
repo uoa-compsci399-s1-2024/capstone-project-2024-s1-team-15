@@ -51,7 +51,7 @@ export default class AuthController {
     }
 
     static resetPassword: RequestHandler = async (req, res, next) => {
-        res.send()
+        res.send({ partiallyCensoredUserEmail: "a******6@gmail.com" })
         next()
     }
 }

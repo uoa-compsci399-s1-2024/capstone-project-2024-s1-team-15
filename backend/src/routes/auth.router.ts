@@ -29,6 +29,9 @@ export default class AuthRouter {
             expressAsyncHandler(AuthController.changePassword)
         )
 
+        // scope: anonymous
+        router.post("/password/forgot/:username", expressAsyncHandler(AuthController.resetPassword))
+
         // scope: currentUser
         router.post("/password/:username", Scope.currentUser,
             expressAsyncHandler(AuthController.resetPassword)
