@@ -29,6 +29,7 @@ export default function ForgotPasswordForm({ id }: { id?: string }): React.JSX.E
         let result = await sendResetPasswordEmail({ email: emailInput })
         if (result.success) {
             const formElement = document.getElementById(formId) as HTMLFormElement
+            setForgotPasswordEmailSent(true)
             formElement.reset()
         } else {
             return { error: result.message }
@@ -59,9 +60,7 @@ export default function ForgotPasswordForm({ id }: { id?: string }): React.JSX.E
             {state.error && <p className={"form-error ml-1"}>{state.error}</p>}
 
             {forgotPasswordEmailSent && (
-                <p className="form-success">
-                    Reset password email sent to {emailInput} Please check your inbox (or junk folder).
-                </p>
+                <p className="form-success">Reset password email sent. Please check your inbox (or junk folder).</p>
             )}
 
             <Button
