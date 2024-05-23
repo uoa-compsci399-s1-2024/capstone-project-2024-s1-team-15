@@ -17,3 +17,9 @@
 *.tsbuildinfo
 next-env.d.ts
 .vercel
+
+/.aws/credentials
+
+/src/static/*
+!/src/static/permanent/*
+!/src/static/permanent

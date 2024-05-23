@@ -53,6 +53,10 @@ interface IUserPaginatedQIn extends IPaginatedQIn<UserSortFields> {
     un?: string
 }
 
+interface IAddImageQIn {
+    origin?: string
+}
+
 // Concrete Implementations
 
 export class NewArticleIn extends Validator<IArticleIn> implements IArticleIn {
@@ -302,6 +306,20 @@ export class UserPaginatedQIn extends Validator<IUserPaginatedQIn> implements IU
         this.pp = this.checkNumber(obj, "pp", 1, DEFAULT_MAX_PER_PAGE) ?? DEFAULT_PER_PAGE
         this.sortBy = obj["sortBy"] ?? "registeredAt"
         this.un = obj["un"] ?? undefined
+
+        if (this.errors.length > 0) {
+            throw new ValidationError(this.errors)
+        }
+    }
+}
+
+export class AddImageQIn extends Validator<IAddImageQIn> implements IAddImageQIn {
+    origin?: string
+
+    constructor(obj: any) {
+        super("query")
+
+        this.origin = obj["origin"] ?? undefined
 
         if (this.errors.length > 0) {
             throw new ValidationError(this.errors)
