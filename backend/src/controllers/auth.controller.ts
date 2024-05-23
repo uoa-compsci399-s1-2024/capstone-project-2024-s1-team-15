@@ -1,7 +1,7 @@
 import { RequestHandler } from "express"
 import { BadRequestError, UnauthorizedError } from "@/errors/HTTPErrors"
 import { AUTH, DB } from "@/services/services"
-import { ChangePasswordIn, DeactivateIn, LoginIn, RegisterIn } from "@/util/validation/input.types"
+import { ChangePasswordIn, DeactivateIn, ForgotPasswordIn, LoginIn, RegisterIn } from "@/util/validation/input.types"
 import { validate } from "@/util/functions"
 
 export default class AuthController {
@@ -51,7 +51,9 @@ export default class AuthController {
     }
 
     static resetPassword: RequestHandler = async (req, res, next) => {
-        res.send()
+        const body = validate(ForgotPasswordIn, req.body)
+
+        res.sendStatus(200)
         next()
     }
 }
