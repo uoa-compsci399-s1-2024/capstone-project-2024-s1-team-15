@@ -34,6 +34,10 @@ interface IChangePasswordIn {
     newPassword: string
 }
 
+interface IForgotPasswordIn {
+    email: string
+}
+
 export interface IPaginatedQIn<T extends string> {
     p: number
     pp: number
@@ -240,6 +244,20 @@ export class ChangePasswordIn extends Validator<IChangePasswordIn> implements IC
 
         this.currentPassword = this.checkMissing(obj, "currentPassword")
         this.newPassword = this.checkMissing(obj, "newPassword")
+
+        if (this.errors.length > 0) {
+            throw new ValidationError(this.errors)
+        }
+    }
+}
+
+export class ForgotPasswordIn extends Validator<IForgotPasswordIn> implements IForgotPasswordIn {
+    email: string
+
+    constructor(obj: any) {
+        super("body")
+
+        this.email = this.checkMissing(obj, "email")
 
         if (this.errors.length > 0) {
             throw new ValidationError(this.errors)

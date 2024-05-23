@@ -47,7 +47,7 @@ export async function sendResetPasswordEmail(
     credentials: { email: string },
     options?: FetchOptions
 ): Promise<Result<any>> {
-    const res = await fetch(`${API_URI}/auth/password/forgot`, {
+    const res = await fetch(`${API_URI}/auth/forgot-password`, {
         method: "post",
         body: JSON.stringify(credentials),
         headers: getHeaders(options),

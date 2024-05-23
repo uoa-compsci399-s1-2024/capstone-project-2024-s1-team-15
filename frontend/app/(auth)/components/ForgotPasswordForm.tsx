@@ -14,8 +14,8 @@ type FormState = {
 export default function ForgotPasswordForm({ id }: { id?: string }): React.JSX.Element {
     const [state, formAction] = useFormState<FormState>(forgotPasswordAction, {})
 
-    // after sending email, it should show the  email was sent to (but partially censor it)  e.g. jo****e@gmail.com
     const [forgotPasswordEmailSent, setForgotPasswordEmailSent] = useState(false)
+    const [emailInput, setEmailInput] = useState("")
 
     const { pending } = useFormStatus()
     const { user } = useAuth()
@@ -24,10 +24,9 @@ export default function ForgotPasswordForm({ id }: { id?: string }): React.JSX.E
     async function forgotPasswordAction(_: FormState, formData?: any): Promise<FormState> {
         if (user) return { error: "You are already logged in. Please log out to perform this action." }
 
-        const email = formData.get("email")
-        if (!email) return { error: "All fields are required." }
+        if (!emailInput) return { error: "All fields are required." }
 
-        let result = await sendResetPasswordEmail({ email })
+        let result = await sendResetPasswordEmail({ email: emailInput })
         if (result.success) {
             const formElement = document.getElementById(formId) as HTMLFormElement
             formElement.reset()
@@ -51,6 +50,8 @@ export default function ForgotPasswordForm({ id }: { id?: string }): React.JSX.E
                     name={"email"}
                     className={"form-input bg-gray-100 max-w-lg"}
                     type={"text"}
+                    value={emailInput}
+                    onChange={(e) => setEmailInput(e.target.value)}
                     placeholder={"Enter your email..."}
                 />
             </div>
@@ -59,7 +60,7 @@ export default function ForgotPasswordForm({ id }: { id?: string }): React.JSX.E
 
             {forgotPasswordEmailSent && (
                 <p className="form-success">
-                    Reset password email sent to {forgotPasswordEmailSent} Please check your inbox (or junk folder).
+                    Reset password email sent to {emailInput} Please check your inbox (or junk folder).
                 </p>
             )}
 
