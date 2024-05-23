@@ -16,9 +16,9 @@ export default class NewsRouter {
         )
 
         // scope: anonymous
-        router.get("/:id",
-            expressAsyncHandler(NewsController.getNewsById)
-        )
+        router.get("/:id", expressAsyncHandler(NewsController.getNewsById))
+
+        router.get("/by-user/:username", expressAsyncHandler(NewsController.getAllNewsByUser))
 
         // scope: maintainer
         router.post("/", Scope.has(SCOPES.maintainer),
