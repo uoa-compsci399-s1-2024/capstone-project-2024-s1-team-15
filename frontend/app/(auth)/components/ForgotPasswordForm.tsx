@@ -15,7 +15,7 @@ export default function ForgotPasswordForm({ id }: { id?: string }): React.JSX.E
     const [state, formAction] = useFormState<FormState>(forgotPasswordAction, {})
 
     // after sending email, it should show the  email was sent to (but partially censor it)  e.g. jo****e@gmail.com
-    const [usersPartialEmailAddress, setUsersPartialEmailAddress] = useState<null | string>(null)
+    const [forgotPasswordEmailSent, setForgotPasswordEmailSent] = useState(false)
 
     const { pending } = useFormStatus()
     const { user } = useAuth()
@@ -24,14 +24,13 @@ export default function ForgotPasswordForm({ id }: { id?: string }): React.JSX.E
     async function forgotPasswordAction(_: FormState, formData?: any): Promise<FormState> {
         if (user) return { error: "You are already logged in. Please log out to perform this action." }
 
-        const username = formData.get("username")
-        if (!username) return { error: "All fields are required." }
+        const email = formData.get("email")
+        if (!email) return { error: "All fields are required." }
 
-        let result = await sendResetPasswordEmail({ username })
+        let result = await sendResetPasswordEmail({ email })
         if (result.success) {
             const formElement = document.getElementById(formId) as HTMLFormElement
             formElement.reset()
-            setUsersPartialEmailAddress(result.result.partiallyCensoredUserEmail)
         } else {
             return { error: result.message }
         }
@@ -39,28 +38,28 @@ export default function ForgotPasswordForm({ id }: { id?: string }): React.JSX.E
     }
 
     useEffect(() => {
-        if (state.error) setUsersPartialEmailAddress(null)
+        if (state.error) setForgotPasswordEmailSent(false)
     }, [state.error])
 
     return (
         <form className="flex flex-col items-start space-y-6 w-full" action={formAction} id={formId}>
             <div className={"w-full"}>
-                <label htmlFor={"username"}>
-                    <p className="form-label">Username</p>
+                <label htmlFor={"email"}>
+                    <p className="form-label">Email</p>
                 </label>
                 <input
-                    name={"username"}
+                    name={"email"}
                     className={"form-input bg-gray-100 max-w-lg"}
                     type={"text"}
-                    placeholder={"Enter your username..."}
+                    placeholder={"Enter your email..."}
                 />
             </div>
 
             {state.error && <p className={"form-error ml-1"}>{state.error}</p>}
 
-            {usersPartialEmailAddress && (
+            {forgotPasswordEmailSent && (
                 <p className="form-success">
-                    Reset password email sent to {usersPartialEmailAddress} Please check your inbox (or junk folder).
+                    Reset password email sent to {forgotPasswordEmailSent} Please check your inbox (or junk folder).
                 </p>
             )}
 
