@@ -21,6 +21,7 @@ function Slider({ slides, onSelectedSlideIndexChange }: Props) {
                 disabled={selectedSlideIndex === 0}
                 onClick={() => setSelectedSlideIndex(c => c - 1)}
                 icon={icons.back}
+                leftIcon
             />
 
             {slides[selectedSlideIndex]}
