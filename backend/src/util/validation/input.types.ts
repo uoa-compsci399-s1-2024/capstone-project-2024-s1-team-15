@@ -38,6 +38,12 @@ interface IForgotPasswordIn {
     email: string
 }
 
+interface IResetPasswordIn {
+    email: string
+    verificationCode: string
+    newPassword: string
+}
+
 export interface IPaginatedQIn<T extends string> {
     p: number
     pp: number
@@ -256,8 +262,25 @@ export class ForgotPasswordIn extends Validator<IForgotPasswordIn> implements IF
 
     constructor(obj: any) {
         super("body")
+        this.email = this.checkMissing(obj, "email")
+
+        if (this.errors.length > 0) {
+            throw new ValidationError(this.errors)
+        }
+    }
+}
+
+export class ResetPasswordIn extends Validator<IResetPasswordIn> implements IResetPasswordIn {
+    email: string
+    newPassword: string
+    verificationCode: string
+
+    constructor(obj: any) {
+        super("body")
 
         this.email = this.checkMissing(obj, "email")
+        this.newPassword = this.checkMissing(obj, "newPassword")
+        this.verificationCode = this.checkMissing(obj, "verificationCode")
 
         if (this.errors.length > 0) {
             throw new ValidationError(this.errors)

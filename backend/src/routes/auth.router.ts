@@ -30,12 +30,10 @@ export default class AuthRouter {
         )
 
         // scope: anonymous
-        router.post("/forgot-password/", expressAsyncHandler(AuthController.resetPassword))
+        router.post("/forgot-password", expressAsyncHandler(AuthController.sendResetPasswordEmail))
 
-        // scope: currentUser
-        router.post("/password/:username", Scope.currentUser,
-            expressAsyncHandler(AuthController.resetPassword)
-        )
+        // scope: anonymous
+        router.post("/password", expressAsyncHandler(AuthController.resetPassword))
 
         return router
     }
