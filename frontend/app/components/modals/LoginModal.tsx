@@ -12,7 +12,7 @@ const LoginModal = forwardRef(
         const [ hidden, setHidden ] = useModal(modalId, ref)
 
         return (
-            <FormModal name={`Login`} modalId={modalId} hidden={hidden} setHidden={setHidden}>
+            <FormModal name={`Log in`} modalId={modalId} hidden={hidden} setHidden={setHidden}>
                 <LoginForm onSuccess={() => setHidden(true)} id={modalId}/>
             </FormModal>
         )
