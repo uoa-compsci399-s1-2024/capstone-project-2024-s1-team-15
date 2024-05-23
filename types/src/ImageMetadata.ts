@@ -8,6 +8,7 @@ export interface IImageMetadata {
     id: string
     height: number
     width: number
+    size: number
     format: ImageFormat
     createdAt: string
     createdBy: IUser
@@ -31,6 +32,7 @@ export default class ImageMetadata implements IImageMetadata {
         this.id = obj?.id ?? ""
         this.height = obj?.height ?? 0
         this.width = obj?.width ?? 0
+        this.size = obj?.size ?? 0
         this.format = obj?.format ?? ImageFormat.jpg
         this.createdAt = (obj?.createdAt ? new Date(obj.createdAt) : new Date()).toISOString()
         this.createdBy = new User(obj?.createdBy ?? {})
@@ -41,6 +43,7 @@ export default class ImageMetadata implements IImageMetadata {
     id: string
     height: number
     width: number
+    size: number
     format: ImageFormat
     createdAt: string
     createdBy: IUser
