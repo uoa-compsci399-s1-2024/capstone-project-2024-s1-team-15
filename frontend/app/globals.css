@@ -41,7 +41,7 @@ ul.default {
 }
 
 .subtitle {
-    @apply italic text-2xl text-gray-400 mb-10 block;
+    @apply italic text-2xl text-gray-400 block;
 }
 
 .button {
