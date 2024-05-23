@@ -19,27 +19,27 @@ export default function Button(
 
     switch (theme) {
         case "primary": {
-            colorClass = "bg-primary bg-opacity-60 disabled:bg-opacity-30 disabled:hover:bg-opacity-30"
+            colorClass = "bg-primary bg-opacity-60 disabled:bg-opacity-30 disabled:group-hover:bg-opacity-30"
             break
         }
         case "secondary": {
-            colorClass = "bg-secondary bg-opacity-30 disabled:bg-opacity-15 disabled:hover:bg-opacity-15"
+            colorClass = "bg-secondary bg-opacity-30 disabled:bg-opacity-15 disabled:group-hover:bg-opacity-15"
             break
         }
         case "red": {
-            colorClass = "bg-red-500 bg-opacity-40 disabled:bg-opacity-20 disabled:hover:bg-opacity-20"
+            colorClass = "bg-red-500 bg-opacity-40 disabled:bg-opacity-20 disabled:group-hover:bg-opacity-20"
             break
         }
         case "green": {
-            colorClass = "bg-green-500 bg-opacity-40 disabled:bg-opacity-20 disabled:hover:bg-opacity-20"
+            colorClass = "bg-green-500 bg-opacity-40 disabled:bg-opacity-20 disabled:group-hover:bg-opacity-20"
             break
         }
         case "overlay": {
-            colorClass = "bg-black bg-opacity-10 disabled:bg-opacity-5 disabled:hover:bg-opacity-5 text-white"
+            colorClass = "bg-black bg-opacity-10 disabled:bg-opacity-5 disabled:group-hover:bg-opacity-5 text-white"
             break
         }
         case "cms": {
-            colorClass = "bg-maintainer bg-opacity-40 border-2 border-dashed border-black disabled:bg-opacity-20 disabled:hover:bg-opacity-20"
+            colorClass = "bg-maintainer bg-opacity-40 border-2 border-dashed border-black disabled:bg-opacity-20 disabled:group-hover:bg-opacity-20"
         }
     }
 
@@ -62,18 +62,20 @@ export default function Button(
     }
 
     return (
-        <div className={`rounded-full ${!(theme === "overlay") && 'bg-white'} shrink-0 grow-0 w-max h-max`}>
+        <div className={`group shrink-0 grow-0 w-max h-max rounded-full ${!(theme === "overlay") && 'bg-white'}
+            ${disabled ? 'shadow-none hover:shadow-none' : 'shadow-md hover:shadow-lg'} transition
+        `}>
             <button
                 type={type}
                 disabled={disabled}
                 onClick={onClick}
                 title={title}
-                className={`${colorClass} ${className} font-medium w-auto rounded-full group gap-x-3 drop-shadow-md
+                className={`${colorClass} ${className} font-medium w-auto rounded-full gap-x-3 shadow-none
                 flex ${leftIcon? "flex-row-reverse" : "flex-row"} items-center ${alignmentClass} flex-grow
-                hover:text-white ${theme === "overlay"? 'hover:bg-opacity-30' : 'hover:bg-opacity-100'} 
-                hover:drop-shadow-xl transition
-                disabled:drop-shadow-none disabled:hover:drop-shadow-none disabled:cursor-not-allowed
-                disabled:text-gray-400 disabled:hover:text-gray-400 
+                group-hover:text-white ${theme === "overlay"? 'group-hover:bg-opacity-30' : 'group-hover:bg-opacity-100'}
+                group-hover:shadow-none transition
+                disabled:cursor-not-allowed
+                disabled:text-gray-400 disabled:group-hover:text-gray-400
                 h-[33px] sm:h-[35px] md:h-[37px]
             `}>
                 {text &&
@@ -82,9 +84,13 @@ export default function Button(
                     </p>
                 }
                 {icon &&
-                    <div className={`h-full w-auto grow-0
-                        ${leftIcon? `group-hover:rotate-[-12deg]` : `group-hover:rotate-[12deg]`} 
-                        group-disabled:group-hover:rotate-0 transition ease-in-out
+                    <div className={`h-full aspect-square grow-0
+                        ${
+                            disabled 
+                            ? 'group-hover:rotate-0' 
+                            : leftIcon? `group-hover:rotate-[-10deg]` : `group-hover:rotate-[10deg]`
+                        } 
+                        transition-transform ease-in-out
                     `}>
                         {icon}
                     </div>
