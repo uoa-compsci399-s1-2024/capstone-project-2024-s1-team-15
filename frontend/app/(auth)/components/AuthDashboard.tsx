@@ -48,7 +48,7 @@ export default function AuthDashboard({ dashboardLocation }: { dashboardLocation
                     </div>
                     <div className={`flex justify-center gap-x-4`}>
                         <Button
-                            text={"My Account"}
+                            text={"Change Password"}
                             icon={icons.user}
                             onClick={showChangePasswordModal}
                         />

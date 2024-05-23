@@ -97,7 +97,7 @@ export default function ExternalArticleForm({ actionType, articleType, articleJS
                             }
                         })
                     } break
-                }6
+                }
 
             } break
         }
