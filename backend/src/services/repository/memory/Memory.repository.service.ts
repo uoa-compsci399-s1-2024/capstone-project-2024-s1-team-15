@@ -1,19 +1,26 @@
-import { Article, IArticle, IUser, User, PollenData, } from "@aapc/types"
-import { ArrayResult, ArrayResultOptions, Nullable, SortOptions } from "@/util/types/types"
+import { Article, IArticle, IUser, User, PollenData, ImageMetadata, ImageFormat, } from "@aapc/types"
+import {
+    ArrayResult,
+    ArrayResultOptions,
+    ArticleSortFields, ImageMetadataSortFields,
+    Nullable,
+    Sorter,
+    SortOptions,
+    UserSortFields
+} from "@/util/types/types"
 import IRepository from "@/services/repository/repository.service"
 import users from "@/services/repository/memory/data/users.json"
 import news from "@/services/repository/memory/data/news.json"
 import researches from "@/services/repository/memory/data/researches.json"
+import imageMetadata from "@/services/repository/memory/data/imageMetadata.json"
 import pollenData from "@/services/repository/memory/data/pollenData.json"
-import { Sorter } from "@/services/repository/memory/sorters/Sorter"
-import { ArticleSortFields } from "@/services/repository/memory/sorters/article.sorter"
-import { UserSortFields } from "@/services/repository/memory/sorters/user.sorter"
 
 export default class MemoryRepository implements IRepository {
     private readonly users: User[]
     private readonly news: Article[]
     private readonly researches: Article[]
     private pollenData: PollenData[]
+    private readonly imageMetadata: ImageMetadata[]
 
     constructor() {
         this.users = []
@@ -37,7 +44,15 @@ export default class MemoryRepository implements IRepository {
             })
         })
 
-        this.pollenData = pollenData as any
+        this.imageMetadata = []
+        imageMetadata.forEach(i => {
+            this.getUserByUsername(i.createdBy).then(r => {
+                const j: ImageMetadata = { ...i, ...{ createdBy: r ?? new User(), format: ImageFormat[i.format as "png" | "jpg"] } }
+                this.imageMetadata.push(j)
+            })
+        })
+
+        this.pollenData = pollenData as PollenData[]
     }
 
     handleArrayResultOptions<T, K extends SortOptions<T, any>>(
@@ -260,5 +275,55 @@ export default class MemoryRepository implements IRepository {
 
     async createPollenDataset(pollenData: PollenData[]): Promise<any> {
         this.pollenData = pollenData
+    }
+
+    async createImageMetadata(im: ImageMetadata): Promise<ImageMetadata> {
+        this.imageMetadata.push(im)
+        return im
+    }
+
+    async getOneImageMetadata(id: string): Promise<Nullable<ImageMetadata>> {
+        for (const im of this.imageMetadata) {
+            if (im.id === id) {
+                return im
+            }
+        }
+        return null
+    }
+
+    async getManyImageMetadata(
+        username?: string,
+        options?: ArrayResultOptions<SortOptions<ImageMetadata, ImageMetadataSortFields>>
+    ): Promise<ArrayResult<ImageMetadata>> {
+        let im = structuredClone(this.imageMetadata)
+
+        if (username) {
+            im = im.filter(i => i.createdBy.username === username)
+        }
+
+        return {
+            totalResults: im.length,
+            results: this.handleArrayResultOptions(im, options)
+        }
+    }
+
+    async editImageMetadata(id: string, im: ImageMetadata): Promise<ImageMetadata> {
+        if (im.id !== id) throw new TypeError("Image metadata edit ID mismatch")
+        for (let i = 0; i < this.imageMetadata.length; i++) {
+            if (this.imageMetadata[i].id === id) {
+                this.imageMetadata[i] = im
+            }
+        }
+        return im
+    }
+
+    async deleteImageMetadata(id: string): Promise<void> {
+        for (let i = 0; i < this.imageMetadata.length; i++) {
+            if (this.imageMetadata[i].id === id) {
+                this.imageMetadata.splice(i, 1)
+                return
+            }
+        }
+        throw new TypeError(`No image with ID ${id}.`)
     }
 }

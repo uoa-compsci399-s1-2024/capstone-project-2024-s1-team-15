@@ -1,7 +1,7 @@
 import { RequestHandler } from "express"
-import { BadRequestError } from "@/errors/HTTPErrors"
+import { BadRequestError, UnauthorizedError } from "@/errors/HTTPErrors"
 import { UploadedFile } from "express-fileupload"
-import { ImageFormat, ImageMetadata, IUser } from "@aapc/types"
+import { ImageFormat, ImageMetadata } from "@aapc/types"
 import { CDN, DB } from "@/services/services"
 import { DEFAULT_IMAGE_ID_LENGTH } from "@/util/const";
 import { getRandomID, validate } from "@/util/functions";
@@ -40,21 +40,33 @@ export default class ImageController {
 
         const fileContent = Buffer.from(file.data)
 
-        const id = getRandomID(DEFAULT_IMAGE_ID_LENGTH)
+        const createdBy = await DB.getUserByUsername(res.locals.username)
+        if (!createdBy) throw new UnauthorizedError("Invalid username.")
+
+        // Get Unique ID
+        let id: string
+        do {
+            id = getRandomID(DEFAULT_IMAGE_ID_LENGTH)
+        } while (await DB.getOneImageMetadata(id) !== null)
+
         const dimensions = sizeOf(fileContent)
+        const size = fileContent.byteLength
         const location = await CDN.putImage(fileContent, id, fileFormat)
 
         const im = new ImageMetadata({
             id: id,
             height: dimensions.height,
             width: dimensions.width,
+            size: size,
             format: fileFormat,
             createdAt: new Date().toISOString(),
-            createdBy: await DB.getUserByUsername(res.locals.username) as IUser,
+            createdBy: createdBy,
             usages: query.origin? [query.origin] : [],
             src: location
         })
-        res.json(im)
+
+        res.location(`/image/${im.id}`)
+        res.status(201).json(im).send()
         next()
     }
 

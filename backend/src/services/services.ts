@@ -34,9 +34,9 @@ switch (process.env.ENV) {
             "AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY", "AWS_SESSION_TOKEN", "AWS_REGION"
         ]
 
-        const missingEnvVariables: (keyof ProcessEnv)[] = requiredEnvVariables.filter(ev => {
-            if (!process.env[ev]) return ev
-        })
+        const missingEnvVariables: (keyof ProcessEnv)[] = requiredEnvVariables.filter(
+            ev => !process.env[ev]
+        )
 
         if (missingEnvVariables.length > 0) {
             throw new Error("Missing required environment variables: " + missingEnvVariables.join(", "))

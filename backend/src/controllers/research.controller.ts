@@ -1,12 +1,11 @@
 import { RequestHandler } from "express"
-import { Article, ArticleType } from "@aapc/types"
+import { Article } from "@aapc/types"
 import { BadRequestError, NotFoundError } from "@/errors/HTTPErrors"
-import { ArrayResultOptions, SortOptions } from "@/util/types/types"
+import { ArrayResultOptions, ArticleSortFields, SortOptions } from "@/util/types/types"
 import { NewArticleIn, EditArticleIn, ArticlePaginatedQIn } from "@/util/validation/input.types"
 import { DUMMY_USER } from "@/util/const"
 import { DB } from "@/services/services"
 import { getPaginator, validate } from "@/util/functions"
-import { ArticleSortFields } from "@/services/repository/memory/sorters/article.sorter"
 
 export default class ResearchController {
     static getResearch: RequestHandler = async (req, res, next) => {

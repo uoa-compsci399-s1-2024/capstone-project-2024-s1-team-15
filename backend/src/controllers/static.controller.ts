@@ -10,9 +10,13 @@ export default class StaticController {
         const filePath = path.join(__dirname, `../${STATIC_FILE_DIRECTORY}/${fileName}`)
 
         if (!fs.existsSync(filePath)) {
-            throw new NotFoundError(`File ${fileName} not found.`)
+            const permanentFilePath = path.join(__dirname, `../${STATIC_FILE_DIRECTORY}/permanent/${fileName}`)
+            if (!fs.existsSync(permanentFilePath)) {
+                throw new NotFoundError(`File ${fileName} not found.`)
+            }
+            res.sendFile(permanentFilePath)
+        } else {
+            res.sendFile(filePath)
         }
-
-        res.sendFile(filePath)
     }
 }

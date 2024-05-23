@@ -1,10 +1,9 @@
 import { Article, ArticleType, IArticle, IUser, User, UserScope } from "@aapc/types"
 import { getRandomID } from "../functions"
 import { ValidationError } from "@/errors/ValidationError"
-import { ArticleSortFields } from "@/services/repository/memory/sorters/article.sorter"
-import { UserSortFields } from "@/services/repository/memory/sorters/user.sorter"
 import { DEFAULT_MAX_PER_PAGE, DEFAULT_PER_PAGE } from "@/util/const"
 import Validator from "@/util/validation/validator"
+import { ArticleSortFields, UserSortFields } from "@/util/types/types";
 
 // Interfaces for inputs
 

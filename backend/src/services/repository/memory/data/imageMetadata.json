@@ -1,0 +1,15 @@
+[
+    {
+        "id": "bghfkg08tqq7",
+        "height": 500,
+        "width": 500,
+        "size": 13507,
+        "format": "png",
+        "createdAt": "2024-05-23T15:54:48.889Z",
+        "createdBy": "airmonitor",
+        "usages": [
+            "profile-icon"
+        ],
+        "src": "http://localhost:3000/static/bghfkg08tqq7.png"
+    }
+]

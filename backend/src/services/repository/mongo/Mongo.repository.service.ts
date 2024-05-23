@@ -1,9 +1,15 @@
-import { Article, ArticleType, PollenData, User } from "@aapc/types"
+import { Article, ArticleType, ImageMetadata, PollenData, User } from "@aapc/types"
 import { Collection, Db, Document, Filter, FindCursor, MongoClient, ServerApiVersion, WithId } from "mongodb"
-import { ArrayResult, ArrayResultOptions, Nullable, SortOptions } from "@/util/types/types"
+import {
+    ArrayResult,
+    ArrayResultOptions,
+    ArticleSortFields,
+    ImageMetadataSortFields,
+    Nullable,
+    SortOptions,
+    UserSortFields
+} from "@/util/types/types"
 import IRepository from "@/services/repository/repository.service"
-import { ArticleSortFields } from "@/services/repository/memory/sorters/article.sorter"
-import { UserSortFields } from "@/services/repository/memory/sorters/user.sorter"
 
 export default class MongoRepository implements IRepository {
     private readonly db: Db
@@ -297,5 +303,28 @@ export default class MongoRepository implements IRepository {
         await this.deletePollenDataset()
 
         await this.pollenData.insertMany(pollenData)
+    }
+
+    async createImageMetadata(im: ImageMetadata): Promise<ImageMetadata> {
+        throw new Error("Method not implemented.")
+    }
+
+    async getOneImageMetadata(id: string): Promise<Nullable<ImageMetadata>> {
+        throw new Error("Method not implemented.")
+    }
+
+    async getManyImageMetadata(
+        username?: string,
+        options?: ArrayResultOptions<SortOptions<ImageMetadata, ImageMetadataSortFields>>
+    ): Promise<ArrayResult<ImageMetadata>> {
+        throw new Error("Method not implemented.")
+    }
+
+    async editImageMetadata(id: string, im: ImageMetadata): Promise<ImageMetadata> {
+        throw new Error("Method not implemented.")
+    }
+
+    async deleteImageMetadata(id: string): Promise<void> {
+        throw new Error("Method not implemented.")
     }
 }
