@@ -282,7 +282,7 @@ export default class MemoryRepository implements IRepository {
         return im
     }
 
-    async getOneImageMetadata(id: string): Promise<Nullable<ImageMetadata>> {
+    async getImageMetadata(id: string): Promise<Nullable<ImageMetadata>> {
         for (const im of this.imageMetadata) {
             if (im.id === id) {
                 return im
@@ -291,19 +291,22 @@ export default class MemoryRepository implements IRepository {
         return null
     }
 
-    async getManyImageMetadata(
-        username?: string,
+    async getImageMetadataCreatedBy(
+        username?: Nullable<string>,
         options?: ArrayResultOptions<SortOptions<ImageMetadata, ImageMetadataSortFields>>
     ): Promise<ArrayResult<ImageMetadata>> {
-        let im = structuredClone(this.imageMetadata)
+        // Return empty list if username is null, return all if username is undefined
+        let returnIm: ImageMetadata[] = structuredClone(this.imageMetadata)
 
-        if (username) {
-            im = im.filter(i => i.createdBy.username === username)
+        if (username !== null) {
+            returnIm = returnIm.filter(i => i.createdBy.username === username)
+        } else {
+            returnIm = []
         }
 
         return {
-            totalResults: im.length,
-            results: this.handleArrayResultOptions(im, options)
+            totalResults: returnIm.length,
+            results: this.handleArrayResultOptions(returnIm, options)
         }
     }
 

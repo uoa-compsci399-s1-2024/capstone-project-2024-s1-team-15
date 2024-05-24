@@ -1,4 +1,6 @@
 import { UserScope } from "@aapc/types"
+import { DEFAULT_MAX_PER_PAGE, DEFAULT_PER_PAGE } from "@/util/const";
+import { IPaginatedQIn } from "@/util/validation/input.types";
 
 export type InputParameterLocation = "query" | "path" | "body"
 
@@ -94,4 +96,24 @@ export default class Validator<T> {
             })
         }
     }
+}
+
+export class ValidatorWithPaginatedQIn
+    <QIn extends IPaginatedQIn<QSortFields>, QSortFields extends string>
+    extends Validator<QIn>
+    implements IPaginatedQIn<QSortFields>
+{
+    constructor(obj: any, defaultSortField: QSortFields, defaultSortOrderDesc: boolean = false) {
+        super("query")
+
+        this.desc = this.checkBoolean(obj, "desc") ?? defaultSortOrderDesc
+        this.p = this.checkNumber(obj, "p") ?? 1
+        this.pp = this.checkNumber(obj, "pp", 1, DEFAULT_MAX_PER_PAGE) ?? DEFAULT_PER_PAGE
+        this.sortBy = obj["sortBy"] ?? defaultSortField
+    }
+
+    desc: boolean
+    p: number
+    pp: number
+    sortBy: QSortFields
 }

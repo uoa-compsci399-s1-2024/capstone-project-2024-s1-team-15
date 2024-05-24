@@ -309,12 +309,12 @@ export default class MongoRepository implements IRepository {
         throw new Error("Method not implemented.")
     }
 
-    async getOneImageMetadata(id: string): Promise<Nullable<ImageMetadata>> {
+    async getImageMetadata(id: string): Promise<Nullable<ImageMetadata>> {
         throw new Error("Method not implemented.")
     }
 
-    async getManyImageMetadata(
-        username?: string,
+    async getImageMetadataCreatedBy(
+        username?: Nullable<string>,
         options?: ArrayResultOptions<SortOptions<ImageMetadata, ImageMetadataSortFields>>
     ): Promise<ArrayResult<ImageMetadata>> {
         throw new Error("Method not implemented.")

@@ -1,19 +1,74 @@
 import { RequestHandler } from "express"
-import { BadRequestError, UnauthorizedError } from "@/errors/HTTPErrors"
+import { BadRequestError, NotFoundError, UnauthorizedError } from "@/errors/HTTPErrors"
 import { UploadedFile } from "express-fileupload"
 import { ImageFormat, ImageMetadata } from "@aapc/types"
 import { CDN, DB } from "@/services/services"
-import { DEFAULT_IMAGE_ID_LENGTH } from "@/util/const";
-import { getRandomID, validate } from "@/util/functions";
+import { DEFAULT_IMAGE_ID_LENGTH, SCOPES } from "@/util/const";
+import { getPaginator, getRandomID, validate } from "@/util/functions";
 import sizeOf from "image-size"
-import { AddImageQIn } from "@/util/validation/input.types";
+import { AddImageQIn, ImageMetadataPaginatedQIn } from "@/util/validation/input.types";
+import {
+    ArrayResultOptions,
+    ImageMetadataSortFields,
+    Nullable,
+    SortOptions
+} from "@/util/types/types";
+import Scope from "@/middleware/Auth"
 
 export default class ImageController {
     static getOneImageMetadata: RequestHandler = async (req, res, next) => {
+        const id = String(req.params.id)
+        const isAdmin = Scope.scopeContainsAny(res.locals.userScopes, SCOPES.admin)
+        const im = await DB.getImageMetadata(id)
+
+        if (im === null || (im.createdBy.username !== res.locals.username && !isAdmin)) {
+            // Only return images that were created by request user, or if request user is admin
+            // We return a 404 instead of 403 to obfuscate the existence of the resource
+            throw new NotFoundError(`Image with id ${id} does not exist.`)
+        }
+        res.status(200).json(im).send()
         next()
     }
 
     static getManyImageMetadata: RequestHandler = async (req, res, next) => {
+        const query = validate(ImageMetadataPaginatedQIn, req.query)
+        const isAdmin = Scope.scopeContainsAny(res.locals.userScopes, SCOPES.admin)
+
+        // Behaviours:
+        //   - IF request user is admin:
+        //     - IF query.createdBy is not defined: return all
+        //     - IF query.createdBy is defined: return all createdBy query.username
+        //   - IF request user is not admin:
+        //     - IF query.createdBy is not defined: return all createdBy request user
+        //     - IF query.createdBy is defined:
+        //       - IF query.createdBy == request user: return all createdBy query.username
+        //       - IF query.createdBy != request user: return nothing
+        let getCreatedBy: Nullable<string> | undefined = query.createdBy
+        if (isAdmin) {
+            if (!query.createdBy) {
+                getCreatedBy = undefined
+            }
+        } else {
+            if (!query.createdBy) {
+                getCreatedBy = res.locals.username
+            } else {
+                if (query.createdBy !== res.locals.username) {
+                    getCreatedBy = null
+                }
+            }
+        }
+
+        const options: ArrayResultOptions<SortOptions<ImageMetadata, ImageMetadataSortFields>> = {
+            startFrom: (query.p - 1) * query.pp,
+            maxResults: query.pp,
+            sort: [{ field: query.sortBy, descending: query.desc }],
+        }
+
+        let im = await DB.getImageMetadataCreatedBy(getCreatedBy, options)
+
+        res.status(200)
+            .json(getPaginator(ImageMetadata, req, im, query.p, query.pp))
+            .send()
         next()
     }
 
@@ -47,7 +102,7 @@ export default class ImageController {
         let id: string
         do {
             id = getRandomID(DEFAULT_IMAGE_ID_LENGTH)
-        } while (await DB.getOneImageMetadata(id) !== null)
+        } while (await DB.getImageMetadata(id) !== null)
 
         const dimensions = sizeOf(fileContent)
         const size = fileContent.byteLength

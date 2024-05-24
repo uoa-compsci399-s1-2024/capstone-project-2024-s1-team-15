@@ -50,9 +50,9 @@ export default interface IRepository {
     deletePollenDataset(): Promise<any>
     createPollenDataset(pollenData: PollenData[]): Promise<any>
     createImageMetadata(im: ImageMetadata): Promise<ImageMetadata>
-    getOneImageMetadata(id: string): Promise<Nullable<ImageMetadata>>
-    getManyImageMetadata(
-        username?: string,
+    getImageMetadata(id: string): Promise<Nullable<ImageMetadata>>
+    getImageMetadataCreatedBy(
+        username?: Nullable<string>,
         options?: ArrayResultOptions<SortOptions<ImageMetadata, ImageMetadataSortFields>>
     ): Promise<ArrayResult<ImageMetadata>>
     editImageMetadata(id: string, im: ImageMetadata): Promise<ImageMetadata>

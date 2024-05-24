@@ -1,9 +1,8 @@
 import { Article, ArticleType, IArticle, IUser, User, UserScope } from "@aapc/types"
 import { getRandomID } from "../functions"
 import { ValidationError } from "@/errors/ValidationError"
-import { DEFAULT_MAX_PER_PAGE, DEFAULT_PER_PAGE } from "@/util/const"
-import Validator from "@/util/validation/validator"
-import { ArticleSortFields, UserSortFields } from "@/util/types/types";
+import Validator, { ValidatorWithPaginatedQIn } from "@/util/validation/validator"
+import { ArticleSortFields, ImageMetadataSortFields, UserSortFields } from "@/util/types/types";
 
 // Interfaces for inputs
 
@@ -50,6 +49,10 @@ interface IArticlePaginatedQIn extends IPaginatedQIn<ArticleSortFields> {
 
 interface IUserPaginatedQIn extends IPaginatedQIn<UserSortFields> {
     un?: string
+}
+
+interface IImageMetadataPaginatedQIn extends IPaginatedQIn<ImageMetadataSortFields> {
+    createdBy?: string
 }
 
 interface IAddImageQIn {
@@ -268,20 +271,12 @@ export class ForgotPasswordIn extends Validator<IForgotPasswordIn> implements IF
     }
 }
 
-export class ArticlePaginatedQIn extends Validator<IArticlePaginatedQIn> implements IArticlePaginatedQIn {
-    desc: boolean
-    p: number
-    pp: number
-    sortBy: ArticleSortFields
+export class ArticlePaginatedQIn extends ValidatorWithPaginatedQIn<IArticlePaginatedQIn, ArticleSortFields> implements IArticlePaginatedQIn {
     t?: string
 
     constructor(obj: any) {
-        super("query")
+        super(obj, "publishedAt", true)
 
-        this.desc = this.checkBoolean(obj, "desc") ?? true
-        this.p = this.checkNumber(obj, "p") ?? 1
-        this.pp = this.checkNumber(obj, "pp", 1, DEFAULT_MAX_PER_PAGE) ?? DEFAULT_PER_PAGE
-        this.sortBy = obj["sortBy"] ?? "publishedAt"
         this.t = obj["t"] ?? undefined
 
         if (this.errors.length > 0) {
@@ -290,21 +285,27 @@ export class ArticlePaginatedQIn extends Validator<IArticlePaginatedQIn> impleme
     }
 }
 
-export class UserPaginatedQIn extends Validator<IUserPaginatedQIn> implements IUserPaginatedQIn {
-    desc: boolean
-    p: number
-    pp: number
-    sortBy: UserSortFields
+export class UserPaginatedQIn extends ValidatorWithPaginatedQIn<IUserPaginatedQIn, UserSortFields> implements IUserPaginatedQIn {
     un?: string
 
     constructor(obj: any) {
-        super("query")
-
-        this.desc = this.checkBoolean(obj, "desc") ?? true
-        this.p = this.checkNumber(obj, "p") ?? 1
-        this.pp = this.checkNumber(obj, "pp", 1, DEFAULT_MAX_PER_PAGE) ?? DEFAULT_PER_PAGE
-        this.sortBy = obj["sortBy"] ?? "registeredAt"
+        super(obj, "registeredAt", true)
+6
         this.un = obj["un"] ?? undefined
+
+        if (this.errors.length > 0) {
+            throw new ValidationError(this.errors)
+        }
+    }
+}
+
+export class ImageMetadataPaginatedQIn extends ValidatorWithPaginatedQIn<IImageMetadataPaginatedQIn, ImageMetadataSortFields> implements IImageMetadataPaginatedQIn {
+    createdBy?: string
+
+    constructor(obj: any) {
+        super(obj, "createdAt")
+
+        this.createdBy = obj["createdBy"] ?? undefined
 
         if (this.errors.length > 0) {
             throw new ValidationError(this.errors)

@@ -25,7 +25,7 @@ export default class Scope {
         return jwtPayload
     }
 
-    private static scopeContainsAny(userScopes: UserScope[], hasAny: UserScope[]): boolean {
+    static scopeContainsAny(userScopes: UserScope[], hasAny: UserScope[]): boolean {
         for (let userScope of userScopes) {
             if (hasAny.indexOf(userScope) !== -1) return true
         }
@@ -39,6 +39,7 @@ export default class Scope {
                 throw Scope.forbidden
             } else {
                 res.locals.username = jwtPayload.username
+                res.locals.userScopes = jwtPayload.scopes
                 next()
             }
         }
