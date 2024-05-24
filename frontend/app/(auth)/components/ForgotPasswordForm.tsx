@@ -11,7 +11,7 @@ type FormState = {
     error?: string
 }
 
-export default function ForgotPasswordForm({ id }: { id?: string }): React.JSX.Element {
+export default function ForgotPasswordForm({ id, onSuccess }: { id?: string; onSuccess: any }): React.JSX.Element {
     const [state, formAction] = useFormState<FormState>(forgotPasswordAction, {})
 
     const [forgotPasswordEmailSent, setForgotPasswordEmailSent] = useState(false)
@@ -21,7 +21,7 @@ export default function ForgotPasswordForm({ id }: { id?: string }): React.JSX.E
     const { user } = useAuth()
     const formId = id ? id + "-forgot-password-form" : "forgot-password-form"
 
-    async function forgotPasswordAction(_: FormState, formData?: any): Promise<FormState> {
+    async function forgotPasswordAction(_: FormState): Promise<FormState> {
         if (user) return { error: "You are already logged in. Please log out to perform this action." }
 
         if (!emailInput) return { error: "All fields are required." }
@@ -31,6 +31,7 @@ export default function ForgotPasswordForm({ id }: { id?: string }): React.JSX.E
             const formElement = document.getElementById(formId) as HTMLFormElement
             setForgotPasswordEmailSent(true)
             formElement.reset()
+            onSuccess(emailInput)
         } else {
             return { error: result.message }
         }
@@ -41,6 +42,9 @@ export default function ForgotPasswordForm({ id }: { id?: string }): React.JSX.E
         if (state.error) setForgotPasswordEmailSent(false)
     }, [state.error])
 
+    if (forgotPasswordEmailSent)
+        return <p className="form-success mb-4">Reset password email sent. Please check your inbox (or junk folder).</p>
+
     return (
         <form className="flex flex-col items-start space-y-6 w-full" action={formAction} id={formId}>
             <div className={"w-full"}>
@@ -49,19 +53,15 @@ export default function ForgotPasswordForm({ id }: { id?: string }): React.JSX.E
                 </label>
                 <input
                     name={"email"}
+                    onChange={(e) => setEmailInput(e.target.value)}
                     className={"form-input bg-gray-100 max-w-lg"}
                     type={"text"}
                     value={emailInput}
-                    onChange={(e) => setEmailInput(e.target.value)}
                     placeholder={"Enter your email..."}
                 />
             </div>
 
             {state.error && <p className={"form-error ml-1"}>{state.error}</p>}
-
-            {forgotPasswordEmailSent && (
-                <p className="form-success">Reset password email sent. Please check your inbox (or junk folder).</p>
-            )}
 
             <Button
                 disabled={pending}

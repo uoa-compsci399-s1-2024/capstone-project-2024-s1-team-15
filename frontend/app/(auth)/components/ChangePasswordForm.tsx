@@ -92,7 +92,7 @@ export default function ChangePasswordForm({ id }: { id?: string }): React.JSX.E
 
             {state.error && <p className={"form-error ml-1"}>{state.error}</p>}
 
-            {success && <p className="form-success">Password has been changed</p>}
+            {success && <p className="form-success">Password has been changed.</p>}
 
             <Button
                 disabled={pending}
