@@ -139,7 +139,7 @@ export default function About() {
                     <p>
                         Our shared interest in generating modern airborne pollen data resulted in a collaboration to
                         install an airborne pollen sampler on the roof of the Auckland War Memorial Museum and collect
-                        pollen data for one year. This was made possible by the generous cooperation of the AWWM Botany
+                        pollen data for one year. This was made possible by the generous cooperation of the AWMM Botany
                         team and operations staff. Amy was able to support this work through her Auckland Medical
                         Research Foundation fellowship, and the University of Auckland PhD Student Laura McDonald (Kai
                         Tahu) was coopted to undertake the pollen counting work, with sisters and fellow UoA students
