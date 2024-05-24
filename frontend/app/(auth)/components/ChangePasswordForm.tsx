@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react"
 import { useFormStatus, useFormState } from "react-dom"
 import { changePassword } from "@/app/services/auth"
 import { useAuth } from "@/app/lib/hooks"
+import Button from "@/app/components/Button";
+import icons from "@/app/lib/icons";
 
 type FormState = {
     error?: string
@@ -90,11 +92,13 @@ export default function ChangePasswordForm({ id }: { id?: string }): React.JSX.E
 
             {state.error && <p className={"form-error ml-1"}>{state.error}</p>}
 
-            {success && <p className="form-success">Password has been changed</p>}
+            {success && <p className="form-success">Password has been changed.</p>}
 
-            <button disabled={pending} type={"submit"} className="button">
-                {pending ? "Changing password..." : "Change password"}
-            </button>
+            <Button
+                disabled={pending}
+                type={"submit"}
+                text={pending ? "Changing password..." : "Change password"}
+            />
         </form>
     )
 }

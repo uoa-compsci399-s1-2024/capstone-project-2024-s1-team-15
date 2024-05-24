@@ -1,7 +1,14 @@
 import { RequestHandler } from "express"
 import { BadRequestError, UnauthorizedError } from "@/errors/HTTPErrors"
 import { AUTH, DB } from "@/services/services"
-import { ChangePasswordIn, DeactivateIn, LoginIn, RegisterIn } from "@/util/validation/input.types"
+import {
+    ChangePasswordIn,
+    DeactivateIn,
+    ForgotPasswordIn,
+    LoginIn,
+    RegisterIn,
+    ResetPasswordIn,
+} from "@/util/validation/input.types"
 import { validate } from "@/util/functions"
 
 export default class AuthController {
@@ -50,8 +57,37 @@ export default class AuthController {
         next()
     }
 
+    static sendResetPasswordEmail: RequestHandler = async (req, res, next) => {
+        const body = validate(ForgotPasswordIn, req.body)
+
+        const user = (await DB.getAllUsers()).results.find((user) => user.email === body.email)
+
+        if (user === undefined) throw new UnauthorizedError("No user exists with this email.")
+
+        try {
+            await AUTH.authServiceProvider.sendResetPasswordEmail(user.email)
+        } catch (error: any) {
+            throw new BadRequestError(`Reset password email couldn't be sent: ${error.message}`)
+        }
+
+        res.sendStatus(200)
+        next()
+    }
+
     static resetPassword: RequestHandler = async (req, res, next) => {
-        res.send()
+        const body = validate(ResetPasswordIn, req.body)
+
+        const user = (await DB.getAllUsers()).results.find((user) => user.email === body.email)
+
+        if (user === undefined) throw new UnauthorizedError("No user exists with this email.")
+
+        try {
+            await AUTH.authServiceProvider.resetPassword(user.email, body.verificationCode, body.newPassword)
+        } catch (error: any) {
+            throw new BadRequestError(`Password could not be reset: ${error.message}`)
+        }
+
+        res.sendStatus(200)
         next()
     }
 }

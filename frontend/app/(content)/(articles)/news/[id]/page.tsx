@@ -9,6 +9,7 @@ import Privileged from "@/app/components/Privileged"
 import ButtonLink from "@/app/components/ButtonLink"
 import ArticlePage from "@/app/components/ArticlePage"
 import ExternalLinkButton from "@/app/(cms)/(articles)/components/ExternalLinkButton"
+import icons from "@/app/lib/icons";
 
 type PageParams = { params: { id: string } }
 
@@ -24,10 +25,9 @@ export default async function NewsPage({ params }: PageParams) {
     return (
         <div className={"space-y-6"}>
             {article.articleType == ArticleType.news &&
-                <ArticlePage article={article} />
+                <ArticlePage article={article}/>
             }
             {article.articleType == ArticleType.news_external &&
-                
                 <div className="flex flex-col">
                     <h1>{article.title}</h1>
                     <h2 className="text-red-500">This is an external article. To view it you will have to leave our website</h2>
@@ -35,12 +35,10 @@ export default async function NewsPage({ params }: PageParams) {
                         <ExternalLinkButton url={article.content} text={"Continue"}/>
                         <ButtonLink href={'/news'} text={"Go Back"}/>
                     </div>
-                    
                 </div>
             }
-            
             <Privileged requiredScopes={SCOPES.maintainer}>
-                <ButtonLink href={`/news/${params.id}/edit`} text={"Edit"} />
+                <ButtonLink theme={"cms"} href={`/news/${params.id}/edit`} text={"Edit Article"} icon={icons.edit}/>
             </Privileged>
         </div>
     )

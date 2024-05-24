@@ -1,12 +1,14 @@
 import { memo, useEffect, useState } from "react"
 import dayjs from "dayjs"
 import { PollenData } from "@aapc/types"
+import icons from "@/app/lib/icons"
 import { formatPollenData, FormattedPollenData } from "@/app/(cms)/pollen/components/util/formatData"
+import Button from "@/app/components/Button"
 import PollenTypeInput from "@/app/components/pollen/PollenTypeInput"
 import DateInput from "@/app/components/pollen/DateInput"
 import MultiChart from "@/app/components/pollen/MultiChart"
-import { makeTimestampForDateMidday } from "./util"
 import { dateFormat } from "."
+import { makeTimestampForDateMidday } from "./util"
 
 const PollenCalendar = memo(function PollenCalendar({ pollenData }: { pollenData: PollenData[] }) {
     const [showsDateFilter, setShowsDateFilter] = useState(false)
@@ -102,41 +104,42 @@ const PollenCalendar = memo(function PollenCalendar({ pollenData }: { pollenData
                     xl:pl-[calc(100vw-theme(spacing.content-max)-theme(spacing.nav)+theme(spacing.pc-md)+0.85rem)]
                     xl:max-w-[calc(100%+100vw-theme(spacing.content-max)-theme(spacing.nav)+theme(spacing.pc-md)-5rem)]
                 `}>
-                    <div className="flex flex-wrap">
-                        {/* <h4>Filter by</h4> */}
-                        <h4 className="-mt-3 sm:-mt-4 md:mt-0 drop-shadow-md md:drop-shadow-none w-full">Filter by</h4>
+                    <h4 className="-mt-3 sm:-mt-4 md:mt-0 drop-shadow-md md:drop-shadow-none w-full">Filter by</h4>
+                    <div className="flex gap-y-2 flex-col">
+                        <Button
+                            icon={icons.filter}
+                            text={"Pollen Type"}
+                            onClick={() => setShowsPollenTypeFilter(c => !c)}
+                            className={"min-w-44"}
+                        />
+                        <div className={"pl-4"}>
+                            {allPollenTypes && showsPollenTypeFilter && (
+                                <PollenTypeInput
+                                    allPollenTypes={allPollenTypes}
+                                    setDisplayedPollenTypes={setDisplayedPollenTypes}
+                                    setShowsDailyTotal={setShowsDailyTotal}
+                                    showsDailyTotal={showsDailyTotal}
+                                />
+                            )}
+                        </div>
+                    </div>
 
-                        <div className="flex gap-y-2 flex-col">
-                            <button
-                                className="button w-40 bg-primary"
-                                onClick={() => setShowsPollenTypeFilter((currentState) => !currentState)}>
-                                Pollen Type
-                            </button>
-                            <div>
-                                {allPollenTypes && showsPollenTypeFilter && (
-                                    <PollenTypeInput
-                                        allPollenTypes={allPollenTypes}
-                                        setDisplayedPollenTypes={setDisplayedPollenTypes}
-                                        setShowsDailyTotal={setShowsDailyTotal}
-                                        showsDailyTotal={showsDailyTotal}
-                                    />
-                                )}
-                            </div>
-                            <div className="flex gap-y-2 flex-col">
-                                <button
-                                    className="button w-40 bg-primary"
-                                    onClick={() => setShowsDateFilter((currentState) => !currentState)}>
-                                    Date
-                                </button>
-                                {showsDateFilter && (
-                                    <DateInput
-                                        lowerLimit={dateLowerLimit}
-                                        upperLimit={dateUpperLimit}
-                                        setUpperLimit={setDateUpperLimit}
-                                        setLowerLimit={setDateLowerLimit}
-                                    />
-                                )}
-                            </div>
+                    <div className="flex gap-y-2 flex-col">
+                        <Button
+                            icon={icons.calendar}
+                            text={"Date Range"}
+                            onClick={() => setShowsDateFilter(c => !c)}
+                            className={"min-w-44"}
+                        />
+                        <div className={"pl-4"}>
+                            {showsDateFilter && (
+                                <DateInput
+                                    lowerLimit={dateLowerLimit}
+                                    upperLimit={dateUpperLimit}
+                                    setUpperLimit={setDateUpperLimit}
+                                    setLowerLimit={setDateLowerLimit}
+                                />
+                            )}
                         </div>
                     </div>
                 </div>
