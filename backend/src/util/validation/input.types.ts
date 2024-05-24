@@ -66,6 +66,7 @@ interface IImageMetadataPaginatedQIn extends IPaginatedQIn<ImageMetadataSortFiel
 
 interface IAddImageQIn {
     origin?: string
+    alt?: string
 }
 
 // Concrete Implementations
