@@ -18,7 +18,14 @@ export default class LocalAuthService implements IAuthService {
         return null
     }
 
-    async resetPassword(username: string, newPassword: string): Promise<null> {
-        return null
+    async sendResetPasswordEmail(username: string): Promise<void> {
+        console.log("----------------- New Email Notification ----------------------")
+        console.log(`Verification Code: 1`)
+    }
+
+    async resetPassword(username: string, verificationCode: string, newPassword: string) {
+        if (verificationCode === "1") {
+            this.password = newPassword
+        }
     }
 }
