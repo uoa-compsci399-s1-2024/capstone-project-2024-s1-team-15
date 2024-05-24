@@ -1,5 +1,4 @@
 import User, { IUser } from "./User";
-
 export enum ImageFormat {
     jpg="jpg", png="png"
 }
@@ -9,6 +8,7 @@ export interface IImageMetadata {
     height: number
     width: number
     size: number
+    caption: string | null
     format: ImageFormat
     createdAt: string
     createdBy: IUser
@@ -33,6 +33,7 @@ export default class ImageMetadata implements IImageMetadata {
         this.height = obj?.height ?? 0
         this.width = obj?.width ?? 0
         this.size = obj?.size ?? 0
+        this.caption = obj?.caption ?? null
         this.format = obj?.format ?? ImageFormat.jpg
         this.createdAt = (obj?.createdAt ? new Date(obj.createdAt) : new Date()).toISOString()
         this.createdBy = new User(obj?.createdBy ?? {})
@@ -44,6 +45,7 @@ export default class ImageMetadata implements IImageMetadata {
     height: number
     width: number
     size: number
+    caption: string | null
     format: ImageFormat
     createdAt: string
     createdBy: IUser
