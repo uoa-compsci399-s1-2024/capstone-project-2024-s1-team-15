@@ -3,38 +3,37 @@ import { BadRequestError, NotFoundError, UnauthorizedError } from "@/errors/HTTP
 import { UploadedFile } from "express-fileupload"
 import { ImageFormat, ImageMetadata } from "@aapc/types"
 import { CDN, DB } from "@/services/services"
-import { DEFAULT_IMAGE_ID_LENGTH, SCOPES } from "@/util/const";
-import { getPaginator, getRandomID, validate } from "@/util/functions";
+import { DEFAULT_IMAGE_ID_LENGTH, SCOPES } from "@/util/const"
+import { getPaginator, getRandomID, validate } from "@/util/functions"
 import sizeOf from "image-size"
-import { AddImageQIn, ImageMetadataPaginatedQIn } from "@/util/validation/input.types";
+import { AddImageQIn, EditImageIn, ImageMetadataPaginatedQIn } from "@/util/validation/input.types"
 import {
     ArrayResultOptions,
     ImageMetadataSortFields,
     Nullable,
     SortOptions
-} from "@/util/types/types";
+} from "@/util/types/types"
 import Scope from "@/middleware/Auth"
 
 export default class ImageController {
-    static getOneImageMetadata: RequestHandler = async (req, res, next) => {
+    static getImageMetadata: RequestHandler = async (req, res, next) => {
         const id = String(req.params.id)
-        const isAdmin = Scope.scopeContainsAny(res.locals.userScopes, SCOPES.admin)
-        const im = await DB.getImageMetadata(id)
 
+        const im = await DB.getImageMetadataById(id)
+        const isAdmin = Scope.scopeContainsAny(res.locals.userScopes, SCOPES.admin)
         if (im === null || (im.createdBy.username !== res.locals.username && !isAdmin)) {
-            // Only return images that were created by request user, or if request user is admin
-            // We return a 404 instead of 403 to obfuscate the existence of the resource
             throw new NotFoundError(`Image with id ${id} does not exist.`)
         }
+
         res.status(200).json(im).send()
         next()
     }
 
-    static getManyImageMetadata: RequestHandler = async (req, res, next) => {
+    static getImageMetadataCreatedBy: RequestHandler = async (req, res, next) => {
         const query = validate(ImageMetadataPaginatedQIn, req.query)
         const isAdmin = Scope.scopeContainsAny(res.locals.userScopes, SCOPES.admin)
 
-        // Behaviours:
+        // Behaviors:
         //   - IF request user is admin:
         //     - IF query.createdBy is not defined: return all
         //     - IF query.createdBy is defined: return all createdBy query.username
@@ -102,23 +101,24 @@ export default class ImageController {
         let id: string
         do {
             id = getRandomID(DEFAULT_IMAGE_ID_LENGTH)
-        } while (await DB.getImageMetadata(id) !== null)
+        } while (await DB.getImageMetadataById(id) !== null)
 
         const dimensions = sizeOf(fileContent)
         const size = fileContent.byteLength
-        const location = await CDN.putImage(fileContent, id, fileFormat)
 
-        const im = new ImageMetadata({
+        const location = await CDN.putImage(fileContent, id, fileFormat)
+        const im = await DB.createImageMetadata(new ImageMetadata({
             id: id,
             height: dimensions.height,
             width: dimensions.width,
+            caption: query.caption ? query.caption : null,
             size: size,
             format: fileFormat,
             createdAt: new Date().toISOString(),
             createdBy: createdBy,
-            usages: query.origin? [query.origin] : [],
+            usages: query.origin ? [query.origin] : [],
             src: location
-        })
+        }))
 
         res.location(`/image/${im.id}`)
         res.status(201).json(im).send()
@@ -126,10 +126,39 @@ export default class ImageController {
     }
 
     static editImageMetadata: RequestHandler = async (req, res, next) => {
+        const id = String(req.params.id)
+
+        const currentImage = await DB.getImageMetadataById(id)
+        const isAdmin = Scope.scopeContainsAny(res.locals.userScopes, SCOPES.admin)
+        if (currentImage === null || (currentImage.createdBy.username !== res.locals.username && !isAdmin)) {
+            throw new NotFoundError(`Image with id ${id} does not exist.`)
+        }
+
+        const body = validate(EditImageIn, req.body)
+        const im = body.toExistingImageMetadata(currentImage)
+        try {
+            await DB.editImageMetadata(id, im)
+        } catch (e) {
+            if (e instanceof TypeError) throw new BadRequestError(e.message)
+            throw e
+        }
+        res.status(200).json(im).send()
         next()
     }
 
     static deleteImage: RequestHandler = async (req, res, next) => {
+        const id: string = String(req.params.id)
+
+        const im = await DB.getImageMetadataById(id)
+        const isAdmin = Scope.scopeContainsAny(res.locals.userScopes, SCOPES.admin)
+        if (im === null || (im.createdBy.username !== res.locals.username && !isAdmin)) {
+            throw new NotFoundError(`Image with id ${id} does not exist.`)
+        }
+
+        await CDN.deleteImage(`${im.id}.${im.format}`)
+        await DB.deleteImageMetadata(id)
+
+        res.status(204).send()
         next()
     }
 }

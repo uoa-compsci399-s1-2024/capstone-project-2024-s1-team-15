@@ -67,6 +67,20 @@ export default class Validator<T> {
         }
     }
 
+    checkArray(obj: any, k: keyof T): any[] | undefined {
+        const param: any = obj[k]
+        if (param === undefined) return undefined
+        if (Array.isArray(param)) {
+            return Array.from(param)
+        } else {
+            this.errors.push({
+                field: k,
+                location: this.location,
+                message: `Expected array, got '${String(param)}' which is not an array`
+            })
+        }
+    }
+
     checkScopes(obj: any, k: keyof T): UserScope[] | undefined {
         const param: any = obj[k]
         if (param === undefined) return undefined

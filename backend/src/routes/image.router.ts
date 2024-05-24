@@ -13,7 +13,7 @@ export default class ImageRouter {
 
         // scope: user
         router.get("/", Scope.has(SCOPES.user),
-            expressAsyncHandler(ImageController.getManyImageMetadata)
+            expressAsyncHandler(ImageController.getImageMetadataCreatedBy)
         )
 
         // scope: user
@@ -23,7 +23,7 @@ export default class ImageRouter {
 
         // scope: user
         router.get("/:id", Scope.has(SCOPES.user),
-            expressAsyncHandler(ImageController.getOneImageMetadata)
+            expressAsyncHandler(ImageController.getImageMetadata)
         )
 
         // scope: user

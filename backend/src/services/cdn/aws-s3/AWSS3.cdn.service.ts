@@ -1,6 +1,6 @@
 import ICDNService from "@/services/cdn/cdn.service"
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3"
-import { ImageFormat } from "@aapc/types";
+import { S3Client, PutObjectCommand, DeleteObjectCommand } from "@aws-sdk/client-s3"
+import { ImageFormat } from "@aapc/types"
 
 export default class AWSS3CDNService implements ICDNService {
     private readonly bucketName: string
@@ -14,15 +14,34 @@ export default class AWSS3CDNService implements ICDNService {
     }
 
     async putImage(image: Buffer, id: string, imageFormat: ImageFormat): Promise<string> {
-        const command = new PutObjectCommand({
-            Bucket: this.bucketName,
-            Key: `${id}.${imageFormat}`,
-            ContentType: `image/${imageFormat}`.replace("jpg", "jpeg"),
-            Body: image
-        })
+        try {
+            const command = new PutObjectCommand({
+                Bucket: this.bucketName,
+                Key: `${id}.${imageFormat}`,
+                ContentType: `image/${imageFormat}`.replace("jpg", "jpeg"),
+                Body: image
+            })
 
-        await this.s3.send(command)
+            await this.s3.send(command)
+            return `https://${command.input.Bucket}.s3.${this.bucketRegion}.amazonaws.com/${command.input.Key}`
+        } catch (e) {
+            console.log("AWS S3: ", e)
+            throw e
+        }
+    }
 
-        return `https://${command.input.Bucket}.s3.${this.bucketRegion}.amazonaws.com/${command.input.Key}`
+    async deleteImage(key: string): Promise<boolean> {
+        try {
+            const command = new DeleteObjectCommand({
+                Bucket: this.bucketName,
+                Key: key
+            })
+
+            await this.s3.send(command)
+            return true
+        } catch (e) {
+            console.log("AWS S3: ", e)
+            return false
+        }
     }
 }

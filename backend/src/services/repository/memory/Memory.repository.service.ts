@@ -1,4 +1,4 @@
-import { Article, IArticle, IUser, User, PollenData, ImageMetadata, ImageFormat, } from "@aapc/types"
+import { Article, IArticle, IUser, User, PollenData, ImageMetadata, ImageFormat, IImageMetadata, } from "@aapc/types"
 import {
     ArrayResult,
     ArrayResultOptions,
@@ -31,7 +31,7 @@ export default class MemoryRepository implements IRepository {
         this.news = []
         news.forEach((i) => {
             this.getUserByUsername(i.publisher).then((r) => {
-                const j: IArticle = { ...i, ...{ publisher: r ?? new User() } }
+                const j: Partial<IArticle> = { ...i, ...{ publisher: r ?? new User() } }
                 this.news.push(new Article(j))
             })
         })
@@ -39,7 +39,7 @@ export default class MemoryRepository implements IRepository {
         this.researches = []
         researches.forEach((i) => {
             this.getUserByUsername(i.publisher).then((r) => {
-                const j: IArticle = { ...i, ...{ publisher: r ?? new User() } }
+                const j: Partial<IArticle> = { ...i, ...{ publisher: r ?? new User() } }
                 this.researches.push(new Article(j))
             })
         })
@@ -47,8 +47,11 @@ export default class MemoryRepository implements IRepository {
         this.imageMetadata = []
         imageMetadata.forEach(i => {
             this.getUserByUsername(i.createdBy).then(r => {
-                const j: ImageMetadata = { ...i, ...{ createdBy: r ?? new User(), format: ImageFormat[i.format as "png" | "jpg"] } }
-                this.imageMetadata.push(j)
+                const j: Partial<IImageMetadata> = {
+                    ...i,
+                    ...{ createdBy: r ?? new User(), format: ImageFormat[i.format as "png" | "jpg"] }
+                }
+                this.imageMetadata.push(new ImageMetadata(j))
             })
         })
 
@@ -92,13 +95,13 @@ export default class MemoryRepository implements IRepository {
 
     async getAllNewsByUser(
         username: string,
-        titleSearchInput?: string,
+        title?: string,
         options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>
     ) {
         let r = structuredClone(this.news).filter((a) => a.publisher.username === username)
 
-        if (titleSearchInput) {
-            r = r.filter((a) => a.title.toLowerCase().includes(titleSearchInput.toLowerCase()))
+        if (title) {
+            r = r.filter((a) => a.title.toLowerCase().includes(title.toLowerCase()))
         }
 
         return {
@@ -109,13 +112,13 @@ export default class MemoryRepository implements IRepository {
 
     async getAllResearchByUser(
         username: string,
-        titleSearchInput?: string,
+        title?: string,
         options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>
     ) {
         let r = structuredClone(this.researches).filter((a) => a.publisher.username === username)
 
-        if (titleSearchInput) {
-            r = r.filter((a) => a.title.toLowerCase().includes(titleSearchInput.toLowerCase()))
+        if (title) {
+            r = r.filter((a) => a.title.toLowerCase().includes(title.toLowerCase()))
         }
 
         return {
@@ -158,7 +161,6 @@ export default class MemoryRepository implements IRepository {
                 return
             }
         }
-        throw new TypeError(`No news with ID ${id}.`)
     }
 
     async getAllResearch(
@@ -282,7 +284,7 @@ export default class MemoryRepository implements IRepository {
         return im
     }
 
-    async getImageMetadata(id: string): Promise<Nullable<ImageMetadata>> {
+    async getImageMetadataById(id: string): Promise<Nullable<ImageMetadata>> {
         for (const im of this.imageMetadata) {
             if (im.id === id) {
                 return im
@@ -327,6 +329,5 @@ export default class MemoryRepository implements IRepository {
                 return
             }
         }
-        throw new TypeError(`No image with ID ${id}.`)
     }
 }

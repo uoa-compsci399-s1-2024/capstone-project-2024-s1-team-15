@@ -1,11 +1,10 @@
-import { Article, ArticleType, ImageMetadata, PollenData, User } from "@aapc/types"
+import { Article, ArticleType, ImageFormat, ImageMetadata, PollenData, User } from "@aapc/types"
 import { Collection, Db, Document, Filter, FindCursor, MongoClient, ServerApiVersion, WithId } from "mongodb"
 import {
     ArrayResult,
     ArrayResultOptions,
     ArticleSortFields,
-    ImageMetadataSortFields,
-    Nullable,
+    ImageMetadataSortFields, Nullable,
     SortOptions,
     UserSortFields
 } from "@/util/types/types"
@@ -15,13 +14,15 @@ export default class MongoRepository implements IRepository {
     private readonly db: Db
     private readonly articles: Collection
     private readonly users: Collection
-    private pollenData: Collection
+    private readonly pollenData: Collection
+    private readonly imageMetadata: Collection
 
     constructor(uri: string) {
         this.db = new MongoClient(uri, { serverApi: ServerApiVersion.v1 }).db("AAPC")
         this.articles = this.db.collection("Articles")
         this.users = this.db.collection("Users")
         this.pollenData = this.db.collection("PollenData")
+        this.imageMetadata = this.db.collection("ImageMetadata")
     }
 
     async fetchMongoDocuments(
@@ -49,9 +50,24 @@ export default class MongoRepository implements IRepository {
     }
 
     articleToDocument(a: Article): Promise<object> {
-        const aObj = <any>a
+        const aObj = structuredClone(a) as any
         aObj.publisher = a.publisher.username
         return aObj
+    }
+
+    async documentToImageMetadata(d: WithId<Document>): Promise<ImageMetadata> {
+        const u = (await this.getUserByUsername(d.createdBy)) ?? new User()
+        const format = ImageFormat[d.format as "jpg" | "png"]
+        const im = new ImageMetadata(<object>d)
+        im.createdBy = u
+        im.format = format
+        return im
+    }
+
+    imageMetadataToDocument(im: ImageMetadata): Promise<object> {
+        const imObj = structuredClone(im) as any
+        imObj.createdBy = im.createdBy.username
+        return imObj
     }
 
     async createNews(a: Article): Promise<Article> {
@@ -88,7 +104,7 @@ export default class MongoRepository implements IRepository {
         if (a.id !== id) {
             throw TypeError("Article ID does not match provided ID")
         }
-        await this.articles.updateOne(
+        await this.articles.replaceOne(
             {
                 id: id,
                 articleType: ArticleType.news,
@@ -102,7 +118,7 @@ export default class MongoRepository implements IRepository {
         if (a.id !== id) {
             throw TypeError("Article ID does not match provided ID")
         }
-        await this.articles.updateOne(
+        await this.articles.replaceOne(
             {
                 id: id,
                 articleType: ArticleType.research,
@@ -113,7 +129,7 @@ export default class MongoRepository implements IRepository {
     }
 
     async editUser(username: string, u: User): Promise<User> {
-        await this.users.updateOne({ username: username }, u)
+        await this.users.replaceOne({ username: username }, u)
         return u
     }
 
@@ -151,7 +167,7 @@ export default class MongoRepository implements IRepository {
 
     async getAllNewsByUser(
         username: string,
-        titleSearchInput?: string,
+        title?: string,
         options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>
     ) {
         let q: Filter<any> = {
@@ -159,8 +175,8 @@ export default class MongoRepository implements IRepository {
             publisher: username,
         }
 
-        if (titleSearchInput) {
-            q.title = new RegExp(`.*${titleSearchInput}.*`, "i")
+        if (title) {
+            q.title = new RegExp(`.*${title}.*`, "i")
         }
 
         const r: Article[] = []
@@ -175,7 +191,7 @@ export default class MongoRepository implements IRepository {
 
     async getAllResearchByUser(
         username: string,
-        titleSearchInput?: string,
+        title?: string,
         options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>
     ) {
         let q: Filter<any> = {
@@ -183,8 +199,8 @@ export default class MongoRepository implements IRepository {
             publisher: username,
         }
 
-        if (titleSearchInput) {
-            q.title = new RegExp(`.*${titleSearchInput}.*`, "i")
+        if (title) {
+            q.title = new RegExp(`.*${title}.*`, "i")
         }
 
         const r: Article[] = []
@@ -306,25 +322,44 @@ export default class MongoRepository implements IRepository {
     }
 
     async createImageMetadata(im: ImageMetadata): Promise<ImageMetadata> {
-        throw new Error("Method not implemented.")
+        await this.imageMetadata.insertOne(this.imageMetadataToDocument(im))
+        return im
     }
 
-    async getImageMetadata(id: string): Promise<Nullable<ImageMetadata>> {
-        throw new Error("Method not implemented.")
+    async getImageMetadataById(id: string): Promise<Nullable<ImageMetadata>> {
+        const im = await this.imageMetadata.findOne({ id: id })
+        if (im === null) {
+            return null
+        }
+        return this.documentToImageMetadata(im)
     }
 
     async getImageMetadataCreatedBy(
         username?: Nullable<string>,
         options?: ArrayResultOptions<SortOptions<ImageMetadata, ImageMetadataSortFields>>
     ): Promise<ArrayResult<ImageMetadata>> {
-        throw new Error("Method not implemented.")
+        const a: ImageMetadata[] = []
+        let rC: number = 0
+        const q: Filter<any> = username !== undefined ? { username: username } : {}
+        if (username !== null) {
+            rC = await this.imageMetadata.countDocuments(q)
+            const result = await this.fetchMongoDocuments(this.imageMetadata.find(q), options)
+            for (const document of result) {
+                a.push(await this.documentToImageMetadata(document))
+            }
+        }
+        return {
+            totalResults: rC,
+            results: a,
+        }
     }
 
     async editImageMetadata(id: string, im: ImageMetadata): Promise<ImageMetadata> {
-        throw new Error("Method not implemented.")
+        await this.imageMetadata.replaceOne({ id: id }, this.imageMetadataToDocument(im))
+        return im
     }
 
     async deleteImageMetadata(id: string): Promise<void> {
-        throw new Error("Method not implemented.")
+        await this.imageMetadata.deleteOne({ id: id })
     }
 }

@@ -34,7 +34,7 @@ export default interface IRepository {
     deleteResearch(id: string): Promise<void>
     getAllResearchByUser(
         username: string,
-        titleSearchInput?: string,
+        title?: string,
         options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>
     ): Promise<ArrayResult<Article>>
     getAllUsers(options?: ArrayResultOptions<SortOptions<User, UserSortFields>>): Promise<ArrayResult<User>>
@@ -50,7 +50,7 @@ export default interface IRepository {
     deletePollenDataset(): Promise<any>
     createPollenDataset(pollenData: PollenData[]): Promise<any>
     createImageMetadata(im: ImageMetadata): Promise<ImageMetadata>
-    getImageMetadata(id: string): Promise<Nullable<ImageMetadata>>
+    getImageMetadataById(id: string): Promise<Nullable<ImageMetadata>>
     getImageMetadataCreatedBy(
         username?: Nullable<string>,
         options?: ArrayResultOptions<SortOptions<ImageMetadata, ImageMetadataSortFields>>
