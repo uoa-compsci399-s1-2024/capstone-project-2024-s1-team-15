@@ -27,11 +27,6 @@ export default class ImageRouter {
         )
 
         // scope: user
-        router.put("/:id", Scope.has(SCOPES.user),
-            expressAsyncHandler(ImageController.editImageMetadata)
-        )
-
-        // scope: user
         router.delete("/:id", Scope.has(SCOPES.user),
             expressAsyncHandler(ImageController.deleteImage)
         )

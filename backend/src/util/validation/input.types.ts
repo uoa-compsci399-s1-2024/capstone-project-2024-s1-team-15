@@ -1,4 +1,4 @@
-import { Article, ArticleType, IArticle, IImageMetadata, IUser, User, UserScope } from "@aapc/types"
+import { Article, ArticleType, IArticle, IUser, User, UserScope } from "@aapc/types"
 import { getRandomID } from "../functions"
 import { ValidationError } from "@/errors/ValidationError"
 import Validator, { ValidatorWithPaginatedQIn } from "@/util/validation/validator"
@@ -14,9 +14,6 @@ interface INewUserIn extends
 
 interface IEditUserIn extends
     Omit<IUser, "verified" | "registeredAt" | "username" | "scopes"> {}
-
-interface IEditImageIn extends
-    Omit<IImageMetadata, "id" | "height" | "width" | "size" | "format" | "createdAt" | "createdBy" | "src"> {}
 
 interface IEditUserScopeIn {
     scope: UserScope[]
@@ -208,28 +205,6 @@ export class EditUserScopeIn extends Validator<IEditUserScopeIn> implements IEdi
     }
 }
 
-export class EditImageIn extends Validator<IEditImageIn> implements Partial<IEditImageIn> {
-    caption?: string | null
-    usages?: string[]
-
-    constructor(obj: any) {
-        super("body")
-
-        this.caption = obj.caption !== "" ? String(obj.caption) : null
-        this.usages = this.checkArray(obj, "usages")
-
-        if (this.errors.length > 0) {
-            throw new ValidationError(this.errors)
-        }
-    }
-
-    toExistingImageMetadata(im: IImageMetadata): IImageMetadata {
-        im.caption = this.caption === undefined ? im.caption : this.caption
-        im.usages = this.usages === undefined ? im.usages : this.usages
-        return im
-    }
-}
-
 export class LoginIn extends Validator<ILoginIn> implements ILoginIn {
     username: string
     password: string
@@ -371,13 +346,13 @@ export class ImageMetadataPaginatedQIn extends ValidatorWithPaginatedQIn<IImageM
 
 export class AddImageQIn extends Validator<IAddImageQIn> implements IAddImageQIn {
     origin?: string
-    caption?: string
+    alt?: string
 
     constructor(obj: any) {
         super("query")
 
         this.origin = obj.origin && String(obj.origin)
-        this.caption = obj.caption && String(obj.caption)
+        this.alt = obj.alt && String(obj.alt)
 
         if (this.errors.length > 0) {
             throw new ValidationError(this.errors)

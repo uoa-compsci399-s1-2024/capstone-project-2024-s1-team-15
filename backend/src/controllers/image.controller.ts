@@ -1,19 +1,14 @@
 import { RequestHandler } from "express"
-import { BadRequestError, NotFoundError, UnauthorizedError } from "@/errors/HTTPErrors"
 import { UploadedFile } from "express-fileupload"
+import sizeOf from "image-size"
 import { ImageFormat, ImageMetadata } from "@aapc/types"
+import Scope from "@/middleware/Auth"
+import { BadRequestError, NotFoundError, UnauthorizedError } from "@/errors/HTTPErrors"
 import { CDN, DB } from "@/services/services"
 import { DEFAULT_IMAGE_ID_LENGTH, SCOPES } from "@/util/const"
 import { getPaginator, getRandomID, validate } from "@/util/functions"
-import sizeOf from "image-size"
-import { AddImageQIn, EditImageIn, ImageMetadataPaginatedQIn } from "@/util/validation/input.types"
-import {
-    ArrayResultOptions,
-    ImageMetadataSortFields,
-    Nullable,
-    SortOptions
-} from "@/util/types/types"
-import Scope from "@/middleware/Auth"
+import { AddImageQIn, ImageMetadataPaginatedQIn } from "@/util/validation/input.types"
+import { ArrayResultOptions, ImageMetadataSortFields, Nullable, SortOptions } from "@/util/types/types"
 
 export default class ImageController {
     static getImageMetadata: RequestHandler = async (req, res, next) => {
@@ -111,38 +106,17 @@ export default class ImageController {
             id: id,
             height: dimensions.height,
             width: dimensions.width,
-            caption: query.caption ? query.caption : null,
             size: size,
             format: fileFormat,
-            createdAt: new Date().toISOString(),
             createdBy: createdBy,
-            usages: query.origin ? [query.origin] : [],
-            src: location
+            createdAt: new Date().toISOString(),
+            src: location,
+            alt: query.alt ? query.alt : null,
+            origin: query.origin ? query.origin : null
         }))
 
         res.location(`/image/${im.id}`)
         res.status(201).json(im).send()
-        next()
-    }
-
-    static editImageMetadata: RequestHandler = async (req, res, next) => {
-        const id = String(req.params.id)
-
-        const currentImage = await DB.getImageMetadataById(id)
-        const isAdmin = Scope.scopeContainsAny(res.locals.userScopes, SCOPES.admin)
-        if (currentImage === null || (currentImage.createdBy.username !== res.locals.username && !isAdmin)) {
-            throw new NotFoundError(`Image with id ${id} does not exist.`)
-        }
-
-        const body = validate(EditImageIn, req.body)
-        const im = body.toExistingImageMetadata(currentImage)
-        try {
-            await DB.editImageMetadata(id, im)
-        } catch (e) {
-            if (e instanceof TypeError) throw new BadRequestError(e.message)
-            throw e
-        }
-        res.status(200).json(im).send()
         next()
     }
 
