@@ -2,29 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
-
 body {
-    @apply bg-backgroundcolor;
+    @apply bg-background;
 }
 
 h1 {
-    @apply text-4xl font-bold tracking-tight mb-8 mt-12;
+    @apply text-[26px] sm:text-[30px] md:text-[36px] font-bold tracking-tight mb-8 mt-12;
 }
 
 h2 {
-    @apply text-3xl font-bold tracking-tight my-4;
+    @apply text-[23px] sm:text-[26px] md:text-[32px] font-bold tracking-tight my-4;
 }
+
 h3 {
-    @apply text-2xl font-bold tracking-tight my-2;
+    @apply text-[20px] sm:text-[22px] lg:text-[26px] font-bold tracking-tight my-2;
 }
 
 h4 {
-    @apply text-base font-bold tracking-tight;
+    @apply text-[17px] sm:text-[18px] md:text-[22px] font-bold tracking-tight;
+}
+
+p,
+span,
+a {
+    @apply text-[14px] sm:text-[15px] md:text-[16px];
 }
 
 a {
     @apply text-blue-700;
+}
+
+figcaption {
+    @apply text-gray-400 text-sm text-center;
 }
 
 ul.default {
@@ -36,18 +45,27 @@ ul.default {
 }
 
 .subtitle {
-    @apply italic text-2xl text-gray-400 mb-10 block;
+    @apply italic text-2xl text-gray-400 block;
+}
+
+.page-title {
+    @apply block text-white font-bold bg-primary rounded-full shadow-lg
+    text-xl py-1.5 mt-2 mb-4 mx-auto w-full text-center
+    sm:text-2xl sm:py-2 sm:mb-6
+    md:text-3xl md:px-9 md:py-3 md:mt-6 md:mb-6 md:mx-0 md:w-max;
 }
 
 .button {
     @apply flex items-center justify-center py-2 px-4 bg-gray-500 font-medium rounded-full text-sm transition-all bg-opacity-15 text-black hover:bg-opacity-100 hover:text-white;
-}
+} /* Can be safely removed after paginator is adapted to new buttons
 
-.button.cms {
-    @apply bg-maintainer text-white hoverable;
+
+hr {
+    @apply border-2;
 }
 
 /* Styling for buttons in editor. */
+
 #editor button {
     @apply h-8 w-8 rounded-md bg-gray-500 bg-opacity-15
     border-2 border-gray-600 border-opacity-0 transition-all
@@ -64,6 +82,7 @@ ul.default {
 }
 
 /* Styling for form elements. */
+
 .form-field {
     @apply border-2 border-opacity-30 border-black border-solid rounded-2xl;
 }
@@ -84,38 +103,26 @@ ul.default {
     @apply text-green-400;
 }
 
-.hoverable {
-    @apply transition duration-300 ease-in-out shadow-md hover:shadow-lg transform hover:-translate-y-0.5 hover:scale-105;
-}
-
-.exit-button {
-    @apply text-gray-700 text-3xl font-bold;
-}
-
-.login-button {
-    @apply py-2 px-6 rounded-full text-black font-semibold text-xs w-28;
-}
-
-.outer-modal {
-    @apply overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-40 justify-center items-center w-full h-[calc(100%)] max-h-full bg-black bg-opacity-40;
-}
-
-.inner-modal {
-    @apply relative shadow-2xl w-full m-auto mt-48 max-w-[530px] max-h-full rounded-xl z-50;
-}
-
-.signup-button {
-    @apply py-2 px-6 rounded-full text-black font-semibold text-xs w-28 bg-gray-300;
-}
-
-.page-title {
-    @apply text-3xl text-white font-bold bg-primary p-4 inline-block rounded-full w-auto md:text-left;
-}
-
-footer {
-    @apply mt-8 bottom-0 inset-x-0;
-}
-
 .opacity-gradient {
     mask-image: linear-gradient(rgb(0 0 0 / 100%), 85%, transparent);
+}
+
+/* pollen page */
+
+.slider-images .img-container {
+    @apply w-full h-full;
+}
+
+.slider-images .img-container img {
+    @apply h-full object-cover rounded-md overflow-hidden;
+}
+
+.slider-images figcaption {
+    @apply text-balance text-[0.5rem] leading-3;
+}
+
+/* about page styling - can be removed after all pages adapt to prose */
+
+.about-page h2 {
+    @apply mt-14;
 }

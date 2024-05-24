@@ -5,6 +5,8 @@ import ArticleForm from "@/app/(cms)/(articles)/components/ArticleForm"
 import { Article, ArticleType } from "@aapc/types"
 import { Nullable } from "@/app/lib/types"
 import ExternalArticleForm from "../../components/ExternalArticleForm"
+import Button from "@/app/components/Button";
+import icons from "@/app/lib/icons";
 
 export default function CreateResearchPage() {
     const [exampleArticle, setExampleArticle] = useState<Nullable<Article>>(null)
@@ -24,15 +26,21 @@ export default function CreateResearchPage() {
         <div className={"space-y-6"}>
             <h1>Publish a Research Article</h1>
             { !exampleArticle &&
-                <button className={"button"} onClick={initializeExampleArticle}>
-                    {exampleArticle ? "Reset" : "Load Example"}
-                </button>
+                <Button
+                    theme={"secondary"}
+                    onClick={initializeExampleArticle}
+                    text={"Load Example"}
+                    icon={icons.wand}
+                />
             }
             <h3>Use an external link: </h3>
             <ExternalArticleForm articleType={ArticleType.research_external} actionType={"publish"}></ExternalArticleForm>
             <h3>Input research article manually: </h3>
-            <ArticleForm articleType={ArticleType.research} actionType={"publish"}
-                         articleJSONString={exampleArticle ? JSON.stringify(exampleArticle) : undefined}/>
+            <ArticleForm
+                articleType={ArticleType.research}
+                actionType={"publish"}
+                articleJSONString={exampleArticle ? JSON.stringify(exampleArticle) : undefined}
+            />
         </div>
     )
 }

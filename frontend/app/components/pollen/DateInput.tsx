@@ -25,41 +25,43 @@ export default function DateInput({
 
     return (
         <div>
-            <label className="form-label">
-                From
-                <input
-                    className="form-input"
-                    type="date"
-                    defaultValue={lowerLimitString}
-                    onChange={(e) => {
-                        const newDateValue = makeTimestampForDateMidday(e.target.valueAsNumber)
-                        if (dateWithinRange(newDateValue)) {
-                            setLowerLimit(newDateValue)
-                            setInputError(null)
-                        } else {
-                            setInputError(errorMessage(newDateValue))
-                        }
-                    }}
-                />
-            </label>
+            <div className={"max-w-96 flex flex-col sm:flex-row flex-grow gap-x-4 gap-y-2"}>
+                <label className="form-label flex flex-col gap-y-1">
+                    From
+                    <input
+                        className="form-input"
+                        type="date"
+                        defaultValue={lowerLimitString}
+                        onChange={(e) => {
+                            const newDateValue = makeTimestampForDateMidday(e.target.valueAsNumber)
+                            if (dateWithinRange(newDateValue)) {
+                                setLowerLimit(newDateValue)
+                                setInputError(null)
+                            } else {
+                                setInputError(errorMessage(newDateValue))
+                            }
+                        }}
+                    />
+                </label>
 
-            <label className="form-label">
-                to
-                <input
-                    className="form-input"
-                    type="date"
-                    defaultValue={upperLimitString}
-                    onChange={(e) => {
-                        const newDateValue = makeTimestampForDateMidday(e.target.valueAsNumber)
-                        if (dateWithinRange(newDateValue)) {
-                            setUpperLimit(newDateValue)
-                            setInputError(null)
-                        } else {
-                            setInputError(errorMessage(newDateValue))
-                        }
-                    }}
-                />
-            </label>
+                <label className="form-label flex flex-col gap-y-1">
+                    to
+                    <input
+                        className="form-input"
+                        type="date"
+                        defaultValue={upperLimitString}
+                        onChange={(e) => {
+                            const newDateValue = makeTimestampForDateMidday(e.target.valueAsNumber)
+                            if (dateWithinRange(newDateValue)) {
+                                setUpperLimit(newDateValue)
+                                setInputError(null)
+                            } else {
+                                setInputError(errorMessage(newDateValue))
+                            }
+                        }}
+                    />
+                </label>
+            </div>
             {inputError && <p className="form-error">{inputError}</p>}
         </div>
     )

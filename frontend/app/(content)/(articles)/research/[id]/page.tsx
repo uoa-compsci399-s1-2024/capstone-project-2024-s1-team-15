@@ -7,6 +7,7 @@ import { SCOPES } from "@/app/lib/consts"
 import Privileged from "@/app/components/Privileged"
 import ButtonLink from "@/app/components/ButtonLink"
 import ArticlePage from "@/app/components/ArticlePage"
+import icons from "@/app/lib/icons";
 import { ArticleType } from "@aapc/types"
 import ExternalLinkButton from "@/app/(cms)/(articles)/components/ExternalLinkButton"
 
@@ -40,7 +41,7 @@ export default async function ResearchPage({ params }: PageParams) {
             }
             
             <Privileged requiredScopes={SCOPES.maintainer}>
-                <ButtonLink href={`/research/${params.id}/edit`} text={"Edit"} />
+                <ButtonLink theme={"cms"} href={`/research/${params.id}/edit`} text={"Edit Article"} icon={icons.edit}/>
                 <ButtonLink href={`/research/${params.id}/delete`} text={"Delete"} />
             </Privileged>
         </div>

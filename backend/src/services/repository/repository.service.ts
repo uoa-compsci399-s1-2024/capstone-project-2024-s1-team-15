@@ -10,6 +10,11 @@ export default interface IRepository {
         title: string,
         options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>
     ): Promise<ArrayResult<Article>>
+    getAllNewsByUser(
+        username: string,
+        titleSearchInput?: string,
+        options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>
+    ): Promise<ArrayResult<Article>>
     createNews(a: Article): Promise<Article>
     editNews(id: string, a: Article): Promise<Article>
     deleteNews(id: string): Promise<void>
@@ -22,6 +27,11 @@ export default interface IRepository {
     createResearch(a: Article): Promise<Article>
     editResearch(id: string, a: Article): Promise<Article>
     deleteResearch(id: string): Promise<void>
+    getAllResearchByUser(
+        username: string,
+        titleSearchInput?: string,
+        options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>
+    ): Promise<ArrayResult<Article>>
     getAllUsers(options?: ArrayResultOptions<SortOptions<User, UserSortFields>>): Promise<ArrayResult<User>>
     getUserByUsername(username: string): Promise<Nullable<User>>
     searchUserByUsername(

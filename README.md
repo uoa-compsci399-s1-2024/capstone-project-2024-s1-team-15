@@ -30,7 +30,7 @@ Both apps will be written using TypeScript to ensure type safety and maintainabi
 - **Arnav Shekaran** - Designer / Developer
 - **Gautham Gunasheelan** - Designer / Back-End Developer
 - **Stanley Wu** - Designer / Front-End Developer
-- **Samuel Kim** - Designer / Front-End Developer
+- **Samuel Kim** - UI/UX Designer / Front-End Developer
 
 ## Project Description
 
@@ -44,6 +44,14 @@ public interest and support for our work.
 This project aims to develop an online website to showcase our current and future work, and our team, and allow people
 to contact us if they are interested. We also want to a place to host the pollen data so the public can search a calendar and see their
 pollen data for the day but this may be in a 'freemium' type view
+
+## Use of Pollen Images
+
+We have used pollen images from [PalDat](https://www.paldat.org/)
+
+and we have followed their citation instructions:
+
+> Notice: If you use a picture from PalDat you have to cite the name of the photographer of the picture and PalDat (2000 onwards, <www.paldat.org>).
 
 ## Project Clients
 Amy Chan

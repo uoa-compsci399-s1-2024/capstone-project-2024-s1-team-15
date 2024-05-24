@@ -1,12 +1,19 @@
 import React, { PropsWithChildren, Children } from "react"
 
 function PageHeroSection({ children }: { children: React.ReactNode }) {
-    let pageName = <PageHeroSection.PageName>No page name</PageHeroSection.PageName>,
-        highlightSection = null
-    let remainingPageContent = (
-        <PageHeroSection.RemainingPageContent>No Page Content</PageHeroSection.RemainingPageContent>
+    let pageName = (
+        <PageHeroSection.PageName name={"No Title"}/>
     )
-    let pageExplanation = <PageHeroSection.PageExplanation></PageHeroSection.PageExplanation>
+
+    let highlightSection = null
+
+    let remainingPageContent = (
+        <PageHeroSection.RemainingPageContent/>
+    )
+
+    let pageExplanation = (
+        <PageHeroSection.PageExplanation/>
+    )
 
     Children.forEach(children, (child) => {
         if (!React.isValidElement(child)) return
@@ -29,42 +36,55 @@ function PageHeroSection({ children }: { children: React.ReactNode }) {
     })
 
     return (
-        <main>
-            <section className="flex flex-row-reverse items-start mb-10">
-                <div className="bg-primary p-4 border-20 border-third rounded-3xl max-w-[50%]">
+        <>
+            <section className="flex md:flex-row-reverse flex-col items-start mb-6">
+                <div className={`bg-primary border-tertiary basis-1/2
+                    border-8 rounded-[30px] p-4
+                    sm:border-[12px] sm:rounded-[36px] sm:p-5
+                    md:border-20 md:rounded-[42px] md:p-6`}>
                     {pageName}
-                    <div>{pageExplanation}</div>
+                    {pageExplanation}
                 </div>
-
-                {highlightSection && <>{highlightSection}</>}
+                <section className={"basis-1/2 mt-4 sm:mt-8 md:mt-12"}>
+                    {highlightSection && highlightSection}
+                </section>
             </section>
 
             {remainingPageContent}
-        </main>
-    )
-}
-
-PageHeroSection.PageName = function pn(props: PropsWithChildren) {
-    return (
-        <>
-            <h1 className="m-0 p-0 text-white">{props.children}</h1>
-            <br />
         </>
     )
 }
-PageHeroSection.PageExplanation = function pe(props: PropsWithChildren) {
-    return <>{props.children}</>
-}
 
-PageHeroSection.HighlightSection = function hs(props: any) {
+PageHeroSection.PageName = function _(props: { name: string }) {
     return (
-        <section className="w-[50%] mt-8">
-            <div className="bg-purpletwo p-4 rounded-l-full text-center mb-4">{props.title}</div>
-            {props.children}
-        </section>
+        <h1 className="text-white mt-0 mb-2.5 sm:mb-3 md:mb-4">{props.name}</h1>
     )
 }
-PageHeroSection.RemainingPageContent = function rpc(props: PropsWithChildren) {
+
+PageHeroSection.PageExplanation = function _(props: PropsWithChildren) {
+    return (
+        <>{props.children}</>
+    )
+}
+
+PageHeroSection.HighlightSection = function _(props: PropsWithChildren & { title: string | React.JSX.Element }) {
+    return (
+        <>
+            <div className={`bg-accent-dark text-center mb-6
+                py-1 px-6 rounded-full
+                sm:py-2 sm:px-8
+                md:p-4 md:rounded-none md:rounded-l-full
+            `}>
+                {props.title}
+            </div>
+            <div className={`p-0 md:pr-4`}>
+                {props.children}
+            </div>
+        </>
+    )
+}
+
+PageHeroSection.RemainingPageContent = function _(props: PropsWithChildren) {
     return <>{props.children}</>
 }
 

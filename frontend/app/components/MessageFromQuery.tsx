@@ -1,9 +1,9 @@
 "use client"
 
 import { useRouter } from "next/navigation"
-import ErrorModal from "@/app/components/modals/ErrorModal";
-import { useEffect, useState } from "react";
-import { Nullable } from "@/app/lib/types";
+import { useEffect, useState } from "react"
+import { Nullable } from "@/app/lib/types"
+import { ErrorModal } from "@/app/components/modals"
 
 export default function MessageFromQuery() {
     const router = useRouter()

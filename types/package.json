@@ -1,22 +1,22 @@
 {
-  "name": "@aapc/types",
-  "version": "0.5.2",
-  "description": "Types definitions for the AAPC website.",
-  "main": "./dist/main.js",
-  "module": "./dist/main.mjs",
-  "types": "./dist/main.d.ts",
-  "files": [
-    "dist"
-  ],
-  "scripts": {
-    "build": "tsup",
-    "test": "vitest run",
-    "test:cov": "vitest run --coverage"
-  },
-  "devDependencies": {
-    "@vitest/coverage-v8": "^1.4.0",
-    "tsup": "^8.0.2",
-    "typescript": "^5.4.3",
-    "vitest": "^1.4.0"
-  }
+    "name": "@aapc/types",
+    "version": "0.5.4",
+    "description": "Types definitions for the AAPC website.",
+    "main": "./dist/main.js",
+    "module": "./dist/main.mjs",
+    "types": "./dist/main.d.ts",
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build": "tsup",
+        "test": "vitest run",
+        "test:cov": "vitest run --coverage"
+    },
+    "devDependencies": {
+        "@vitest/coverage-v8": "^1.4.0",
+        "tsup": "^8.0.2",
+        "typescript": "^5.4.3",
+        "vitest": "^1.4.0"
+    }
 }

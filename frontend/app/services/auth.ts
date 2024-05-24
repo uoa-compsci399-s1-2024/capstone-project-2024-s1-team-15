@@ -2,6 +2,7 @@ import { AuthCredential, AuthResponse, Result } from "@/app/lib/types"
 import { API_URI } from "@/app/lib/consts"
 import { fail, success } from "@/app/lib/util"
 import { User } from "@aapc/types"
+import { FetchOptions, getHeaders } from "./lib/util"
 
 export async function login(credentials: AuthCredential): Promise<Result<AuthResponse>> {
     const res = await fetch(API_URI + "/auth/login", {
@@ -24,4 +25,37 @@ export async function login(credentials: AuthCredential): Promise<Result<AuthRes
             token: data.token
         })
     }
+}
+
+export async function changePassword(
+    credentials: { username: string; currentPassword: string; newPassword: string },
+    options?: FetchOptions
+): Promise<any> {
+    const res = await fetch(`${API_URI}/auth/password/${credentials.username}`, {
+        method: "put",
+        body: JSON.stringify(credentials),
+        headers: getHeaders(options),
+    })
+    if (res.status !== 200) {
+        return fail((await res.json()).message)
+    } else {
+        return success({})
+    }
+}
+
+export async function sendResetPasswordEmail(
+    credentials: { email: string },
+    options?: FetchOptions
+): Promise<Result<any>> {
+    const res = await fetch(`${API_URI}/auth/forgot-password`, {
+        method: "post",
+        body: JSON.stringify(credentials),
+        headers: getHeaders(options),
+    })
+
+    if (res.status !== 200) {
+        return fail((await res.json()).message)
+    }
+
+    return success({})
 }
