@@ -41,8 +41,10 @@ export default async function ResearchPage({ params }: PageParams) {
             }
             
             <Privileged requiredScopes={SCOPES.maintainer}>
-                <ButtonLink theme={"cms"} href={`/research/${params.id}/edit`} text={"Edit Article"} icon={icons.edit}/>
-                <ButtonLink href={`/research/${params.id}/delete`} text={"Delete"} />
+                <div className="flex flex-row space-x-4">
+                    <ButtonLink theme={"cms"} href={`/research/${params.id}/edit`} text={"Edit Article"} icon={icons.edit}/>
+                    <ButtonLink theme={"red"} href={`/research/${params.id}/delete`} text={"Delete"} icon={icons.trash} />
+                </div>
             </Privileged>
         </div>
     )
