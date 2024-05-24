@@ -15,7 +15,6 @@
     "dependencies": {
         "@aapc/types": "^0.5.6",
         "@aws-sdk/client-s3": "^3.582.0",
-        "@aws-sdk/client-sts": "^3.583.0",
         "amazon-cognito-identity-js": "^6.3.12",
         "cors": "^2.8.5",
         "dotenv": "^16.4.5",
