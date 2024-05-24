@@ -1,14 +1,17 @@
 [
     {
-        "name": "Ryegrass (Lolium)",
+        "name": "Ryegrass",
+        "scientificName": "Lolium",
         "summaryHTML": "<p>Ryegrass is an important pasture species in New Zealand, preferred by dairy farmers. It generally flowers from late spring right through summer. Its pollen is medium sized (31 – 35 microns).</p>"
     },
     {
-        "name": "Timothy grass (Phleum)",
+        "name": "Timothy grass",
+        "scientificName": "Phleum",
         "summaryHTML": "<p>Timothy grass is another pastoral grass species. It is described as preferring cooler conditions that other grass species and therefore is probably more prominent in more southerly or upland locations. It flowers through summer. Its pollen is medium sized (36 - 40 microns).</p>"
     },
     {
-        "name": "Meadow foxtail (Alopercurus)",
-        "summaryHTML": "<p>Grasses belonging to this genus are generally regarded as weed species. Like other weeds and grasses they can be found throughout pastoral regions and in disturbed areas. Meadow foxtails flower from Lte winter through to mid/late summer, depending on species and location. Its pollen is medium sized (31 – 35 microns).</p>"
+        "name": "Meadow foxtail",
+        "scientificName": "Alopercurus",
+        "summaryHTML": "<p>Grasses belonging to this genus are generally regarded as weed species. Like other weeds and grasses they can be found throughout pastoral regions and in disturbed areas. Meadow foxtails flower from late winter through to mid/late summer, depending on species and location. Its pollen is medium sized (31 – 35 microns).</p>"
     }
 ]

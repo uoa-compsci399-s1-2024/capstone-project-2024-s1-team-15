@@ -90,7 +90,8 @@ const PollenCalendar = memo(function PollenCalendar({ pollenData }: { pollenData
     return (
         <>
             <div className="flex flex-col justify-between mt-2 sm:mt-3 md:mt-0">
-                <div className={`flex flex-col flex-shrink-0 self-start bg-accent-dark mb-4 w-auto
+                <div
+                    className={`flex flex-col flex-shrink-0 self-start bg-accent-dark mb-4 w-auto
                     -ml-pc px-[calc(theme(spacing.pc)+0.625rem)] pr-6 pb-2 mt-4 rounded-r-[2rem] gap-y-2 
                     
                     sm:-ml-pc-sm sm:px-[calc(theme(spacing.pc-sm)+0.75rem)] sm:pr-7 sm:pb-2.5 sm:gap-y-2.5

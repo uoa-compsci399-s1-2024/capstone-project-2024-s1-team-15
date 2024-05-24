@@ -75,6 +75,40 @@ export default class MemoryRepository implements IRepository {
         return null
     }
 
+    async getAllNewsByUser(
+        username: string,
+        titleSearchInput?: string,
+        options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>
+    ) {
+        let r = structuredClone(this.news).filter((a) => a.publisher.username === username)
+
+        if (titleSearchInput) {
+            r = r.filter((a) => a.title.toLowerCase().includes(titleSearchInput.toLowerCase()))
+        }
+
+        return {
+            totalResults: r.length,
+            results: this.handleArrayResultOptions(r, options),
+        }
+    }
+
+    async getAllResearchByUser(
+        username: string,
+        titleSearchInput?: string,
+        options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>
+    ) {
+        let r = structuredClone(this.researches).filter((a) => a.publisher.username === username)
+
+        if (titleSearchInput) {
+            r = r.filter((a) => a.title.toLowerCase().includes(titleSearchInput.toLowerCase()))
+        }
+
+        return {
+            totalResults: r.length,
+            results: this.handleArrayResultOptions(r, options),
+        }
+    }
+
     async searchNewsByTitle(
         title: string,
         options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>

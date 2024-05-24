@@ -22,8 +22,10 @@ h4 {
     @apply text-[17px] sm:text-[18px] md:text-[22px] font-bold tracking-tight;
 }
 
-p, span, a {
-    @apply text-[14px] sm:text-[15px] md:text-[16px]
+p,
+span,
+a {
+    @apply text-[14px] sm:text-[15px] md:text-[16px];
 }
 
 a {
@@ -42,6 +44,10 @@ ul.default {
     @apply outline-none;
 }
 
+.subtitle {
+    @apply italic text-2xl text-gray-400 block;
+}
+
 .page-title {
     @apply block text-white font-bold bg-primary rounded-full shadow-lg
     text-xl py-1.5 mt-2 mb-4 mx-auto w-full text-center
@@ -53,6 +59,10 @@ ul.default {
     @apply flex items-center justify-center py-2 px-4 bg-gray-500 font-medium rounded-full text-sm transition-all bg-opacity-15 text-black hover:bg-opacity-100 hover:text-white;
 } /* Can be safely removed after paginator is adapted to new buttons
 
+
+hr {
+    @apply border-2;
+}
 
 /* Styling for buttons in editor. */
 
@@ -70,7 +80,6 @@ ul.default {
 #editor button:disabled {
     @apply text-gray-500 text-opacity-40 bg-gray-500 bg-opacity-15 cursor-default hover:border-opacity-0;
 }
-
 
 /* Styling for form elements. */
 
@@ -98,7 +107,22 @@ ul.default {
     mask-image: linear-gradient(rgb(0 0 0 / 100%), 85%, transparent);
 }
 
+/* pollen page */
+
+.slider-images .img-container {
+    @apply w-full h-full;
+}
+
+.slider-images .img-container img {
+    @apply h-full object-cover rounded-md overflow-hidden;
+}
+
+.slider-images figcaption {
+    @apply text-balance text-[0.5rem] leading-3;
+}
+
 /* about page styling - can be removed after all pages adapt to prose */
+
 .about-page h2 {
     @apply mt-14;
 }
