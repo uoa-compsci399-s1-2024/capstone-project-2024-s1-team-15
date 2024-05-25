@@ -126,7 +126,7 @@ const redoButton = (editor: Editor) => (
     </button>
 )
 
-function imageButton (editor: Editor) {
+function ImageButton (editor: Editor): React.JSX.Element {
     const [src, setSrc] = useState<Nullable<string>>(null)
     const [alt, setAlt] = useState<Nullable<string>>(null)
     const modalRef = useRef<ModalRef>(null)
@@ -152,7 +152,7 @@ function imageButton (editor: Editor) {
     )
 }
 
-function linkButton (editor: Editor) {
+function LinkButton (editor: Editor): React.JSX.Element {
     const [url, setUrl] = useState<Nullable<string>>(null)
     const modalRef = useRef<ModalRef>(null)
 
@@ -195,9 +195,9 @@ export default function ContentEditorMenuBar({ editor }: { editor: Editor }): Re
                 {italicButton(editor)}
                 {underlineButton(editor)}
                 {strikeButton(editor)}
-                {linkButton(editor)}
+                {LinkButton(editor)}
                 <div className={"w-4"}/>
-                {imageButton(editor)}
+                {ImageButton(editor)}
                 <div className={"w-4"}/>
                 {h2Button(editor)}
                 {h3Button(editor)}
