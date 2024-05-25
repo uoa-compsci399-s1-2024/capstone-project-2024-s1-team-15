@@ -5,7 +5,7 @@ import { ImList2, ImListNumbered, ImQuotesLeft } from "react-icons/im"
 import URLInputModal from "@/app/components/modals/URLInputModal"
 import { Nullable } from "@/app/lib/types"
 import { ModalRef } from "@/app/lib/hooks/useModal"
-import ImageInputModal from "@/app/components/modals/ImageInputModal"
+import ImageInputModal, { ImageAttribute } from "@/app/components/modals/ImageInputModal"
 
 const boldButton = (editor: Editor) => (
     <button
@@ -127,20 +127,24 @@ const redoButton = (editor: Editor) => (
 )
 
 function ImageButton (editor: Editor): React.JSX.Element {
-    const [src, setSrc] = useState<Nullable<string>>(null)
-    const [alt, setAlt] = useState<Nullable<string>>(null)
+    const [imageAttribute, setImageAttribute] = useState<Nullable<ImageAttribute>>(null)
     const modalRef = useRef<ModalRef>(null)
+
+    useEffect(() => {
+        if (!imageAttribute || !imageAttribute.src) return
+        editor.chain().focus().setImage(
+            { src: imageAttribute.src, alt: imageAttribute.alt === null ? undefined : imageAttribute.alt }
+        ).run()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [imageAttribute])
 
     const handleButtonClick = () => {
         modalRef.current && modalRef.current.toggleModal()
-        if (src) editor.chain().focus().setImage(
-            { src: src, alt: alt === null ? undefined : alt }
-        ).run()
     }
 
     return (
         <>
-            <ImageInputModal modalId={"img-input"} setSrc={setSrc} setAlt={setAlt} ref={modalRef}/>
+            <ImageInputModal modalId={"img-input"} setImageAttribute={setImageAttribute} ref={modalRef}/>
             <button
                 title={"Add Image"}
                 onClick={handleButtonClick}
