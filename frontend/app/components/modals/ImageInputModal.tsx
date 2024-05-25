@@ -46,6 +46,7 @@ const URLInputModal = forwardRef(
                 }
             })
             setUploading(false)
+            // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [image])
 
         const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
