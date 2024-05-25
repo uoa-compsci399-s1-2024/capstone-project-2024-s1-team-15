@@ -38,10 +38,7 @@ const URLInputModal = forwardRef(
             if (!image) return
             setUploading(true)
             uploadImage(image, { token }).then(r => {
-                if (!r.success) {
-                    console.error(r.message)
-                } else {
-                    console.log(r.result)
+                if (r.success) {
                     setUploadedImgSrc(r.result.src)
                 }
             })

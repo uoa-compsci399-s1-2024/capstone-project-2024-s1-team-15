@@ -7,7 +7,7 @@ import { Underline } from "@tiptap/extension-underline"
 import Image from "@tiptap/extension-image"
 import Link from "@tiptap/extension-link"
 import ImageResize from "tiptap-extension-resize-image"
-import ContentEditorMenuBar from "@/app/(cms)/components/ContentEditorMenuBar";
+import ContentEditorMenuBar from "@/app/(cms)/components/ContentEditorMenuBar"
 
 type ContentEditorProps = {
     setEditorContent: Dispatch<SetStateAction<string>>
