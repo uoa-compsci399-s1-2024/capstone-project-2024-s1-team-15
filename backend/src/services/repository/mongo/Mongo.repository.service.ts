@@ -231,7 +231,7 @@ export default class MongoRepository implements IRepository {
     ): Promise<ArrayResult<Article>> {
         const r: Article[] = []
         const q: Filter<any> = {
-            articleType: ArticleType.news,
+            $or: [{articleType: ArticleType.news}, {articleType: ArticleType.news_external}],
             title: new RegExp(`.*${title}.*`, "i"),
         }
         const rC: number = await this.articles.countDocuments(q)
@@ -251,7 +251,7 @@ export default class MongoRepository implements IRepository {
     ): Promise<ArrayResult<Article>> {
         const r: Article[] = []
         const q: Filter<any> = {
-            articleType: ArticleType.research,
+            $or: [{articleType: ArticleType.research}, {articleType: ArticleType.research_external}],
             title: new RegExp(`.*${title}.*`, "i"),
         }
         const rC: number = await this.articles.countDocuments(q)
