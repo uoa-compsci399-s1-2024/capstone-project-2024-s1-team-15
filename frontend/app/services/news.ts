@@ -18,8 +18,8 @@ export async function getNewsById(id: string, options?: FetchOptions): Promise<N
     return new Article(await response.json())
 }
 
-export async function getAllNews(options?: FetchOptions): Promise<IPaginator<IArticle>> {
-    const response = await fetch(API_URI + `/content/news/`, {
+export async function getAllNews(searchTerm: string, options?: FetchOptions): Promise<IPaginator<IArticle>> {
+    const response = await fetch(API_URI + `/content/news/?` + new URLSearchParams({t: searchTerm}), {
         method: "get",
         headers: getHeaders(options),
         next: { tags: ["news"]}

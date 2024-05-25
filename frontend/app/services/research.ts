@@ -17,8 +17,8 @@ export async function getResearchById(id: string, options?: FetchOptions): Promi
     return new Article(await response.json())
 }
 
-export async function getAllResearch(options?: FetchOptions): Promise<IPaginator<IArticle>> {
-    const response = await fetch(API_URI + `/content/research/`, {
+export async function getAllResearch(searchTerm: string, options?: FetchOptions): Promise<IPaginator<IArticle>> {
+    const response = await fetch(API_URI + `/content/research/?` + new URLSearchParams({t: searchTerm}), {
         method: "get",
         headers: getHeaders(options),
         next: { tags: ["research"]}
