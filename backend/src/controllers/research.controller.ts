@@ -20,7 +20,6 @@ export default class ResearchController {
             query.t === undefined ? await DB.getAllResearch(options) : await DB.searchResearchByTitle(query.t, options)
         res.status(200)
             .json(getPaginator(Article, req, r, query.p, query.pp))
-            .send()
         next()
     }
 

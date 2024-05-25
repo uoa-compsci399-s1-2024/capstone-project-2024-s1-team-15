@@ -19,7 +19,6 @@ export default class NewsController {
         let n = query.t === undefined ? await DB.getAllNews(options) : await DB.searchNewsByTitle(query.t, options)
         res.status(200)
             .json(getPaginator(Article, req, n, query.p, query.pp))
-            .send()
         next()
     }
 
