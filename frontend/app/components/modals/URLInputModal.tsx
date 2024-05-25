@@ -27,8 +27,8 @@ const URLInputModal = forwardRef(
         }
 
         return (
-            <Modal modalId={modalId} hidden={hidden} innerClassName={`flex flex-row p-4 sm:p-5 md:p-6 bg-white`}>
-                <form className={"grow pr-6 default-form"} onSubmit={handleSubmit}>
+            <Modal modalId={modalId} hidden={hidden} innerClassName={`flex flex-row bg-white`}>
+                <form className={"grow pr-6 default-form h-auto"} onSubmit={handleSubmit}>
                     <div className={"w-full"}>
                         <label className={"form-label"} htmlFor={"url"}>URL</label>
                         <input className={"form-input"}
@@ -39,9 +39,8 @@ const URLInputModal = forwardRef(
                         />
                     </div>
                     <Button
-                        theme={"secondary"}
                         type={"submit"}
-                        text={"Add Link"}
+                        text={"Turn Into Link"}
                         icon={<IoLinkOutline size={"100%"}/>}
                     />
                 </form>

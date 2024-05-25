@@ -2,9 +2,10 @@ import React, { useEffect, useRef, useState } from "react"
 import { Editor } from "@tiptap/react"
 import { IoArrowRedo, IoArrowUndo, IoImageOutline, IoLinkOutline } from "react-icons/io5"
 import { ImList2, ImListNumbered, ImQuotesLeft } from "react-icons/im"
-import URLInputModal from "@/app/components/modals/URLInputModal";
-import { Nullable } from "@/app/lib/types";
-import { ModalRef } from "@/app/lib/hooks/useModal";
+import URLInputModal from "@/app/components/modals/URLInputModal"
+import { Nullable } from "@/app/lib/types"
+import { ModalRef } from "@/app/lib/hooks/useModal"
+import ImageInputModal from "@/app/components/modals/ImageInputModal"
 
 const boldButton = (editor: Editor) => (
     <button
@@ -125,21 +126,34 @@ const redoButton = (editor: Editor) => (
     </button>
 )
 
-const imageButton = (editor: Editor) => (
-    <button
-        title={"Add Image"}
-        onClick={() => {
-            const url = window.prompt("Image URL")
-            if (url) editor.chain().focus().setImage({ src: url }).run()
-        }}
-        className={'ce-button'}
-    >
-        <IoImageOutline size={"90%"}/>
-    </button>
-)
+const imageButton = (editor: Editor) => {
+    const [src, setSrc] = useState<Nullable<string>>(null)
+    const [alt, setAlt] = useState<Nullable<string>>(null)
+    const modalRef = useRef<ModalRef>(null)
+
+    const handleButtonClick = () => {
+        modalRef.current && modalRef.current.toggleModal()
+        if (src) editor.chain().focus().setImage(
+            { src: src, alt: alt === null ? undefined : alt }
+        ).run()
+    }
+
+    return (
+        <>
+            <ImageInputModal modalId={"img-input"} setSrc={setSrc} setAlt={setAlt} ref={modalRef}/>
+            <button
+                title={"Add Image"}
+                onClick={handleButtonClick}
+                className={'ce-button'}
+            >
+                <IoImageOutline size={"90%"}/>
+            </button>
+        </>
+    )
+}
 
 const linkButton = (editor: Editor) => {
-    const [ url, setUrl ] = useState<Nullable<string>>(null)
+    const [url, setUrl] = useState<Nullable<string>>(null)
     const modalRef = useRef<ModalRef>(null)
 
     useEffect(() => {
@@ -180,14 +194,14 @@ export default function ContentEditorMenuBar({ editor }: { editor: Editor }): Re
                 {italicButton(editor)}
                 {underlineButton(editor)}
                 {strikeButton(editor)}
-                <div className={"w-4"}/>
-                {quoteButton(editor)}
                 {linkButton(editor)}
+                <div className={"w-4"}/>
                 {imageButton(editor)}
                 <div className={"w-4"}/>
                 {h2Button(editor)}
                 {h3Button(editor)}
                 {h4Button(editor)}
+                {quoteButton(editor)}
                 <div className={"w-4"}/>
                 {bulletListButton(editor)}
                 {orderedListButton(editor)}
