@@ -126,7 +126,7 @@ const redoButton = (editor: Editor) => (
     </button>
 )
 
-const imageButton = (editor: Editor) => {
+function imageButton (editor: Editor) {
     const [src, setSrc] = useState<Nullable<string>>(null)
     const [alt, setAlt] = useState<Nullable<string>>(null)
     const modalRef = useRef<ModalRef>(null)
@@ -152,13 +152,14 @@ const imageButton = (editor: Editor) => {
     )
 }
 
-const linkButton = (editor: Editor) => {
+function linkButton (editor: Editor) {
     const [url, setUrl] = useState<Nullable<string>>(null)
     const modalRef = useRef<ModalRef>(null)
 
     useEffect(() => {
         if (!url) return
         editor.chain().focus().setLink({ target: "_blank", href: url }).run()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [url])
 
     const handleButtonClick = () => {

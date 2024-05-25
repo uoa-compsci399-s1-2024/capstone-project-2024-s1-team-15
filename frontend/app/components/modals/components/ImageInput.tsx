@@ -52,10 +52,12 @@ function BrowseImage({ onImageReceived, onError, id }: ImageInputProps) {
 
     useEffect(() => {
         if (error) onError && onError(error)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [error])
 
     useEffect(() => {
         if (image) onImageReceived && onImageReceived(image)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [image])
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -103,10 +105,12 @@ function DragDropImage({ onImageReceived, onError }: ImageInputProps) {
 
     useEffect(() => {
         if (error) onError && onError(error)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [error])
 
     useEffect(() => {
         if (image) onImageReceived && onImageReceived(image)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [image])
 
     const onDragEnterHandler = (e: React.DragEvent<HTMLDivElement>) => {

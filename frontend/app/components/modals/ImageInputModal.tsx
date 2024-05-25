@@ -60,6 +60,7 @@ const URLInputModal = forwardRef(
                                         {image.name}
                                     </p>
                                 </div>
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
                                 <img src={URL.createObjectURL(image)} alt={image.name} className={"rounded-xl max-w-full"}/>
                             </div>
                         </div>
