@@ -1,9 +1,8 @@
 import { RequestHandler } from "express"
 import { Article } from "@aapc/types"
-import { BadRequestError, NotFoundError } from "@/errors/HTTPErrors"
+import { BadRequestError, NotFoundError, UnauthorizedError } from "@/errors/HTTPErrors"
 import { ArrayResultOptions, ArticleSortFields, SortOptions } from "@/util/types/types"
 import { NewArticleIn, EditArticleIn, ArticlePaginatedQIn } from "@/util/validation/input.types"
-import { DUMMY_USER } from "@/util/const"
 import { DB } from "@/services/services"
 import { getPaginator, validate } from "@/util/functions"
 
@@ -51,8 +50,9 @@ export default class ResearchController {
 
     static createResearch: RequestHandler = async (req, res, next) => {
         const body = validate(NewArticleIn, req.body)
-        // TODO: use auth headers to auto fill user
-        const n = body.toNewArticle(DUMMY_USER)
+        const publisher = await DB.getUserByUsername(res.locals.username)
+        if (!publisher) throw new UnauthorizedError("Invalid username.")
+        const n = body.toNewArticle(publisher)
         await DB.createResearch(n)
         res.location(`/content/research/${n.id}`)
         res.status(201).json(n).send()
