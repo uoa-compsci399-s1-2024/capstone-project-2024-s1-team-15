@@ -7,10 +7,10 @@ import { getScopesFromToken } from "@/app/lib/util"
 export default function withPrivilege (checkScopeIncludesAny: UserScope[], WrappedComponent: React.JSX.Element) {
     return (function ComponentWithState () {
         const pathname = usePathname()
-        const { token, clearSession } = useAuth()
+        const { token, clearSession, loading } = useAuth()
         const scope = getScopesFromToken(token)
 
-        if (checkScopeIncludesAny.length !== 0) {
+        if (checkScopeIncludesAny.length !== 0 && !loading) {
             if (!token || !scope) {
                 clearSession()
                 const message = "You must be logged in to view this page."
@@ -21,8 +21,8 @@ export default function withPrivilege (checkScopeIncludesAny: UserScope[], Wrapp
             }
         }
 
-        return (
-            <>{WrappedComponent}</>
-        )
+        return !loading
+            ? <>{WrappedComponent}</>
+            : <></>
     })()
 }

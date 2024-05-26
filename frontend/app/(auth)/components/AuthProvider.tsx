@@ -14,6 +14,11 @@ export default function AuthProvider({ children }: React.PropsWithChildren): Rea
     const [lsUser, setLSUser] = useLocalStorage("currentUser", null)
     const [token, setToken] = useLocalStorage("currentToken", null)
     const [user, setUser] = useState<Nullable<IUser>>(null)
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        setLoading(false)
+    }, [])
 
     useEffect(() => {
         setUser(getUserFromString(lsUser))
@@ -34,7 +39,7 @@ export default function AuthProvider({ children }: React.PropsWithChildren): Rea
     }
 
     return (
-        <AuthContext.Provider value={{ user, token, setSession, refreshSession, clearSession }}>
+        <AuthContext.Provider value={{ user, token, loading, setSession, refreshSession, clearSession }}>
             { children }
         </AuthContext.Provider>
     )
