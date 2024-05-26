@@ -20,7 +20,7 @@ const strategies = {
     },
     "Wash hands after playing with pets": { image: WashHandsImage, explanation: null },
     "Shut windows during pollen season": { image: ShutWindowsImages, explanation: null },
-    "Avoid smoke and fragrances": { image: AvoidSmokingImage, explanation: <>Smoke bad, fragrance bad :)</> },
+    "Avoid smoke and fragrances": { image: AvoidSmokingImage, explanation: null },
     "Use artificial tears": { image: RedEyeImage, explanation: <ArtificialTearsExplanation /> },
 }
 
