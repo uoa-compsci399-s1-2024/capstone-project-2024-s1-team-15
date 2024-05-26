@@ -6,14 +6,13 @@ import { ArticleSortFields, ImageMetadataSortFields, UserSortFields } from "@/ut
 
 // Interfaces for inputs
 
-interface IArticleIn extends
-    Omit<IArticle, "id" | "lastEditedAt" | "publishedAt" | "publisher" | "articleType"> {}
+interface IArticleIn extends Omit<IArticle, "id" | "lastEditedAt" | "publishedAt" | "publisher"> {}
 
-interface INewUserIn extends
-    Omit<IUser, "verified" | "registeredAt"> {}
+interface IEditArticleIn extends Partial<Omit<IArticleIn, "articleType">> {}
 
-interface IEditUserIn extends
-    Omit<IUser, "verified" | "registeredAt" | "username" | "scopes"> {}
+interface INewUserIn extends Omit<IUser, "verified" | "registeredAt" | "iconSrc"> {}
+
+interface IEditUserIn extends Partial<Omit<IUser, "verified" | "registeredAt" | "username" | "scopes">> {}
 
 interface IEditUserScopeIn {
     scope: UserScope[]
@@ -108,7 +107,7 @@ export class NewArticleIn extends Validator<IArticleIn> implements IArticleIn {
     }
 }
 
-export class EditArticleIn extends Validator<IArticleIn> implements Partial<IArticleIn> {
+export class EditArticleIn extends Validator<IArticleIn> implements IEditArticleIn {
     title?: string
     subtitle?: string
     content?: string
@@ -164,24 +163,28 @@ export class NewUserIn extends Validator<INewUserIn> implements INewUserIn {
             verified: true,  // TODO: set false when user verification is added
             registeredAt: new Date().toISOString(),
             scopes: this.scopes,
+            iconSrc: null
         })
     }
 }
 
-export class EditUserIn extends Validator<IEditUserIn> implements Partial<IEditUserIn> {
+export class EditUserIn extends Validator<IEditUserIn> implements IEditUserIn {
     displayName?: string
     email?: string
+    iconSrc?: string | null
 
     constructor(obj: any) {
         super("body")
 
         this.displayName = obj.displayName && String(obj.displayName)
         this.email = obj.email && String(obj.email)
+        this.iconSrc = obj.iconSrc && String(obj.iconSrc)
     }
 
     toExistingUser(user: IUser): IUser {
         user.email = this.email === undefined ? user.email : this.email
         user.displayName = this.displayName === undefined ? user.displayName : this.displayName
+        user.iconSrc = this.iconSrc === undefined ? user.iconSrc : this.iconSrc
         return user
     }
 }
