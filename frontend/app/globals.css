@@ -104,7 +104,7 @@ hr {
 }
 
 .form-success {
-    @apply text-green-400;
+    @apply text-green-500 text-[12px] sm:text-[13px] md:text-[14px];
 }
 
 .opacity-gradient {
