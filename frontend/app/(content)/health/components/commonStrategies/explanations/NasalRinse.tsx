@@ -5,7 +5,7 @@ export default function NasalRinseExplanation() {
         <>
             <div className="mb-4 gap-4  flex-wrap flex ">
                 <div className="flex-1">
-                    <h4>Nasal Rinse</h4>
+                    <h4>Nasal rinse</h4>
                     <p className="text-gray-700 text-sm">also called "sinus rinse" or "nasal irrigation"</p>
                     <br />
                     <p>
