@@ -1,9 +1,13 @@
-import type { Metadata } from "next"
-import { getMetadata } from "@/app/lib/util"
-import React from "react"
+"use client"
 
-export const metadata: Metadata = getMetadata("My Account")
+import React from "react"
+import { withPrivilege } from "@/app/lib/hoc";
+import { SCOPES } from "@/app/lib/consts";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-    return <div>{children}</div>
+    return withPrivilege(SCOPES.loggedIn, (
+        <>
+            {children}
+        </>
+    ))
 }
