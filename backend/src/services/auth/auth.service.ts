@@ -30,6 +30,13 @@ export default class AuthContext {
         return null
     }
 
+    issueTokenFromUser(user: IUser): string {
+        return this.issueToken({
+            username: user.username,
+            scopes: user.scopes
+        })
+    }
+
     verifyToken(token: string): Nullable<JWTPayload> {
         try {
             return <JWTPayload>verify(token, this.jwtSecret)
