@@ -101,7 +101,12 @@ export default class ImageController {
         const dimensions = sizeOf(fileContent)
         const size = fileContent.byteLength
 
-        const location = await CDN.putImage(fileContent, id, fileFormat)
+        let location: string
+        try {
+            location = await CDN.putImage(fileContent, id, fileFormat)
+        } catch (e) {
+            throw Error("Failed retrieving AWS resources.")
+        }
         const im = await DB.createImageMetadata(new ImageMetadata({
             id: id,
             height: dimensions.height,
@@ -129,7 +134,11 @@ export default class ImageController {
             throw new NotFoundError(`Image with id ${id} does not exist.`)
         }
 
-        await CDN.deleteImage(`${im.id}.${im.format}`)
+        try {
+            await CDN.deleteImage(`${im.id}.${im.format}`)
+        } catch (e) {
+            throw Error("Failed retrieving AWS resources.")
+        }
         await DB.deleteImageMetadata(id)
 
         res.status(204).send()
