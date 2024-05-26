@@ -6,7 +6,7 @@ import useModal, { ModalRef } from "@/app/lib/hooks/useModal"
 import { Nullable } from "@/app/lib/types";
 import {
     IoCloudDone,
-    IoCloudDoneOutline, IoCloudUpload,
+    IoCloudDoneOutline, IoCloudOffline, IoCloudUpload,
     IoCloudUploadOutline,
     IoImageOutline
 } from "react-icons/io5"
@@ -31,15 +31,20 @@ const URLInputModal = forwardRef(
         const [image, setImage] = useState<Nullable<File>>(null)
         const [uploading, setUploading] = useState<boolean>(false)
         const [uploadedImgSrc, setUploadedImgSrc] = useState<Nullable<string>>(null)
+        const [error, setError] = useState<Nullable<string>>(null)
         const { token } = useAuth()
 
         useEffect(() => {
+            setError(null)
             setUploadedImgSrc(null)
             if (!image) return
             setUploading(true)
             uploadImage(image, { token }).then(r => {
                 if (r.success) {
                     setUploadedImgSrc(r.result.src)
+                    setError(null)
+                } else {
+                    setError(r.message)
                 }
             })
             setUploading(false)
@@ -92,9 +97,18 @@ const URLInputModal = forwardRef(
                                         {filesize(image.size)}
                                     </p>
                                     <p className={"text-xs select-none"}>·</p>
-                                    <p className={`text-xs ${uploading ? "text-yellow-600" : "text-green-600"}`}>
-                                        {uploading ? <IoCloudUpload/> : <IoCloudDone/>}
-                                    </p>
+                                    {error
+                                        ? <p className={"text-xs text-red-600"} title={"Upload Error"}>
+                                            <IoCloudOffline/>
+                                        </p>
+                                    : uploading
+                                        ? <p className={"text-xs text-yellow-600"} title={"Uploading..."}>
+                                            <IoCloudUpload/>
+                                        </p>
+                                        : <p className={"text-xs text-green-600"} title={"Upload Success"}>
+                                            <IoCloudDone/>
+                                        </p>
+                                    }
                                 </div>
                                 {/* eslint-disable-next-line @next/next/no-img-element */}
                                 <img src={URL.createObjectURL(image)} alt={image.name} className={"rounded-xl max-w-full"}/>
@@ -115,7 +129,11 @@ const URLInputModal = forwardRef(
                             placeholder={"A short description of the image... (Optional)"}
                         />
                     </div>
-                    {image === null
+
+                    {/* Error Message */}
+                    {error && <p className={"form-error"}>Upload Error: {error}</p>}
+
+                    {image === null || error
                         ? <Button
                             type={"submit"}
                             text={"Add Image"}

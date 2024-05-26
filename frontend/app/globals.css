@@ -100,7 +100,7 @@ hr {
 }
 
 .form-error {
-    @apply text-red-500;
+    @apply text-red-500 text-[12px] sm:text-[13px] md:text-[14px];
 }
 
 .form-success {
