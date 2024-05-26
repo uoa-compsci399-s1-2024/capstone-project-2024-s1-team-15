@@ -3,6 +3,7 @@ import { UserScope } from "@aapc/types";
 import { ForbiddenError, UnauthorizedError } from "@/errors/HTTPErrors";
 import { AUTH } from "@/services/services";
 import { JWTPayload } from "@/services/auth/auth.service";
+import { SCOPES } from "@/util/const";
 
 
 export default class Scope {
@@ -47,7 +48,7 @@ export default class Scope {
 
     static currentUser: RequestHandler = (req, res, next) => {
         const jwtPayload = Scope.getPayload(req)
-        if (jwtPayload.username !== req.params.username) {
+        if (jwtPayload.username !== req.params.username && !Scope.scopeContainsAny(jwtPayload.scopes, SCOPES.admin)) {
             throw Scope.forbidden
         } else {
             next()

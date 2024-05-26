@@ -18,7 +18,6 @@ export default class UserController {
             query.un === undefined ? await DB.getAllUsers(options) : await DB.searchUserByUsername(query.un, options)
         res.status(200)
             .json(getPaginator(User, req, u, query.p, query.pp))
-            .send()
         next()
     }
 
@@ -26,7 +25,7 @@ export default class UserController {
         const username: string = String(req.params.username)
         const u = await DB.getUserByUsername(username)
         if (u === null) throw new NotFoundError(`User with username ${username} does not exist.`)
-        res.status(200).json(u).send()
+        res.status(200).json(u)
         next()
     }
 
@@ -37,7 +36,7 @@ export default class UserController {
         const u = body.toNewUser()
         await DB.createUser(u)
         res.location(`/user/${u.username}`)
-        res.status(201).json(u).send()
+        res.status(201).json(u)
         next()
     }
 
@@ -53,7 +52,7 @@ export default class UserController {
             if (e instanceof TypeError) throw new BadRequestError(e.message)
             throw e
         }
-        res.status(200).json(u).send()
+        res.status(200).json(u)
         next()
     }
 
@@ -69,7 +68,7 @@ export default class UserController {
             if (e instanceof TypeError) throw new BadRequestError(e.message)
             throw e
         }
-        res.status(200).json(u).send()
+        res.status(200).json(u)
         next()
     }
 
