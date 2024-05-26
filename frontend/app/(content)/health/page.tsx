@@ -3,10 +3,10 @@
 import React, { useState } from "react"
 import PageTemplate from "@/app/components/PageContentTemplate"
 
-import StrategyCard from "./StrategyCard"
+import StrategyCard from "./components/commonStrategies/StrategyCard"
 import InteractiveBodyDiagram from "./InteractiveBodyDiagram"
 import SourceLink, { LearnMoreLink } from "@/app/components/SourceLink"
-import strategies from "./commonStrategies"
+import strategies from "./components/commonStrategies/commonStrategies"
 import ExplanationDialog from "./ExplanationDialog"
 
 export default function HealthPage() {
