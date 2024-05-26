@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react"
+import React, { useRef } from "react"
 import { useAuth } from "@/app/lib/hooks"
 import { Nullable } from "@/app/lib/types"
 import icons from "@/app/lib/icons"
@@ -8,6 +8,8 @@ import Button from "@/app/components/Button"
 import EditDisplayIconForm from "@/app/(content)/my-account/components/EditDisplayIconForm"
 import EditDisplayNameForm from "@/app/(content)/my-account/components/EditDisplayNameForm"
 import EditEmailForm from "@/app/(content)/my-account/components/EditEmailForm"
+import { ChangePasswordModal } from "@/app/components/modals";
+import { ModalRef } from "@/app/lib/hooks/useModal";
 
 export type FormState = {
     error?: string
@@ -16,9 +18,11 @@ export type FormState = {
 
 export default function Page(): Nullable<React.JSX.Element> {
     const { user } = useAuth()
+    const changePasswordModalRef = useRef<ModalRef>(null)
 
     return user && (
         <div>
+            <ChangePasswordModal modalId={"my-account-change-password"} ref={changePasswordModalRef}/>
             <h1 className={"page-title"}>My Account</h1>
             <div className={"space-y-6"}>
                 <div className={"max-w-full flex flex-col"}>
@@ -38,6 +42,7 @@ export default function Page(): Nullable<React.JSX.Element> {
                                 text={"Change Password"}
                                 theme={"red"} icon={icons.key}
                                 className={"min-w-[232px]"}
+                                onClick={() => changePasswordModalRef.current && changePasswordModalRef.current.showModal()}
                             />
                             <Button
                                 text={"Deactivate Account"}
