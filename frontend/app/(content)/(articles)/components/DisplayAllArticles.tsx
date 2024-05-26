@@ -10,6 +10,7 @@ import ButtonLink from "@/app/components/ButtonLink"
 import { SCOPES } from "@/app/lib/consts"
 import icons from "@/app/lib/icons"
 import { getAllResearch } from "@/app/services/research"
+import ExternalArticleCard from "./ExternalArticleCard"
 
 type displayAllArticleProps = {
     articleType: string
@@ -54,7 +55,12 @@ export default function DisplayAllArticles({articleType} : displayAllArticleProp
         <div className={"space-y-12 mt-6"}>
             {articles?.totalResults?(
                 articles.data.map((a) => {
-                    return <ArticleCard article={a} key={a.id} />
+                    if(a.articleType === ArticleType.news  || a.articleType === ArticleType.research ){
+                        return <ArticleCard article={a} key={a.id} />
+                    }else{
+                        return <ExternalArticleCard article={a} key={a.id}/>
+                    }
+                    
                 })
             ) : searchTerm ? (
                 <p>
