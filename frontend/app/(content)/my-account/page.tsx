@@ -31,7 +31,7 @@ export default function Page(): Nullable<React.JSX.Element> {
                 <div>
                     <label className={"form-label"}>Account Management</label>
                     <div className={`p-4 bg-red-100 shadow-inner rounded-2xl w-max mt-1
-                        bg-opacity-60 hover:bg-opacity-800 transition
+                        bg-opacity-60 hover:bg-opacity-80 transition
                     `}>
                         <div className={"space-y-4"}>
                             <Button
