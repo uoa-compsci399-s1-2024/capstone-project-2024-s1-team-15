@@ -59,3 +59,20 @@ export async function sendResetPasswordEmail(
 
     return success({})
 }
+
+export async function resetPassword(
+    credentials: { email: string; newPassword: string; verificationCode: string },
+    options?: FetchOptions
+) {
+    const res = await fetch(`${API_URI}/auth/password`, {
+        method: "post",
+        body: JSON.stringify(credentials),
+        headers: getHeaders(options),
+    })
+
+    if (res.status !== 200) {
+        return fail((await res.json()).message)
+    }
+
+    return success({})
+}

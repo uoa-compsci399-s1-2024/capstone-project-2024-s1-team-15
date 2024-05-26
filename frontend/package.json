@@ -12,17 +12,22 @@
         "prettier:fix": "npx prettier . --write"
     },
     "dependencies": {
-        "@aapc/types": "^0.5.1",
+        "@aapc/types": "^0.5.6",
+        "@tiptap/extension-image": "^2.4.0",
+        "@tiptap/extension-link": "^2.4.0",
         "@tiptap/extension-underline": "^2.2.6",
         "@tiptap/pm": "^2.2.6",
         "@tiptap/react": "^2.2.6",
         "@tiptap/starter-kit": "^2.2.6",
         "chart.js": "^4.4.2",
         "chartjs-adapter-dayjs-4": "^1.0.4",
+        "chartjs-plugin-zoom": "^2.0.1",
         "cookies-next": "^4.1.1",
         "dayjs": "^1.11.11",
         "dotenv": "^16.4.5",
+        "filesize": "^10.1.2",
         "html-react-parser": "^5.1.10",
+        "image-size": "^1.1.1",
         "isomorphic-dompurify": "^2.6.0",
         "jsonwebtoken": "^9.0.2",
         "next": "14.1.4",
@@ -34,6 +39,7 @@
         "react-select": "^5.8.0",
         "react-switch": "^7.0.0",
         "sharp": "^0.33.4",
+        "tiptap-extension-resize-image": "^1.1.4",
         "xlsx": "^0.18.5"
     },
     "devDependencies": {

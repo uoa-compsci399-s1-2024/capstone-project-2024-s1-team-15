@@ -6,7 +6,10 @@ import { formatPollenData, FormattedPollenData } from "@/app/(cms)/pollen/compon
 import Button from "@/app/components/Button"
 import PollenTypeInput from "@/app/components/pollen/PollenTypeInput"
 import DateInput from "@/app/components/pollen/DateInput"
-import MultiChart from "@/app/components/pollen/MultiChart"
+
+import dynamic from "next/dynamic"
+const MultiChart = dynamic(() => import("@/app/components/pollen/MultiChart"), { ssr: false })
+
 import { dateFormat } from "."
 import { makeTimestampForDateMidday } from "./util"
 

@@ -32,7 +32,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 
                     <div className="relative">
                         {/* Flower Nav - Only shown on desktop, desktop wide, desktop ultra-wide viewports */}
-                        <nav className="fixed pt-5 right-0 hidden lg:block">
+                        <nav className="fixed pt-5 right-0 hidden lg:block z-30">
                             <FlowerNav/>
                         </nav>
 
