@@ -7,20 +7,20 @@ import {
     IoInformationCircleOutline,
     IoLogInOutline,
     IoLogOutOutline, IoMenuOutline,
-    IoPencilOutline,
-    IoPersonAddOutline,
-    IoPersonOutline, IoSendOutline,
+    IoPersonAddOutline, IoPersonCircleOutline,
+    IoSendOutline,
     IoTrashOutline
 } from "react-icons/io5"
 import React from "react"
+import { HiOutlinePencilSquare } from "react-icons/hi2";
 
 const icons =  {
     "signup": <IoPersonAddOutline size={"100%"}/>,
     "login": <IoLogInOutline size={"100%"}/>,
     "logout": <IoLogOutOutline size={"100%"}/>,
-    "user": <IoPersonOutline size={"100%"}/>,
+    "user": <IoPersonCircleOutline size={"100%"}/>,
     "add": <IoAddCircleOutline size={"100%"}/>,
-    "edit": <IoPencilOutline size={"100%"}/>,
+    "edit": <HiOutlinePencilSquare size={"100%"}/>,
     "trash": <IoTrashOutline size={"100%"}/>,
     "close": <IoCloseOutline size={"100%"}/>,
     "information": <IoInformationCircleOutline size={"100%"}/>,

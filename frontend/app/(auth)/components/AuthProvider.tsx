@@ -29,8 +29,12 @@ export default function AuthProvider({ children }: React.PropsWithChildren): Rea
         setToken(null)
     }
 
+    const refreshSession = () => {
+        // TODO
+    }
+
     return (
-        <AuthContext.Provider value={{ user, token, setSession, clearSession }}>
+        <AuthContext.Provider value={{ user, token, setSession, refreshSession, clearSession }}>
             { children }
         </AuthContext.Provider>
     )

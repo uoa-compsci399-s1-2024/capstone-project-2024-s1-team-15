@@ -8,6 +8,7 @@ interface IAuthContext {
     user: Nullable<IUser>
     token: Nullable<string>
     setSession: (session: AuthResponse) => void
+    refreshSession: () => void
     clearSession: () => void
 }
 
@@ -15,6 +16,7 @@ export const AuthContext = React.createContext<IAuthContext>({
     user: null,
     token: null,
     setSession: (_) => {},
+    refreshSession: () => {},
     clearSession: () => {}
 })
 
