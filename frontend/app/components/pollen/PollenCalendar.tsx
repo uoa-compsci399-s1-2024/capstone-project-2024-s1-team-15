@@ -1,12 +1,17 @@
 import { memo, useEffect, useState } from "react"
 import dayjs from "dayjs"
 import { PollenData } from "@aapc/types"
+import icons from "@/app/lib/icons"
 import { formatPollenData, FormattedPollenData } from "@/app/(cms)/pollen/components/util/formatData"
+import Button from "@/app/components/Button"
 import PollenTypeInput from "@/app/components/pollen/PollenTypeInput"
 import DateInput from "@/app/components/pollen/DateInput"
-import MultiChart from "@/app/components/pollen/MultiChart"
-import { makeTimestampForDateMidday } from "./util"
+
+import dynamic from "next/dynamic"
+const MultiChart = dynamic(() => import("@/app/components/pollen/MultiChart"), { ssr: false })
+
 import { dateFormat } from "."
+import { makeTimestampForDateMidday } from "./util"
 
 const PollenCalendar = memo(function PollenCalendar({ pollenData }: { pollenData: PollenData[] }) {
     const [showsDateFilter, setShowsDateFilter] = useState(false)
@@ -88,7 +93,8 @@ const PollenCalendar = memo(function PollenCalendar({ pollenData }: { pollenData
     return (
         <>
             <div className="flex flex-col justify-between mt-2 sm:mt-3 md:mt-0">
-                <div className={`flex flex-col flex-shrink-0 self-start bg-accent-dark mb-4 w-auto
+                <div
+                    className={`flex flex-col flex-shrink-0 self-start bg-accent-dark mb-4 w-auto
                     -ml-pc px-[calc(theme(spacing.pc)+0.625rem)] pr-6 pb-2 mt-4 rounded-r-[2rem] gap-y-2 
                     
                     sm:-ml-pc-sm sm:px-[calc(theme(spacing.pc-sm)+0.75rem)] sm:pr-7 sm:pb-2.5 sm:gap-y-2.5
@@ -103,12 +109,13 @@ const PollenCalendar = memo(function PollenCalendar({ pollenData }: { pollenData
                 `}>
                     <h4 className="-mt-3 sm:-mt-4 md:mt-0 drop-shadow-md md:drop-shadow-none w-full">Filter by</h4>
                     <div className="flex gap-y-2 flex-col">
-                        <button
-                            className="button w-40 bg-primary"
-                            onClick={() => setShowsPollenTypeFilter((currentState) => !currentState)}>
-                            Pollen Type
-                        </button>
-                        <div>
+                        <Button
+                            icon={icons.filter}
+                            text={"Pollen Type"}
+                            onClick={() => setShowsPollenTypeFilter(c => !c)}
+                            className={"min-w-44"}
+                        />
+                        <div className={"pl-4"}>
                             {allPollenTypes && showsPollenTypeFilter && (
                                 <PollenTypeInput
                                     allPollenTypes={allPollenTypes}
@@ -121,19 +128,22 @@ const PollenCalendar = memo(function PollenCalendar({ pollenData }: { pollenData
                     </div>
 
                     <div className="flex gap-y-2 flex-col">
-                        <button
-                            className="button w-40 bg-primary"
-                            onClick={() => setShowsDateFilter((currentState) => !currentState)}>
-                            Date
-                        </button>
-                        {showsDateFilter && (
-                            <DateInput
-                                lowerLimit={dateLowerLimit}
-                                upperLimit={dateUpperLimit}
-                                setUpperLimit={setDateUpperLimit}
-                                setLowerLimit={setDateLowerLimit}
-                            />
-                        )}
+                        <Button
+                            icon={icons.calendar}
+                            text={"Date Range"}
+                            onClick={() => setShowsDateFilter(c => !c)}
+                            className={"min-w-44"}
+                        />
+                        <div className={"pl-4"}>
+                            {showsDateFilter && (
+                                <DateInput
+                                    lowerLimit={dateLowerLimit}
+                                    upperLimit={dateUpperLimit}
+                                    setUpperLimit={setDateUpperLimit}
+                                    setLowerLimit={setDateLowerLimit}
+                                />
+                            )}
+                        </div>
                     </div>
                 </div>
                 {filteredPollenData && displayedPollenTypes.length ? (

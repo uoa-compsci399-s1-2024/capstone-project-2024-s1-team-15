@@ -8,6 +8,8 @@ import parseAssumptions from "./util/parseAssumptions"
 import Link from "next/link"
 import { createPollenData } from "@/app/services/pollen"
 import { useAuth } from "@/app/lib/hooks"
+import Button from "@/app/components/Button"
+import icons from "@/app/lib/icons";
 
 type ParseError = {
     message: string
@@ -43,9 +45,7 @@ export default function EditPollen() {
         })
     }, [inputFile])
 
-    function validateInputFileType(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-        e.preventDefault()
-
+    function validateInputFileType() {
         if (!fileInputReference.current) return
         const fileInputElement: HTMLInputElement = fileInputReference.current
         if (!fileInputElement.files?.length || !fileInputElement.files[0]) {
@@ -64,9 +64,7 @@ export default function EditPollen() {
         setInputFile(uploadedFile)
     }
 
-    async function updateDatabase(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-        e.preventDefault()
-
+    async function updateDatabase() {
         if (!pollenDataset) return
 
         setUpdateDbPending(true)
@@ -92,9 +90,7 @@ export default function EditPollen() {
                     <input type="file" ref={fileInputReference} />
                 </label>
 
-                <button type="submit" className="button" onClick={validateInputFileType}>
-                    Preview data
-                </button>
+                <Button theme={"secondary"} onClick={validateInputFileType} text={"Preview Data"} icon={icons.eye}/>
                 {error &&
                     (error.errors ? (
                         <>
@@ -119,9 +115,12 @@ export default function EditPollen() {
                     <h3 className="font-bold text-2xl my-2">Preview generated ✅</h3>
                     <PollenCalendar pollenData={pollenDataset}></PollenCalendar>
 
-                    <button type="submit" disabled={updateDbPending} className="button" onClick={updateDatabase}>
-                        {updateDbPending ? "Updating..." : "Update calendar on website"}
-                    </button>
+                    <Button
+                        disabled={updateDbPending}
+                        onClick={updateDatabase}
+                        text={updateDbPending ? "Updating..." : "Update Pollen Data"}
+                        icon={icons.upload}
+                    />
 
                     {updateDbError && <p className="form-error">{updateDbError}</p>}
                     {updateDbSuccess && (

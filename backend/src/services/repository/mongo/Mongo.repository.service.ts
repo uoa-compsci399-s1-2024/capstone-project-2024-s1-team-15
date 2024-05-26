@@ -143,6 +143,54 @@ export default class MongoRepository implements IRepository {
         }
     }
 
+    async getAllNewsByUser(
+        username: string,
+        titleSearchInput?: string,
+        options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>
+    ) {
+        let q: Filter<any> = {
+            $or: [{ articleType: ArticleType.news }, { articleType: ArticleType.news_external }],
+            publisher: username,
+        }
+
+        if (titleSearchInput) {
+            q.title = new RegExp(`.*${titleSearchInput}.*`, "i")
+        }
+
+        const r: Article[] = []
+        const rC = await this.articles.countDocuments(q)
+        const result = await this.fetchMongoDocuments(this.articles.find(q), options)
+        for (const document of result) {
+            r.push(await this.documentToArticle(document))
+        }
+
+        return { totalResults: rC, results: r }
+    }
+
+    async getAllResearchByUser(
+        username: string,
+        titleSearchInput?: string,
+        options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>
+    ) {
+        let q: Filter<any> = {
+            $or: [{ articleType: ArticleType.research }, { articleType: ArticleType.research_external }],
+            publisher: username,
+        }
+
+        if (titleSearchInput) {
+            q.title = new RegExp(`.*${titleSearchInput}.*`, "i")
+        }
+
+        const r: Article[] = []
+        const rC = await this.articles.countDocuments(q)
+        const result = await this.fetchMongoDocuments(this.articles.find(q), options)
+        for (const document of result) {
+            r.push(await this.documentToArticle(document))
+        }
+
+        return { totalResults: rC, results: r }
+    }
+
     async getAllUsers(options?: ArrayResultOptions<SortOptions<User, UserSortFields>>): Promise<ArrayResult<User>> {
         const r: User[] = []
         const rC = await this.users.countDocuments()

@@ -1,8 +1,8 @@
-import React from "react";
-import Image from "next/image";
-import yellowback from "../public/homepageback.svg";
-import pollenimg from "../public/pollenimg.svg";
-import MessageFromQuery from "@/app/components/MessageFromQuery";
+import React from "react"
+import Image from "next/image"
+import yellowback from "../public/homepageback.svg"
+import pollenimg from "../public/pollenimg.svg"
+import MessageFromQuery from "@/app/components/MessageFromQuery"
 
 export default function Home() {
     return (
@@ -15,7 +15,7 @@ export default function Home() {
                 <Image src={pollenimg} alt="pollenimg"
                        className="-mt-20 ml-20 transition-transform duration-1000 transform hover:-translate-y-5" />
             </div>
-            <div className="text-black pl-8 w-fit">
+            <div className="text-black pl-6 w-fit">
                 <h1 className="text-3xl">Welcome to</h1>
                 <h1 className="text-8xl text-center">Aotearoa Airborne<br />Pollen Collective</h1>
                 <p className="text-2xl ml-30 text-center">Clearing the Air: Your Source for Pollen Awareness</p>  

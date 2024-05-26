@@ -1,16 +1,14 @@
 "use client"
 
-import ContentEditor from "@/app/(cms)/components/ContentEditor"
-import { Article, ArticleType, IArticle } from "@aapc/types"
 import React, { useEffect, useMemo, useState } from "react"
-import ArticlePage from "@/app/components/ArticlePage"
+import { useRouter } from "next/navigation"
+import { Article, ArticleType, IArticle } from "@aapc/types"
 import { ArticleOut, Nullable } from "@/app/lib/types"
 import { editNews, publishNews } from "@/app/services/news"
 import { editResearch, publishResearch } from "@/app/services/research"
 import { useAuth } from "@/app/lib/hooks"
-import { useRouter } from "next/navigation"
-import { act } from "react-dom/test-utils"
-
+import Button from "@/app/components/Button"
+import icons from "@/app/lib/icons";
 
 type ArticleFormProps = PublishArticleFormProps | EditArticleFormProps
 
@@ -38,15 +36,12 @@ export default function ExternalArticleForm({ actionType, articleType, articleJS
         [articleJSONString]
     )
 
-
     useEffect(() => {
         if (article) {
             setTitle(article.title)
             setExternalLink(article.content)
         }
     }, [article])
-
-   
 
     const submitArticle = () => {
         const a: ArticleOut = {
@@ -144,20 +139,14 @@ export default function ExternalArticleForm({ actionType, articleType, articleJS
             </div>
 
             <div>
-                <button className={"button text-lg"} onClick={submitArticle}>
-                    {actionType === "edit" ? "Edit" : "Publish"}&nbsp;
-                    {articleType === ArticleType.news_external ? "News" : "Research"}
-                    
-                </button>
+                <Button
+                    onClick={submitArticle}
+                    text={`${actionType === "edit" ? "Edit" : "Publish"} External ${articleType === ArticleType.news_external ? "News" : "Research"}`}
+                    icon={icons.add}
+                />
             </div>
 
             { error && <span>{error}</span> }
-
         </div>
-        
-           
     )
-
-
-
 }

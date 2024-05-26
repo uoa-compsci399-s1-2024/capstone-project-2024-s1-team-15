@@ -1,9 +1,11 @@
 "use client"
 
-import { useAuth } from "@/app/lib/hooks"
-import { deletePollenData } from "@/app/services/pollen"
+import React, { useState } from "react"
 import Link from "next/link"
-import { useState } from "react"
+import { deletePollenData } from "@/app/services/pollen"
+import { useAuth } from "@/app/lib/hooks"
+import icons from "@/app/lib/icons"
+import Button from "@/app/components/Button"
 
 export default function DeletePollenData() {
     const [deletePending, setDeletePending] = useState(false)
@@ -12,7 +14,7 @@ export default function DeletePollenData() {
 
     const { token } = useAuth()
 
-    async function deleteFromDatabase(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    async function deleteFromDatabase() {
         setDeletePending(true)
 
         const deleteDataResponse = await deletePollenData({ token })
@@ -30,14 +32,14 @@ export default function DeletePollenData() {
 
     return (
         <>
-            Click button to delete all pollen data from the database
-            <button
-                type="submit"
+            <Button
+                theme={'red'}
+                type={"submit"}
                 disabled={deletePending}
                 onClick={deleteFromDatabase}
-                className="button bg-red-400 cms ">
-                {deletePending ? "Deleting" : "Delete"}
-            </button>
+                text={deletePending ? "Deleting..." : "Delete All Pollen Data"}
+                icon={icons.trash}
+            />
             {deleteDataError && <p className="form-error">{deleteDataError}</p>}
             {deleteDataSuccess && (
                 <p className="form-success">

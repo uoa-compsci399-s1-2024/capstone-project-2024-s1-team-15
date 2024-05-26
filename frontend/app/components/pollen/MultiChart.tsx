@@ -1,3 +1,5 @@
+"use client"
+
 import dayjs from "dayjs"
 import { FormattedPollenData } from "../../(cms)/pollen/components/util/formatData"
 import { memo } from "react"
@@ -5,9 +7,11 @@ import { dateFormat } from "."
 
 import "chartjs-adapter-dayjs-4/dist/chartjs-adapter-dayjs-4.esm"
 import "chart.js/auto"
+import zoomPlugin from "chartjs-plugin-zoom"
 import { Chart } from "react-chartjs-2"
 
-import { ChartOptions } from "chart.js"
+import { ChartOptions, Chart as ChartJS } from "chart.js"
+ChartJS.register(zoomPlugin)
 
 type Props = {
     dateUpperLimit: number
@@ -74,6 +78,28 @@ const MultiChart = memo(function MultiChart({
                         item.datasetIndex != undefined &&
                         ((item.datasetIndex >= 0 && item.datasetIndex < pollenTypes.length) ||
                             (showsDailyTotal && item.text === "Total Pollen")),
+                },
+            },
+            zoom: {
+                limits: {
+                    x: {
+                        min: dateLowerLimit,
+                        max: dateUpperLimit + 50,
+                    },
+                },
+                zoom: {
+                    mode: "x",
+
+                    wheel: {
+                        enabled: true,
+                    },
+                    pinch: {
+                        enabled: true,
+                    },
+                },
+                pan: {
+                    enabled: true,
+                    mode: "x",
                 },
             },
             tooltip: {

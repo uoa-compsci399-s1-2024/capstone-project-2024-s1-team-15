@@ -5,8 +5,9 @@ import { getAllResearch } from "@/app/services/research"
 import ArticleCard from "@/app/(content)/(articles)/components/ArticleCard"
 import Privileged from "@/app/components/Privileged"
 import ButtonLink from "@/app/components/ButtonLink"
-import Pagination from "@/app/components/Paginations"
+import Paginator from "@/app/components/Paginator"
 import SearchBar from "@/app/components/SearchBar"
+import icons from "@/app/lib/icons"
 
 export const metadata = getMetadata("All Research")
 
@@ -20,14 +21,14 @@ export default async function AllResearchPage() {
                 <SearchBar />
             </div>
             <Privileged requiredScopes={SCOPES.maintainer}>
-                <ButtonLink href={"/research/publish"} text={"Publish Research"} />
+                <ButtonLink theme={"cms"} href={"/research/publish"} text={"Publish Research"} icon={icons.add}/>
             </Privileged>
             <div className={"space-y-12 mt-6"}>
                 {research.data.map((a) => {
                     return <ArticleCard article={a} key={a.id} />
                 })}
             </div>
-            <Pagination />
+            <Paginator />
         </>
     )
 }

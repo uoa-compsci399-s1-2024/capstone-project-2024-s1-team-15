@@ -42,3 +42,37 @@ export async function changePassword(
         return success({})
     }
 }
+
+export async function sendResetPasswordEmail(
+    credentials: { email: string },
+    options?: FetchOptions
+): Promise<Result<any>> {
+    const res = await fetch(`${API_URI}/auth/forgot-password`, {
+        method: "post",
+        body: JSON.stringify(credentials),
+        headers: getHeaders(options),
+    })
+
+    if (res.status !== 200) {
+        return fail((await res.json()).message)
+    }
+
+    return success({})
+}
+
+export async function resetPassword(
+    credentials: { email: string; newPassword: string; verificationCode: string },
+    options?: FetchOptions
+) {
+    const res = await fetch(`${API_URI}/auth/password`, {
+        method: "post",
+        body: JSON.stringify(credentials),
+        headers: getHeaders(options),
+    })
+
+    if (res.status !== 200) {
+        return fail((await res.json()).message)
+    }
+
+    return success({})
+}
