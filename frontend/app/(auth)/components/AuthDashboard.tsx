@@ -8,28 +8,13 @@ import { UserScopeLabel } from "@/app/(auth)/components"
 import { LoginModal, ChangePasswordModal } from "@/app/components/modals"
 import Button from "@/app/components/Button"
 import { ModalRef } from "@/app/lib/hooks/useModal"
+import ButtonLink from "@/app/components/ButtonLink";
 
 export default function AuthDashboard({ dashboardLocation }: { dashboardLocation: string }): React.JSX.Element {
     const { user, token, clearSession } = useAuth()
     let scopes = getScopesFromToken(token)
     const loginRef = useRef<ModalRef>(null)
     const changePasswordModalRef = useRef<ModalRef>(null)
-
-    if (token && !scopes) {
-        clearSession()
-    }
-
-    const showLoginModal = () => {
-        if (loginRef.current) {
-            loginRef.current.showModal()
-        }
-    }
-
-    const showChangePasswordModal = () => {
-        if (changePasswordModalRef.current) {
-            changePasswordModalRef.current.showModal()
-        }
-    }
 
     return (
         <div>
@@ -47,10 +32,10 @@ export default function AuthDashboard({ dashboardLocation }: { dashboardLocation
                         {scopes && <UserScopeLabel scopes={scopes}/>}
                     </div>
                     <div className={`flex justify-center gap-x-4`}>
-                        <Button
-                            text={"Change Password"}
+                        <ButtonLink
+                            text={"My Account"}
                             icon={icons.user}
-                            onClick={showChangePasswordModal}
+                            href={"/my-account"}
                         />
                         <Button
                             text={"Log out"}
@@ -70,7 +55,7 @@ export default function AuthDashboard({ dashboardLocation }: { dashboardLocation
                         text={"Log in"}
                         theme={"secondary"}
                         icon={icons.login}
-                        onClick={showLoginModal}
+                        onClick={() => { loginRef.current && loginRef.current.showModal() }}
                     />
                 </div>
             )}

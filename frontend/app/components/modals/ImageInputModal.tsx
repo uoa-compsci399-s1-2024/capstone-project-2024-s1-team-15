@@ -15,20 +15,21 @@ import { filesize } from "filesize"
 import { useAuth } from "@/app/lib/hooks"
 import { uploadImage } from "@/app/services/image"
 
-export type ImageAttribute = {
+export type ImageWithAltText = {
     src: Nullable<string>,
     alt: Nullable<string>
 }
 
 type Props = {
     modalId: string,
-    setImageAttribute: Dispatch<SetStateAction<Nullable<ImageAttribute>>>
+    setImage: Dispatch<SetStateAction<Nullable<ImageWithAltText>>>
+    location: "display-icon" | "content-editor"
 }
 
 const URLInputModal = forwardRef(
-    function URLInputModal({ modalId, setImageAttribute }: Props, ref: React.ForwardedRef<ModalRef>) {
+    function URLInputModal({ modalId, setImage, location }: Props, ref: React.ForwardedRef<ModalRef>) {
         const [hidden, setHidden] = useModal(modalId, ref)
-        const [image, setImage] = useState<Nullable<File>>(null)
+        const [selectedImg, setSelectedImg] = useState<Nullable<File>>(null)
         const [uploading, setUploading] = useState<boolean>(false)
         const [uploadedImgSrc, setUploadedImgSrc] = useState<Nullable<string>>(null)
         const [error, setError] = useState<Nullable<string>>(null)
@@ -37,9 +38,9 @@ const URLInputModal = forwardRef(
         useEffect(() => {
             setError(null)
             setUploadedImgSrc(null)
-            if (!image) return
+            if (!selectedImg) return
             setUploading(true)
-            uploadImage(image, { token }).then(r => {
+            uploadImage(selectedImg, { token }).then(r => {
                 if (r.success) {
                     setUploadedImgSrc(r.result.src)
                     setError(null)
@@ -49,7 +50,7 @@ const URLInputModal = forwardRef(
             })
             setUploading(false)
             // eslint-disable-next-line react-hooks/exhaustive-deps
-        }, [image])
+        }, [selectedImg])
 
         const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
             e.preventDefault()
@@ -57,12 +58,12 @@ const URLInputModal = forwardRef(
             const formElements = form.elements as typeof form.elements & {
                 alt: HTMLInputElement
             }
-            setImageAttribute({
+            setImage({
                 src: uploadedImgSrc,
                 alt: formElements.alt.value
             })
             setHidden(true)
-            setImage(null)
+            setSelectedImg(null)
             setUploadedImgSrc(null)
             form.reset()
         }
@@ -75,13 +76,13 @@ const URLInputModal = forwardRef(
                             Choose Image
                         </label>
                         <div className={"space-y-4"}>
-                            <ImageInput onImageReceived={f => setImage(f)} type={"browse"} id={modalId + "image-browse"}/>
-                            <ImageInput onImageReceived={f => setImage(f)} type={"dragdrop"}/>
+                            <ImageInput onImageReceived={f => setSelectedImg(f)} type={"browse"} id={modalId + "image-browse"}/>
+                            <ImageInput onImageReceived={f => setSelectedImg(f)} type={"dragdrop"}/>
                         </div>
                     </div>
 
                     {/* Image Preview */}
-                    {image &&
+                    {selectedImg &&
                         <div className={"w-full"}>
                             <label className={"form-label"} htmlFor={"image"}>
                                 Image Preview
@@ -90,11 +91,11 @@ const URLInputModal = forwardRef(
                                 <div className={"flex flex-row text-slate-600 ml-1 space-x-1 items-center text-xs"}>
                                     <IoImageOutline/>
                                     <p className={'text-xs overflow-hidden overflow-ellipsis whitespace-nowrap max-w-72'}>
-                                        {image.name}
+                                        {selectedImg.name}
                                     </p>
                                     <p className={"text-xs select-none"}>·</p>
                                     <p className={"text-xs"}>
-                                        {filesize(image.size)}
+                                        {filesize(selectedImg.size)}
                                     </p>
                                     <p className={"text-xs select-none"}>·</p>
                                     {error
@@ -111,13 +112,13 @@ const URLInputModal = forwardRef(
                                     }
                                 </div>
                                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                                <img src={URL.createObjectURL(image)} alt={image.name} className={"rounded-xl max-w-full"}/>
+                                <img src={URL.createObjectURL(selectedImg)} alt={selectedImg.name} className={"rounded-xl max-w-full"}/>
                             </div>
                         </div>
                     }
 
                     {/* Alt Text Field */}
-                    <div className={"w-full"}>
+                    <div className={`w-full ${location === "content-editor" ? "" : "hidden"}`}>
                         <label htmlFor={"alt"} className={"form-label"}>
                             Alt Text
                         </label>
@@ -127,16 +128,18 @@ const URLInputModal = forwardRef(
                             className={"form-input"}
                             type={"text"}
                             placeholder={"A short description of the image... (Optional)"}
+                            value={location === "content-editor" ? undefined : "profile-icon"}
+                            readOnly={location !== "content-editor"}
                         />
                     </div>
 
                     {/* Error Message */}
                     {error && <p className={"form-error"}>Upload Error: {error}</p>}
 
-                    {image === null || error
+                    {selectedImg === null || error
                         ? <Button
                             type={"submit"}
-                            text={"Add Image"}
+                            text={location === 'content-editor' ? "Add Image" : "Use Image"}
                             icon={<IoImageOutline size={"100%"}/>}
                             title={"You must upload an image first."}
                             disabled
@@ -150,7 +153,7 @@ const URLInputModal = forwardRef(
                         />
                         : <Button
                             type={"submit"}
-                            text={"Add Image"}
+                            text={location === 'content-editor' ? "Add Image" : "Use Image"}
                             icon={<IoCloudDoneOutline size={"100%"}/>}
                         />
                     }
