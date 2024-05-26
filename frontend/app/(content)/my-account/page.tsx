@@ -29,9 +29,9 @@ export default function Page(): Nullable<React.JSX.Element> {
                     <label className={"form-label"}>Username (Cannot be changed)</label>
                     <input className={"form-input max-w-96 text-gray-400 select-none cursor-not-allowed"} readOnly value={user.username}/>
                 </div>
-                <EditDisplayIconForm currentSrc={user.iconSrc}/>
                 <EditDisplayNameForm displayName={user.displayName}/>
                 <EditEmailForm email={user.email}/>
+                <EditDisplayIconForm currentSrc={user.iconSrc}/>
                 <div>
                     <label className={"form-label"}>Account Management</label>
                     <div className={`p-4 bg-red-100 shadow-inner rounded-2xl w-max mt-1

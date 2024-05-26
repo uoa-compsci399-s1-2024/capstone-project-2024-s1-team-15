@@ -5,6 +5,7 @@ import { useLocalStorage } from "@/app/lib/hooks"
 import { AuthResponse, Nullable } from "@/app/lib/types"
 import { IUser, User } from "@aapc/types"
 import { AuthContext } from "@/app/lib/hooks/useAuth"
+import { refreshToken } from "@/app/services/auth";
 
 const getUserFromString = (usr: Nullable<string>): Nullable<IUser> => {
     return usr !== null ? new User(JSON.parse(usr)) : null
@@ -35,7 +36,11 @@ export default function AuthProvider({ children }: React.PropsWithChildren): Rea
     }
 
     const refreshSession = () => {
-        // TODO
+        refreshToken({ token }).then(r => {
+            if (r.success) {
+                setSession(r.result)
+            }
+        })
     }
 
     return (

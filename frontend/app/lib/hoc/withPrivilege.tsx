@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { UserScope } from "@aapc/types"
 import { redirect, usePathname } from "next/navigation"
 import { useAuth } from "@/app/lib/hooks"
@@ -7,8 +7,12 @@ import { getScopesFromToken } from "@/app/lib/util"
 export default function withPrivilege (checkScopeIncludesAny: UserScope[], WrappedComponent: React.JSX.Element) {
     return (function ComponentWithState () {
         const pathname = usePathname()
-        const { token, clearSession, loading } = useAuth()
+        const { token, clearSession, loading, refreshSession } = useAuth()
         const scope = getScopesFromToken(token)
+
+        useEffect(() => {
+            if (!loading) refreshSession()
+        }, [loading])
 
         if (checkScopeIncludesAny.length !== 0 && !loading) {
             if (!token || !scope) {

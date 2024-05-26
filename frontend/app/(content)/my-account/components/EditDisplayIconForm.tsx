@@ -8,6 +8,9 @@ import { ModalRef } from "@/app/lib/hooks/useModal"
 import Image from "next/image";
 import { useFormState } from "react-dom";
 import { FormState } from "@/app/(content)/my-account/page";
+import { useAuth } from "@/app/lib/hooks";
+import { editUser } from "@/app/services/user";
+import { DEFAULT_FORM_DIALOG_DURATION } from "@/app/lib/consts";
 
 type Props = {
     currentSrc: Nullable<string>,
@@ -15,14 +18,33 @@ type Props = {
 }
 
 export default function EditDisplayIconForm({ currentSrc, onSuccess }: Props) {
+    const { user, token, refreshSession } = useAuth()
     const [image, setImage] = useState<Nullable<ImageWithAltText>>(null)
     const modalRef = useRef<ModalRef>(null)
 
+    const [showMessage, setShowMessage] = useState(false)
+    const [_, setNextTimeout] = useState<Nullable<NodeJS.Timeout>>(null)
+
     const [formState, formAction] = useFormState<FormState>(
         async (_: FormState): Promise<FormState> => {
+            setShowMessage(true)
+            setNextTimeout(t => {
+                if (t) clearTimeout(t)
+                return setTimeout(() => setShowMessage(false), DEFAULT_FORM_DIALOG_DURATION)
+            })
             if (!image?.src) return { error: "You must choose a new icon." }
-            onSuccess && onSuccess()
-            return { successMessage: "Display icon has been successfully changed." }
+            if (!user) return { error: "You are not logged in." }
+            const r = await editUser(user.username, {
+                iconSrc: image.src
+            }, { token })
+            if (r.success) {
+                onSuccess && onSuccess()
+                refreshSession()
+                setImage(null)
+                return { successMessage: "Display icon has been successfully changed." }
+            } else {
+                return { error: r.message }
+            }
         }, {}
     )
 
@@ -67,14 +89,16 @@ export default function EditDisplayIconForm({ currentSrc, onSuccess }: Props) {
                         }
                     </div>
                 </div>
-                <div className={"ml-2"}>
-                    {formState.error &&
-                        <p className={"form-error"}>{formState.error}</p>
-                    }
-                    {formState.successMessage &&
-                        <p className={"form-success"}>{formState.successMessage}</p>
-                    }
-                </div>
+                {showMessage &&
+                    <div className={"ml-2"}>
+                        {formState.error &&
+                            <p className={"form-error"}>{formState.error}</p>
+                        }
+                        {formState.successMessage &&
+                            <p className={"form-success"}>{formState.successMessage}</p>
+                        }
+                    </div>
+                }
             </form>
         </div>
     )
