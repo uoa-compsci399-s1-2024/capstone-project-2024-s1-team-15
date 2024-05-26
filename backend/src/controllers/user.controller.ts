@@ -1,9 +1,8 @@
 import { RequestHandler } from "express"
 import { getPaginator, validate } from "@/util/functions"
 import { NewUserIn, EditUserIn, UserPaginatedQIn, EditUserScopeIn } from "@/util/validation/input.types"
-import { ArrayResultOptions, SortOptions } from "@/util/types/types"
+import { ArrayResultOptions, SortOptions, UserSortFields } from "@/util/types/types"
 import { User } from "@aapc/types"
-import { UserSortFields } from "@/services/repository/memory/sorters/user.sorter"
 import { DB } from "@/services/services"
 import { BadRequestError, NotFoundError } from "@/errors/HTTPErrors"
 
