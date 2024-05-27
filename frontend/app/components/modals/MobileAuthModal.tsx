@@ -36,7 +36,10 @@ const MobileAuthModal = forwardRef(
                     sm:mt-header-tablet sm:mx-pc-sm
                     md:mt-header-desktop md:mx-pc-md
                 `}>
-                    <AuthDashboard dashboardLocation={"mobile-nav"} onButtonClick={() => setHidden(true)}/>
+                    <AuthDashboard dashboardLocation={"mobile-nav"} onRedirect={() => {
+                        onClose()
+                        setHidden(true)
+                    }}/>
                 </div>
             </div>
         )

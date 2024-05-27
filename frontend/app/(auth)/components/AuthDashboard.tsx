@@ -34,10 +34,10 @@ function DisplayIcon({ src, displayName, className, nextSize }: DisplayIconProps
 
 type AuthDashboardProps = {
     dashboardLocation: string,
-    onButtonClick?: () => void
+    onRedirect?: () => void
 }
 
-export default function AuthDashboard({ dashboardLocation, onButtonClick }: AuthDashboardProps ): React.JSX.Element {
+export default function AuthDashboard({ dashboardLocation, onRedirect }: AuthDashboardProps ): React.JSX.Element {
     const { user, token, clearSession } = useAuth()
     let scopes = getScopesFromToken(token)
     const loginRef = useRef<ModalRef>(null)
@@ -61,7 +61,7 @@ export default function AuthDashboard({ dashboardLocation, onButtonClick }: Auth
                             text={"My Account"}
                             icon={icons.user}
                             href={"/my-account"}
-                            onClick={() => onButtonClick && onButtonClick()}
+                            onClick={() => onRedirect && onRedirect()}
                         />
                         <Button
                             text={"Log out"}
@@ -69,7 +69,7 @@ export default function AuthDashboard({ dashboardLocation, onButtonClick }: Auth
                             icon={icons.logout}
                             onClick={() => {
                                 clearSession()
-                                onButtonClick && onButtonClick()
+                                onRedirect && onRedirect()
                             }}
                         />
                     </div>
@@ -86,7 +86,6 @@ export default function AuthDashboard({ dashboardLocation, onButtonClick }: Auth
                         icon={icons.login}
                         onClick={() => {
                             loginRef.current && loginRef.current.showModal()
-                            onButtonClick && onButtonClick()
                         }}
                     />
                 </div>
