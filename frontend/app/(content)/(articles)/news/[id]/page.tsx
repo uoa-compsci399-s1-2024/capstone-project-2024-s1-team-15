@@ -10,6 +10,7 @@ import ButtonLink from "@/app/components/ButtonLink"
 import ArticlePage from "@/app/components/ArticlePage"
 import ExternalLinkButton from "@/app/(cms)/(articles)/components/ExternalLinkButton"
 import icons from "@/app/lib/icons";
+import DeleteButton from "@/app/(cms)/(articles)/components/DeleteButton"
 
 type PageParams = { params: { id: string } }
 
@@ -37,9 +38,14 @@ export default async function NewsPage({ params }: PageParams) {
                     </div>
                 </div>
             }
+            
             <Privileged requiredScopes={SCOPES.maintainer}>
-                <ButtonLink theme={"cms"} href={`/news/${params.id}/edit`} text={"Edit Article"} icon={icons.edit}/>
+                <div className="flex flex-row space-x-4">
+                    <ButtonLink theme={"cms"} href={`/news/${params.id}/edit`} text={"Edit Article"} icon={icons.edit}/>
+                    <ButtonLink theme={"red"} href={`/news/${params.id}/delete`} text={"Delete"} icon={icons.trash} />
+                </div>
             </Privileged>
+           
         </div>
     )
 }
