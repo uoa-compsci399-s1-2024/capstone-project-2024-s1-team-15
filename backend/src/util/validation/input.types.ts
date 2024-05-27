@@ -1,18 +1,18 @@
 import { Article, ArticleType, IArticle, IUser, User, UserScope } from "@aapc/types"
 import { getRandomID } from "../functions"
 import { ValidationError } from "@/errors/ValidationError"
-import { ArticleSortFields } from "@/services/repository/memory/sorters/article.sorter"
-import { UserSortFields } from "@/services/repository/memory/sorters/user.sorter"
-import { DEFAULT_MAX_PER_PAGE, DEFAULT_PER_PAGE } from "@/util/const"
-import Validator from "@/util/validation/validator"
+import Validator, { ValidatorWithPaginatedQIn } from "@/util/validation/validator"
+import { ArticleSortFields, ImageMetadataSortFields, UserSortFields } from "@/util/types/types";
 
 // Interfaces for inputs
 
-interface IArticleIn extends Omit<IArticle, "id" | "lastEditedAt" | "publishedAt" | "publisher" | "articleType"> {}
+interface IArticleIn extends Omit<IArticle, "id" | "lastEditedAt" | "publishedAt" | "publisher"> {}
 
-interface INewUserIn extends Omit<IUser, "verified" | "registeredAt"> {}
+interface IEditArticleIn extends Partial<Omit<IArticleIn, "articleType">> {}
 
-interface IEditUserIn extends Omit<IUser, "verified" | "registeredAt" | "username" | "scopes"> {}
+interface INewUserIn extends Omit<IUser, "verified" | "registeredAt" | "iconSrc"> {}
+
+interface IEditUserIn extends Partial<Omit<IUser, "verified" | "registeredAt" | "username" | "scopes">> {}
 
 interface IEditUserScopeIn {
     scope: UserScope[]
@@ -59,6 +59,15 @@ interface IUserPaginatedQIn extends IPaginatedQIn<UserSortFields> {
     un?: string
 }
 
+interface IImageMetadataPaginatedQIn extends IPaginatedQIn<ImageMetadataSortFields> {
+    createdBy?: string
+}
+
+interface IAddImageQIn {
+    origin?: string
+    alt?: string
+}
+
 // Concrete Implementations
 
 export class NewArticleIn extends Validator<IArticleIn> implements IArticleIn {
@@ -71,11 +80,11 @@ export class NewArticleIn extends Validator<IArticleIn> implements IArticleIn {
     constructor(obj: any) {
         super("body")
 
-        this.title = this.checkMissing(obj, "title")
-        this.subtitle = obj.subtitle ?? ""
-        this.content = this.checkMissing(obj, "content")
+        this.title = String(this.checkMissing(obj, "title"))
+        this.subtitle = String(obj.subtitle ?? "")
+        this.content = String(this.checkMissing(obj, "content"))
         this.articleType = obj.articleType
-        this.media = obj.media ?? []
+        this.media = this.checkArray(obj, "media") || []
 
         if (this.errors.length > 0) {
             throw new ValidationError(this.errors)
@@ -83,40 +92,45 @@ export class NewArticleIn extends Validator<IArticleIn> implements IArticleIn {
     }
 
     toNewArticle(publisher: IUser): IArticle {
+        const time = new Date().toISOString()
         return new Article({
-            id: getRandomID(), // TODO: implement id checks
+            id: getRandomID(),  // TODO: implement id checks
             title: this.title,
             subtitle: this.subtitle,
             content: this.content,
             media: this.media,
             articleType: this.articleType,
             publisher: publisher,
-            publishedAt: new Date().toISOString(),
-            lastEditedAt: new Date().toISOString(),
+            publishedAt: time,
+            lastEditedAt: time,
         })
     }
 }
 
-export class EditArticleIn extends Validator<IArticleIn> implements IArticleIn {
-    title: string
-    subtitle: string
-    content: string
-    media: string[]
+export class EditArticleIn extends Validator<IArticleIn> implements IEditArticleIn {
+    title?: string
+    subtitle?: string
+    content?: string
+    media?: string[]
 
     constructor(obj: any) {
         super("body")
 
-        this.title = obj.title ?? ""
-        this.subtitle = obj.subtitle ?? ""
-        this.content = obj.content ?? ""
-        this.media = obj.media ?? []
+        this.title = obj.title && String(obj.title)
+        this.subtitle = obj.subtitle && String(obj.subtitle)
+        this.content = obj.content && String(obj.content)
+        this.media = this.checkArray(obj, "media")
+
+        if (this.errors.length > 0) {
+            throw new ValidationError(this.errors)
+        }
     }
 
     toExistingArticle(article: IArticle): IArticle {
-        article.title = this.title === "" ? article.title : this.title
-        article.subtitle = this.subtitle === "" ? article.subtitle : this.subtitle
-        article.content = this.content === "" ? article.content : this.content
-        article.media = this.media.length === 0 ? article.media : this.media
+        article.title = this.title === undefined ? article.title : this.title
+        article.subtitle = this.subtitle === undefined ? article.subtitle : this.subtitle
+        article.content = this.content === undefined ? article.content : this.content
+        article.media = this.media === undefined ? article.media : this.media
         article.lastEditedAt = new Date().toISOString()
         return article
     }
@@ -131,9 +145,9 @@ export class NewUserIn extends Validator<INewUserIn> implements INewUserIn {
     constructor(obj: any) {
         super("body")
 
-        this.username = this.checkMissing(obj, "username")
-        this.email = this.checkMissing(obj, "email")
-        this.displayName = this.checkMissing(obj, "displayName")
+        this.username = String(this.checkMissing(obj, "username"))
+        this.email = String(this.checkMissing(obj, "email"))
+        this.displayName = String(this.checkMissing(obj, "displayName"))
         this.scopes = this.checkScopes(obj, "scopes") || [UserScope.user, UserScope.regular]
 
         if (this.errors.length > 0) {
@@ -146,27 +160,31 @@ export class NewUserIn extends Validator<INewUserIn> implements INewUserIn {
             username: this.username,
             email: this.email,
             displayName: this.displayName,
-            verified: true, // TODO: set false when user verification is added
+            verified: true,  // TODO: set false when user verification is added
             registeredAt: new Date().toISOString(),
             scopes: this.scopes,
+            iconSrc: null
         })
     }
 }
 
 export class EditUserIn extends Validator<IEditUserIn> implements IEditUserIn {
-    displayName: string
-    email: string
+    displayName?: string
+    email?: string
+    iconSrc?: string | null
 
     constructor(obj: any) {
         super("body")
 
-        this.displayName = obj["displayName"] ?? ""
-        this.email = obj["email"] ?? ""
+        this.displayName = obj.displayName && String(obj.displayName)
+        this.email = obj.email && String(obj.email)
+        this.iconSrc = obj.iconSrc && String(obj.iconSrc)
     }
 
     toExistingUser(user: IUser): IUser {
-        user.email = this.email === "" ? user.email : this.email
-        user.displayName = this.displayName === "" ? user.displayName : this.displayName
+        user.email = this.email === undefined ? user.email : this.email
+        user.displayName = this.displayName === undefined ? user.displayName : this.displayName
+        user.iconSrc = this.iconSrc === undefined ? user.iconSrc : this.iconSrc
         return user
     }
 }
@@ -198,8 +216,8 @@ export class LoginIn extends Validator<ILoginIn> implements ILoginIn {
     constructor(obj: any) {
         super("body")
 
-        this.username = this.checkMissing(obj, "username")
-        this.password = this.checkMissing(obj, "password")
+        this.username = String(this.checkMissing(obj, "username"))
+        this.password = String(this.checkMissing(obj, "password"))
 
         if (this.errors.length > 0) {
             throw new ValidationError(this.errors)
@@ -216,10 +234,10 @@ export class RegisterIn extends Validator<IRegisterIn> implements IRegisterIn {
     constructor(obj: any) {
         super("body")
 
-        this.username = this.checkMissing(obj, "username")
-        this.password = this.checkMissing(obj, "password")
-        this.email = this.checkMissing(obj, "email")
-        this.displayName = this.checkMissing(obj, "displayName")
+        this.username = String(this.checkMissing(obj, "username"))
+        this.password = String(this.checkMissing(obj, "password"))
+        this.email = String(this.checkMissing(obj, "email"))
+        this.displayName = String(this.checkMissing(obj, "displayName"))
 
         if (this.errors.length > 0) {
             throw new ValidationError(this.errors)
@@ -233,7 +251,7 @@ export class DeactivateIn extends Validator<IDeactivateIn> implements IDeactivat
     constructor(obj: any) {
         super("body")
 
-        this.confirm = this.checkMissing(obj, "confirm")
+        this.confirm = String(this.checkMissing(obj, "confirm"))
 
         if (this.errors.length > 0) {
             throw new ValidationError(this.errors)
@@ -248,8 +266,8 @@ export class ChangePasswordIn extends Validator<IChangePasswordIn> implements IC
     constructor(obj: any) {
         super("body")
 
-        this.currentPassword = this.checkMissing(obj, "currentPassword")
-        this.newPassword = this.checkMissing(obj, "newPassword")
+        this.currentPassword = String(this.checkMissing(obj, "currentPassword"))
+        this.newPassword = String(this.checkMissing(obj, "newPassword"))
 
         if (this.errors.length > 0) {
             throw new ValidationError(this.errors)
@@ -262,7 +280,7 @@ export class ForgotPasswordIn extends Validator<IForgotPasswordIn> implements IF
 
     constructor(obj: any) {
         super("body")
-        this.email = this.checkMissing(obj, "email")
+        this.email = String(this.checkMissing(obj, "email"))
 
         if (this.errors.length > 0) {
             throw new ValidationError(this.errors)
@@ -278,9 +296,9 @@ export class ResetPasswordIn extends Validator<IResetPasswordIn> implements IRes
     constructor(obj: any) {
         super("body")
 
-        this.email = this.checkMissing(obj, "email")
-        this.newPassword = this.checkMissing(obj, "newPassword")
-        this.verificationCode = this.checkMissing(obj, "verificationCode")
+        this.email = String(this.checkMissing(obj, "email"))
+        this.newPassword = String(this.checkMissing(obj, "newPassword"))
+        this.verificationCode = String(this.checkMissing(obj, "verificationCode"))
 
         if (this.errors.length > 0) {
             throw new ValidationError(this.errors)
@@ -288,21 +306,13 @@ export class ResetPasswordIn extends Validator<IResetPasswordIn> implements IRes
     }
 }
 
-export class ArticlePaginatedQIn extends Validator<IArticlePaginatedQIn> implements IArticlePaginatedQIn {
-    desc: boolean
-    p: number
-    pp: number
-    sortBy: ArticleSortFields
+export class ArticlePaginatedQIn extends ValidatorWithPaginatedQIn<IArticlePaginatedQIn, ArticleSortFields> implements IArticlePaginatedQIn {
     t?: string
 
     constructor(obj: any) {
-        super("query")
+        super(obj, "publishedAt", true)
 
-        this.desc = this.checkBoolean(obj, "desc") ?? true
-        this.p = this.checkNumber(obj, "p") ?? 1
-        this.pp = this.checkNumber(obj, "pp", 1, DEFAULT_MAX_PER_PAGE) ?? DEFAULT_PER_PAGE
-        this.sortBy = obj["sortBy"] ?? "publishedAt"
-        this.t = obj["t"] ?? undefined
+        this.t = obj.t && String(obj.t)
 
         if (this.errors.length > 0) {
             throw new ValidationError(this.errors)
@@ -310,21 +320,43 @@ export class ArticlePaginatedQIn extends Validator<IArticlePaginatedQIn> impleme
     }
 }
 
-export class UserPaginatedQIn extends Validator<IUserPaginatedQIn> implements IUserPaginatedQIn {
-    desc: boolean
-    p: number
-    pp: number
-    sortBy: UserSortFields
+export class UserPaginatedQIn extends ValidatorWithPaginatedQIn<IUserPaginatedQIn, UserSortFields> implements IUserPaginatedQIn {
     un?: string
+
+    constructor(obj: any) {
+        super(obj, "registeredAt", true)
+6
+        this.un = obj.un && String(obj.un)
+
+        if (this.errors.length > 0) {
+            throw new ValidationError(this.errors)
+        }
+    }
+}
+
+export class ImageMetadataPaginatedQIn extends ValidatorWithPaginatedQIn<IImageMetadataPaginatedQIn, ImageMetadataSortFields> implements IImageMetadataPaginatedQIn {
+    createdBy?: string
+
+    constructor(obj: any) {
+        super(obj, "createdAt")
+
+        this.createdBy = obj.createdBy && String(obj.createdBy)
+
+        if (this.errors.length > 0) {
+            throw new ValidationError(this.errors)
+        }
+    }
+}
+
+export class AddImageQIn extends Validator<IAddImageQIn> implements IAddImageQIn {
+    origin?: string
+    alt?: string
 
     constructor(obj: any) {
         super("query")
 
-        this.desc = this.checkBoolean(obj, "desc") ?? true
-        this.p = this.checkNumber(obj, "p") ?? 1
-        this.pp = this.checkNumber(obj, "pp", 1, DEFAULT_MAX_PER_PAGE) ?? DEFAULT_PER_PAGE
-        this.sortBy = obj["sortBy"] ?? "registeredAt"
-        this.un = obj["un"] ?? undefined
+        this.origin = obj.origin && String(obj.origin)
+        this.alt = obj.alt && String(obj.alt)
 
         if (this.errors.length > 0) {
             throw new ValidationError(this.errors)
