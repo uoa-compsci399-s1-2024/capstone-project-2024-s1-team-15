@@ -69,8 +69,8 @@ const URLInputModal = forwardRef(
         }
 
         return (
-            <Modal modalId={modalId} hidden={hidden} innerClassName={`flex flex-row bg-white`}>
-                <form className={"grow pr-6 default-form"} onSubmit={handleSubmit}>
+            <Modal modalId={modalId} hidden={hidden} innerClassName={`flex flex-row gap-x-4 bg-white`}>
+                <form className={"grow default-form"} onSubmit={handleSubmit}>
                     <div className={"w-full"}>
                         <label className={"form-label"} htmlFor={"image"}>
                             Choose Image

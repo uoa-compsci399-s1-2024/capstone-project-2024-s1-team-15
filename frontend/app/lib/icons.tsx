@@ -1,13 +1,25 @@
 import {
-    IoAddCircleOutline, IoAlertCircleOutline, IoCalendarNumberOutline, IoChevronBackOutline, IoChevronForwardOutline,
+    IoAddCircleOutline,
+    IoAlertCircleOutline,
+    IoCalendarNumberOutline,
+    IoCheckmark,
+    IoChevronBackOutline,
+    IoChevronForwardOutline,
     IoCloseOutline,
     IoCloudUploadOutline,
     IoColorWandOutline,
-    IoEyeOutline, IoFilterOutline, IoImageOutline,
-    IoInformationCircleOutline, IoKeyOutline,
+    IoEyeOutline,
+    IoFilterOutline,
+    IoImageOutline,
+    IoInformationCircleOutline,
+    IoKeyOutline,
     IoLogInOutline,
-    IoLogOutOutline, IoMenuOutline,
-    IoPersonAddOutline, IoPersonCircleOutline, IoPowerOutline, IoReload,
+    IoLogOutOutline,
+    IoMenuOutline,
+    IoPersonAddOutline,
+    IoPersonCircleOutline,
+    IoPowerOutline,
+    IoReload,
     IoSendOutline,
     IoTrashOutline
 } from "react-icons/io5"
@@ -37,7 +49,8 @@ const icons =  {
     "image": <IoImageOutline size={"100%"}/>,
     "reload": <IoReload size={"100%"}/>,
     "key": <IoKeyOutline size={"100%"}/>,
-    "deactivate": <IoPowerOutline size={"100%"}/>
+    "deactivate": <IoPowerOutline size={"100%"}/>,
+    "check": <IoCheckmark size={"100%"}/>
 }
 
 export default icons

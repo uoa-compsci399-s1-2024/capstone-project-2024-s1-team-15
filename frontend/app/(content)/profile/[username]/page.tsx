@@ -52,8 +52,8 @@ export default function ArticlesCreatedByUserPage({ params }: PageParams) {
             </div>
 
             <div>
-                <div className="max-w-screen-xl mr-auto items-center justify-between gap-x-4 sm:flex">
-                    <h2>News Articles</h2>
+                <div className="max-w-screen-xl mr-auto items-center justify-between gap-x-4 flex flex-col md:flex-row">
+                    <h2 className={"mb-0"}>News Articles</h2>
                     {(news?.totalResults || research?.totalResults || newsSearchInput) && (
                         <SearchBar onSearchInputChange={setNewsSearchInput}/>
                     )}
@@ -69,7 +69,7 @@ export default function ArticlesCreatedByUserPage({ params }: PageParams) {
             </div>
 
             <div>
-                <div className="max-w-screen-xl mr-auto items-center justify-between gap-x-4 sm:flex">
+                <div className="max-w-screen-xl mr-auto items-center justify-between gap-x-4 flex flex-col md:flex-row">
                     <h2>Research Articles</h2>
                     {(news?.totalResults || research?.totalResults || researchSearchInput) && (
                         <SearchBar onSearchInputChange={setResearchSearchInput}/>
