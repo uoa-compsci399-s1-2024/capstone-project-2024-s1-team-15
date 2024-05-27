@@ -3,8 +3,8 @@
 import { FormEvent, useState } from "react"
 import { API_URI } from "../lib/consts"
 import ReCAPTCHA from "react-google-recaptcha"
-import Button from "@/app/components/Button";
-import icons from "@/app/lib/icons";
+import Button from "@/app/components/Button"
+import icons from "@/app/lib/icons"
 
 export default function ContactForm() {
     async function sendEmail(e: FormEvent<HTMLFormElement>) {
@@ -25,8 +25,8 @@ export default function ContactForm() {
         })
 
         if (contactAttemptResponse.status === 200) {
-            setMessageSentSuccess("Message has been sent successfully ✅");
-            (document.getElementById("contact-form") as HTMLFormElement).reset()
+            setMessageSentSuccess("Message has been sent successfully.")
+            ;(document.getElementById("contact-form") as HTMLFormElement).reset()
             setMessageSentError(null)
         } else {
             setMessageSentSuccess(null)
@@ -90,8 +90,7 @@ export default function ContactForm() {
                         required
                         placeholder="Hi there! Please write your message to us here, and we will get back to you soon."
                         className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-300 h-32"
-                        onChange={({ target }) => setMessageInput(target.value)}
-                    ></textarea>
+                        onChange={({ target }) => setMessageInput(target.value)}></textarea>
                 </div>
 
                 <div className="flex justify-between md:items-center gap-x-4 gap-y-2 flex-col md:flex-row">
@@ -108,8 +107,8 @@ export default function ContactForm() {
                     />
                 </div>
 
-                {messageSentError && <p className="text-red-500">{messageSentError}</p>}
-                {messageSentSuccess && <p className="text-green-500">{messageSentSuccess}</p>}
+                {messageSentError && <p className="form-error">{messageSentError}</p>}
+                {messageSentSuccess && <p className="form-success">{messageSentSuccess}</p>}
             </form>
         </>
     )
