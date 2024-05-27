@@ -12,6 +12,7 @@ export default function withPrivilege (checkScopeIncludesAny: UserScope[], Wrapp
 
         useEffect(() => {
             if (!loading) refreshSession()
+            // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [loading])
 
         if (checkScopeIncludesAny.length !== 0 && !loading) {

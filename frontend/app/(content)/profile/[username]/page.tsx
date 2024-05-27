@@ -64,7 +64,7 @@ export default function ArticlesCreatedByUserPage({ params }: PageParams) {
                     </div>
                     : newsSearchInput
                         ? <p>No articles found. Try searching something else!</p>
-                        : <p>{user.displayName} hasn't published any news articles.</p>
+                        : <p>{user.displayName} hasn&apos;t published any news articles.</p>
                 }
             </div>
 
@@ -81,7 +81,7 @@ export default function ArticlesCreatedByUserPage({ params }: PageParams) {
                     </div>
                     : researchSearchInput
                         ? <p>No articles found. Try searching something else!</p>
-                        : <p>{user.displayName} hasn't published any research articles.</p>
+                        : <p>{user.displayName} hasn&apos;t published any research articles.</p>
                 }
             </div>
         </div>
