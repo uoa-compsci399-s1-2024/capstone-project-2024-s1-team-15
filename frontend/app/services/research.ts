@@ -3,11 +3,13 @@ import { API_URI } from "@/app/lib/consts"
 import { ArticleOut, Nullable, Result } from "@/app/lib/types"
 import { FetchOptions, getHeaders } from "@/app/services/lib/util"
 import { fail, success } from "@/app/lib/util";
+import {revalidateResearch} from "./lib/revalidator";
 
 export async function getResearchById(id: string, options?: FetchOptions): Promise<Nullable<IArticle>> {
     const response = await fetch(API_URI + `/content/research/${id}`, {
         method: "get",
-        headers: getHeaders(options)
+        headers: getHeaders(options),
+        next: { tags: ["research"]}
     })
     if (response.status === 404) {
         return null
@@ -15,10 +17,11 @@ export async function getResearchById(id: string, options?: FetchOptions): Promi
     return new Article(await response.json())
 }
 
-export async function getAllResearch(options?: FetchOptions): Promise<IPaginator<IArticle>> {
-    const response = await fetch(API_URI + `/content/research/`, {
+export async function getAllResearch(searchTerm: string, options?: FetchOptions): Promise<IPaginator<IArticle>> {
+    const response = await fetch(API_URI + `/content/research/?` + new URLSearchParams({t: searchTerm}), {
         method: "get",
-        headers: getHeaders(options)
+        headers: getHeaders(options),
+        next: { tags: ["research"]}
     })
     return new Paginator(Article, await response.json())
 }
@@ -54,6 +57,7 @@ export async function publishResearch(a: ArticleOut, options?: FetchOptions): Pr
     if (response.status >= 400) {
         return fail((await response.json()).message)
     }
+    revalidateResearch()
     return success(new Article(await response.json()))
 }
 
@@ -66,5 +70,15 @@ export async function editResearch(id: string, a: ArticleOut, options?: FetchOpt
     if (response.status >= 400) {
         return fail((await response.json()).message)
     }
+    revalidateResearch()
     return success(new Article(await response.json()))
+}
+
+export async function deleteResearch(id: string, options?: FetchOptions): Promise<Response> {
+    const response = await fetch(API_URI + `/content/research/${id}`, {
+        method: "delete",
+        headers: getHeaders(options),
+    })
+    revalidateResearch()
+    return response
 }

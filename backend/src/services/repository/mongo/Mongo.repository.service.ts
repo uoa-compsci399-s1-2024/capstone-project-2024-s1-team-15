@@ -86,14 +86,11 @@ export default class MongoRepository implements IRepository {
     }
 
     async deleteNews(id: string): Promise<void> {
-        await this.articles.deleteOne({ id: id, articleType: ArticleType.news })
+        await this.articles.deleteOne({$and: [{$or: [{articleType: ArticleType.news},{articleType: ArticleType.news_external}]},{id: id}]})
     }
 
     async deleteResearch(id: string): Promise<void> {
-        await this.articles.deleteOne({
-            id: id,
-            articleType: ArticleType.research,
-        })
+        await this.articles.deleteOne({$and: [{$or: [{articleType: ArticleType.research},{articleType: ArticleType.research_external}]},{id: id}]})
     }
 
     async deleteUser(username: string): Promise<void> {
@@ -107,7 +104,7 @@ export default class MongoRepository implements IRepository {
         await this.articles.replaceOne(
             {
                 id: id,
-                articleType: ArticleType.news,
+                $or: [{articleType: ArticleType.news}, {articleType: ArticleType.news_external} ],
             },
             this.articleToDocument(a)
         )
@@ -121,7 +118,7 @@ export default class MongoRepository implements IRepository {
         await this.articles.replaceOne(
             {
                 id: id,
-                articleType: ArticleType.research,
+                $or: [{articleType: ArticleType.research}, {articleType: ArticleType.research_external} ],
             },
             this.articleToDocument(a)
         )
@@ -256,7 +253,7 @@ export default class MongoRepository implements IRepository {
     ): Promise<ArrayResult<Article>> {
         const r: Article[] = []
         const q: Filter<any> = {
-            articleType: ArticleType.news,
+            $or: [{articleType: ArticleType.news}, {articleType: ArticleType.news_external}],
             title: new RegExp(`.*${title}.*`, "i"),
         }
         const rC: number = await this.articles.countDocuments(q)
@@ -276,7 +273,7 @@ export default class MongoRepository implements IRepository {
     ): Promise<ArrayResult<Article>> {
         const r: Article[] = []
         const q: Filter<any> = {
-            articleType: ArticleType.research,
+            $or: [{articleType: ArticleType.research}, {articleType: ArticleType.research_external}],
             title: new RegExp(`.*${title}.*`, "i"),
         }
         const rC: number = await this.articles.countDocuments(q)
