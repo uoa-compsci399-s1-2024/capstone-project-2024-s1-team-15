@@ -127,13 +127,14 @@ export default function Pollen() {
                         />
 
                         {/* images */}
-                        {selectedSlidePollen.name in pollenImages &&
-                            pollenImages[selectedSlidePollen.name as keyof typeof pollenImages].length === 2 && (
-                                <ImageSlider
-                                    img1={pollenImages[selectedSlidePollen.name as keyof typeof pollenImages][0]}
-                                    img2={pollenImages[selectedSlidePollen.name as keyof typeof pollenImages][1]}
-                                />
-                            )}
+                        {Object.entries(pollenImages).map(([pollenType, images]) => (
+                            <ImageSlider
+                                key={pollenType}
+                                selected={selectedSlidePollen.name === pollenType}
+                                img1={images[0]}
+                                img2={images[1]}
+                            />
+                        ))}
                     </>
                 )}
             </PageTemplate.HighlightSection>
