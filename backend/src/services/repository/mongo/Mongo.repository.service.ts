@@ -104,7 +104,7 @@ export default class MongoRepository implements IRepository {
         await this.articles.replaceOne(
             {
                 id: id,
-                articleType: ArticleType.news,
+                $or: [{articleType: ArticleType.news}, {articleType: ArticleType.news_external} ],
             },
             this.articleToDocument(a)
         )
@@ -118,7 +118,7 @@ export default class MongoRepository implements IRepository {
         await this.articles.replaceOne(
             {
                 id: id,
-                articleType: ArticleType.research,
+                $or: [{articleType: ArticleType.research}, {articleType: ArticleType.research_external} ],
             },
             this.articleToDocument(a)
         )
