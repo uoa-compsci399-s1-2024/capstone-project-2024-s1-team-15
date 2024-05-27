@@ -8,29 +8,8 @@ import { UserScopeLabel } from "@/app/(auth)/components"
 import { LoginModal, ChangePasswordModal } from "@/app/components/modals"
 import Button from "@/app/components/Button"
 import { ModalRef } from "@/app/lib/hooks/useModal"
-import ButtonLink from "@/app/components/ButtonLink";
-import Image from "next/image";
-import { Nullable } from "@/app/lib/types"
-import defaultDisplayIcon from "@/app/public/defaultDisplayIcon.jpg"
-
-type DisplayIconProps = {
-    src: Nullable<string>,
-    displayName?: string,
-    className?: string,
-    nextSize?: number
-}
-
-function DisplayIcon({ src, displayName, className, nextSize }: DisplayIconProps ) {
-    return (
-        <Image
-            src={src || defaultDisplayIcon}
-            alt={`Display Icon${displayName && ` of ${displayName}`}`}
-            className={`aspect-square object-cover rounded-full select-none ${className}`}
-            height={nextSize || 256}
-            width={nextSize || 256}
-        />
-    )
-}
+import ButtonLink from "@/app/components/ButtonLink"
+import LinkUser from "@/app/components/LinkUser"
 
 type AuthDashboardProps = {
     dashboardLocation: string,
@@ -50,10 +29,7 @@ export default function AuthDashboard({ dashboardLocation, onRedirect }: AuthDas
                     flex-col md:flex-row gap-x-4 gap-y-2
                 `}>
                     <div className={"flex flex-row items-center gap-x-3"}>
-                        <div className={"flex flex-row items-center gap-x-2"}>
-                            <DisplayIcon src={user.iconSrc} nextSize={128} className={"h-6 w-6"}/>
-                            <p className={"font-medium"}>{user.displayName}</p>
-                        </div>
+                        <LinkUser user={user} size={"large"}/>
                         {scopes && <UserScopeLabel scopes={scopes}/>}
                     </div>
                     <div className={`flex justify-center gap-x-4`}>

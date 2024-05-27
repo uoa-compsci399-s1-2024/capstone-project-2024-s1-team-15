@@ -20,10 +20,12 @@ export default async function AllResearchPage() {
                 <h1 className="page-title">All Research</h1>
                 <SearchBar />
             </div>
+
             <Privileged requiredScopes={SCOPES.maintainer}>
                 <ButtonLink theme={"cms"} href={"/research/publish"} text={"Publish Research"} icon={icons.add}/>
             </Privileged>
-            <div className={"space-y-12 mt-6"}>
+
+            <div className={"space-y-6 mt-6"}>
                 {research.data.map((a) => {
                     return <ArticleCard article={a} key={a.id} />
                 })}

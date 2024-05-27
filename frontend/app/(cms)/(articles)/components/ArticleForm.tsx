@@ -1,7 +1,7 @@
 "use client"
 
 import ContentEditor from "@/app/(cms)/components/ContentEditor"
-import { Article, ArticleType, IArticle } from "@aapc/types"
+import { Article, ArticleType, IArticle, User } from "@aapc/types"
 import React, { useEffect, useMemo, useState } from "react"
 import ArticlePage from "@/app/components/ArticlePage"
 import { ArticleOut, Nullable } from "@/app/lib/types"
@@ -28,7 +28,7 @@ type EditArticleFormProps = {
 
 export default function ArticleForm({ actionType, articleType, articleJSONString }: ArticleFormProps) {
     const router = useRouter()
-    const { token } = useAuth()
+    const { token, user } = useAuth()
     const [title, setTitle] = useState("")
     const [subtitle, setSubtitle] = useState( "")
     const [initialEditorContent, setInitialEditorContent] = useState("")
@@ -163,8 +163,13 @@ export default function ArticleForm({ actionType, articleType, articleJSONString
                 <p className={"form-label"}>Article Preview</p>
                 <div className={"p-6 rounded-2xl border-dotted border-2 border-black border-opacity-30"}>
                     <ArticlePage
-                        article={new Article({ title: title, subtitle: subtitle, content: editorContent })}
-                        preview
+                        article={new Article({ ...article,
+                            title: title,
+                            subtitle: subtitle,
+                            content: editorContent
+                        })}
+                        user={user || new User()}
+                        preview={true}
                     />
                 </div>
             </div>

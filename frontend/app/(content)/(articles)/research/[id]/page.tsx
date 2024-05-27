@@ -6,8 +6,8 @@ import { getMetadata } from "@/app/lib/util"
 import { SCOPES } from "@/app/lib/consts"
 import Privileged from "@/app/components/Privileged"
 import ButtonLink from "@/app/components/ButtonLink"
-import ArticlePage from "@/app/components/ArticlePage"
 import icons from "@/app/lib/icons";
+import ArticlePage from "@/app/components/ArticlePage"
 
 type PageParams = { params: { id: string } }
 
@@ -22,7 +22,7 @@ export default async function ResearchPage({ params }: PageParams) {
 
     return (
         <div className={"space-y-6"}>
-            <ArticlePage article={article} />
+            <ArticlePage preview={false} article={article} />
             <Privileged requiredScopes={SCOPES.maintainer}>
                 <ButtonLink theme={"cms"} href={`/research/${params.id}/edit`} text={"Edit Article"} icon={icons.edit}/>
             </Privileged>

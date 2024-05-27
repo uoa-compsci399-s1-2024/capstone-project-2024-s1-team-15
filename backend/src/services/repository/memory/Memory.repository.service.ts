@@ -58,6 +58,36 @@ export default class MemoryRepository implements IRepository {
         this.pollenData = pollenData as PollenData[]
     }
 
+    private async refreshNewsUser() {
+        for (const a of this.news) {
+            const u = await this.getUserByUsername(a.publisher.username)
+            if (!u) await this.deleteNews(a.id)
+            else {
+                a.publisher = u
+            }
+        }
+    }
+
+    private async refreshResearchUser() {
+        for (const a of this.researches) {
+            const u = await this.getUserByUsername(a.publisher.username)
+            if (!u) await this.deleteResearch(a.id)
+            else {
+                a.publisher = u
+            }
+        }
+    }
+
+    private async refreshImageMetadataUser() {
+        for (const im of this.imageMetadata) {
+            const u = await this.getUserByUsername(im.createdBy.username)
+            if (!u) await this.deleteResearch(im.id)
+            else {
+                im.createdBy = u
+            }
+        }
+    }
+
     handleArrayResultOptions<T, K extends SortOptions<T, any>>(
         arr: T[],
         options?: ArrayResultOptions<K>,
@@ -252,6 +282,9 @@ export default class MemoryRepository implements IRepository {
         for (let i = 0; i < this.users.length; i++) {
             if (this.users[i].username === username) {
                 this.users[i] = u
+                await this.refreshNewsUser()
+                await this.refreshResearchUser()
+                await this.refreshImageMetadataUser()
                 break
             }
         }
@@ -262,6 +295,9 @@ export default class MemoryRepository implements IRepository {
         for (let i = 0; i < this.users.length; i++) {
             if (this.users[i].username === username) {
                 this.users.splice(i, 1)
+                await this.refreshNewsUser()
+                await this.refreshResearchUser()
+                await this.refreshImageMetadataUser()
                 return
             }
         }

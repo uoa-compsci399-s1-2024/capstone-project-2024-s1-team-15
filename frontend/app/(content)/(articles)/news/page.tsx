@@ -24,7 +24,8 @@ export default async function AllNewsPage() {
             <Privileged requiredScopes={SCOPES.maintainer}>
                 <ButtonLink theme={"cms"} href={"/news/publish"} text={"Publish News"} icon={icons.add}/>
             </Privileged>
-            <div className={"space-y-12 mt-6"}>
+
+            <div className={"space-y-6 mt-6"}>
                 {news.data.map((a) => {
                     return <ArticleCard article={a} key={a.id} />
                 })}

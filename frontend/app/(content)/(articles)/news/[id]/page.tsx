@@ -7,9 +7,9 @@ import { ArticleType } from "@aapc/types"
 import { SCOPES } from "@/app/lib/consts"
 import Privileged from "@/app/components/Privileged"
 import ButtonLink from "@/app/components/ButtonLink"
-import ArticlePage from "@/app/components/ArticlePage"
 import ExternalLinkButton from "@/app/(cms)/(articles)/components/ExternalLinkButton"
 import icons from "@/app/lib/icons";
+import ArticlePage from "@/app/components/ArticlePage"
 
 type PageParams = { params: { id: string } }
 
@@ -25,7 +25,7 @@ export default async function NewsPage({ params }: PageParams) {
     return (
         <div className={"space-y-6"}>
             {article.articleType == ArticleType.news &&
-                <ArticlePage article={article}/>
+                <ArticlePage preview={false} article={article}/>
             }
             {article.articleType == ArticleType.news_external &&
                 <div className="flex flex-col">

@@ -19,13 +19,25 @@ h3 {
 }
 
 h4 {
-    @apply text-[17px] sm:text-[18px] md:text-[22px] font-bold tracking-tight;
+    @apply text-[18px] sm:text-[19.5px] md:text-[23px] font-bold tracking-tight;
+}
+
+h5 {
+    @apply text-[16px] sm:text-[17.5px] md:text-[20px] font-bold;
 }
 
 p,
 span,
 a {
-    @apply text-[14px] sm:text-[15px] md:text-[16px];
+    @apply text-[14px] sm:text-[15px] md:text-[17px];
+}
+
+p.smaller, span.smaller {
+    @apply text-[13px] sm:text-[13.5px] md:text-[15px];
+}
+
+p.smallest, span.smallest {
+    @apply text-[10.5px] sm:text-[12px] md:text-[13px];
 }
 
 a {
@@ -42,10 +54,6 @@ ul.default {
 
 *:focus {
     @apply outline-none;
-}
-
-.subtitle {
-    @apply italic text-2xl text-gray-400 block;
 }
 
 .page-title {
