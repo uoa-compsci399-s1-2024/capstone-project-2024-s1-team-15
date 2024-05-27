@@ -5,6 +5,8 @@ import {deleteNews} from "@/app/services/news"
 import { useAuth } from "@/app/lib/hooks"
 import { useRouter } from "next/navigation"
 import { deleteResearch } from "@/app/services/research"
+import icons from "@/app/lib/icons";
+import ButtonLink from "@/app/components/ButtonLink"
 
 
 type DeleteButtonProps = {
@@ -53,10 +55,7 @@ export default function ExternalLinkButton({text, articleType, articleId} : Dele
     }
 
     return(
-        <button className={"button w-48"} onClick={handleClick}>
-            {text}
-        </button>
-
+        <ButtonLink theme={"red"} onClick={handleClick} href={""} text={"Delete"} icon={icons.trash} />
     )
 }
 
