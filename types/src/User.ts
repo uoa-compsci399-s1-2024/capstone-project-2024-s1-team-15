@@ -10,6 +10,7 @@ export interface IUser {
     verified: boolean
     registeredAt: string
     scopes: UserScope[]
+    iconSrc: string | null
 }
 
 /**
@@ -34,6 +35,7 @@ export default class User implements IUser {
         this.verified = obj?.verified ?? false
         this.registeredAt = (obj?.registeredAt ? new Date(obj.registeredAt) : new Date()).toISOString()
         this.scopes = obj?.scopes ?? [UserScope.user, UserScope.regular]
+        this.iconSrc = obj?.iconSrc ?? null
     }
 
     username: string
@@ -42,4 +44,5 @@ export default class User implements IUser {
     verified: boolean
     registeredAt: string
     scopes: UserScope[]
+    iconSrc: string | null
 }

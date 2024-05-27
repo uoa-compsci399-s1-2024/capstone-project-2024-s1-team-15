@@ -98,17 +98,19 @@ const images = {
         <PollenImage
             key={1}
             src="https://pollen.tstebler.ch/MediaWiki/images/thumb/2/23/VCupressus_macnabiana.JPG/360px-VCupressus_macnabiana.JPG"
-            c="Stebler, Th."
+            // c="Stebler, Th."
             l="Cupressus macrocarpa - flowers"
+            citation="Pollenwiki (Stebler Th., Cupressus macnabiana , In: Pollen Wiki (May 15, 2024), https://pollen.tstebler.ch/MediaWiki/index.php?title=Cupressus_macnabiana ."
         />,
         <PollenImage
             key={2}
             src="https://pollen.tstebler.ch/MediaWiki/images/a/a9/Cupressus_macnabiana_Shedding.jpg"
-            c="Stebler, Th."
+            // c="Stebler, Th."
             l="Cupressus macrocarpa - under microscope"
+            citation="Pollenwiki (Stebler Th., Cupressus macnabiana , In: Pollen Wiki (May 15, 2024), https://pollen.tstebler.ch/MediaWiki/index.php?title=Cupressus_macnabiana ."
         />,
     ],
-    Wattle: [<PollenImage key={1} src={WattleAcaciaImage} c="" l="Wattle (Acacia)" local notFromPalDat />, <></>],
+    Wattle: [<PollenImage key={1} src={WattleAcaciaImage} c="Kat Holt" l="Wattle (Acacia)" local citation />, <></>],
     Alder: [
         <PollenImage
             key={1}
@@ -123,7 +125,7 @@ const images = {
             l="Alnus glutinosa - equatorial view"
         />,
     ],
-    "Native beech": [<PollenImage key={1} src={NativeBeechImage} c="" l="" local notFromPalDat />, <></>],
+    "Native beech": [<PollenImage key={1} src={NativeBeechImage} c="Kat Holt" l="" local citation />, <></>],
     Elm: [
         <PollenImage
             key={1}
@@ -148,7 +150,7 @@ const images = {
         />,
     ],
     "Native podocarps (Rimu, Totara, Matai, etc.)": [
-        <PollenImage key={1} src={NativePodocarpImage} c="" l="" local notFromPalDat />,
+        <PollenImage key={1} src={NativePodocarpImage} c="Kat Holt" local citation />,
         <></>,
     ],
 
@@ -208,7 +210,7 @@ const images = {
     ],
 }
 
-function PollenImage({ l: imageLabel, src, c: photographerCredit, local, notFromPalDat }: any) {
+function PollenImage({ l: imageLabel, src, c: photographerCredit, local, citation }: any) {
     return (
         <figure>
             <figcaption>{imageLabel}</figcaption>
@@ -237,7 +239,7 @@ function PollenImage({ l: imageLabel, src, c: photographerCredit, local, notFrom
                         Photographer: {photographerCredit} <br />
                     </>
                 )}
-                {!notFromPalDat && "PalDat (2000 onwards, www.paldat.org)."}
+                {citation || "PalDat (2000 onwards, www.paldat.org)."}
             </figcaption>
         </figure>
     )

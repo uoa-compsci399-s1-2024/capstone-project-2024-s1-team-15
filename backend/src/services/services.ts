@@ -8,52 +8,67 @@ import dotenv from "dotenv"
 import IMailer from "./mailer/mailer.service"
 import ConsoleMailer from "./mailer/Console.mailer.service"
 import BrevoMailer from "./mailer/Brevo.mailer.service"
+import ICDNService from "@/services/cdn/cdn.service";
+import AWSS3CDNService from "@/services/cdn/aws-s3/AWSS3.cdn.service";
+import LocalCDNService from "@/services/cdn/local/Local.cdn.service";
+import ProcessEnv = NodeJS.ProcessEnv;
+import * as process from "process";
 
 dotenv.config()
 
 export let AUTH: AuthContext
 export let DB: IRepository
 export let MAILER: IMailer
+export let CDN: ICDNService
 
 switch (process.env.ENV) {
     case "DEV":
     case "PROD": {
         console.log(`Environment: ${process.env.ENV}`)
-        const missingEnvVariables: string[] = []
 
-        if (!process.env.MONGO_URI) {
-            missingEnvVariables.push("MONGO_URI")
-        }
-        if (!process.env.JWT_SECRET) {
-            missingEnvVariables.push("JWT_SECRET")
-        }
-        if (!process.env.COGNITO_CLIENT_ID) {
-            missingEnvVariables.push("COGNITO_CLIENT_ID")
-        }
-        if (!process.env.COGNITO_USERPOOL_ID) {
-            missingEnvVariables.push("COGNITO_USERPOOL_ID")
-        }
-        if (!process.env.BREVO_CLIENT_EMAIL) {
-            missingEnvVariables.push("BREVO_CLIENT_EMAIL")
-        }
-        if (!process.env.BREVO_CLIENT_PASSWORD) {
-            missingEnvVariables.push("BREVO_CLIENT_PASSWORD")
-        }
-        if (!process.env.GOOGLE_RECAPTCHA_SECRET_KEY) {
-            console.error("Google ReCaptcha is not active because the secret key is missing from environment")
-            console.log("Ignore this error, if you don't want Google ReCaptcha")
-        }
+        const requiredEnvVariables: (keyof ProcessEnv)[] = [
+            "MONGO_URI",
+            "JWT_SECRET",
+            "COGNITO_CLIENT_ID", "COGNITO_USERPOOL_ID",
+            "BREVO_CLIENT_EMAIL", "BREVO_CLIENT_PASSWORD",
+            "AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY", "AWS_SESSION_TOKEN", "AWS_REGION"
+        ]
+
+        const missingEnvVariables: (keyof ProcessEnv)[] = requiredEnvVariables.filter(
+            ev => !process.env[ev]
+        )
 
         if (missingEnvVariables.length > 0) {
-            throw new Error("Missing environment variables " + missingEnvVariables.toString())
+            throw new Error("Missing required environment variables: " + missingEnvVariables.join(", "))
+        }
+
+        if (!process.env.GOOGLE_RECAPTCHA_SECRET_KEY) {
+            console.error(
+                `Google reCAPTCHA is is disabled as GOOGLE_RECAPTCHA_SECRET_KEY is missing from environment variables.`
+            )
         }
 
         AUTH = new AuthContext(
-            new AWSCognitoAuthService(<string>process.env.COGNITO_CLIENT_ID, <string>process.env.COGNITO_USERPOOL_ID),
+            new AWSCognitoAuthService(
+                <string>process.env.COGNITO_CLIENT_ID,
+                <string>process.env.COGNITO_USERPOOL_ID
+            ),
             <string>process.env.JWT_SECRET
         )
-        DB = new MongoRepository(<string>process.env.MONGO_URI)
-        MAILER = new BrevoMailer(<string>process.env.BREVO_CLIENT_EMAIL, <string>process.env.BREVO_CLIENT_PASSWORD)
+
+        DB = new MongoRepository(
+            <string>process.env.MONGO_URI
+        )
+
+        MAILER = new BrevoMailer(
+            <string>process.env.BREVO_CLIENT_EMAIL,
+            <string>process.env.BREVO_CLIENT_PASSWORD
+        )
+
+        CDN = new AWSS3CDNService(process.env.ENV === "DEV"
+            ? 'dev-aapc-media'
+            : 'aapc-media'
+        )
         break
     }
     default: {
@@ -61,6 +76,7 @@ switch (process.env.ENV) {
         AUTH = new AuthContext(new LocalAuthService())
         DB = new MemoryRepository()
         MAILER = new ConsoleMailer()
+        CDN = new LocalCDNService()
         break
     }
 }

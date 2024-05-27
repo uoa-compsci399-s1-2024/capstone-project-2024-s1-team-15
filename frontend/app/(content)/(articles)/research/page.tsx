@@ -8,26 +8,20 @@ import ButtonLink from "@/app/components/ButtonLink"
 import Paginator from "@/app/components/Paginator"
 import SearchBar from "@/app/components/SearchBar"
 import icons from "@/app/lib/icons"
+import DisplayAllArticles from "../components/DisplayAllArticles"
 
 export const metadata = getMetadata("All Research")
 
-export default async function AllResearchPage() {
-    const research = await getAllResearch()
+export default function AllResearchPage() {
+   
 
     return (
         <>
             <div className="max-w-screen-xl mr-auto items-center justify-between gap-x-4 sm:flex">
                 <h1 className="page-title">All Research</h1>
-                <SearchBar />
+        
             </div>
-            <Privileged requiredScopes={SCOPES.maintainer}>
-                <ButtonLink theme={"cms"} href={"/research/publish"} text={"Publish Research"} icon={icons.add}/>
-            </Privileged>
-            <div className={"space-y-12 mt-6"}>
-                {research.data.map((a) => {
-                    return <ArticleCard article={a} key={a.id} />
-                })}
-            </div>
+            <DisplayAllArticles articleType="research" />
             <Paginator />
         </>
     )

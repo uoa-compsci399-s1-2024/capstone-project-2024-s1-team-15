@@ -1,7 +1,12 @@
-import { ArrayResult, ArrayResultOptions, Nullable, SortOptions } from "@/util/types/types"
-import { Article, PollenData, User } from "@aapc/types"
-import { ArticleSortFields } from "@/services/repository/memory/sorters/article.sorter"
-import { UserSortFields } from "@/services/repository/memory/sorters/user.sorter"
+import {
+    ArrayResult,
+    ArrayResultOptions,
+    ArticleSortFields, ImageMetadataSortFields,
+    Nullable,
+    SortOptions,
+    UserSortFields
+} from "@/util/types/types"
+import { Article, ImageMetadata, PollenData, User } from "@aapc/types"
 
 export default interface IRepository {
     getAllNews(options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>): Promise<ArrayResult<Article>>
@@ -29,7 +34,7 @@ export default interface IRepository {
     deleteResearch(id: string): Promise<void>
     getAllResearchByUser(
         username: string,
-        titleSearchInput?: string,
+        title?: string,
         options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>
     ): Promise<ArrayResult<Article>>
     getAllUsers(options?: ArrayResultOptions<SortOptions<User, UserSortFields>>): Promise<ArrayResult<User>>
@@ -44,4 +49,12 @@ export default interface IRepository {
     getPollenDataset(): Promise<PollenData[]>
     deletePollenDataset(): Promise<any>
     createPollenDataset(pollenData: PollenData[]): Promise<any>
+    createImageMetadata(im: ImageMetadata): Promise<ImageMetadata>
+    getImageMetadataById(id: string): Promise<Nullable<ImageMetadata>>
+    getImageMetadataCreatedBy(
+        username?: Nullable<string>,
+        options?: ArrayResultOptions<SortOptions<ImageMetadata, ImageMetadataSortFields>>
+    ): Promise<ArrayResult<ImageMetadata>>
+    editImageMetadata(id: string, im: ImageMetadata): Promise<ImageMetadata>
+    deleteImageMetadata(id: string): Promise<void>
 }

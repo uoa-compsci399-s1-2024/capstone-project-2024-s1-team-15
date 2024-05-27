@@ -1,12 +1,10 @@
 import { RequestHandler } from "express"
-import { Article, ArticleType } from "@aapc/types"
-import { BadRequestError, NotFoundError } from "@/errors/HTTPErrors"
-import { ArrayResultOptions, SortOptions } from "@/util/types/types"
+import { Article } from "@aapc/types"
+import { BadRequestError, NotFoundError, UnauthorizedError } from "@/errors/HTTPErrors"
+import { ArrayResultOptions, ArticleSortFields, SortOptions } from "@/util/types/types"
 import { NewArticleIn, EditArticleIn, ArticlePaginatedQIn } from "@/util/validation/input.types"
-import { DUMMY_USER } from "@/util/const"
 import { DB } from "@/services/services"
 import { getPaginator, validate } from "@/util/functions"
-import { ArticleSortFields } from "@/services/repository/memory/sorters/article.sorter"
 
 export default class NewsController {
     static getNews: RequestHandler = async (req, res, next) => {
@@ -19,7 +17,6 @@ export default class NewsController {
         let n = query.t === undefined ? await DB.getAllNews(options) : await DB.searchNewsByTitle(query.t, options)
         res.status(200)
             .json(getPaginator(Article, req, n, query.p, query.pp))
-            .send()
         next()
     }
 
@@ -51,8 +48,9 @@ export default class NewsController {
 
     static createNews: RequestHandler = async (req, res, next) => {
         const body = validate(NewArticleIn, req.body)
-        // TODO: use auth headers to auto fill user
-        const n = body.toNewArticle(DUMMY_USER)
+        const publisher = await DB.getUserByUsername(res.locals.username)
+        if (!publisher) throw new UnauthorizedError("Invalid username.")
+        const n = body.toNewArticle(publisher)
         await DB.createNews(n)
         res.location(`/content/news/${n.id}`)
         res.status(201).json(n).send()

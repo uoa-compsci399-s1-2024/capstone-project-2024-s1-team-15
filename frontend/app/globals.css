@@ -61,7 +61,7 @@ ul.default {
 
 .button {
     @apply flex items-center justify-center py-2 px-4 bg-gray-500 font-medium rounded-full text-sm transition-all bg-opacity-15 text-black hover:bg-opacity-100 hover:text-white;
-} /* Can be safely removed after paginator is adapted to new buttons
+} /* Can be safely removed after paginator is adapted to new buttons */
 
 
 hr {
@@ -70,25 +70,25 @@ hr {
 
 /* Styling for buttons in editor. */
 
-#editor button {
+.ce-button {
     @apply h-8 w-8 rounded-md bg-gray-500 bg-opacity-15
-    border-2 border-gray-600 border-opacity-0 transition-all
+    border-2 border-gray-600 border-opacity-0 transition-all p-1
     text-sm font-medium tracking-tight text-black
     hover:border-opacity-100 flex items-center justify-center;
 }
 
-#editor button.active {
+.ce-button.active {
     @apply border-opacity-100 bg-opacity-100 text-white;
 }
 
-#editor button:disabled {
+.ce-button:disabled {
     @apply text-gray-500 text-opacity-40 bg-gray-500 bg-opacity-15 cursor-default hover:border-opacity-0;
 }
 
 /* Styling for form elements. */
 
-.form-field {
-    @apply border-2 border-opacity-30 border-black border-solid rounded-2xl;
+.default-form {
+    @apply flex flex-col items-start space-y-6 w-full;
 }
 
 .form-input {
@@ -99,12 +99,16 @@ hr {
     @apply mb-1.5 ml-1 text-xs tracking-tight font-medium uppercase text-secondary;
 }
 
+.form-field {
+    @apply border-2 border-opacity-30 border-black border-solid rounded-2xl;
+}
+
 .form-error {
-    @apply text-red-500;
+    @apply text-red-500 text-[12px] sm:text-[13px] md:text-[14px];
 }
 
 .form-success {
-    @apply text-green-400;
+    @apply text-green-500 text-[12px] sm:text-[13px] md:text-[14px];
 }
 
 .opacity-gradient {
@@ -122,7 +126,7 @@ hr {
 }
 
 .slider-images figcaption {
-    @apply text-balance text-[0.5rem] leading-3;
+    @apply text-balance text-[0.5rem] leading-3 break-all;
 }
 
 /* about page styling - can be removed after all pages adapt to prose */

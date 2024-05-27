@@ -50,6 +50,17 @@ const config: Config = {
                     css: {
                         fontSize: "1.1rem",
                         lineHeight: "1.65rem",
+                        img: {
+                            borderRadius: "0.5rem",
+                            marginTop: "0",
+                            marginBottom: "0"
+                        },
+                        a: {
+                            color: "rgb(53,100,239)",
+                            "&:hover": {
+                                color: "rgb(26,78,217)"
+                            }
+                        }
                     },
                 },
             },
