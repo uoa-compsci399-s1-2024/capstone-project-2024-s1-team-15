@@ -1,7 +1,7 @@
 import ImageInputModal, { ImageWithAltText } from "@/app/components/modals/ImageInputModal"
 import Button from "@/app/components/Button"
 import icons from "@/app/lib/icons"
-import fallbackIcon from "@/app/public/default-profile-icon.jpg"
+import fallbackIcon from "@/app/public/defaultDisplayIcon.jpg"
 import React, { useRef, useState } from "react"
 import { Nullable } from "@/app/lib/types"
 import { ModalRef } from "@/app/lib/hooks/useModal"

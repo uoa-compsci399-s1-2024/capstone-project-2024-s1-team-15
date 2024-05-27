@@ -9,8 +9,35 @@ import { LoginModal, ChangePasswordModal } from "@/app/components/modals"
 import Button from "@/app/components/Button"
 import { ModalRef } from "@/app/lib/hooks/useModal"
 import ButtonLink from "@/app/components/ButtonLink";
+import Image from "next/image";
+import { Nullable } from "@/app/lib/types"
+import defaultDisplayIcon from "@/app/public/defaultDisplayIcon.jpg"
 
-export default function AuthDashboard({ dashboardLocation }: { dashboardLocation: string }): React.JSX.Element {
+type DisplayIconProps = {
+    src: Nullable<string>,
+    displayName?: string,
+    className?: string,
+    nextSize?: number
+}
+
+function DisplayIcon({ src, displayName, className, nextSize }: DisplayIconProps ) {
+    return (
+        <Image
+            src={src || defaultDisplayIcon}
+            alt={`Display Icon${displayName && ` of ${displayName}`}`}
+            className={`aspect-square object-cover rounded-full select-none ${className}`}
+            height={nextSize || 256}
+            width={nextSize || 256}
+        />
+    )
+}
+
+type AuthDashboardProps = {
+    dashboardLocation: string,
+    onButtonClick?: () => void
+}
+
+export default function AuthDashboard({ dashboardLocation, onButtonClick }: AuthDashboardProps ): React.JSX.Element {
     const { user, token, clearSession } = useAuth()
     let scopes = getScopesFromToken(token)
     const loginRef = useRef<ModalRef>(null)
@@ -20,15 +47,13 @@ export default function AuthDashboard({ dashboardLocation }: { dashboardLocation
         <div>
             {user ? (
                 <div className={`flex items-center justify-start leading-none
-                    flex-col space-y-4
-                    md:flex-row md:space-x-4 md:space-y-0`}>
-                    <div className={`flex items-center justify-center
-                        flex-col space-y-2
-                        md:flex-row md:space-x-4 md:space-y-0
-                    `}>
-                        <p>
-                            Logged in as <b className={"font-medium"}>{user.displayName}</b>
-                        </p>
+                    flex-col md:flex-row gap-x-4 gap-y-2
+                `}>
+                    <div className={"flex flex-row items-center gap-x-3"}>
+                        <div className={"flex flex-row items-center gap-x-2"}>
+                            <DisplayIcon src={user.iconSrc} nextSize={128} className={"h-6 w-6"}/>
+                            <p className={"font-medium"}>{user.displayName}</p>
+                        </div>
                         {scopes && <UserScopeLabel scopes={scopes}/>}
                     </div>
                     <div className={`flex justify-center gap-x-4`}>
@@ -36,12 +61,16 @@ export default function AuthDashboard({ dashboardLocation }: { dashboardLocation
                             text={"My Account"}
                             icon={icons.user}
                             href={"/my-account"}
+                            onClick={() => onButtonClick && onButtonClick()}
                         />
                         <Button
                             text={"Log out"}
                             theme={"secondary"}
                             icon={icons.logout}
-                            onClick={clearSession}
+                            onClick={() => {
+                                clearSession()
+                                onButtonClick && onButtonClick()
+                            }}
                         />
                     </div>
                 </div>
@@ -55,7 +84,10 @@ export default function AuthDashboard({ dashboardLocation }: { dashboardLocation
                         text={"Log in"}
                         theme={"secondary"}
                         icon={icons.login}
-                        onClick={() => { loginRef.current && loginRef.current.showModal() }}
+                        onClick={() => {
+                            loginRef.current && loginRef.current.showModal()
+                            onButtonClick && onButtonClick()
+                        }}
                     />
                 </div>
             )}
