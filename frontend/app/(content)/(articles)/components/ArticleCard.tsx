@@ -5,7 +5,7 @@ import Link from "next/link"
 export default function ArticleCard({ article }: { article: IArticle }): React.JSX.Element {
     return (
         <Link
-            href={`/${article.articleType === ArticleType.news ? "news" : "research"}/${article.id}`}
+            href={`/${[ArticleType.news, ArticleType.news_external].includes(article.articleType) ? "news" : "research"}/${article.id}`}
             className={"block text-black"}>
             <div className={"w-full flex-col flex"}>
                 <h4>{article.title}</h4>
