@@ -23,6 +23,13 @@ export async function getAllResearch(options?: FetchOptions): Promise<IPaginator
     return new Paginator(Article, await response.json())
 }
 
+export async function getResearchPage(pageNumber = 1, options?: FetchOptions): Promise<IPaginator<IArticle>> {
+    const response = await fetch(API_URI + `/content/research?` + new URLSearchParams({ p: String(pageNumber) }), {
+        method: "get",
+        headers: getHeaders(options)
+    })
+    return new Paginator(Article, await response.json())
+}
 export async function getResearchByUser(
     username: string,
     searchInput?: string,
