@@ -2,9 +2,9 @@ import Link from "next/link"
 import React from "react"
 import User, { UserProps } from "@/app/components/User";
 
-export default function LinkUser(props: UserProps) {
+export default function LinkUser({ size = "regular", user }: UserProps) {
     let style = ""
-    switch (props.size) {
+    switch (size) {
         case "small": {
             style = "rounded-md"
         }
@@ -21,10 +21,10 @@ export default function LinkUser(props: UserProps) {
 
     return (
         <Link
-            href={`/profile/${props.user.username}`}
+            href={`/profile/${user.username}`}
             className={`block text-black max-w-max hover:bg-black hover:bg-opacity-5 transition ${style}`}
         >
-            <User {...props}/>
+            <User size={size} user={user}/>
         </Link>
     )
 }

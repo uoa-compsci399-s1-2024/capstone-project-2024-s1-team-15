@@ -30,7 +30,7 @@ export default function User({ user, size = "regular" }: UserProps) {
                 src={user.iconSrc}
                 displayName={user.displayName}
             />
-            <p className={`font-medium ${size === "small" && "smaller"}`}>
+            <p className={`font-medium ${size === "small" ? "smaller" : ""}`}>
                 {user.displayName}
             </p>
         </div>
