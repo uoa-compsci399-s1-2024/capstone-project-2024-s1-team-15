@@ -19,7 +19,7 @@ function Slider({ slides, onSelectedSlideIndexChange }: Props) {
             <Button
                 theme={"secondary"}
                 disabled={selectedSlideIndex === 0}
-                onClick={() => setSelectedSlideIndex((c) => c - 1)}
+                onClick={() => setSelectedSlideIndex(c => c - 1)}
                 icon={icons.back}
                 leftIcon
             />
@@ -28,8 +28,8 @@ function Slider({ slides, onSelectedSlideIndexChange }: Props) {
 
             <Button
                 theme={"secondary"}
-                disabled={selectedSlideIndex === slides.length - 1}
-                onClick={() => setSelectedSlideIndex((c) => c + 1)}
+                disabled={selectedSlideIndex === (slides.length - 1)}
+                onClick={() => setSelectedSlideIndex(c => c + 1)}
                 icon={icons.forward}
             />
         </div>
