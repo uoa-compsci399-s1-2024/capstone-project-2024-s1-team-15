@@ -1,0 +1,38 @@
+[
+    {
+        "id": "bghfkg08tqq7",
+        "height": 500,
+        "width": 500,
+        "size": 13507,
+        "format": "png",
+        "createdBy": "airmonitor",
+        "createdAt": "2024-05-23T07:26:26.944Z",
+        "src": "http://localhost:3000/static/bghfkg08tqq7.png",
+        "alt": "AAPC Logo",
+        "usages": "profile-image"
+    },
+    {
+        "id": "o4tyagsifrpf",
+        "height": 500,
+        "width": 500,
+        "size": 13507,
+        "format": "png",
+        "createdBy": "airmonitor",
+        "createdAt": "2024-05-24T07:26:26.944Z",
+        "src": "http://localhost:3000/static/o4tyagsifrpf.png",
+        "alt": "AAPC Logo",
+        "usages": "profile-image"
+    },
+    {
+        "id": "p0ooqjox0trw",
+        "height": 500,
+        "width": 500,
+        "size": 13507,
+        "format": "png",
+        "createdBy": "kiwihealth",
+        "createdAt": "2024-05-21T07:26:26.944Z",
+        "src": "http://localhost:3000/static/p0ooqjox0trw.png",
+        "alt": "AAPC Logo",
+        "usages": "profile-image"
+    }
+]

@@ -1,8 +1,8 @@
 import express, { Router } from "express"
 import expressAsyncHandler from "express-async-handler"
 import NewsController from "@/controllers/news.controller"
-import Scope from "@/middleware/Auth";
-import { SCOPES } from "@/util/const";
+import Scope from "@/middleware/Auth"
+import { SCOPES } from "@/util/const"
 
 export default class NewsRouter {
     static url = "/content/news"

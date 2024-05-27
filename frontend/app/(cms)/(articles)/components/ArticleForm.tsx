@@ -146,7 +146,7 @@ export default function ArticleForm({ actionType, articleType, articleJSONString
 
             <div>
                 <p className={"form-label"}>Content</p>
-                <ContentEditor setEditorContent={setEditorContent} content={initialEditorContent}/>
+                <ContentEditor setEditorContent={setEditorContent} initialContent={initialEditorContent}/>
             </div>
 
             <div>
