@@ -84,7 +84,7 @@ const PollenCalendar = memo(function PollenCalendar({ pollenData }: { pollenData
         return (
             <>
                 <br />
-                <b>There is no pollen data at the moment, come back later 🙂</b>
+                <b>There is no pollen data at the moment, try again later.</b>
                 <br />
                 <br />
             </>
@@ -161,7 +161,7 @@ const PollenCalendar = memo(function PollenCalendar({ pollenData }: { pollenData
                         {dayjs(dateUpperLimit).format(dateFormat)}. Try adjusting the date filter range above.
                     </p>
                 ) : (
-                    <p>No pollen types selected 🥲</p>
+                    <p>No pollen types selected.</p>
                 )}
             </div>
         </>

@@ -112,7 +112,7 @@ export default function EditPollen() {
 
             {inputFile && pollenDataset && (
                 <div className="mt-10">
-                    <h3 className="font-bold text-2xl my-2">Preview generated ✅</h3>
+                    <h3 className="font-bold text-2xl my-2">Preview generated</h3>
                     <PollenCalendar pollenData={pollenDataset}></PollenCalendar>
 
                     <Button
