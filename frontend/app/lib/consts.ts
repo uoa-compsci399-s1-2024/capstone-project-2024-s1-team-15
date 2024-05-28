@@ -32,6 +32,8 @@ export const SUPPORTED_IMAGE_UPLOAD_TYPES = ["image/png", "image/jpg", "image/jp
 
 export const DEFAULT_FORM_DIALOG_DURATION = 7000  // 7 seconds
 
+export const DEFAULT_RESULTS_PER_PAGE = 10
+
 export const ROUTES = {
     LOGIN: "/login",
     FORGOT_PASSWORD: "/forgot-password",

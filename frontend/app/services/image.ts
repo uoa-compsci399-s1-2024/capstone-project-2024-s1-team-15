@@ -25,11 +25,11 @@ export async function getImagesByUser(
 
 }
 
-export async function uploadImage(image: File, options?: FetchOptions): Promise<Result<ImageMetadata>> {
+export async function uploadImage(image: File, fetchOptions?: FetchOptions): Promise<Result<ImageMetadata>> {
     const formData = new FormData()
     formData.append("image", image, image.name)
 
-    const headers = getHeaders(options)
+    const headers = getHeaders(fetchOptions)
     headers.delete("Content-Type")
 
     const response = await fetch(API_URI + "/image", {
@@ -43,10 +43,10 @@ export async function uploadImage(image: File, options?: FetchOptions): Promise<
     return success(new ImageMetadata(await response.json()))
 }
 
-export async function deleteImage(id: string, options?: FetchOptions): Promise<Result<null>> {
+export async function deleteImage(id: string, fetchOptions?: FetchOptions): Promise<Result<null>> {
     const response = await fetch(API_URI + `/image/${id}`, {
         method: "delete",
-        headers: getHeaders(options)
+        headers: getHeaders(fetchOptions)
     })
     if (response.status !== 204) {
         return fail((await response.json()).message)

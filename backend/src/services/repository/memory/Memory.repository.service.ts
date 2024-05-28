@@ -19,8 +19,8 @@ export default class MemoryRepository implements IRepository {
     private readonly users: User[]
     private readonly news: Article[]
     private readonly researches: Article[]
-    private pollenData: PollenData[]
     private readonly imageMetadata: ImageMetadata[]
+    private pollenData: PollenData[]
 
     constructor() {
         this.users = []
@@ -88,7 +88,7 @@ export default class MemoryRepository implements IRepository {
         }
     }
 
-    handleArrayResultOptions<T, K extends SortOptions<T, any>>(
+    private handleArrayResultOptions<T, K extends SortOptions<T, any>>(
         arr: T[],
         options?: ArrayResultOptions<K>,
         sorter?: Sorter<T, K>
@@ -104,13 +104,21 @@ export default class MemoryRepository implements IRepository {
         return arr.slice(start, end)
     }
 
-    async getAllNews(
+    async getNews(
+        title?: string,
+        publisher?: string,
         options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>
     ): Promise<ArrayResult<Article>> {
-        let r = structuredClone(this.news)
+        let n = structuredClone(this.news)
+        if (title) {
+            n = n.filter(a => a.title.toLowerCase().includes(title.toLowerCase()))
+        }
+        if (publisher) {
+            n = n.filter(a => a.publisher.username === publisher)
+        }
         return {
-            totalResults: r.length,
-            results: this.handleArrayResultOptions(r, options),
+            totalResults: n.length,
+            results: this.handleArrayResultOptions(n, options),
         }
     }
 
@@ -121,51 +129,6 @@ export default class MemoryRepository implements IRepository {
             }
         }
         return null
-    }
-
-    async getAllNewsByUser(
-        username: string,
-        title?: string,
-        options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>
-    ) {
-        let r = structuredClone(this.news).filter((a) => a.publisher.username === username)
-
-        if (title) {
-            r = r.filter((a) => a.title.toLowerCase().includes(title.toLowerCase()))
-        }
-
-        return {
-            totalResults: r.length,
-            results: this.handleArrayResultOptions(r, options),
-        }
-    }
-
-    async getAllResearchByUser(
-        username: string,
-        title?: string,
-        options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>
-    ) {
-        let r = structuredClone(this.researches).filter((a) => a.publisher.username === username)
-
-        if (title) {
-            r = r.filter((a) => a.title.toLowerCase().includes(title.toLowerCase()))
-        }
-
-        return {
-            totalResults: r.length,
-            results: this.handleArrayResultOptions(r, options),
-        }
-    }
-
-    async searchNewsByTitle(
-        title: string,
-        options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>
-    ): Promise<ArrayResult<Article>> {
-        let r = this.news.filter((a) => a.title.toLowerCase().includes(title.toLowerCase()))
-        return {
-            totalResults: r.length,
-            results: this.handleArrayResultOptions(r, options),
-        }
     }
 
     async createNews(a: Article): Promise<Article> {
@@ -193,10 +156,18 @@ export default class MemoryRepository implements IRepository {
         }
     }
 
-    async getAllResearch(
+    async getResearch(
+        title?: string,
+        publisher?: string,
         options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>
     ): Promise<ArrayResult<Article>> {
         let r = structuredClone(this.researches)
+        if (title) {
+            r = r.filter(a => a.title.toLowerCase().includes(title.toLowerCase()))
+        }
+        if (publisher) {
+            r = r.filter(a => a.publisher.username === publisher)
+        }
         return {
             totalResults: r.length,
             results: this.handleArrayResultOptions(r, options),
@@ -208,17 +179,6 @@ export default class MemoryRepository implements IRepository {
             if (a.id === id) return a
         }
         return null
-    }
-
-    async searchResearchByTitle(
-        title: string,
-        options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>
-    ): Promise<ArrayResult<Article>> {
-        let r = this.researches.filter((a) => a.title.toLowerCase().includes(title.toLowerCase()))
-        return {
-            totalResults: r.length,
-            results: this.handleArrayResultOptions(r, options),
-        }
     }
 
     async createResearch(a: Article): Promise<Article> {
@@ -329,7 +289,7 @@ export default class MemoryRepository implements IRepository {
         return null
     }
 
-    async getImageMetadataCreatedBy(
+    async getImageMetadata(
         username?: Nullable<string>,
         options?: ArrayResultOptions<SortOptions<ImageMetadata, ImageMetadataSortFields>>
     ): Promise<ArrayResult<ImageMetadata>> {

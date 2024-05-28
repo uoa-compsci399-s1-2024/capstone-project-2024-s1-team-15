@@ -2,7 +2,7 @@ import { RequestHandler } from "express"
 import { Article } from "@aapc/types"
 import { BadRequestError, NotFoundError, UnauthorizedError } from "@/errors/HTTPErrors"
 import { ArrayResultOptions, ArticleSortFields, SortOptions } from "@/util/types/types"
-import { NewArticleIn, EditArticleIn, ArticlePaginatedQIn } from "@/util/validation/input.types"
+import { NewArticleIn, EditArticleIn, ArticlePaginatedQIn, IPaginatedQIn } from "@/util/validation/input.types"
 import { DB } from "@/services/services"
 import { getPaginator, validate } from "@/util/functions"
 
@@ -14,10 +14,8 @@ export default class ResearchController {
             maxResults: query.pp,
             sort: [{ field: query.sortBy, descending: query.desc }],
         }
-        let r =
-            query.t === undefined ? await DB.getAllResearch(options) : await DB.searchResearchByTitle(query.t, options)
-        res.status(200)
-            .json(getPaginator(Article, req, r, query.p, query.pp))
+        let r = await DB.getResearch(query.t, query.publisher, options)
+        res.status(200).json(getPaginator(Article, req, r, query.p, query.pp))
         next()
     }
 
@@ -26,24 +24,6 @@ export default class ResearchController {
         const a = await DB.getResearchById(id)
         if (a === null) throw new NotFoundError(`Research article with id ${req.params.id} does not exist.`)
         res.status(200).json(a).send()
-        next()
-    }
-
-    static getAllResearchByUser: RequestHandler = async (req, res, next) => {
-        const username: string = String(req.params.username)
-        const query = validate(ArticlePaginatedQIn, req.query)
-
-        const options: ArrayResultOptions<SortOptions<Article, ArticleSortFields>> = {
-            startFrom: (query.p - 1) * query.pp,
-            maxResults: query.pp,
-            sort: [{ field: query.sortBy, descending: query.desc }],
-        }
-
-        let r = await DB.getAllResearchByUser(username, query.t, options)
-
-        res.status(200)
-            .json(getPaginator(Article, req, r, query.p, query.pp))
-            .send()
         next()
     }
 

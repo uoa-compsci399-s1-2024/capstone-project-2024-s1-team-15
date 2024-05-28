@@ -1,8 +1,8 @@
 import express, { Router } from "express"
 import expressAsyncHandler from "express-async-handler"
 import ResearchController from "@/controllers/research.controller"
-import Scope from "@/middleware/Auth";
-import { SCOPES } from "@/util/const";
+import Scope from "@/middleware/Auth"
+import { SCOPES } from "@/util/const"
 
 export default class ResearchRouter {
     static url = "/content/research"
@@ -11,14 +11,10 @@ export default class ResearchRouter {
         const router = express.Router()
 
         // scope: anonymous
-        router.get("/",
-            expressAsyncHandler(ResearchController.getResearch)
-        )
+        router.get("/", expressAsyncHandler(ResearchController.getResearch))
 
         // scope: anonymous
         router.get("/:id", expressAsyncHandler(ResearchController.getResearchById))
-
-        router.get("/by-user/:username", expressAsyncHandler(ResearchController.getAllResearchByUser))
 
         // scope: maintainer
         router.post("/", Scope.has(SCOPES.maintainer),

@@ -58,7 +58,7 @@ export default class ImageController {
             sort: [{ field: query.sortBy, descending: query.desc }],
         }
 
-        let im = await DB.getImageMetadataCreatedBy(getCreatedBy, options)
+        let im = await DB.getImageMetadata(getCreatedBy, options)
 
         res.status(200)
             .json(getPaginator(ImageMetadata, req, im, query.p, query.pp))

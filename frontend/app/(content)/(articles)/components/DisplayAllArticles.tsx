@@ -1,63 +1,63 @@
 "use client"
 
-import SearchBar from "@/app/components/SearchBar"
-import { getAllNews } from "@/app/services/news"
-import { Article, IPaginator } from "@aapc/types"
 import { useEffect, useState } from "react"
-import ArticleCard from "./ArticleCard"
+import { IArticle, IPaginator } from "@aapc/types"
+import { getResearch } from "@/app/services/research"
+import { getNews } from "@/app/services/news"
+import { DEFAULT_RESULTS_PER_PAGE, SCOPES } from "@/app/lib/consts"
+import icons from "@/app/lib/icons"
+import SearchBar from "@/app/components/SearchBar"
 import Privileged from "@/app/components/Privileged"
 import ButtonLink from "@/app/components/ButtonLink"
-import { SCOPES } from "@/app/lib/consts"
-import icons from "@/app/lib/icons"
-import { getAllResearch } from "@/app/services/research"
+import Paginator from "@/app/components/Paginator"
+import ArticleCard from "./ArticleCard"
+import { Nullable } from "@/app/lib/types";
 
-type displayAllArticleProps = {
-    articleType: "news" | "research"
+type DisplayArticleProps = {
+    type: "news" | "research"
+    publisher?: string
 }
 
-export default function DisplayAllArticles({articleType} : displayAllArticleProps){
-    const [articles, setArticles] = useState<IPaginator<Article> | null>(null)
+export default function DisplayArticles({ type, publisher } : DisplayArticleProps){
+    const [articleP, setArticleP] = useState<Nullable<IPaginator<IArticle>>>(null)
     const [searchTerm, setSearchTerm] = useState("")
+    const [page, setPage] = useState(1)
 
     useEffect(() => {
-        if (articleType === "news") {
-            getAllNews(searchTerm).then((news) => {
-                setArticles(news)
+        if (type === "news") {
+            getNews(searchTerm, publisher, { page, perPage: DEFAULT_RESULTS_PER_PAGE }).then(p => {
+                setArticleP(p)
             })
         } else {
-            getAllResearch(searchTerm).then((research) => {
-                setArticles(research)
+            getResearch(searchTerm, publisher, { page, perPage: DEFAULT_RESULTS_PER_PAGE }).then(p => {
+                setArticleP(p)
             })
         }
-    }, [articleType, searchTerm])
+    }, [searchTerm, page])
 
-    return (
+    return (articleP &&
         <>
-            <div className="max-w-screen-xl mr-auto items-center justify-between gap-x-4 sm:flex">
+            <div className="max-w-screen-xl mr-auto sm:items-center justify-between gap-x-4 gap-y-4 flex flex-col-reverse sm:flex-row">
                 <Privileged requiredScopes={SCOPES.maintainer}>
-                    {articleType === "news" &&
+                    {type === "news" &&
                         <ButtonLink theme={"cms"} href={"/news/publish"} text={"Publish News"} icon={icons.add}/>
                     }
-                    {articleType === "research" &&
+                    {type === "research" &&
                         <ButtonLink theme={"cms"} href={"/research/publish"} text={"Publish Research"} icon={icons.add}/>
                     }
                 </Privileged>
-                <SearchBar onSearchInputChange = {setSearchTerm} />
+                <SearchBar onSearchInputChange={s => setSearchTerm(s)} />
             </div>
             <div className={"space-y-6 mt-6"}>
-                {articles?.totalResults?(
-                    articles.data.map((a) => {
-                        return <ArticleCard articleJSON={JSON.stringify(a)} key={a.id} />
-                    })
-                ) : searchTerm ? (
-                    <p>
-                        No {articleType} articles found with &apos;{searchTerm}&apos; in the title.
-                    </p>
-                ) : (
-                    <p>
-                        There are no {articleType} articles.
-                    </p>
-                )}
+                {articleP.totalResults > 0
+                    ? articleP.data.map(a =>
+                        <ArticleCard articleJSON={JSON.stringify(a)} key={a.id}/>
+                    )
+                    : searchTerm !== ""
+                        ? <p>No {type} articles found with &apos;{searchTerm}&apos; in the title.</p>
+                        : <p>There are currently no {type} articles.</p>
+                }
+                <Paginator setPage={setPage} paginator={articleP}/>
             </div>
         </>
     )

@@ -1,8 +1,8 @@
 "use client"
 
 import React, { useEffect, useState } from "react"
-import { getResearchByUser } from "@/app/services/research"
-import { getNewsByUser } from "@/app/services/news"
+import { getResearch } from "@/app/services/research"
+import { getNews } from "@/app/services/news"
 import ArticleCard from "@/app/(content)/(articles)/components/ArticleCard"
 
 import SearchBar from "@/app/components/SearchBar"
@@ -24,7 +24,7 @@ export default function ArticlesCreatedByUserPage({ params }: PageParams) {
     const [researchSearchInput, setResearchSearchInput] = useState<string | undefined>(undefined)
 
     useEffect(() => {
-        getNewsByUser(username, newsSearchInput).then((news) => {
+        getNews(username, newsSearchInput).then((news) => {
             setNews(news)
             if (news.data.length === 0) return
             setUser(news.data[0].publisher)
@@ -33,7 +33,7 @@ export default function ArticlesCreatedByUserPage({ params }: PageParams) {
     }, [username, newsSearchInput])
 
     useEffect(() => {
-        getResearchByUser(username, researchSearchInput).then((research) => {
+        getResearch(username, researchSearchInput).then((research) => {
             setResearch(research)
             if (research.data.length === 0) return
             setUser(research.data[0].publisher)
