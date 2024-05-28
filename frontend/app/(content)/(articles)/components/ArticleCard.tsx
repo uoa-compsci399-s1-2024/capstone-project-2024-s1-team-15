@@ -6,7 +6,7 @@ import User from "@/app/components/User"
 export default function ArticleCard({ article }: { article: IArticle }): React.JSX.Element {
     return (
         <Link
-            href={`/${article.articleType === ArticleType.news ? "news" : "research"}/${article.id}`}
+            href={`/${[ArticleType.news, ArticleType.news_external].includes(article.articleType) ? "news" : "research"}/${article.id}`}
             className={`block text-black hover:bg-black hover:bg-opacity-5 transition
                 px-3 py-2 rounded-lg
                 sm:px-4 sm:py-2.5 sm:rounded-xl

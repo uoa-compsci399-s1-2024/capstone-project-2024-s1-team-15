@@ -130,7 +130,7 @@ hr {
 }
 
 .slider-images figcaption {
-    @apply text-balance text-[0.5rem] leading-3;
+    @apply text-balance text-[0.5rem] leading-3 break-all;
 }
 
 /* about page styling - can be removed after all pages adapt to prose */

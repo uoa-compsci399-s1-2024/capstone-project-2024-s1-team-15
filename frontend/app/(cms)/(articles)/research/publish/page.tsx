@@ -4,6 +4,7 @@ import React, { useState } from "react"
 import ArticleForm from "@/app/(cms)/(articles)/components/ArticleForm"
 import { Article, ArticleType } from "@aapc/types"
 import { Nullable } from "@/app/lib/types"
+import ExternalArticleForm from "../../components/ExternalArticleForm"
 import Button from "@/app/components/Button";
 import icons from "@/app/lib/icons";
 
@@ -32,6 +33,9 @@ export default function CreateResearchPage() {
                     icon={icons.wand}
                 />
             }
+            <h3>Use an external link: </h3>
+            <ExternalArticleForm articleType={ArticleType.research_external} actionType={"publish"}></ExternalArticleForm>
+            <h3>Input research article manually: </h3>
             <ArticleForm
                 articleType={ArticleType.research}
                 actionType={"publish"}
