@@ -1,27 +1,47 @@
 import React from "react"
 import DOMPurify from "isomorphic-dompurify"
 import parse from "html-react-parser"
-import { IArticle } from "@aapc/types"
+import { IArticle, IUser } from "@aapc/types"
+import LinkUser from "@/app/components/LinkUser"
 
-type ArticlePageProps = { article: IArticle; preview?: boolean }
+type ArticlePageProps = {
+    preview: false
+    article: IArticle
+} | {
+    preview: true
+    article: IArticle
+    user: IUser
+}
 
-export default function ArticlePage({ article, preview = false }: ArticlePageProps): React.JSX.Element {
-    const cleanHtmlString = DOMPurify.sanitize(article.content, { USE_PROFILES: { html: true } })
-    const html = parse(cleanHtmlString)
+export default function ArticlePage(props: ArticlePageProps): React.JSX.Element {
+    const article = props.article
+    const user = props.preview ? props.user : article.publisher
+
+    const isPreview = props.preview
     const hasSubtitle = article.subtitle !== ""
 
+    const cleanHtmlString = DOMPurify.sanitize(article.content, { USE_PROFILES: { html: true } })
+    const html = parse(cleanHtmlString)
+
     return (
-        <article className={`max-w-full ${preview ? "mt-2" : "mt-8"}`}>
-            <h1 className={`${hasSubtitle ? "mb-6" : "mb-10"} leading-none`}>{article.title}</h1>
-
-            <div className="flex items-center justify-between mb-10">
-                {hasSubtitle && <span className={"subtitle"}>{article.subtitle}</span>}
+        <article className={`max-w-full ${isPreview ? "mt-2" : "mt-8"}`}>
+            <h1 className={`${hasSubtitle ? "mb-6" : "mb-10"} leading-none mt-0`}>{article.title}</h1>
+            {hasSubtitle && <p className={"italic text-2xl text-gray-400 block mb-6"}>{article.subtitle}</p>}
+            <div className={"flex flex-col sm:flex-row sm:items-center mb-14 gap-x-1 gap-y-1"}>
+                <p className={"hidden md:inline"}>Published by</p>
+                <LinkUser user={user}/>
                 <p>
-                    By <a href={`/profile/${article.publisher.username}`}>{article.publisher.displayName}</a>
-                </p>
+                    <span className={"hidden sm:inline"}>on </span>
+                    {new Date(article.publishedAt).toLocaleDateString("en-us", {
+                    weekday: "long",
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                    hour: "numeric",
+                    minute: "numeric"
+                })}</p>
             </div>
-
-            <div className={"prose-sm md:prose prose-slate"}>{article.content && html}</div>
+            <div className={"prose"}>{article.content && html}</div>
         </article>
     )
 }

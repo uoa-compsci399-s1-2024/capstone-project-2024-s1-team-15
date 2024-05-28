@@ -13,67 +13,57 @@ import { getAllResearch } from "@/app/services/research"
 import ExternalArticleCard from "./ExternalArticleCard"
 
 type displayAllArticleProps = {
-    articleType: string
+    articleType: "news" | "research"
 }
 
 export default function DisplayAllArticles({articleType} : displayAllArticleProps){
     const [articles, setArticles] = useState<IPaginator<Article> | null>(null)
     const [searchTerm, setSearchTerm] = useState("")
 
-    
-
     useEffect(() => {
-        if(articleType === "news"){
+        if (articleType === "news") {
             getAllNews(searchTerm).then((news) => {
                 setArticles(news)
             })
-        }else{
+        } else {
             getAllResearch(searchTerm).then((research) => {
                 setArticles(research)
             })
         }
-        
     }, [articleType, searchTerm])
 
-
-
-    return(
+    return (
         <>
-        <div className="max-w-screen-xl mr-auto items-center justify-between gap-x-4 sm:flex">
-            {articleType === "news" && 
+            <div className="max-w-screen-xl mr-auto items-center justify-between gap-x-4 sm:flex">
                 <Privileged requiredScopes={SCOPES.maintainer}>
-                    <ButtonLink theme={"cms"} href={"/news/publish"} text={"Publish News"} icon={icons.add}/>
-                </Privileged>
-            }
-            {articleType === "research" && 
-                <Privileged requiredScopes={SCOPES.maintainer}>
-                    <ButtonLink theme={"cms"} href={"/research/publish"} text={"Publish Research"} icon={icons.add}/>
-                </Privileged>
-            }
-            <SearchBar onSearchInputChange = {setSearchTerm} />
-        </div>
-        <div className={"space-y-12 mt-6"}>
-            {articles?.totalResults?(
-                articles.data.map((a) => {
-                    if(a.articleType === ArticleType.news  || a.articleType === ArticleType.research ){
-                        return <ArticleCard article={a} key={a.id} />
-                    }else{
-                        return <ExternalArticleCard article={a} key={a.id}/>
+                    {articleType === "news" &&
+                        <ButtonLink theme={"cms"} href={"/news/publish"} text={"Publish News"} icon={icons.add}/>
                     }
-                    
-                })
-            ) : searchTerm ? (
-                <p>
-                    There are no {articleType} article with &apos;{searchTerm}&apos; in the title.
-                </p>
-            ) : (
-                <p>
-                    There are no {articleType} articles.
-                </p>
-            )}
-            
-        </div>    
+                    {articleType === "research" &&
+                        <ButtonLink theme={"cms"} href={"/research/publish"} text={"Publish Research"} icon={icons.add}/>
+                    }
+                </Privileged>
+                <SearchBar onSearchInputChange = {setSearchTerm} />
+            </div>
+            <div className={"space-y-6 mt-6"}>
+                {articles?.totalResults?(
+                    articles.data.map((a) => {
+                        if (a.articleType === ArticleType.news  || a.articleType === ArticleType.research) {
+                            return <ArticleCard article={a} key={a.id} />
+                        } else {
+                            return <ExternalArticleCard article={a} key={a.id}/>
+                        }
+                    })
+                ) : searchTerm ? (
+                    <p>
+                        No {articleType} articles found with &apos;{searchTerm}&apos; in the title.
+                    </p>
+                ) : (
+                    <p>
+                        There are no {articleType} articles.
+                    </p>
+                )}
+            </div>
         </>
     )
-    
 }

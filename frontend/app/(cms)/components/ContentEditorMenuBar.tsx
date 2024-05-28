@@ -5,7 +5,7 @@ import { ImList2, ImListNumbered, ImQuotesLeft } from "react-icons/im"
 import URLInputModal from "@/app/components/modals/URLInputModal"
 import { Nullable } from "@/app/lib/types"
 import { ModalRef } from "@/app/lib/hooks/useModal"
-import ImageInputModal, { ImageAttribute } from "@/app/components/modals/ImageInputModal"
+import ImageInputModal, { ImageWithAltText } from "@/app/components/modals/ImageInputModal"
 
 const boldButton = (editor: Editor) => (
     <button
@@ -127,7 +127,7 @@ const redoButton = (editor: Editor) => (
 )
 
 function ImageButton (editor: Editor): React.JSX.Element {
-    const [imageAttribute, setImageAttribute] = useState<Nullable<ImageAttribute>>(null)
+    const [imageAttribute, setImageAttribute] = useState<Nullable<ImageWithAltText>>(null)
     const modalRef = useRef<ModalRef>(null)
 
     useEffect(() => {
@@ -144,7 +144,7 @@ function ImageButton (editor: Editor): React.JSX.Element {
 
     return (
         <>
-            <ImageInputModal modalId={"img-input"} setImageAttribute={setImageAttribute} ref={modalRef}/>
+            <ImageInputModal modalId={"img-input"} setImage={setImageAttribute} ref={modalRef} location={"content-editor"}/>
             <button
                 title={"Add Image"}
                 onClick={handleButtonClick}

@@ -7,10 +7,9 @@ import { ArticleType } from "@aapc/types"
 import { SCOPES } from "@/app/lib/consts"
 import Privileged from "@/app/components/Privileged"
 import ButtonLink from "@/app/components/ButtonLink"
-import ArticlePage from "@/app/components/ArticlePage"
 import ExternalLinkButton from "@/app/(cms)/(articles)/components/ExternalLinkButton"
-import icons from "@/app/lib/icons";
-import DeleteButton from "@/app/(cms)/(articles)/components/DeleteButton"
+import icons from "@/app/lib/icons"
+import ArticlePage from "@/app/components/ArticlePage"
 
 type PageParams = { params: { id: string } }
 
@@ -26,7 +25,7 @@ export default async function NewsPage({ params }: PageParams) {
     return (
         <div className={"space-y-6"}>
             {article.articleType == ArticleType.news &&
-                <ArticlePage article={article}/>
+                <ArticlePage preview={false} article={article}/>
             }
             {article.articleType == ArticleType.news_external &&
                 <div className="flex flex-col">
@@ -38,14 +37,14 @@ export default async function NewsPage({ params }: PageParams) {
                     </div>
                 </div>
             }
-            
+
             <Privileged requiredScopes={SCOPES.maintainer}>
                 <div className="flex flex-row space-x-4">
                     <ButtonLink theme={"cms"} href={`/news/${params.id}/edit`} text={"Edit Article"} icon={icons.edit}/>
                     <ButtonLink theme={"red"} href={`/news/${params.id}/delete`} text={"Delete"} icon={icons.trash} />
                 </div>
             </Privileged>
-           
+
         </div>
     )
 }

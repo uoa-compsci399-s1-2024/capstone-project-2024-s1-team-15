@@ -1,4 +1,5 @@
 import React from "react"
+import icons from "@/app/lib/icons";
 
 export type ButtonProps = {
     onClick?: () => void
@@ -85,11 +86,16 @@ export default function Button(
                 }
                 {icon &&
                     <div className={`h-full aspect-square grow-0
-                        ${
-                            disabled 
+                        ${disabled 
                             ? 'group-hover:rotate-0' 
-                            : leftIcon? `group-hover:rotate-[-10deg]` : `group-hover:rotate-[10deg]`
-                        } 
+                            : leftIcon
+                                ? icon === icons.reload
+                                    ? `group-hover:rotate-[-190deg]`
+                                    : `group-hover:rotate-[-10deg]`
+                                : icon === icons.reload
+                                    ? `group-hover:rotate-[190deg]`
+                                    : `group-hover:rotate-[10deg]`
+                        }
                         transition-transform ease-in-out
                     `}>
                         {icon}
