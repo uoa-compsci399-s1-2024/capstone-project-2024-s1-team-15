@@ -1,12 +1,12 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import { PollenData } from "@aapc/types"
 
-import { SCOPES } from "@/app/lib/consts"
+import { DEFAULT_FORM_DIALOG_DURATION, SCOPES } from "@/app/lib/consts"
 import icons from "@/app/lib/icons"
-import { getPollenData } from "@/app/services/pollen"
+import { deletePollenData, getPollenData } from "@/app/services/pollen"
 import PageTemplate from "@/app/components/PageContentTemplate"
 import Slider, { Slide } from "@/app/components/slider/Slider"
 import { PollenCalendar } from "@/app/components/pollen"
@@ -18,6 +18,11 @@ import pollenTypetree from "./pollenType-tree.json"
 import pollenTypeweed from "./pollenType-weed-herb.json"
 import ImageSlider from "./components/ImageSlider"
 import pollenImages from "./components/PollenImages"
+import ConfirmModal from "@/app/components/modals/ConfirmModal"
+import Button from "@/app/components/Button"
+import { Nullable } from "@/app/lib/types"
+import { ModalRef } from "@/app/lib/hooks/useModal"
+import { useAuth } from "@/app/lib/hooks"
 
 type PollenType = {
     name: string
@@ -26,16 +31,21 @@ type PollenType = {
 }
 
 export default function Pollen() {
+    const { token } = useAuth()
+
     const [pollenData, setPollenData] = useState<null | PollenData[]>(null)
     const [selectedSlidePollen, setSelectedSlidePollen] = useState<PollenType>(pollenTypegrass[0])
     const [selectedPollenSlideHTML, setSelectedPollenSlideHTML] = useState<string | undefined>(undefined)
     const [pollenType, setPollenType] = useState<"grass" | "tree" | "weed">("grass")
     const [sliderKey, setSliderKey] = useState(0) // To reset the slider component
 
+    const deleteConfirmModalRef = useRef<ModalRef>(null)
+    const [deleteSuccess, setDeleteSuccess] = useState(false)
+    const [deleteErrorMessage, setDeleteErrorMessage] = useState<Nullable<string>>(null)
+    const [_, setCurrentTimeout] = useState<Nullable<NodeJS.Timeout>>(null)
+
     useEffect(() => {
-        getPollenData().then((r) => {
-            setPollenData(r)
-        })
+        setPollenDataFromDB()
     }, [])
 
     useEffect(() => {
@@ -52,6 +62,12 @@ export default function Pollen() {
 
     const pollenSlides = (pollenArray: PollenType[]) =>
         pollenArray.map(({ name, summaryHTML }) => <Slide key={name} slideContent={summaryHTML}></Slide>)
+
+    const setPollenDataFromDB = () => {
+        getPollenData().then((r) => {
+            setPollenData(r)
+        })
+    }
 
     const handleSlideIndexChange = (index: number) => {
         const pollenArray =
@@ -72,6 +88,25 @@ export default function Pollen() {
                   : pollenTypeweed[0]
         setSelectedSlidePollen(newSelectedPollen)
         setSliderKey((prevKey) => prevKey + 1) // Force re-render of the Slider component to reset it
+    }
+
+    const handleDeletePollenData = () => {
+        deletePollenData({ token }).then(r => {
+            if (r.success) {
+                setDeleteSuccess(true)
+                setDeleteErrorMessage(null)
+                setPollenDataFromDB()
+                setCurrentTimeout(e => {
+                    if (e) clearTimeout(e)
+                    return setTimeout(
+                        () => setDeleteSuccess(false),
+                        DEFAULT_FORM_DIALOG_DURATION
+                    )
+                })
+            } else {
+                setDeleteErrorMessage(r.message)
+            }
+        })
     }
 
     return (
@@ -146,11 +181,8 @@ export default function Pollen() {
                 <p
                     className={`bg-accent-light pb-4 pt-8 
                     -ml-pc pl-[calc(theme(spacing.pc)+0.625rem)] pr-pc -mt-8 rounded-r-[2rem]
-                    
                     sm:-ml-pc-sm sm:pl-[calc(theme(spacing.pc-sm)+0.75rem)] sm:pr-pc-sm sm:-mt-9 sm:rounded-r-[3rem]
-                    
                     md:-ml-pc-md md:pl-[calc(theme(spacing.pc-md)+0.875rem)] md:pr-pc-md md:-mt-10 md:rounded-r-[4rem]
-                    
                     xl:-ml-[calc(100vw-theme(spacing.content-max)-theme(spacing.nav)+theme(spacing.pc-md))]
                     xl:pl-[calc(100vw-theme(spacing.content-max)-theme(spacing.nav)+theme(spacing.pc-md)+0.875rem)]
                 `}>
@@ -165,8 +197,29 @@ export default function Pollen() {
                 <Privileged requiredScopes={SCOPES.maintainer}>
                     <div className="flex gap-x-4 my-4">
                         <ButtonLink theme={"cms"} href={"/pollen/edit"} text={"Update Pollen Data"} icon={icons.edit}/>
-                        <ButtonLink theme={"cms"} href={"/pollen/delete"} text={"Delete Pollen Data"} icon={icons.trash}/>
+                        <Button theme={"cms-red"} text={"Delete All Pollen Data"} icon={icons.trash} onClick={() => {
+                            deleteConfirmModalRef.current && deleteConfirmModalRef.current.showModal()
+                        }}/>
+                        <ConfirmModal
+                            id={"delete-pollen-data"}
+                            ref={deleteConfirmModalRef}
+                            onConfirm={() => {
+                                handleDeletePollenData()
+                            }}
+                            buttonText={"Delete All Pollen Data"}
+                            buttonIcon={icons.trash}
+                        >
+                            <p className={"text-white"}>
+                                Are you sure you want to delete <b className={"font-medium"}>all</b> pollen data?
+                            </p>
+                        </ConfirmModal>
                     </div>
+                    {deleteSuccess &&
+                        <p className={"form-success"}>All pollen data has been deleted.</p>
+                    }
+                    {deleteErrorMessage &&
+                        <p className={"form-error"}>{deleteErrorMessage}</p>
+                    }
                 </Privileged>
                 <p className="mt-4">
                     If you want access to all available pollen data, please send us a message via the{" "}

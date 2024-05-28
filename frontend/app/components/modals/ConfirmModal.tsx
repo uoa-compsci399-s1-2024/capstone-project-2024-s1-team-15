@@ -3,7 +3,7 @@
 import React, { ForwardedRef, forwardRef, PropsWithChildren } from "react"
 import Modal from "@/app/components/modals/components/Modal"
 import useModal, { ModalRef } from "@/app/lib/hooks/useModal"
-import Button from "@/app/components/Button"
+import Button, { ButtonTheme } from "@/app/components/Button"
 import icons from "@/app/lib/icons"
 
 type ConfirmModalProps = {
@@ -11,15 +11,20 @@ type ConfirmModalProps = {
     onConfirm: () => void
     buttonText?: string
     buttonIcon?: React.JSX.Element
+    buttonTheme?: ButtonTheme
+    white?: boolean
 }
 
 const ConfirmModal = forwardRef(
-    function ConfirmModal({ id, onConfirm, buttonText, buttonIcon, children }: PropsWithChildren<ConfirmModalProps>, ref: ForwardedRef<ModalRef>) {
+    function ConfirmModal(
+        { id, onConfirm, buttonText, buttonIcon, buttonTheme, white = false, children }: PropsWithChildren<ConfirmModalProps>,
+        ref: ForwardedRef<ModalRef>)
+    {
         id = id + "-confirm-modal"
         const [hidden, setHidden] = useModal(id, ref)
 
         return (
-            <Modal modalId={id} hidden={hidden} innerClassName={"flex-row flex gap-x-4 bg-red-400"}>
+            <Modal modalId={id} hidden={hidden} innerClassName={`flex-row flex gap-x-4 ${white? "bg-white": "bg-red-400"}`}>
                 <div className={"grow"}>
                     {children}
                     <div className={"flex flex-row gap-x-4 mt-4"}>
@@ -31,9 +36,9 @@ const ConfirmModal = forwardRef(
                         />
                         <Button
                             text={buttonText || "Confirm"}
-                            theme={"red"}
+                            theme={buttonTheme || "red"}
                             className={"text-black"}
-                            icon={buttonIcon || icons.image}
+                            icon={buttonIcon || icons.check}
                             onClick={() => {
                                 setHidden(true)
                                 onConfirm()

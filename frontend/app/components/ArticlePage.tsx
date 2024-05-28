@@ -27,20 +27,22 @@ export default function ArticlePage(props: ArticlePageProps): React.JSX.Element 
         <article className={`max-w-full ${isPreview ? "mt-2" : "mt-8"}`}>
             <h1 className={`${hasSubtitle ? "mb-6" : "mb-10"} leading-none mt-0`}>{article.title}</h1>
             {hasSubtitle && <p className={"italic text-2xl text-gray-400 block mb-6"}>{article.subtitle}</p>}
-            <div className={"flex flex-col sm:flex-row sm:items-center mb-14 gap-x-1 gap-y-1"}>
-                <p className={"hidden md:inline"}>Published by</p>
-                <LinkUser user={user}/>
-                <p>
-                    <span className={"hidden sm:inline"}>on </span>
-                    {new Date(article.publishedAt).toLocaleDateString("en-us", {
-                    weekday: "long",
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                    hour: "numeric",
-                    minute: "numeric"
-                })}</p>
-            </div>
+            {(article.title.length !== 0 || article.subtitle.length !== 0) &&
+                <div className={"flex flex-col sm:flex-row sm:items-center mb-14 gap-x-1 gap-y-1"}>
+                    <p className={"hidden md:inline"}>Published by</p>
+                    <LinkUser user={user}/>
+                    <p>
+                        <span className={"hidden sm:inline"}>on </span>
+                        {new Date(article.publishedAt).toLocaleDateString("en-us", {
+                        weekday: "long",
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                        hour: "numeric",
+                        minute: "numeric"
+                    })}</p>
+                </div>
+            }
             <div className={"prose"}>{article.content && html}</div>
         </article>
     )

@@ -53,14 +53,14 @@ export default function ArticlesCreatedByUserPage({ params }: PageParams) {
 
             <div>
                 <div className="max-w-screen-xl mr-auto items-center justify-between gap-x-4 flex flex-col md:flex-row">
-                    <h2 className={"mb-0"}>News Articles</h2>
+                    <h2>News Articles</h2>
                     {(news?.totalResults || research?.totalResults || newsSearchInput) && (
                         <SearchBar onSearchInputChange={setNewsSearchInput}/>
                     )}
                 </div>
                 {news?.totalResults
                     ? <div className={"space-y-6"}>
-                        {news?.data.map((a) => <ArticleCard article={a} key={a.id}/>)}
+                        {news?.data.map((a) => <ArticleCard articleJSON={JSON.stringify(a)} key={a.id}/>)}
                     </div>
                     : newsSearchInput
                         ? <p>No articles found. Try searching something else!</p>
@@ -77,7 +77,7 @@ export default function ArticlesCreatedByUserPage({ params }: PageParams) {
                 </div>
                 {research?.totalResults
                     ? <div className={"space-y-6"}>
-                        {research?.data.map((a) => <ArticleCard article={a} key={a.id}/>)}
+                        {research?.data.map((a) => <ArticleCard articleJSON={JSON.stringify(a)} key={a.id}/>)}
                     </div>
                     : researchSearchInput
                         ? <p>No articles found. Try searching something else!</p>
