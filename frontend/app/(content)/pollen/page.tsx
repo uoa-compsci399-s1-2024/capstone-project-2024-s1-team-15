@@ -164,13 +164,8 @@ export default function Pollen() {
                 {pollenData && <PollenCalendar pollenData={pollenData} />}
                 <Privileged requiredScopes={SCOPES.maintainer}>
                     <div className="flex gap-x-4 my-4">
-                        <ButtonLink theme={"cms"} href={"/pollen/edit"} text={"Update Pollen Data"} icon={icons.edit} />
-                        <ButtonLink
-                            theme={"cms"}
-                            href={"/pollen/delete"}
-                            text={"Delete Pollen Data"}
-                            icon={icons.trash}
-                        />
+                        <ButtonLink theme={"cms"} href={"/pollen/edit"} text={"Update Pollen Data"} icon={icons.edit}/>
+                        <ButtonLink theme={"cms"} href={"/pollen/delete"} text={"Delete Pollen Data"} icon={icons.trash}/>
                     </div>
                 </Privileged>
                 <p className="mt-4">
