@@ -33,6 +33,7 @@ export async function getResearchPage(pageNumber = 1, options?: FetchOptions): P
     })
     return new Paginator(Article, await response.json())
 }
+
 export async function getResearchByUser(
     username: string,
     searchInput?: string,

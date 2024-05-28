@@ -22,7 +22,7 @@ export default function AllResearchPage() {
         
             </div>
             <DisplayAllArticles articleType="research" />
-            <Paginator />
+            {/*<Paginator />*/}
         </>
     )
 }

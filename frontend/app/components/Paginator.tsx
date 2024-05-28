@@ -31,7 +31,7 @@ const Paginator: FC<PaginatorProps> = ({ currentPage, setCurrentPage, lastPage }
     return (
         <div className="max-w-screen-xl mx-auto mt-12 px-4 text-gray-600 md:px-8">
             <div className="hidden justify-between text-sm md:flex">
-                <div>SHOWING 15 PER PAGE</div>
+                <div>SHOWING 15 RESULTS PER PAGE</div>
                 <div className="flex items-center gap-12" aria-label="Pagination">
                     <Button
                         onClick={handlePreviousPage}
@@ -79,7 +79,7 @@ const Paginator: FC<PaginatorProps> = ({ currentPage, setCurrentPage, lastPage }
                     disabled={currentPage === 1}
                     leftIcon
                 />
-                <div className="font-medium">SHOWING 15 PER PAGE</div>
+                <div className="font-medium">SHOWING 15 RESULTS PER PAGE</div>
                 <Button
                     onClick={handleNextPage}
                     text={"Next"}

@@ -18,8 +18,8 @@ export async function getNewsById(id: string, options?: FetchOptions): Promise<N
     return new Article(await response.json())
 }
 
-export async function getAllNews(searchTerm: string, options?: FetchOptions): Promise<IPaginator<IArticle>> {
-    const response = await fetch(API_URI + `/content/news/?` + new URLSearchParams({t: searchTerm}), {
+export async function getAllNews( searchTerm: string, options?: FetchOptions): Promise<IPaginator<IArticle>> {
+    const response = await fetch(API_URI + `/content/news/?` + new URLSearchParams({t: searchTerm}) , {
         method: "get",
         headers: getHeaders(options),
         next: { tags: ["news"]}
@@ -27,10 +27,11 @@ export async function getAllNews(searchTerm: string, options?: FetchOptions): Pr
     return new Paginator(Article, await response.json())
 }
 
-export async function getNewsPage(pageNumber = 1, options?: FetchOptions): Promise<IPaginator<IArticle>> {
-    const response = await fetch(API_URI + `/content/news?` + new URLSearchParams({ p: String(pageNumber) }), {
+export async function getNewsPage(pageNumber = 1, searchTerm: string, options?: FetchOptions): Promise<IPaginator<IArticle>> {
+    const response = await fetch(API_URI + `/content/news?` + new URLSearchParams({ p: String(pageNumber) }) + new URLSearchParams({t: searchTerm}), {
         method: "get",
-        headers: getHeaders(options)
+        headers: getHeaders(options),
+        next: { tags: ["news"]}
     })
     return new Paginator(Article, await response.json())
 }

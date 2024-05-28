@@ -11,6 +11,11 @@ import { SCOPES } from "@/app/lib/consts"
 import icons from "@/app/lib/icons"
 import { getAllResearch } from "@/app/services/research"
 import ExternalArticleCard from "./ExternalArticleCard"
+import React from "react"
+import { getNewsPage } from "@/app/services/news"
+import { getResearchPage } from "@/app/services/research"
+import Paginator from "@/app/components/Paginator"
+import { IArticle } from "@aapc/types"
 
 type displayAllArticleProps = {
     articleType: string
@@ -20,20 +25,44 @@ export default function DisplayAllArticles({articleType} : displayAllArticleProp
     const [articles, setArticles] = useState<IPaginator<Article> | null>(null)
     const [searchTerm, setSearchTerm] = useState("")
 
-    
+    const [page, setPage] = useState(1)
+    const [lastPage, setLastPage] = useState(1)
+    const [news, setNews] = useState<IArticle[]>([])
+    const [research, setResearch] = useState<IArticle[]>([])
+
+    const getNews = (pg: number, searchTerm: string) => {
+        getNewsPage(pg, searchTerm).then((p)=> {
+            setNews(p.data)
+            setLastPage(p.lastPage)
+        })}
+
+    const getResearch = (pg: number, searchTerm: string) => {
+        getResearchPage(pg).then((p)=> {
+            setResearch(p.data)
+            setLastPage(p.lastPage)
+        })}
 
     useEffect(() => {
-        if(articleType === "news"){
-            getAllNews(searchTerm).then((news) => {
-                setArticles(news)
-            })
-        }else{
+        if (articleType === "news") {
+            if (page === 1) {
+                getNews(1, searchTerm);
+            } else {
+                getNews(page, searchTerm);
+            }
+            getNewsPage(page, searchTerm).then((news) => {
+                setArticles(news);
+            });
+        } else {
+            if (page === 1) {
+                getResearch(1, searchTerm);
+            } else {
+                getResearch(page, searchTerm);
+            }
             getAllResearch(searchTerm).then((research) => {
-                setArticles(research)
-            })
+                setArticles(research);
+            });
         }
-        
-    }, [articleType, searchTerm])
+    }, [page, articleType, searchTerm]);
 
 
 
@@ -71,9 +100,9 @@ export default function DisplayAllArticles({articleType} : displayAllArticleProp
                     There are no {articleType} articles.
                 </p>
             )}
-            
+            <Paginator currentPage={page} setCurrentPage={setPage} lastPage={lastPage} />
         </div>    
         </>
     )
-    
+
 }

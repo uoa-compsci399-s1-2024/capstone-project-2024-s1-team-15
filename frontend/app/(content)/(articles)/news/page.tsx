@@ -24,7 +24,6 @@ export default async function AllNewsPage() {
                 <h1 className="page-title">All News</h1>
             </div>
            <DisplayAllArticles articleType="news" />
-            <Paginator />
         </>
     )
 }
