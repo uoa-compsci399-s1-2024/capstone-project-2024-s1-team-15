@@ -40,6 +40,10 @@ p.smallest, span.smallest, a.smallest {
     @apply text-[10.5px] sm:text-[12px] md:text-[13px];
 }
 
+h5 {
+    @apply underline underline-offset-2;
+}
+
 a {
     @apply text-blue-700;
 }
@@ -130,7 +134,8 @@ hr {
 }
 
 .slider-images figcaption {
-    @apply text-balance text-[0.5rem] leading-3 break-all;
+    @apply text-balance text-[0.5rem] leading-3;
+    word-break: break-word;
 }
 
 /* about page styling - can be removed after all pages adapt to prose */
