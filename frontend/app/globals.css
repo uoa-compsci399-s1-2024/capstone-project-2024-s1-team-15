@@ -122,7 +122,8 @@ hr {
 }
 
 .slider-images figcaption {
-    @apply text-balance text-[0.5rem] leading-3 break-all;
+    @apply text-balance text-[0.5rem] leading-3;
+    word-break: break-word;
 }
 
 /* about page styling - can be removed after all pages adapt to prose */
