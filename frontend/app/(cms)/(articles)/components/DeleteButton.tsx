@@ -16,7 +16,7 @@ type DeleteButtonProps = {
 }
 
 
-export default function ExternalLinkButton({text, articleType, articleId} : DeleteButtonProps): React.JSX.Element{
+export default function DeleteArticleButton({text, articleType, articleId} : DeleteButtonProps): React.JSX.Element{
 
     const { token } = useAuth()
     const router = useRouter()
