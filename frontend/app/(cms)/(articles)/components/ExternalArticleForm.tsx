@@ -132,7 +132,7 @@ export default function ExternalArticleForm({ actionType, articleType, articleJS
                 <input 
                     id={"link-input"}
                     className={"form-input"}
-                    placeholder={"Enter External link here...(required) "}
+                    placeholder={"Enter link to an external article here...(required) "}
                     defaultValue={externalLink}
                     onChange={updateExternalLink}
                 />

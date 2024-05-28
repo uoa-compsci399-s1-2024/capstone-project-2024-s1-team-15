@@ -50,6 +50,10 @@ export default function ArticleForm({ actionType, articleType, articleJSONString
     }, [article])
 
     const submitArticle = () => {
+        if (!title || title === "") {
+            setError("You must enter a title for your article.")
+            return
+        }
         const a: ArticleOut = {
             title: title,
             subtitle: subtitle,
@@ -130,6 +134,7 @@ export default function ArticleForm({ actionType, articleType, articleJSONString
                     onChange={updateTitle}
                     placeholder={"Enter title here... (required)"}
                     defaultValue={title}
+                    required={true}
                 />
             </div>
 
@@ -149,6 +154,8 @@ export default function ArticleForm({ actionType, articleType, articleJSONString
                 <ContentEditor setEditorContent={setEditorContent} initialContent={initialEditorContent}/>
             </div>
 
+            {error && <p className={"form-error"}>{error}</p>}
+
             <div>
                 <Button
                     onClick={submitArticle}
@@ -156,8 +163,6 @@ export default function ArticleForm({ actionType, articleType, articleJSONString
                     icon={icons.add}
                 />
             </div>
-
-            { error && <span>{error}</span> }
 
             <div>
                 <p className={"form-label"}>Article Preview</p>
