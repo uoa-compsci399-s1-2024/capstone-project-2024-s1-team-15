@@ -2,7 +2,7 @@ import { RequestHandler } from "express"
 import { Article } from "@aapc/types"
 import { BadRequestError, NotFoundError, UnauthorizedError } from "@/errors/HTTPErrors"
 import { ArrayResultOptions, ArticleSortFields, SortOptions } from "@/util/types/types"
-import { NewArticleIn, EditArticleIn, ArticlePaginatedQIn, IPaginatedQIn } from "@/util/validation/input.types"
+import { NewArticleIn, EditArticleIn, ArticlePaginatedQIn } from "@/util/validation/input.types"
 import { DB } from "@/services/services"
 import { getPaginator, validate } from "@/util/functions"
 

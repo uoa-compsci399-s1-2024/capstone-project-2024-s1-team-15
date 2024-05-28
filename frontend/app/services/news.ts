@@ -1,9 +1,9 @@
 import { Article, IArticle, IPaginator, Paginator } from "@aapc/types"
-import { API_URI } from "@/app/lib/consts"
 import { ArticleOut, Nullable, Result } from "@/app/lib/types"
+import { fail, success } from "@/app/lib/util"
+import { API_URI } from "@/app/lib/consts"
 import { FetchOptions, getHeaders, getSearchParams, PaginatedResultOptions } from "@/app/services/lib/util"
-import { fail, success } from "@/app/lib/util";
-import {revalidateNews} from "./lib/revalidator";
+import { revalidateNews } from "@/app/services/lib/revalidator"
 
 export async function getNewsById(id: string, options?: FetchOptions): Promise<Nullable<IArticle>> {
     const response = await fetch(API_URI + `/content/news/${id}`, {

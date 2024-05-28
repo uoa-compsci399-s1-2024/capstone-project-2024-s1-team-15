@@ -1,10 +1,9 @@
 import { Article, IArticle, IPaginator, Paginator } from "@aapc/types"
-import { API_URI } from "@/app/lib/consts"
 import { ArticleOut, Nullable, Result } from "@/app/lib/types"
+import { fail, success } from "@/app/lib/util"
+import { API_URI } from "@/app/lib/consts"
 import { FetchOptions, getHeaders, getSearchParams, PaginatedResultOptions } from "@/app/services/lib/util"
-import { fail, success } from "@/app/lib/util";
-import { revalidateNews, revalidateResearch } from "./lib/revalidator";
-import paginator from "@/app/components/Paginator";
+import { revalidateResearch } from "@/app/services/lib/revalidator"
 
 export async function getResearchById(id: string, options?: FetchOptions): Promise<Nullable<IArticle>> {
     const response = await fetch(API_URI + `/content/research/${id}`, {
@@ -71,6 +70,6 @@ export async function deleteResearch(id: string, fetchOptions?: FetchOptions): P
     if (response.status >= 400) {
         return fail((await response.json()).message)
     }
-    await revalidateNews()
+    await revalidateResearch()
     return success(null)
 }
