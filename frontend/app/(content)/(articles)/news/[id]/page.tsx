@@ -8,6 +8,7 @@ import { SCOPES } from "@/app/lib/consts"
 import Privileged from "@/app/components/Privileged"
 import ButtonLink from "@/app/components/ButtonLink"
 import ExternalLinkButton from "@/app/(cms)/(articles)/components/ExternalLinkButton"
+import DeleteArticleButton from "@/app/(cms)/(articles)/components/DeleteArticleButton"
 import icons from "@/app/lib/icons"
 import ArticlePage from "@/app/components/ArticlePage"
 
@@ -42,7 +43,7 @@ export default async function NewsPage({ params }: PageParams) {
             <Privileged requiredScopes={SCOPES.maintainer}>
                 <div className="flex flex-row space-x-6">
                     <ButtonLink theme={"cms"} href={`/news/${params.id}/edit`} text={"Edit Article"} icon={icons.edit}/>
-                    <ButtonLink theme={"cms-red"} href={`/news/${params.id}/delete`} text={"Delete"} icon={icons.trash} />
+                    <DeleteArticleButton articleJSON={JSON.stringify(article)}/>
                 </div>
             </Privileged>
 

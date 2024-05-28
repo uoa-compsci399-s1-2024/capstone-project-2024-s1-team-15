@@ -63,7 +63,11 @@ export default function DeleteArticleButton({ articleJSON, onError } : DeleteBut
                 buttonIcon={icons.trash}
             >
                 <p className={"text-white"}>
-                    Are you sure you want to delete this news article?
+                    Are you sure you want to delete this {
+                        (article.articleType === ArticleType.news || article.articleType === ArticleType.news_external)
+                        ? "news"
+                        : "research"
+                    } article?
                 </p>
                 <div className={"bg-white rounded-2xl mt-4"}>
                     <ArticleCard article={article}/>

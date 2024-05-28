@@ -3,14 +3,14 @@ import { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { getResearchById } from "@/app/services/research"
 import { getMetadata } from "@/app/lib/util"
+import { ArticleType } from "@aapc/types"
 import { SCOPES } from "@/app/lib/consts"
 import Privileged from "@/app/components/Privileged"
 import ButtonLink from "@/app/components/ButtonLink"
-import icons from "@/app/lib/icons"
-import { ArticleType } from "@aapc/types"
 import ExternalLinkButton from "@/app/(cms)/(articles)/components/ExternalLinkButton"
-import ArticlePage from "@/app/components/ArticlePage"
 import DeleteArticleButton from "@/app/(cms)/(articles)/components/DeleteArticleButton"
+import icons from "@/app/lib/icons"
+import ArticlePage from "@/app/components/ArticlePage"
 
 type PageParams = { params: { id: string } }
 

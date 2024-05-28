@@ -113,12 +113,12 @@ export default function ArticleForm({ actionType, articleType, articleJSONString
     }
 
     const updateTitle = () => {
-        const e: HTMLTextAreaElement = document.getElementById("title-input")! as HTMLTextAreaElement
+        const e: HTMLInputElement = document.getElementById("title") as HTMLInputElement
         setTitle(e.value)
     }
 
     const updateSubtitle = () => {
-        const e: HTMLTextAreaElement = document.getElementById("subtitle-input")! as HTMLTextAreaElement
+        const e: HTMLInputElement = document.getElementById("subtitle") as HTMLInputElement
         setSubtitle(e.value)
     }
 

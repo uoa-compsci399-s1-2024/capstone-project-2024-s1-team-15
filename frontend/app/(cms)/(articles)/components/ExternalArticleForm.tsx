@@ -106,12 +106,12 @@ export default function ExternalArticleForm({ actionType, articleType, articleJS
     }
 
     const updateTitle = () => {
-        const e: HTMLTextAreaElement = document.getElementById("external-title-input")! as HTMLTextAreaElement
+        const e: HTMLInputElement = document.getElementById("external-title") as HTMLInputElement
         setTitle(e.value)
     }
 
     const updateExternalLink = () => {
-        const e: HTMLTextAreaElement = document.getElementById("link-input")! as HTMLTextAreaElement
+        const e: HTMLTextAreaElement = document.getElementById("link") as HTMLTextAreaElement
         setExternalLink(e.value)
     }
     
