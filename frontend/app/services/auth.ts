@@ -27,6 +27,22 @@ export async function login(credentials: AuthCredential): Promise<Result<AuthRes
     }
 }
 
+export async function refreshToken(options?: FetchOptions): Promise<Result<AuthResponse>> {
+    const res = await fetch(API_URI + "/auth/refresh-token", {
+        method: "post",
+        headers: getHeaders(options)
+    })
+    if (res.status !== 200) {
+        return fail((await res.json()).message)
+    } else {
+        const data = await res.json()
+        return success({
+            user: new User(data.user),
+            token: data.token
+        })
+    }
+}
+
 export async function changePassword(
     credentials: { username: string; currentPassword: string; newPassword: string },
     options?: FetchOptions

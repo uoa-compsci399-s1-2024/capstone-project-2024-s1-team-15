@@ -58,7 +58,7 @@ export async function publishNews(a: ArticleOut, options?: FetchOptions): Promis
     if (response.status >= 400) {
         return fail((await response.json()).message)
     }
-    revalidateNews()
+    await revalidateNews()
     return success(new Article(await response.json()))
 }
 
@@ -71,17 +71,18 @@ export async function editNews(id: string, a: ArticleOut, options?: FetchOptions
     if (response.status >= 400) {
         return fail((await response.json()).message)
     }
-    revalidateNews()
+    await revalidateNews()
     return success(new Article(await response.json()))
 }
 
-export async function deleteNews(id: string, options?: FetchOptions): Promise<Response> {
+export async function deleteNews(id: string, options?: FetchOptions): Promise<Result<null>> {
     const response =  await fetch(API_URI + `/content/news/${id}`, {
         method: "delete",
         headers: getHeaders(options),
     })
-    revalidateNews()
-    return response
-    
+    if (response.status !== 204) {
+        return fail((await response.json()).message)
+    }
+    await revalidateNews()
+    return success(null)
 }
-

@@ -23,7 +23,7 @@ const ErrorModal = forwardRef(
         }, [msg]);
 
         return (
-            <Modal modalId={id} hidden={hidden} innerClassName={"flex-row flex bg-red-500"}>
+            <Modal modalId={id} hidden={hidden} innerClassName={"flex-row flex gap-x-4 bg-red-500"}>
                 <p className={"text-white grow"}>{msg}</p>
                 <Button
                     theme={"overlay"}

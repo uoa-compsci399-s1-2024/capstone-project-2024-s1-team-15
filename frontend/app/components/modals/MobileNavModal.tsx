@@ -43,8 +43,8 @@ const MobileNavModal = forwardRef(
         }
 
         return (
-            <div id={"mobile-nav"} tabIndex={-1} className={`fixed w-screen h-screen z-30 bg-black bg-opacity-40 ${hidden? 'hidden' : ''}`}>
-                <div className={"fixed h-header-mobile sm:h-header-tablet md:h-header-desktop w-full shadow-lg bg-white"}/>
+            <div id={"mobile-nav"} tabIndex={-1} className={`fixed w-screen h-screen z-20 bg-black bg-opacity-40 ${hidden? 'hidden' : ''}`}>
+                <div className={"fixed h-header-mobile sm:h-header-tablet md:h-header-desktop w-full shadow-lg bg-white z-30"}/>
                 <div id={"inner-mobile-nav"} className={`
                     relative flex flex-col justify-center text-center rounded-b-2xl bg-gray-100 shadow-2xl
                     mt-header-mobile mx-pc 

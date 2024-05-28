@@ -3,7 +3,7 @@ import { API_URI } from "@/app/lib/consts"
 import { ArticleOut, Nullable, Result } from "@/app/lib/types"
 import { FetchOptions, getHeaders } from "@/app/services/lib/util"
 import { fail, success } from "@/app/lib/util";
-import {revalidateResearch} from "./lib/revalidator";
+import { revalidateNews, revalidateResearch } from "./lib/revalidator";
 
 export async function getResearchById(id: string, options?: FetchOptions): Promise<Nullable<IArticle>> {
     const response = await fetch(API_URI + `/content/research/${id}`, {
@@ -57,7 +57,7 @@ export async function publishResearch(a: ArticleOut, options?: FetchOptions): Pr
     if (response.status >= 400) {
         return fail((await response.json()).message)
     }
-    revalidateResearch()
+    await revalidateResearch()
     return success(new Article(await response.json()))
 }
 
@@ -70,15 +70,18 @@ export async function editResearch(id: string, a: ArticleOut, options?: FetchOpt
     if (response.status >= 400) {
         return fail((await response.json()).message)
     }
-    revalidateResearch()
+    await revalidateResearch()
     return success(new Article(await response.json()))
 }
 
-export async function deleteResearch(id: string, options?: FetchOptions): Promise<Response> {
+export async function deleteResearch(id: string, options?: FetchOptions): Promise<Result<null>> {
     const response = await fetch(API_URI + `/content/research/${id}`, {
         method: "delete",
         headers: getHeaders(options),
     })
-    revalidateResearch()
-    return response
+    if (response.status !== 204) {
+        return fail((await response.json()).message)
+    }
+    await revalidateNews()
+    return success(null)
 }

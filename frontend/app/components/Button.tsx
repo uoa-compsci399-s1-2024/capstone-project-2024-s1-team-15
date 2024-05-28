@@ -1,9 +1,21 @@
 import React from "react"
+import icons from "@/app/lib/icons";
+
+export type ButtonTheme =
+    "primary"
+    | "secondary"
+    | "red"
+    | "green"
+    | "cms"
+    | "cms-red"
+    | "cms-green"
+    | "cms-yellow"
+    | "overlay"
 
 export type ButtonProps = {
     onClick?: () => void
     className?: string
-    theme?: "primary" | "secondary" | "red" | "green" | "cms" | "overlay"
+    theme?: ButtonTheme
     icon?: React.JSX.Element
     text?: string
     disabled?: boolean
@@ -40,6 +52,18 @@ export default function Button(
         }
         case "cms": {
             colorClass = "bg-maintainer bg-opacity-40 border-2 border-dashed border-black disabled:bg-opacity-20 disabled:group-hover:bg-opacity-20"
+            break
+        }
+        case "cms-red": {
+            colorClass = "bg-red-500 bg-opacity-40 border-2 border-dashed border-black disabled:bg-opacity-20 disabled:group-hover:bg-opacity-20"
+            break
+        }
+        case "cms-yellow": {
+            colorClass = "bg-primary bg-opacity-60 border-2 border-dashed border-black disabled:bg-opacity-30 disabled:group-hover:bg-opacity-30"
+            break
+        }
+        case "cms-green": {
+            colorClass = "bg-green-500 bg-opacity-40 border-2 border-dashed border-black disabled:bg-opacity-20 disabled:group-hover:bg-opacity-20"
         }
     }
 
@@ -85,11 +109,16 @@ export default function Button(
                 }
                 {icon &&
                     <div className={`h-full aspect-square grow-0
-                        ${
-                            disabled 
+                        ${disabled 
                             ? 'group-hover:rotate-0' 
-                            : leftIcon? `group-hover:rotate-[-10deg]` : `group-hover:rotate-[10deg]`
-                        } 
+                            : leftIcon
+                                ? icon === icons.reload
+                                    ? `group-hover:rotate-[-190deg]`
+                                    : `group-hover:rotate-[-10deg]`
+                                : icon === icons.reload
+                                    ? `group-hover:rotate-[190deg]`
+                                    : `group-hover:rotate-[10deg]`
+                        }
                         transition-transform ease-in-out
                     `}>
                         {icon}

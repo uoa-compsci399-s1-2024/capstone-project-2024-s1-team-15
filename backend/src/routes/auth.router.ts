@@ -2,6 +2,7 @@ import express, { Router } from "express"
 import expressAsyncHandler from "express-async-handler"
 import AuthController from "@/controllers/auth.controller"
 import Scope from "@/middleware/Auth";
+import { SCOPES } from "@/util/const";
 
 export default class AuthRouter {
     static url = "/auth"
@@ -12,6 +13,11 @@ export default class AuthRouter {
         // scope: anonymous
         router.post("/login",
             expressAsyncHandler(AuthController.login)
+        )
+
+        // scope: user
+        router.post("/refresh-token", Scope.has(SCOPES.user),
+            expressAsyncHandler(AuthController.refreshToken)
         )
 
         // scope: anonymous

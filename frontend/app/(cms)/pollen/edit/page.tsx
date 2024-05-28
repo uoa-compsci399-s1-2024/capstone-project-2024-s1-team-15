@@ -5,11 +5,11 @@ import { PollenData } from "@aapc/types"
 import { parseSpreadsheet } from "./util/parseExcel"
 import { PollenCalendar } from "@/app/components/pollen"
 import parseAssumptions from "./util/parseAssumptions"
-import Link from "next/link"
 import { createPollenData } from "@/app/services/pollen"
 import { useAuth } from "@/app/lib/hooks"
 import Button from "@/app/components/Button"
 import icons from "@/app/lib/icons";
+import ButtonLink from "@/app/components/ButtonLink"
 
 type ParseError = {
     message: string
@@ -84,16 +84,35 @@ export default function EditPollen() {
 
     return (
         <>
-            <form className="flex flex-col items-start gap-2">
-                <label>
-                    <p>Upload .xlsx Excel spreadsheet containing pollen data</p>
-                    <input type="file" ref={fileInputReference} />
-                </label>
-
-                <Button theme={"secondary"} onClick={validateInputFileType} text={"Preview Data"} icon={icons.eye}/>
+            <h1 className={"page-title"}>Update Pollen Data</h1>
+            <form className="flex flex-col items-start gap-y-2">
+                <div className={"mb-4"}>
+                    <label className={"form-label"}>Excel (.xlsx) spreadsheet upload</label>
+                    <input
+                        className={"block mt-1"}
+                        type="file"
+                        ref={fileInputReference}
+                        accept={`.xlsx`}
+                    />
+                </div>
+                <div className={"flex flex-row gap-x-6"}>
+                    <ButtonLink
+                        theme={"secondary"}
+                        text={"Back"}
+                        icon={icons.back}
+                        href={"/pollen"}
+                        leftIcon
+                    />
+                    <Button
+                        theme={"green"}
+                        onClick={validateInputFileType}
+                        text={"Preview Data"}
+                        icon={icons.eye}
+                    />
+                </div>
                 {error &&
                     (error.errors ? (
-                        <>
+                        <div className={"mt-2"}>
                             <p className="form-error font-bold"> {error.message} </p>
                             <ul className="list-disc pl-4 mt-5">
                                 {error.errors.map((msg) => {
@@ -104,28 +123,40 @@ export default function EditPollen() {
                                     )
                                 })}
                             </ul>
-                        </>
+                        </div>
                     ) : (
                         <p className="form-error">{error.message}</p>
-                    ))}
+                    ))
+                }
             </form>
 
             {inputFile && pollenDataset && (
                 <div className="mt-10">
                     <h3 className="font-bold text-2xl my-2">Preview generated ✅</h3>
                     <PollenCalendar pollenData={pollenDataset}></PollenCalendar>
+                    <div className={"mt-4 flex flex-row gap-x-6"}>
+                        <ButtonLink
+                            href={"/pollen"}
+                            theme={"secondary"}
+                            text={"Back"}
+                            icon={icons.back}
+                            leftIcon
+                        />
+                        <Button
+                            disabled={updateDbPending}
+                            theme={"cms-green"}
+                            onClick={updateDatabase}
+                            text={updateDbPending ? "Updating..." : "Update Pollen Data"}
+                            icon={icons.upload}
+                        />
+                    </div>
 
-                    <Button
-                        disabled={updateDbPending}
-                        onClick={updateDatabase}
-                        text={updateDbPending ? "Updating..." : "Update Pollen Data"}
-                        icon={icons.upload}
-                    />
 
                     {updateDbError && <p className="form-error">{updateDbError}</p>}
+
                     {updateDbSuccess && (
-                        <p className="form-success">
-                            Pollen Calendar has been updated. Take a look here: <Link href="/pollen">Pollen Page</Link>
+                        <p className="form-success mt-4">
+                            Pollen Data has been successfully updated.
                         </p>
                     )}
                 </div>
