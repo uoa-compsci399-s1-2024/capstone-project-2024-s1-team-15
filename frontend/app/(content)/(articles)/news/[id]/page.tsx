@@ -23,10 +23,11 @@ export default async function NewsPage({ params }: PageParams) {
     if (!article) notFound()
 
     return (
-        <div className={"space-y-6"}>
+        <div className={"space-y-12"}>
             {article.articleType == ArticleType.news &&
                 <ArticlePage preview={false} article={article}/>
             }
+
             {article.articleType == ArticleType.news_external &&
                 <div className="flex flex-col">
                     <h1>{article.title}</h1>
@@ -39,9 +40,9 @@ export default async function NewsPage({ params }: PageParams) {
             }
 
             <Privileged requiredScopes={SCOPES.maintainer}>
-                <div className="flex flex-row space-x-4">
+                <div className="flex flex-row space-x-6">
                     <ButtonLink theme={"cms"} href={`/news/${params.id}/edit`} text={"Edit Article"} icon={icons.edit}/>
-                    <ButtonLink theme={"red"} href={`/news/${params.id}/delete`} text={"Delete"} icon={icons.trash} />
+                    <ButtonLink theme={"cms-red"} href={`/news/${params.id}/delete`} text={"Delete"} icon={icons.trash} />
                 </div>
             </Privileged>
 

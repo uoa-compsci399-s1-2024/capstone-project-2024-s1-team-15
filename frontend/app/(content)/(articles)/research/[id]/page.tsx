@@ -10,6 +10,7 @@ import icons from "@/app/lib/icons"
 import { ArticleType } from "@aapc/types"
 import ExternalLinkButton from "@/app/(cms)/(articles)/components/ExternalLinkButton"
 import ArticlePage from "@/app/components/ArticlePage"
+import DeleteArticleButton from "@/app/(cms)/(articles)/components/DeleteArticleButton"
 
 type PageParams = { params: { id: string } }
 
@@ -23,7 +24,7 @@ export default async function ResearchPage({ params }: PageParams) {
     if (!article) notFound()
 
     return (
-        <div className={"space-y-6"}>
+        <div className={"space-y-12"}>
             {article.articleType === ArticleType.research &&
                 <ArticlePage preview={false} article={article}/>
             }
@@ -40,9 +41,9 @@ export default async function ResearchPage({ params }: PageParams) {
             }
 
             <Privileged requiredScopes={SCOPES.maintainer}>
-                <div className="flex flex-row space-x-4">
+                <div className="flex flex-row space-x-6">
                     <ButtonLink theme={"cms"} href={`/research/${params.id}/edit`} text={"Edit Article"} icon={icons.edit}/>
-                    <ButtonLink theme={"red"} href={`/research/${params.id}/delete`} text={"Delete"} icon={icons.trash} />
+                    <DeleteArticleButton articleJSON={JSON.stringify(article)}/>
                 </div>
             </Privileged>
         </div>

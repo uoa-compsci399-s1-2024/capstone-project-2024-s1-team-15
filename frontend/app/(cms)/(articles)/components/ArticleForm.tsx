@@ -11,16 +11,14 @@ import { useAuth } from "@/app/lib/hooks"
 import { useRouter } from "next/navigation"
 import Button from "@/app/components/Button";
 import icons from "@/app/lib/icons";
+import DeleteArticleButton from "@/app/(cms)/(articles)/components/DeleteArticleButton";
+import ButtonLink from "@/app/components/ButtonLink";
 
-type ArticleFormProps = PublishArticleFormProps | EditArticleFormProps
-
-type PublishArticleFormProps = {
+type ArticleFormProps = {
     actionType: "publish"
     articleType: ArticleType
     articleJSONString?: string
-}
-
-type EditArticleFormProps = {
+} | {
     actionType: "edit"
     articleType: ArticleType
     articleJSONString: string
@@ -127,9 +125,10 @@ export default function ArticleForm({ actionType, articleType, articleJSONString
     return (
         <div className={"space-y-6"}>
             <div>
-                <p className={"form-label"}>Title</p>
+                <label className={"form-label"} htmlFor={"title"}>Title</label>
                 <input
-                    id={"title-input"}
+                    id={"title"}
+                    name={"title"}
                     className={"form-input"}
                     onChange={updateTitle}
                     placeholder={"Enter title here... (required)"}
@@ -139,10 +138,11 @@ export default function ArticleForm({ actionType, articleType, articleJSONString
             </div>
 
             <div>
-                <p className={"form-label"}>Subtitle</p>
+                <label className={"form-label"} htmlFor={"subtitle"}>Subtitle</label>
                 <input
-                    id={"subtitle-input"}
-                    className={"form-input pb-1"}
+                    id={"subtitle"}
+                    name={"subtitle"}
+                    className={"form-input"}
                     onChange={updateSubtitle}
                     placeholder={"Enter subtitle here... (optional)"}
                     defaultValue={subtitle}
@@ -156,12 +156,31 @@ export default function ArticleForm({ actionType, articleType, articleJSONString
 
             {error && <p className={"form-error"}>{error}</p>}
 
-            <div>
+            <div className={"flex flex-row gap-x-6"}>
+                {actionType === "edit" && article &&
+                    <ButtonLink
+                        href={`/${article.articleType === ArticleType.news
+                            ? "news"
+                            : "research"
+                            }/${article.id}
+                        `}
+                        text={"Back"}
+                        icon={icons.back}
+                        theme={"secondary"}
+                        leftIcon
+                    />
+                }
+
                 <Button
                     onClick={submitArticle}
-                    text={`${ actionType === "edit" ? "Edit" : "Publish"} ${articleType === ArticleType.news ? "News" : "Research"}`}
-                    icon={icons.add}
+                    theme={"cms-green"}
+                    text={`${ actionType === "edit" ? "Edit" : "Publish"}`}
+                    icon={actionType === "publish" ? icons.add : icons.edit}
                 />
+
+                {actionType === "edit" &&
+                    <DeleteArticleButton articleJSON={articleJSONString} onError={e => setError(e)}/>
+                }
             </div>
 
             <div>

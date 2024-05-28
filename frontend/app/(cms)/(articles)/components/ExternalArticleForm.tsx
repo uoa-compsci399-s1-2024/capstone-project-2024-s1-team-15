@@ -9,6 +9,8 @@ import { editResearch, publishResearch } from "@/app/services/research"
 import { useAuth } from "@/app/lib/hooks"
 import Button from "@/app/components/Button"
 import icons from "@/app/lib/icons";
+import DeleteArticleButton from "@/app/(cms)/(articles)/components/DeleteArticleButton";
+import ButtonLink from "@/app/components/ButtonLink";
 
 type ArticleFormProps = PublishArticleFormProps | EditArticleFormProps
 
@@ -117,20 +119,23 @@ export default function ExternalArticleForm({ actionType, articleType, articleJS
     return(
         <div className={"space-y-6"}>
             <div>
-                <p className={"form-label"}>Title</p>
+                <label className={"form-label"} htmlFor={"external-title"}>Title</label>
                 <input
-                    id={"external-title-input"}
+                    id={"external-title"}
+                    name={"title"}
                     className={"form-input"}
                     placeholder={"Enter title here... (required)"}
                     defaultValue={title}
                     onChange={updateTitle}
+                    required
                 />
             </div>
 
             <div>
-                <p className={"form-label"}>External Link</p>
+                <label className={"form-label"} htmlFor={"link"}>External Link</label>
                 <input 
-                    id={"link-input"}
+                    id={"link"}
+                    name={"link"}
                     className={"form-input"}
                     placeholder={"Enter link to an external article here...(required) "}
                     defaultValue={externalLink}
@@ -138,15 +143,34 @@ export default function ExternalArticleForm({ actionType, articleType, articleJS
                 />
             </div>
 
-            <div>
+            {error && <span>{error}</span>}
+
+            <div className={"flex flex-row gap-x-6"}>
+                {actionType === "edit" && article &&
+                    // Go back to all articles page, as external articles no longer have their own page
+                    <ButtonLink
+                        href={`/${article.articleType === ArticleType.news
+                            ? "news"
+                            : "research"
+                        }`}
+                        text={"Back"}
+                        icon={icons.back}
+                        theme={"secondary"}
+                        leftIcon
+                    />
+                }
+
                 <Button
                     onClick={submitArticle}
-                    text={`${actionType === "edit" ? "Edit" : "Publish"} External ${articleType === ArticleType.news_external ? "News" : "Research"}`}
-                    icon={icons.add}
+                    theme={"cms-green"}
+                    text={`${actionType === "edit" ? "Edit" : "Publish"}`}
+                    icon={actionType === "publish" ? icons.add : icons.edit}
                 />
-            </div>
 
-            { error && <span>{error}</span> }
+                {actionType === "edit" &&
+                    <DeleteArticleButton articleJSON={articleJSONString} onError={e => setError(e)}/>
+                }
+            </div>
         </div>
     )
 }

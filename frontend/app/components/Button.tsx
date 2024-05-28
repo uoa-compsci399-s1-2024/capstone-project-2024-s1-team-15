@@ -4,7 +4,7 @@ import icons from "@/app/lib/icons";
 export type ButtonProps = {
     onClick?: () => void
     className?: string
-    theme?: "primary" | "secondary" | "red" | "green" | "cms" | "overlay"
+    theme?: "primary" | "secondary" | "red" | "green" | "cms" | "cms-red" | "cms-green" | "cms-yellow" | "overlay"
     icon?: React.JSX.Element
     text?: string
     disabled?: boolean
@@ -41,6 +41,18 @@ export default function Button(
         }
         case "cms": {
             colorClass = "bg-maintainer bg-opacity-40 border-2 border-dashed border-black disabled:bg-opacity-20 disabled:group-hover:bg-opacity-20"
+            break
+        }
+        case "cms-red": {
+            colorClass = "bg-red-500 bg-opacity-40 border-2 border-dashed border-black disabled:bg-opacity-20 disabled:group-hover:bg-opacity-20"
+            break
+        }
+        case "cms-yellow": {
+            colorClass = "bg-primary bg-opacity-60 border-2 border-dashed border-black disabled:bg-opacity-30 disabled:group-hover:bg-opacity-30"
+            break
+        }
+        case "cms-green": {
+            colorClass = "bg-green-500 bg-opacity-40 border-2 border-dashed border-black disabled:bg-opacity-20 disabled:group-hover:bg-opacity-20"
         }
     }
 
