@@ -80,7 +80,7 @@ export default function Button({
                 disabled={disabled}
                 onClick={onClick}
                 title={title}
-                className={`${colorClass} ${className} font-medium w-auto rounded-full gap-x-3 shadow-none
+                className={`${colorClass} ${className} font-medium  rounded-full gap-x-3 shadow-none
                 flex ${leftIcon ? "flex-row-reverse" : "flex-row"} items-center ${alignmentClass} flex-grow
                 group-hover:text-white ${theme === "overlay" ? "group-hover:bg-opacity-30" : "group-hover:bg-opacity-100"}
                 group-hover:shadow-none transition
