@@ -34,7 +34,7 @@ export function parseSpreadsheet(spreadsheet: ArrayBuffer): { pollenDataset: Pol
             parsingErrors.push(
                 `Worksheet '${sheetName}' couldn't be parsed because this error occurred: ${e.message}\n\n
                 Take a look at the assumptions the parsing algorithm makes. 
-                This could also be a bug with the parsing algorithm, so report to developers 🙂.`
+                This could also be a bug with the parsing algorithm, so report to developers.`
             )
         }
     })
