@@ -12,7 +12,7 @@ import {
     IoFilterOutline,
     IoImageOutline,
     IoInformationCircleOutline,
-    IoKeyOutline,
+    IoKeyOutline, IoLinkOutline,
     IoLogInOutline,
     IoLogOutOutline,
     IoMenuOutline,
@@ -50,7 +50,8 @@ const icons =  {
     "reload": <IoReload size={"100%"}/>,
     "key": <IoKeyOutline size={"100%"}/>,
     "deactivate": <IoPowerOutline size={"100%"}/>,
-    "check": <IoCheckmark size={"100%"}/>
+    "check": <IoCheckmark size={"100%"}/>,
+    "link": <IoLinkOutline size={"100%"}/>
 }
 
 export default icons

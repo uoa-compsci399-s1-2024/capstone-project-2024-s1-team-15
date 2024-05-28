@@ -2,7 +2,7 @@
 
 import SearchBar from "@/app/components/SearchBar"
 import { getAllNews } from "@/app/services/news"
-import { Article, ArticleType, IPaginator } from "@aapc/types"
+import { Article, IPaginator } from "@aapc/types"
 import { useEffect, useState } from "react"
 import ArticleCard from "./ArticleCard"
 import Privileged from "@/app/components/Privileged"
@@ -10,7 +10,6 @@ import ButtonLink from "@/app/components/ButtonLink"
 import { SCOPES } from "@/app/lib/consts"
 import icons from "@/app/lib/icons"
 import { getAllResearch } from "@/app/services/research"
-import ExternalArticleCard from "./ExternalArticleCard"
 
 type displayAllArticleProps = {
     articleType: "news" | "research"
@@ -48,11 +47,7 @@ export default function DisplayAllArticles({articleType} : displayAllArticleProp
             <div className={"space-y-6 mt-6"}>
                 {articles?.totalResults?(
                     articles.data.map((a) => {
-                        if (a.articleType === ArticleType.news  || a.articleType === ArticleType.research) {
-                            return <ArticleCard article={a} key={a.id} />
-                        } else {
-                            return <ExternalArticleCard article={a} key={a.id}/>
-                        }
+                        return <ArticleCard articleJSON={JSON.stringify(a)} key={a.id} />
                     })
                 ) : searchTerm ? (
                     <p>

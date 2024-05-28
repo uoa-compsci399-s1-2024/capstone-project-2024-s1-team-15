@@ -13,6 +13,7 @@ import Button from "@/app/components/Button";
 import icons from "@/app/lib/icons";
 import DeleteArticleButton from "@/app/(cms)/(articles)/components/DeleteArticleButton";
 import ButtonLink from "@/app/components/ButtonLink";
+import { DEFAULT_FORM_DIALOG_DURATION } from "@/app/lib/consts";
 
 type ArticleFormProps = {
     actionType: "publish"
@@ -31,7 +32,10 @@ export default function ArticleForm({ actionType, articleType, articleJSONString
     const [subtitle, setSubtitle] = useState( "")
     const [initialEditorContent, setInitialEditorContent] = useState("")
     const [editorContent, setEditorContent] = useState("")
+
     const [error, setError] = useState<Nullable<string>>(null)
+    const [success, setSuccess] = useState<boolean>(false)
+    const [_, setCurrentTimeout] = useState<Nullable<NodeJS.Timeout>>(null)
 
     const article = useMemo(
         () => articleJSONString ? new Article(JSON.parse(articleJSONString)) : null,
@@ -47,39 +51,46 @@ export default function ArticleForm({ actionType, articleType, articleJSONString
         }
     }, [article])
 
+    const handleSubmitSuccess = () => {
+        setError(null)
+        setSuccess(true)
+        setCurrentTimeout(c => {
+            if (c) clearTimeout(c)
+            return setTimeout(
+                () => setSuccess(false),
+                DEFAULT_FORM_DIALOG_DURATION
+            )
+        })
+    }
+
     const submitArticle = () => {
         if (!title || title === "") {
-            setError("You must enter a title for your article.")
+            setError("You must enter a title.")
             return
         }
+
         const a: ArticleOut = {
             title: title,
             subtitle: subtitle,
             content: editorContent,
-            articleType: articleType,
-            media: [],
+            articleType: articleType
         }
+
         switch (articleType) {
             case ArticleType.news: {
                 switch (actionType) {
                     case "publish": {
                         publishNews(a, { token }).then(r => {
                             if (r.success) {
-                                setError(null)
-                                router.push(`/news/${r.result.id}`)
-                            } else {
-                                setError(r.message)
-                            }
+                                handleSubmitSuccess()
+                                setTimeout(() => router.push(`/news/${r.result.id}`), 2500)
+                            } else setError(r.message)
                         })
                     } break
                     case "edit": {
                         editNews((article as IArticle).id, a, { token }).then(r => {
-                            if (r.success) {
-                                setError(null)
-                                router.push(`/news/${r.result.id}`)
-                            } else {
-                                setError(r.message)
-                            }
+                            if (r.success) handleSubmitSuccess()
+                            else setError(r.message)
                         })
                     } break
                 }
@@ -89,39 +100,29 @@ export default function ArticleForm({ actionType, articleType, articleJSONString
                     case "publish": {
                         publishResearch(a, { token }).then(r => {
                             if (r.success) {
-                                setError(null)
-                                router.push(`/research/${r.result.id}`)
-                            } else {
-                                setError(r.message)
-                            }
+                                handleSubmitSuccess()
+                                setTimeout(() => router.push(`/research/${r.result.id}`), 2500)
+                            } else setError(r.message)
                         })
                     } break
                     case "edit": {
                         editResearch((article as IArticle).id, a, { token }).then(r => {
-                            if (r.success) {
-                                setError(null)
-                                router.push(`/research/${r.result.id}`)
-                            } else {
-                                setError(r.message)
-                            }
+                            if (r.success) handleSubmitSuccess()
+                            else setError(r.message)
                         })
-                    } break
+                    }
                 }
-
-            } break
+            }
         }
     }
-
     const updateTitle = () => {
         const e: HTMLInputElement = document.getElementById("title") as HTMLInputElement
         setTitle(e.value)
     }
-
     const updateSubtitle = () => {
         const e: HTMLInputElement = document.getElementById("subtitle") as HTMLInputElement
         setSubtitle(e.value)
     }
-
     return (
         <div className={"space-y-6"}>
             <div>
@@ -154,8 +155,6 @@ export default function ArticleForm({ actionType, articleType, articleJSONString
                 <ContentEditor setEditorContent={setEditorContent} initialContent={initialEditorContent}/>
             </div>
 
-            {error && <p className={"form-error"}>{error}</p>}
-
             <div className={"flex flex-row gap-x-6"}>
                 {actionType === "edit" && article &&
                     <ButtonLink
@@ -182,6 +181,15 @@ export default function ArticleForm({ actionType, articleType, articleJSONString
                     <DeleteArticleButton articleJSON={articleJSONString} onError={e => setError(e)}/>
                 }
             </div>
+
+            {error && <p className={"form-error"}>{error}</p>}
+            {success && <p className={"form-success"}>
+                {actionType === "edit"
+                    ? "Article has been successfully edited."
+                    : "Article has been successfully published. Redirecting to article page..."
+                }
+                </p>
+            }
 
             <div>
                 <p className={"form-label"}>Article Preview</p>

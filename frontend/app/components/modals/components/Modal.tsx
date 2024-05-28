@@ -13,7 +13,7 @@ export default function Modal (
     return (
         <div id={modalId} tabIndex={-1} className={`${hidden? 'hidden' : ''} ${outerClassName}
             fixed top-0 bottom-0 left-0 h-screen w-screen z-40 bg-black bg-opacity-40
-            px-pc sm:px-pc-sm md:px-pc-md !mx-0
+            px-pc sm:px-pc-sm md:px-pc-md !m-0
         `}>
             <div id={`inner-${modalId}`} className={`
                 relative drop-shadow-2xl mx-auto w-full max-w-[540px]

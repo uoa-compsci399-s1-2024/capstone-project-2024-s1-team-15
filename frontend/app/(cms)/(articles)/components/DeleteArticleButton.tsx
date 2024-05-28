@@ -70,7 +70,7 @@ export default function DeleteArticleButton({ articleJSON, onError } : DeleteBut
                     } article?
                 </p>
                 <div className={"bg-white rounded-2xl mt-4"}>
-                    <ArticleCard article={article}/>
+                    <ArticleCard disableModal articleJSON={JSON.stringify(article)}/>
                 </div>
             </ConfirmModal>
             <Button

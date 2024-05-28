@@ -21,7 +21,7 @@ export default async function EditResearchPage({ params }: { params: { id: strin
                 <div className={"mb-6"}>
                     <p className={"form-label"}>Currently Editing</p>
                     <div className={"max-w-[540px]"}>
-                        <ArticleCard article={article}/>
+                        <ArticleCard articleJSON={JSON.stringify(article)}/>
                     </div>
                 </div>
             }
