@@ -88,12 +88,7 @@ export default function EditPollen() {
             <form className="flex flex-col items-start gap-y-2">
                 <div className={"mb-4"}>
                     <label className={"form-label"}>Excel (.xlsx) spreadsheet upload</label>
-                    <input
-                        className={"block mt-1"}
-                        type="file"
-                        ref={fileInputReference}
-                        accept={`.xlsx`}
-                    />
+                    <input className={"block mt-1 w-full"} type="file" ref={fileInputReference} accept={`.xlsx`} />
                 </div>
                 <div className={"flex flex-row gap-x-6"}>
                     <ButtonLink

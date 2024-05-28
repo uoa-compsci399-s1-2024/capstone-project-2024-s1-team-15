@@ -195,7 +195,7 @@ export default function Pollen() {
                 </p>
                 {pollenData && <PollenCalendar pollenData={pollenData} />}
                 <Privileged requiredScopes={SCOPES.maintainer}>
-                    <div className="flex gap-x-4 my-4">
+                    <div className="flex flex-wrap gap-x-4 my-4">
                         <ButtonLink theme={"cms"} href={"/pollen/edit"} text={"Update Pollen Data"} icon={icons.edit}/>
                         <Button theme={"cms-red"} text={"Delete All Pollen Data"} icon={icons.trash} onClick={() => {
                             deleteConfirmModalRef.current && deleteConfirmModalRef.current.showModal()
