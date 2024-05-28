@@ -26,6 +26,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                         h-header-mobile pb-2
                         sm:h-header-tablet sm:pb-4
                         md:h-header-desktop md:pb-6
+                        z-40
                     `}>
                         <Header/>
                     </header>
