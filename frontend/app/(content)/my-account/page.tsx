@@ -99,7 +99,8 @@ export default function Page(): Nullable<React.JSX.Element> {
                 setImages(r.result.data)
             }
         })
-    }, [user]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [user])
 
     return user && (
         <div>

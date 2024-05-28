@@ -33,6 +33,7 @@ export default function DisplayArticles({ type, publisher } : DisplayArticleProp
                 setArticleP(p)
             })
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchTerm, page])
 
     return (articleP &&
