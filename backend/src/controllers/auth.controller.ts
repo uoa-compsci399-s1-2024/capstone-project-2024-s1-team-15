@@ -37,6 +37,18 @@ export default class AuthController {
         next()
     }
 
+    static refreshToken: RequestHandler = async (req, res, next) => {
+        const user = await DB.getUserByUsername(res.locals.username)
+        if (!user) throw new UnauthorizedError("No user exists with this username.")
+        const token = AUTH.issueTokenFromUser(user)
+
+        res.status(200).json({
+            token: token,
+            user: user
+        })
+        next()
+    }
+
     static deactivate: RequestHandler = async (req, res, next) => {
         const body = validate(DeactivateIn, req.body)
         res.status(200).send(body)

@@ -1,15 +1,17 @@
-"use client"  // This can be turned into a server component when the Load Example function is removable
+"use client"
 
 import React, { useState } from "react"
-import ArticleForm from "@/app/(cms)/(articles)/components/ArticleForm"
+import Switch from "react-switch"
 import { Article, ArticleType } from "@aapc/types"
 import { Nullable } from "@/app/lib/types"
-import ExternalArticleForm from "../../components/ExternalArticleForm"
-import Button from "@/app/components/Button";
-import icons from "@/app/lib/icons";
+import icons from "@/app/lib/icons"
+import Button from "@/app/components/Button"
+import ExternalArticleForm from "@/app/(cms)/(articles)/components/ExternalArticleForm"
+import ArticleForm from "@/app/(cms)/(articles)/components/ArticleForm"
 
 export default function CreateResearchPage() {
     const [exampleArticle, setExampleArticle] = useState<Nullable<Article>>(null)
+    const [useExternal, setUseExternal] = useState(false)
 
     const initializeExampleArticle = () => {
         const ex = new Article({
@@ -24,23 +26,32 @@ export default function CreateResearchPage() {
 
     return (
         <div className={"space-y-6"}>
-            <h1>Publish a Research Article</h1>
-            { !exampleArticle &&
-                <Button
-                    theme={"secondary"}
-                    onClick={initializeExampleArticle}
-                    text={"Load Example"}
-                    icon={icons.wand}
+            <h1 className={"page-title"}>Publish Research Article</h1>
+            <div>
+                <p className={"form-label"}>Use external article</p>
+                <Switch checked={useExternal} onChange={c => setUseExternal(c)}/>
+            </div>
+            <div className={`space-y-6 ${useExternal? "hidden" : ""}`}>
+                {!exampleArticle &&
+                    <Button
+                        theme={"secondary"}
+                        onClick={initializeExampleArticle}
+                        text={"Load Example"}
+                        icon={icons.wand}
+                    />
+                }
+                <ArticleForm
+                    articleType={ArticleType.research}
+                    actionType={"publish"}
+                    articleJSONString={exampleArticle ? JSON.stringify(exampleArticle) : undefined}
                 />
-            }
-            <h3>Use an external link: </h3>
-            <ExternalArticleForm articleType={ArticleType.research_external} actionType={"publish"}></ExternalArticleForm>
-            <h3>Input research article manually: </h3>
-            <ArticleForm
-                articleType={ArticleType.research}
-                actionType={"publish"}
-                articleJSONString={exampleArticle ? JSON.stringify(exampleArticle) : undefined}
-            />
+            </div>
+            <div className={`space-y-6 ${!useExternal ? "hidden" : ""}`}>
+                <ExternalArticleForm
+                    articleType={ArticleType.research_external}
+                    actionType={"publish"}
+                />
+            </div>
         </div>
     )
 }

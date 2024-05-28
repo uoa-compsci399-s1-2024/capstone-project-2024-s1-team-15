@@ -1,15 +1,20 @@
-import React from "react"
+"use client"
+
+import React, { useState } from "react"
 import PageTemplate from "@/app/components/PageContentTemplate"
 
-import TechniqueCard from "./TechniqueCard"
+import StrategyCard from "./components/commonStrategies/StrategyCard"
 import InteractiveBodyDiagram from "./InteractiveBodyDiagram"
 import SourceLink, { LearnMoreLink } from "@/app/components/SourceLink"
-import commonStrategies from "./CommonStrategies"
+import strategies from "./components/commonStrategies/commonStrategies"
+import ExplanationDialog from "./ExplanationDialog"
 
 export default function HealthPage() {
+    const [selectedTechnique, selectTechnique] = useState<null | string>(null)
+
     return (
         <PageTemplate>
-            <PageTemplate.PageName name={"Health"}/>
+            <PageTemplate.PageName name={"Health"} />
             <PageTemplate.PageExplanation>
                 <div>
                     <p>
@@ -22,7 +27,7 @@ export default function HealthPage() {
                         <li>
                             <p>
                                 house dust mite
-                                <LearnMoreLink sourceUrl="https://www.allergy.org.nz/conditions/environmental-allergies/seed/#:~:text=House%20dust%20mites%20are%20microscopic,that%20causes%20so%20much%20misery."/>
+                                <LearnMoreLink sourceUrl="https://www.allergy.org.nz/conditions/environmental-allergies/seed/#:~:text=House%20dust%20mites%20are%20microscopic,that%20causes%20so%20much%20misery." />
                             </p>
                         </li>
                         <li>
@@ -31,18 +36,16 @@ export default function HealthPage() {
                             </p>
                         </li>
                         <li>
-                            <p>
-                                mould
-                            </p>
+                            <p>mould</p>
                         </li>
                         <li>
                             <p>
-                                pollen from grasses, weeds or trees <br/>
-                                <LearnMoreLink sourceUrl="./pollen"/>
+                                pollen from grasses, weeds or trees <br />
+                                <LearnMoreLink sourceUrl="./pollen" />
                             </p>
                         </li>
                     </ul>
-                    <br/>
+                    <br />
                     <p>
                         The allergen comes into contact with the sensitive, moist lining in your nose and sinuses and
                         sets off the allergic response.{" "}
@@ -56,7 +59,8 @@ export default function HealthPage() {
             </PageTemplate.HighlightSection>
 
             <PageTemplate.RemainingPageContent>
-                <div className={`bg-accent-light rounded-r-[4rem] mb-4 flex flex-col items-center
+                <div
+                    className={`bg-accent-light rounded-r-[4rem] mb-4 flex flex-col items-center
                     -ml-pc pl-[calc(theme(spacing.pc)+0.375rem)] pr-pc py-2
                     sm:-ml-pc-sm sm:pl-[calc(theme(spacing.pc-sm)+0.5rem)] sm:pr-pc-sm sm:py-3
                     md:-ml-pc-md md:pl-[calc(theme(spacing.pc-md)+0.75rem)] md:pr-pc-md md:py-4
@@ -69,11 +73,23 @@ export default function HealthPage() {
                         <h3 className={`m-0 text-center`}>Common Strategies</h3>
                     </div>
                 </div>
-                <div className="flex gap-x-4 flex-wrap w-full gap-y-12 justify-center">
-                    {Object.entries(commonStrategies).map(([name, { image }]) => (
-                        <TechniqueCard key={name} image={image} name={name}/>
+                <div className="flex gap-x-4 flex-wrap w-full gap-y-16 justify-center">
+                    {Object.entries(strategies).map(([name, { image, explanation }]) => (
+                        <StrategyCard
+                            key={name}
+                            image={image}
+                            name={name}
+                            explanation={explanation}
+                            onClick={() => selectTechnique(name)}
+                        />
                     ))}
                 </div>
+                {selectedTechnique && (
+                    <ExplanationDialog onClose={() => selectTechnique(null)}>
+                        {strategies[selectedTechnique as keyof typeof strategies].explanation}
+                    </ExplanationDialog>
+                )}
+
                 <p className="mt-8">
                     For more in-depth tips on dealing with Hayfever, take a look at this article:{" "}
                     <a

@@ -2,7 +2,7 @@
 
 export default function SearchBar({ onSearchInputChange }: any) {
     return (
-        <div className="py-4 sm:mt-4 flex justify-start relative">
+        <div className="py-4 flex justify-start relative">
             <svg className="w-6 h-6 text-gray-400 absolute left-3 inset-y-0 my-auto"
                  xmlns="http://www.w3.org/2000/svg"
                  viewBox="0 0 20 20" fill="currentColor">

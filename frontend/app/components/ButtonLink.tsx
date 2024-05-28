@@ -6,7 +6,7 @@ type ButtonLinkProps = ButtonProps & { href: string }
 
 export default function ButtonLink(props: ButtonLinkProps ): React.JSX.Element {
     return (
-        <Link href={props.href} className={"text-black block"}>
+        <Link href={props.href} className={"text-black block w-max"}>
             <Button {...props}/>
         </Link>
     )
