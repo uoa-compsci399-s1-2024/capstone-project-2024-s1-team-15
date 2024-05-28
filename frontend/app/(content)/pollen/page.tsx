@@ -87,30 +87,33 @@ export default function Pollen() {
             </PageTemplate.PageExplanation>
             <PageTemplate.HighlightSection
                 title={
-                    <h3 className="flex flex-wrap items-center justify-center gap-2">
-                        <span className="font-semibold text-base">
-                            Types of
-                            <select
-                                className="bg-gray-100 border border-gray-300 rounded-lg p-1 mx-2 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                value={pollenType}
-                                onChange={(e) => handlePollenTypeChange(e.target.value as "grass" | "tree" | "weed")}>
-                                <option value="grass">Grass</option>
-                                <option value="tree">Tree</option>
-                                <option value="weed">Weed / Herb</option>
-                            </select>
-                            Pollen:
-                        </span>
-
-                        <span className="flex-col relative inline-flex">
+                    <>
+                        <h3>
+                            <span className="font-semibold text-base">
+                                Types of
+                                <select
+                                    className="bg-gray-100 border border-gray-300 rounded-lg p-1 mx-2 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    value={pollenType}
+                                    onChange={(e) =>
+                                        handlePollenTypeChange(e.target.value as "grass" | "tree" | "weed")
+                                    }>
+                                    <option value="grass">Grass</option>
+                                    <option value="tree">Tree</option>
+                                    <option value="weed">Weed / Herb</option>
+                                </select>
+                                Pollen
+                            </span>
+                        </h3>
+                        <h3 className="flex flex-col">
                             <span>{selectedSlidePollen.name}</span>
 
                             {selectedSlidePollen.scientificName && (
-                                <span className="text-gray-500 text-[0.6rem] leading-3   absolute top-full text-nowrap left-0 font-normal w-full text-center">
+                                <span className="text-gray-500 text-[0.6rem] leading-3 top-full  font-normal w-full text-center">
                                     Scientific name: {selectedSlidePollen.scientificName}
                                 </span>
                             )}
-                        </span>
-                    </h3>
+                        </h3>
+                    </>
                 }>
                 {selectedSlidePollen && selectedPollenSlideHTML && (
                     <>
@@ -140,7 +143,8 @@ export default function Pollen() {
             </PageTemplate.HighlightSection>
             <PageTemplate.RemainingPageContent>
                 <h2 className={"mt-16 drop-shadow-lg"}>Pollen Calendar</h2>
-                <p className={`bg-accent-light pb-4 pt-8 
+                <p
+                    className={`bg-accent-light pb-4 pt-8 
                     -ml-pc pl-[calc(theme(spacing.pc)+0.625rem)] pr-pc -mt-8 rounded-r-[2rem]
                     
                     sm:-ml-pc-sm sm:pl-[calc(theme(spacing.pc-sm)+0.75rem)] sm:pr-pc-sm sm:-mt-9 sm:rounded-r-[3rem]
