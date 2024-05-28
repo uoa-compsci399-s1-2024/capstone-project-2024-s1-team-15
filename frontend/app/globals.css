@@ -28,6 +28,10 @@ a {
     @apply text-[14px] sm:text-[15px] md:text-[16px];
 }
 
+h5 {
+    @apply underline underline-offset-2;
+}
+
 a {
     @apply text-blue-700;
 }
