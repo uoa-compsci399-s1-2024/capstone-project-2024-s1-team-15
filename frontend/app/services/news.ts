@@ -5,10 +5,10 @@ import { API_URI } from "@/app/lib/consts"
 import { FetchOptions, getHeaders, getSearchParams, PaginatedResultOptions } from "@/app/services/lib/util"
 import { revalidateNews } from "@/app/services/lib/revalidator"
 
-export async function getNewsById(id: string, options?: FetchOptions): Promise<Nullable<IArticle>> {
+export async function getNewsById(id: string, fetchOptions?: FetchOptions): Promise<Nullable<IArticle>> {
     const response = await fetch(API_URI + `/content/news/${id}`, {
         method: "get",
-        headers: getHeaders(options),
+        headers: getHeaders(fetchOptions),
         next: { tags: ["news"]}
     })
     if (response.status === 404) {

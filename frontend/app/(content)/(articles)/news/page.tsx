@@ -1,6 +1,6 @@
 import React from "react"
 import { getMetadata } from "@/app/lib/util"
-import DisplayAllArticles from "@/app/(content)/(articles)/components/DisplayAllArticles"
+import DisplayAllArticles from "@/app/(content)/(articles)/components/PaginatedArticles"
 
 export const metadata = getMetadata("All News")
 

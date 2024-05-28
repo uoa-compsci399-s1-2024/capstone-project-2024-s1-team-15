@@ -16,20 +16,22 @@ import { Nullable } from "@/app/lib/types";
 type DisplayArticleProps = {
     type: "news" | "research"
     publisher?: string
+    perPage?: number
+    paginatorPos?: "top" | "bottom" | "both"
 }
 
-export default function DisplayArticles({ type, publisher } : DisplayArticleProps){
+export default function PaginatedArticles({ type, publisher, perPage, paginatorPos = "bottom" } : DisplayArticleProps){
     const [articleP, setArticleP] = useState<Nullable<IPaginator<IArticle>>>(null)
     const [searchTerm, setSearchTerm] = useState("")
     const [page, setPage] = useState(1)
 
     useEffect(() => {
         if (type === "news") {
-            getNews(searchTerm, publisher, { page, perPage: DEFAULT_RESULTS_PER_PAGE }).then(p => {
+            getNews(searchTerm, publisher, { page, perPage: perPage || DEFAULT_RESULTS_PER_PAGE }).then(p => {
                 setArticleP(p)
             })
         } else {
-            getResearch(searchTerm, publisher, { page, perPage: DEFAULT_RESULTS_PER_PAGE }).then(p => {
+            getResearch(searchTerm, publisher, { page, perPage: perPage || DEFAULT_RESULTS_PER_PAGE }).then(p => {
                 setArticleP(p)
             })
         }
@@ -39,17 +41,23 @@ export default function DisplayArticles({ type, publisher } : DisplayArticleProp
     return (articleP &&
         <>
             <div className="max-w-screen-xl mr-auto sm:items-center justify-between gap-x-4 gap-y-4 flex flex-col-reverse sm:flex-row">
-                <Privileged requiredScopes={SCOPES.maintainer}>
-                    {type === "news" &&
-                        <ButtonLink theme={"cms"} href={"/news/publish"} text={"Publish News"} icon={icons.add}/>
-                    }
-                    {type === "research" &&
-                        <ButtonLink theme={"cms"} href={"/research/publish"} text={"Publish Research"} icon={icons.add}/>
-                    }
-                </Privileged>
+                {!publisher &&
+                    <Privileged requiredScopes={SCOPES.maintainer}>
+                        {type === "news" &&
+                            <ButtonLink theme={"cms"} href={"/news/publish"} text={"Publish News"} icon={icons.add}/>
+                        }
+                        {type === "research" &&
+                            <ButtonLink theme={"cms"} href={"/research/publish"} text={"Publish Research"}
+                                        icon={icons.add}/>
+                        }
+                    </Privileged>
+                }
                 <SearchBar onSearchInputChange={s => setSearchTerm(s)} />
             </div>
             <div className={"space-y-6 mt-6"}>
+                {(paginatorPos === "top" || paginatorPos === "both") &&
+                    <Paginator setPage={setPage} paginator={articleP}/>
+                }
                 {articleP.totalResults > 0
                     ? articleP.data.map(a =>
                         <ArticleCard articleJSON={JSON.stringify(a)} key={a.id}/>
@@ -58,7 +66,9 @@ export default function DisplayArticles({ type, publisher } : DisplayArticleProp
                         ? <p>No {type} articles found with &apos;{searchTerm}&apos; in the title.</p>
                         : <p>There are currently no {type} articles.</p>
                 }
-                <Paginator setPage={setPage} paginator={articleP}/>
+                {(paginatorPos === "bottom" || paginatorPos === "both") &&
+                    <Paginator setPage={setPage} paginator={articleP}/>
+                }
             </div>
         </>
     )
