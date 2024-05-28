@@ -33,7 +33,7 @@ const ConfirmModal = forwardRef(
                             text={buttonText || "Confirm"}
                             theme={"red"}
                             className={"text-black"}
-                            icon={buttonIcon || icons.image}
+                            icon={buttonIcon || icons.check}
                             onClick={() => {
                                 setHidden(true)
                                 onConfirm()
