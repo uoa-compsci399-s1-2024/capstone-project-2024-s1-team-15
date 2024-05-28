@@ -94,10 +94,12 @@ export default function ContactForm() {
                 </div>
 
                 <div className="flex justify-between md:items-center gap-x-4 gap-y-2 flex-col md:flex-row">
-                    <ReCAPTCHA
-                        sitekey="6LdQe94pAAAAAAtYGxiatB310mro7rNvoElcP8-T"
-                        onChange={(successToken: null | string) => setRecaptchaToken(successToken)}
-                    />
+                    <div className="scale-50 origin-left min-[320px]:scale-75 min-[480px]:scale-100">
+                        <ReCAPTCHA
+                            sitekey="6LdQe94pAAAAAAtYGxiatB310mro7rNvoElcP8-T"
+                            onChange={(successToken: null | string) => setRecaptchaToken(successToken)}
+                        />
+                    </div>
                     <Button
                         type={"submit"}
                         disabled={!recaptchaToken || pending}
