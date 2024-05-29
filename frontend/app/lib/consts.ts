@@ -34,6 +34,8 @@ export const DEFAULT_FORM_DIALOG_DURATION = 7000  // 7 seconds
 
 export const DEFAULT_RESULTS_PER_PAGE = 10
 
+export const DEFAULT_MAILTO_ADDRESS = 'aapctest27394962@gmail.com'
+
 export const ROUTES = {
     LOGIN: "/login",
     FORGOT_PASSWORD: "/forgot-password",
