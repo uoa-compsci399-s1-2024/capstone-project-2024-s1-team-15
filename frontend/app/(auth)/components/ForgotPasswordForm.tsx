@@ -26,7 +26,7 @@ export default function ForgotPasswordForm({ id, onSuccess }: { id?: string; onS
 
         if (!emailInput) return { error: "All fields are required." }
 
-        let result = await sendResetPasswordEmail({ email: emailInput })
+        let result = await sendResetPasswordEmail(emailInput)
         if (result.success) {
             const formElement = document.getElementById(formId) as HTMLFormElement
             setForgotPasswordEmailSent(true)
