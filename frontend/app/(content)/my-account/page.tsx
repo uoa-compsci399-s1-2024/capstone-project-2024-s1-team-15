@@ -10,7 +10,7 @@ import EditDisplayNameForm from "@/app/(content)/my-account/components/EditDispl
 import EditEmailForm from "@/app/(content)/my-account/components/EditEmailForm"
 import { ChangePasswordModal } from "@/app/components/modals"
 import { ModalRef } from "@/app/lib/hooks/useModal"
-import ManageImages from "@/app/(content)/my-account/components/ManageImages";
+import ManageImages from "@/app/(content)/my-account/components/ManageImages"
 
 export type FormState = {
     error?: string
