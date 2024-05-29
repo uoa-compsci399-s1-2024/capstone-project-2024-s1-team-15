@@ -32,6 +32,7 @@ export default interface IRepository {
     // User CRUD Methods
     getAllUsers(options?: ArrayResultOptions<SortOptions<User, UserSortFields>>): Promise<ArrayResult<User>>
     getUserByUsername(username: string): Promise<Nullable<User>>
+    getUserByEmail(email: string): Promise<Nullable<User>>
     searchUserByUsername(
         username: string,
         options?: ArrayResultOptions<SortOptions<User, UserSortFields>>

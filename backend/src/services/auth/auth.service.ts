@@ -1,5 +1,5 @@
 import { sign, verify } from "jsonwebtoken"
-import { Nullable } from "@/util/types/types"
+import { Nullable, Result } from "@/util/types/types"
 import { IUser, UserScope } from "@aapc/types"
 
 export type JWTPayload = {
@@ -18,6 +18,14 @@ export default class AuthContext {
 
     private issueToken(payload: JWTPayload): string {
         return sign(payload, this.jwtSecret)
+    }
+
+    async signup(username: string, password: string, email: string): Promise<void> {
+        return await this.authServiceProvider.createUser(username, password, email)
+    }
+
+    async confirmSignup(username: string, confirmationCode: string): Promise<boolean> {
+        return await this.authServiceProvider.confirmUser(username, confirmationCode)
     }
 
     async login(user: IUser, password: string): Promise<Nullable<string>> {
@@ -47,9 +55,13 @@ export default class AuthContext {
 }
 
 export interface IAuthService {
+    createUser(username: string, password: string, email: string): Promise<void>
+    confirmUser(username: string, confirmationCode: string): Promise<boolean>
+
     authenticateUser(username: string, password: string): Promise<boolean>
-    createUser(username: string, password: string): Promise<null>
-    changePassword(username: string, oldPassword: string, newPassword: string): Promise<void>
-    sendResetPasswordEmail(username: string): Promise<void>
-    resetPassword(username: string, verificationCode: string, newPassword: string): Promise<void>
+
+    changePassword(username: string, oldPassword: string, newPassword: string): Promise<boolean>
+
+    initiateResetPassword(username: string): Promise<void>
+    resetPassword(username: string, verificationCode: string, newPassword: string): Promise<boolean>
 }

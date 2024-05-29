@@ -225,6 +225,14 @@ export default class MongoRepository implements IRepository {
         return new User(<object>u)
     }
 
+    async getUserByEmail(email: string): Promise<Nullable<User>> {
+        const u = await this.users.findOne({ email: email })
+        if (u === null) {
+            return null
+        }
+        return new User(<object>u)
+    }
+
     async searchUserByUsername(
         username: string,
         options?: ArrayResultOptions<SortOptions<User, UserSortFields>>

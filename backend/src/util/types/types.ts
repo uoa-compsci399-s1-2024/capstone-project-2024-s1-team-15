@@ -16,6 +16,18 @@ export interface ArrayResult<T> {
     results: T[]
 }
 
+export type SuccessResult<T> = {
+    success: true
+    result: T
+}
+
+export type FailureResult = {
+    success: false
+    message: string
+}
+
+export type Result<S> = SuccessResult<S> | FailureResult
+
 export type Sorter<T, K extends SortOptions<T, any>> = (arr: T[], sortOptions?: K[]) => T[]
 
 export type ArticleSortFields = "publishedAt" | "lastEditedAt"

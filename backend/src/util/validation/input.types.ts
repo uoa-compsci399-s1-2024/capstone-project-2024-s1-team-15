@@ -25,6 +25,11 @@ interface ILoginIn {
 
 interface IRegisterIn extends ILoginIn, Omit<INewUserIn, "scopes"> {}
 
+interface IConfirmRegisterIn {
+    username: string
+    confirmationCode: string
+}
+
 interface IDeactivateIn {
     confirm: string
 }
@@ -34,7 +39,7 @@ interface IChangePasswordIn {
     newPassword: string
 }
 
-interface IForgotPasswordIn {
+interface IInitiateResetPasswordIn {
     email: string
 }
 
@@ -246,6 +251,22 @@ export class RegisterIn extends Validator<IRegisterIn> implements IRegisterIn {
     }
 }
 
+export class ConfirmRegisterIn extends Validator<IConfirmRegisterIn> implements IConfirmRegisterIn {
+    confirmationCode: string
+    username: string
+
+    constructor(obj: any) {
+        super("body")
+
+        this.username = String(this.checkMissing(obj, "username"))
+        this.confirmationCode = String(this.checkMissing(obj, "confirmationCode"))
+
+        if (this.errors.length > 0) {
+            throw new ValidationError(this.errors)
+        }
+    }
+}
+
 export class DeactivateIn extends Validator<IDeactivateIn> implements IDeactivateIn {
     confirm: string
 
@@ -276,7 +297,7 @@ export class ChangePasswordIn extends Validator<IChangePasswordIn> implements IC
     }
 }
 
-export class ForgotPasswordIn extends Validator<IForgotPasswordIn> implements IForgotPasswordIn {
+export class InitiateResetPasswordIn extends Validator<IInitiateResetPasswordIn> implements IInitiateResetPasswordIn {
     email: string
 
     constructor(obj: any) {
