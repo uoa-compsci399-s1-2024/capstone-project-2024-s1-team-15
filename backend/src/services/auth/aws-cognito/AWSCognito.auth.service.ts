@@ -138,7 +138,6 @@ export default class AWSCognitoAuthService implements IAuthService {
             )
             return true
         } catch (e) {
-            console.log(e)
             if (String(e).includes("CodeMismatchException") || String(e).includes("ExpiredCodeException")) {
                 return false
             }

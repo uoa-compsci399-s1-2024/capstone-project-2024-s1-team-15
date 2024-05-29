@@ -120,7 +120,7 @@ export default class AuthController {
         const u = await DB.getUserByEmail(body.email)
         if (!u) throw new NotFoundError("No user exists with this email.")
 
-        if (!await AUTH.resetPassword(u.email, body.verificationCode, body.newPassword)) {
+        if (!await AUTH.resetPassword(u.username, body.verificationCode, body.newPassword)) {
             throw new UnauthorizedError("Verification code provided is not correct.")
         }
 
