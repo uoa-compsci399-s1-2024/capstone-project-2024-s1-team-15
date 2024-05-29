@@ -11,14 +11,10 @@ export default class NewsRouter {
         const router = express.Router()
 
         // scope: anonymous
-        router.get("/",
-            expressAsyncHandler(NewsController.getNews)
-        )
+        router.get("/", expressAsyncHandler(NewsController.getNews))
 
         // scope: anonymous
         router.get("/:id", expressAsyncHandler(NewsController.getNewsById))
-
-        router.get("/by-user/:username", expressAsyncHandler(NewsController.getAllNewsByUser))
 
         // scope: maintainer
         router.post("/", Scope.has(SCOPES.maintainer),

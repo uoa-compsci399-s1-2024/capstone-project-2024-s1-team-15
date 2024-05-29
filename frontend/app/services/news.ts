@@ -1,13 +1,15 @@
 import { Article, IArticle, IPaginator, Paginator } from "@aapc/types"
-import { API_URI } from "@/app/lib/consts"
 import { ArticleOut, Nullable, Result } from "@/app/lib/types"
-import { FetchOptions, getHeaders } from "@/app/services/lib/util"
-import { fail, success } from "@/app/lib/util";
+import { fail, success } from "@/app/lib/util"
+import { API_URI } from "@/app/lib/consts"
+import { FetchOptions, getHeaders, getSearchParams, PaginatedResultOptions } from "@/app/services/lib/util"
+import { revalidateNews } from "@/app/services/lib/revalidator"
 
-export async function getNewsById(id: string, options?: FetchOptions): Promise<Nullable<IArticle>> {
+export async function getNewsById(id: string, fetchOptions?: FetchOptions): Promise<Nullable<IArticle>> {
     const response = await fetch(API_URI + `/content/news/${id}`, {
         method: "get",
-        headers: getHeaders(options)
+        headers: getHeaders(fetchOptions),
+        next: { tags: ["news"]}
     })
     if (response.status === 404) {
         return null
@@ -15,49 +17,59 @@ export async function getNewsById(id: string, options?: FetchOptions): Promise<N
     return new Article(await response.json())
 }
 
-export async function getAllNews(options?: FetchOptions): Promise<IPaginator<IArticle>> {
-    const response = await fetch(API_URI + `/content/news/`, {
-        method: "get",
-        headers: getHeaders(options)
-    })
-    return new Paginator(Article, await response.json())
-}
-
-export async function getNewsByUser(
-    username: string,
-    searchInput?: string,
-    options?: FetchOptions
+export async function getNews(
+    searchTerm?: string,
+    publisher?: string,
+    paginatorOptions?: PaginatedResultOptions<Article>,
+    fetchOptions?: FetchOptions
 ): Promise<IPaginator<IArticle>> {
-    const response = await fetch(
-        `${API_URI}/content/news/by-user/${username}?` + new URLSearchParams({ t: searchInput || "", pp: "100" }),
-        {
-            method: "get",
-            headers: getHeaders(options),
-        }
-    )
+    const searchParams = getSearchParams(paginatorOptions)
+    if (searchTerm) searchParams.append("t", searchTerm)
+    if (publisher) searchParams.append("publisher", publisher)
+
+    const response = await fetch(API_URI + `/content/news?` + searchParams, {
+        method: "get",
+        headers: getHeaders(fetchOptions),
+        next: { tags: ["research"] },
+    })
+
     return new Paginator(Article, await response.json())
 }
 
-export async function publishNews(a: ArticleOut, options?: FetchOptions): Promise<Result<IArticle>> {
+export async function publishNews(article: ArticleOut, fetchOptions?: FetchOptions): Promise<Result<IArticle>> {
     const response = await fetch(API_URI + `/content/news`, {
         method: "post",
-        headers: getHeaders(options),
-        body: JSON.stringify(a)
+        headers: getHeaders(fetchOptions),
+        body: JSON.stringify(article)
     })
     if (response.status >= 400) {
         return fail((await response.json()).message)
     }
+    await revalidateNews()
     return success(new Article(await response.json()))
 }
 
-export async function editNews(id: string, a: ArticleOut, options?: FetchOptions): Promise<Result<IArticle>> {
+export async function editNews(id: string, a: ArticleOut, fetchOptions?: FetchOptions): Promise<Result<IArticle>> {
     const response = await fetch(API_URI + `/content/news/${id}`, {
         method: "put",
-        headers: getHeaders(options),
+        headers: getHeaders(fetchOptions),
         body: JSON.stringify(a)
     })
     if (response.status >= 400) {
         return fail((await response.json()).message)
     }
+    await revalidateNews()
     return success(new Article(await response.json()))
+}
+
+export async function deleteNews(id: string, fetchOptions?: FetchOptions): Promise<Result<null>> {
+    const response = await fetch(API_URI + `/content/news/${id}`, {
+        method: "delete",
+        headers: getHeaders(fetchOptions),
+    })
+    if (response.status >= 400) {
+        return fail((await response.json()).message)
+    }
+    await revalidateNews()
+    return success(null)
 }

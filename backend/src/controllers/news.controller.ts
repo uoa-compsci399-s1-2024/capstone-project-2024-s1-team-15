@@ -14,10 +14,8 @@ export default class NewsController {
             maxResults: query.pp,
             sort: [{ field: query.sortBy, descending: query.desc }],
         }
-        let n = query.t === undefined ? await DB.getAllNews(options) : await DB.searchNewsByTitle(query.t, options)
-        res.status(200)
-            .json(getPaginator(Article, req, n, query.p, query.pp))
-            .send()
+        let n = await DB.getNews(query.t, query.publisher, options)
+        res.status(200).json(getPaginator(Article, req, n, query.p, query.pp))
         next()
     }
 
@@ -26,24 +24,6 @@ export default class NewsController {
         const a = await DB.getNewsById(id)
         if (a === null) throw new NotFoundError(`News article with id ${id} does not exist.`)
         res.status(200).json(a).send()
-        next()
-    }
-
-    static getAllNewsByUser: RequestHandler = async (req, res, next) => {
-        const username: string = String(req.params.username)
-        const query = validate(ArticlePaginatedQIn, req.query)
-
-        const options: ArrayResultOptions<SortOptions<Article, ArticleSortFields>> = {
-            startFrom: (query.p - 1) * query.pp,
-            maxResults: query.pp,
-            sort: [{ field: query.sortBy, descending: query.desc }],
-        }
-
-        let r = await DB.getAllNewsByUser(username, query.t, options)
-
-        res.status(200)
-            .json(getPaginator(Article, req, r, query.p, query.pp))
-            .send()
         next()
     }
 

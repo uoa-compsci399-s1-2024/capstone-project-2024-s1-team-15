@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
-import Button from "@/app/components/Button";
-import icons from "@/app/lib/icons";
+import Button from "@/app/components/FlexibleHeightButton"
+import icons from "@/app/lib/icons"
 
 type Props = {
     slides: React.JSX.Element[]

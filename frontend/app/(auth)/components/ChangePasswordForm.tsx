@@ -96,8 +96,10 @@ export default function ChangePasswordForm({ id }: { id?: string }): React.JSX.E
 
             <Button
                 disabled={pending}
+                theme={"red"}
                 type={"submit"}
                 text={pending ? "Changing password..." : "Change password"}
+                icon={icons.key}
             />
         </form>
     )

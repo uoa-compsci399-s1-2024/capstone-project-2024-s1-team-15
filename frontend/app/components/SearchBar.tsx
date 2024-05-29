@@ -1,8 +1,8 @@
 "use client"
 
-export default function SearchBar({ onSearchInputChange }: any) {
+export default function SearchBar({ onSearchInputChange }: { onSearchInputChange: (input: string) => void }) {
     return (
-        <div className="py-4 sm:mt-4 flex justify-start relative">
+        <div className="flex justify-start relative">
             <svg className="w-6 h-6 text-gray-400 absolute left-3 inset-y-0 my-auto"
                  xmlns="http://www.w3.org/2000/svg"
                  viewBox="0 0 20 20" fill="currentColor">
@@ -14,7 +14,7 @@ export default function SearchBar({ onSearchInputChange }: any) {
                 type="text"
                 placeholder="Search..."
                 className="w-full pl-12 pr-3 py-2 text-gray-500 bg-transparent outline-none border-2 focus:border-purple-300 hover:border-yellow-300 rounded-lg sm:max-w-xs"
-                onChange={(e) => onSearchInputChange(e.target.value)}
+                onChange={e => onSearchInputChange(e.target.value)}
             />
         </div>
     )
