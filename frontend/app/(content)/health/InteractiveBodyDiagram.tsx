@@ -3,22 +3,12 @@
 import { useEffect, useRef, useState } from "react"
 import HumanCartoon from "./images/humanCartoon.svg"
 import Image from "next/image"
-import commonSymptoms from "./commonSymptomsDescriptions"
-
-function capitalize(string: string) {
-    return string.charAt(0).toUpperCase() + string.slice(1)
-}
+import commonSymptoms from "./commonSymptoms"
+import ExplanationDialog from "./ExplanationDialog"
 
 export default function InteractiveBodyDiagram() {
     const [selectedBodyPart, setSelectedBodyPart] = useState<string | null>(null)
     const bodyPartExplanationDialogRef = useRef<null | HTMLDialogElement>(null)
-
-    useEffect(() => {
-        if (!bodyPartExplanationDialogRef.current) return
-
-        bodyPartExplanationDialogRef.current.showModal()
-        document.documentElement.style.overflowY = "hidden"
-    }, [selectedBodyPart, bodyPartExplanationDialogRef])
 
     return (
         <div>
@@ -71,23 +61,9 @@ export default function InteractiveBodyDiagram() {
             </div>
 
             {selectedBodyPart && (
-                <dialog
-                    ref={bodyPartExplanationDialogRef}
-                    className="bg-green-200 p-4 rounded-lg fixed max-w-[50%] "
-                    onClick={(e) => {
-                        if (!bodyPartExplanationDialogRef.current) return
-
-                        const { left, right, top, bottom } =
-                            bodyPartExplanationDialogRef.current.getBoundingClientRect()
-
-                        if (e.clientX < left || e.clientX > right || e.clientY < top || e.clientY > bottom) {
-                            bodyPartExplanationDialogRef.current.close()
-                            setSelectedBodyPart(null)
-                            document.documentElement.style.overflowY = ""
-                        }
-                    }}>
+                <ExplanationDialog onClose={() => setSelectedBodyPart(null)}>
                     {commonSymptoms[selectedBodyPart as keyof typeof commonSymptoms]}
-                </dialog>
+                </ExplanationDialog>
             )}
         </div>
     )

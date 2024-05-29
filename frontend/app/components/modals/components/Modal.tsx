@@ -17,7 +17,7 @@ export default function Modal (
         `}>
             <div id={`inner-${modalId}`} className={`
                 relative drop-shadow-2xl mx-auto w-full max-w-[540px]
-                overflow-y-scroll overflow-x-hidden rounded-xl z-50
+                overflow-y-auto overflow-x-hidden rounded-xl z-50
                 mt-header-mobile max-h-[calc(100vh-theme(spacing.header-mobile)-theme(spacing.pc))]
                 sm:mt-header-tablet sm:max-h-[calc(100vh-theme(spacing.header-tablet)-theme(spacing.pc-sm))]
                 md:mt-36 md:max-h-[calc(100vh-9rem-theme(spacing.pc-md))]
