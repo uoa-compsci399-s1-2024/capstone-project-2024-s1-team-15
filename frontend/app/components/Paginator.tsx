@@ -1,60 +1,58 @@
 'use client'
 
-import { useState } from "react"
+import React, { SetStateAction } from "react"
+import { IPaginator } from "@aapc/types"
+import Button from "@/app/components/Button"
+import icons from "@/app/lib/icons"
 
-export default function Paginator() {
-    const [pages] = useState<string[]>(["1", "2", "3", "...", "8", "9", "10"]);
-    const [currentPage] = useState<string>("1");
+interface PaginatorProps {
+    paginator: IPaginator<any>
+    setPage: React.Dispatch<SetStateAction<number>>
+}
+
+export default function Paginator({ paginator, setPage }: PaginatorProps) {
+    const resultStartIndex = (paginator.currentPage - 1) * paginator.resultsPerPage + 1
+    const resultEndIndex = Math.min(paginator.currentPage * paginator.resultsPerPage, paginator.totalResults)
+
+    const handlePrevious = () => {
+        if (paginator.currentPage > 1) {
+            setPage(p => p - 1)
+        }
+    }
+
+    const handleNext = () => {
+        if (paginator.currentPage < paginator.lastPage) {
+            setPage(p => p + 1)
+        }
+    }
 
     return (
-        <div className="max-w-screen-xl mx-auto mt-12 px-4 text-gray-600 md:px-8">
-            <div className="hidden justify-between text-sm md:flex">
-                <div>SHOWING 1-10 OF 100</div>
-                <div className="flex items-center gap-12" aria-label="Pagination">
-                    <a href="#" className="button">
-                        Previous
-                    </a>
-                    <ul className="flex items-center gap-1">
-                        {pages.map((item) => (
-                            <li key={item}>
-                                {item === "..." ? (
-                                    <div>{item}</div>
-                                ) : (
-                                    <a
-                                        href="#"
-                                        aria-current={currentPage === item ? "page" : false}
-                                        className={`px-3 py-2 rounded-lg button ${
-                                            currentPage === item
-                                                ? "button"
-                                                : ""
-                                        }`}
-                                    >
-                                        {item}
-                                    </a>
-                                )}
-                            </li>
-                        ))}
-                    </ul>
-                    <a href="#" className="button">
-                        Next
-                    </a>
+        <div className="w-full">
+            <div className="flex items-center justify-between" aria-label="Pagination">
+                <Button
+                    onClick={handlePrevious}
+                    text={"Previous"}
+                    icon={icons.back}
+                    disabled={paginator.currentPage === 1}
+                    leftIcon
+                />
+                <div className={"flex flex-col md:flex-row gap-x-1.5 text-center uppercase text-gray-500"}>
+                    <p className={"block smallest"}>
+                        Page <b className={"font-semibold"}>{paginator.currentPage}</b>
+                    </p>
+                    <p className={"hidden md:block smallest select-none"}>
+                        ·
+                    </p>
+                    <p className={"hidden sm:block smallest"}>
+                        Showing {resultStartIndex} - {resultEndIndex} of {paginator.totalResults}
+                    </p>
                 </div>
-            </div>
-            {/* Mobile view */}
-            <div className="flex items-center justify-between text-sm text-gray-600 font-medium md:hidden">
-                <a
-                    href="#"
-                    className="px-4 py-2 border rounded-lg button"
-                >
-                    Previous
-                </a>
-                <div className="font-medium">Showing 1-10 OF 100</div>
-                <a
-                    href="#"
-                    className="px-4 py-2 border rounded-lg button"
-                >
-                    Next
-                </a>
+                <Button
+                    onClick={handleNext}
+                    text={"Next"}
+                    icon={icons.forward}
+                    disabled={paginator.currentPage === paginator.lastPage}
+                />
             </div>
         </div>
     )
