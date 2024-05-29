@@ -50,6 +50,7 @@ const config: Config = {
                     css: {
                         fontSize: "1.1rem",
                         lineHeight: "1.65rem",
+                        maxWidth: "100ch",
                         img: {
                             borderRadius: "0.5rem",
                             marginTop: "0",
