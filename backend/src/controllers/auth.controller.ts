@@ -4,7 +4,6 @@ import { AUTH, DB } from "@/services/services"
 import {
     ChangePasswordIn,
     ConfirmRegisterIn,
-    DeactivateIn,
     InitiateResetPasswordIn,
     LoginIn,
     RegisterIn,
@@ -83,7 +82,11 @@ export default class AuthController {
     }
 
     static deactivate: RequestHandler = async (req, res, next) => {
-        const body = validate(DeactivateIn, req.body)
+        const body = validate(LoginIn, req.body)
+        if (!await AUTH.deactivate(body.username, body.password)) {
+            throw new UnauthorizedError("Username and/or password incorrect.")
+        }
+        await DB.deleteUser(body.username)
         res.sendStatus(204)
         next()
     }
@@ -94,7 +97,7 @@ export default class AuthController {
             throw new BadRequestError("New password cannot be the same as current password.")
         }
         const username = res.locals.username
-        if (!await AUTH.authServiceProvider.changePassword(username, body.currentPassword, body.newPassword)) {
+        if (!await AUTH.changePassword(username, body.currentPassword, body.newPassword)) {
             throw new UnauthorizedError("The current password provided is incorrect.")
         }
         res.sendStatus(204)
@@ -104,10 +107,9 @@ export default class AuthController {
     static initiateResetPassword: RequestHandler = async (req, res, next) => {
         const body = validate(InitiateResetPasswordIn, req.body)
         const u = await DB.getUserByEmail(body.email)
-        if (!u) throw new UnauthorizedError("No user exists with this email.")
-        if (!u.verified) throw new UnauthorizedError("User is not verified.")
+        if (!u || !u.verified) throw new NotFoundError("No user exists with this email.")
 
-        await AUTH.authServiceProvider.initiateResetPassword(u.username)
+        await AUTH.initiateResetPassword(u.username)
 
         res.sendStatus(204)
         next()
@@ -116,12 +118,11 @@ export default class AuthController {
     static resetPassword: RequestHandler = async (req, res, next) => {
         const body = validate(ResetPasswordIn, req.body)
         const u = await DB.getUserByEmail(body.email)
-        if (!u) throw new UnauthorizedError("No user exists with this email.")
+        if (!u) throw new NotFoundError("No user exists with this email.")
 
-        if (!await AUTH.authServiceProvider.resetPassword(u.email, body.verificationCode, body.newPassword)) {
-            throw new UnauthorizedError("Code")
+        if (!await AUTH.resetPassword(u.email, body.verificationCode, body.newPassword)) {
+            throw new UnauthorizedError("Verification code provided is not correct.")
         }
-
 
         res.sendStatus(200)
         next()

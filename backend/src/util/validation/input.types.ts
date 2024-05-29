@@ -30,10 +30,6 @@ interface IConfirmRegisterIn {
     confirmationCode: string
 }
 
-interface IDeactivateIn {
-    confirm: string
-}
-
 interface IChangePasswordIn {
     currentPassword: string
     newPassword: string
@@ -260,20 +256,6 @@ export class ConfirmRegisterIn extends Validator<IConfirmRegisterIn> implements 
 
         this.username = String(this.checkMissing(obj, "username"))
         this.confirmationCode = String(this.checkMissing(obj, "confirmationCode"))
-
-        if (this.errors.length > 0) {
-            throw new ValidationError(this.errors)
-        }
-    }
-}
-
-export class DeactivateIn extends Validator<IDeactivateIn> implements IDeactivateIn {
-    confirm: string
-
-    constructor(obj: any) {
-        super("body")
-
-        this.confirm = String(this.checkMissing(obj, "confirm"))
 
         if (this.errors.length > 0) {
             throw new ValidationError(this.errors)

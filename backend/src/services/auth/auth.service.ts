@@ -1,5 +1,5 @@
 import { sign, verify } from "jsonwebtoken"
-import { Nullable, Result } from "@/util/types/types"
+import { Nullable } from "@/util/types/types"
 import { IUser, UserScope } from "@aapc/types"
 
 export type JWTPayload = {
@@ -8,7 +8,7 @@ export type JWTPayload = {
 }
 
 export default class AuthContext {
-    readonly authServiceProvider: IAuthService
+    private readonly authServiceProvider: IAuthService
     private readonly jwtSecret: string
 
     constructor(authServiceProvider: IAuthService, jwtSecret: string = "local") {
@@ -21,7 +21,7 @@ export default class AuthContext {
     }
 
     async signup(username: string, password: string, email: string): Promise<void> {
-        return await this.authServiceProvider.createUser(username, password, email)
+        await this.authServiceProvider.createUser(username, password, email)
     }
 
     async confirmSignup(username: string, confirmationCode: string): Promise<boolean> {
@@ -36,6 +36,22 @@ export default class AuthContext {
             })
         }
         return null
+    }
+
+    async changePassword(username: string, oldPassword: string, newPassword: string): Promise<boolean> {
+        return await this.authServiceProvider.changePassword(username, oldPassword, newPassword)
+    }
+
+    async initiateResetPassword(username: string): Promise<void> {
+        await this.authServiceProvider.initiateResetPassword(username)
+    }
+
+    async resetPassword(username: string, verificationCode: string, newPassword: string): Promise<boolean> {
+        return await this.authServiceProvider.resetPassword(username, verificationCode, newPassword)
+    }
+
+    async deactivate(username: string, password: string) {
+        return await this.authServiceProvider.deleteUser(username, password)
     }
 
     issueTokenFromUser(user: IUser): string {
@@ -64,4 +80,6 @@ export interface IAuthService {
 
     initiateResetPassword(username: string): Promise<void>
     resetPassword(username: string, verificationCode: string, newPassword: string): Promise<boolean>
+
+    deleteUser(username: string, password: string): Promise<boolean>
 }

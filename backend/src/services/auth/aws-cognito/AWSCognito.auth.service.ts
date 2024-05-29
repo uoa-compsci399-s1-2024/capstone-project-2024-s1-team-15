@@ -3,7 +3,6 @@ import { IAuthService } from "@/services/auth/auth.service"
 
 export default class AWSCognitoAuthService implements IAuthService {
     private readonly userpool: CognitoUserPool
-    private readonly errorMessage = "Request to AWS Failed."
 
     constructor(clientId: string, userpoolId: string) {
         this.userpool = new CognitoUserPool({
@@ -139,7 +138,41 @@ export default class AWSCognitoAuthService implements IAuthService {
             )
             return true
         } catch (e) {
+            console.log(e)
             if (String(e).includes("CodeMismatchException") || String(e).includes("ExpiredCodeException")) {
+                return false
+            }
+            throw e
+        }
+    }
+
+    async deleteUser(username: string, password: string) {
+        const user = new CognitoUser({
+            Username: username,
+            Pool: this.userpool,
+        })
+        const authenticationDetails = new AuthenticationDetails({
+            Username: username,
+            Password: password
+        })
+        try {
+            await new Promise((resolve, reject) => {
+                user.authenticateUser(authenticationDetails, {
+                    onSuccess: () => {
+                        user.deleteUser((err, result) => {
+                            if (result === "SUCCESS") {
+                                resolve(null)
+                            } else {
+                                reject(err)
+                            }
+                        })
+                    },
+                    onFailure: e => reject(e)
+                })
+            })
+            return true
+        } catch (e) {
+            if (String(e).includes("NotAuthorizedException")) {
                 return false
             }
             throw e

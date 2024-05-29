@@ -85,4 +85,19 @@ export default class LocalAuthService implements IAuthService {
         }
         return false
     }
+
+    async deleteUser(username: string, password: string): Promise<boolean> {
+        if (await this.authenticateUser(username, password)) {
+            for (let i = 0; i < this.users.length; i++) {
+                const u = this.users[i]
+                if (u.username === username) {
+                    this.users.splice(i, 1)
+                    break
+                }
+            }
+            return true
+        } else {
+            return false
+        }
+    }
 }
