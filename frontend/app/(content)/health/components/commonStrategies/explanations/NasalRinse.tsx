@@ -24,7 +24,7 @@ export default function NasalRinseExplanation() {
                 </div>
             </div>
 
-            <h5>Quick Guides</h5>
+            <h5 className={"underline underline-offset-2"}>Quick Guides</h5>
             <p>Read through one of the following guides from different sources:</p>
             <ul className="default">
                 <li>

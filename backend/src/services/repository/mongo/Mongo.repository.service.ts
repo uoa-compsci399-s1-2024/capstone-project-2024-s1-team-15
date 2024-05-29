@@ -25,7 +25,7 @@ export default class MongoRepository implements IRepository {
         this.imageMetadata = this.db.collection("ImageMetadata")
     }
 
-    async fetchMongoDocuments(
+    private async fetchMongoDocuments(
         f: FindCursor<WithId<Document>>,
         options?: ArrayResultOptions<SortOptions<any, string>>
     ): Promise<WithId<Document>[]> {
@@ -42,20 +42,20 @@ export default class MongoRepository implements IRepository {
         return a
     }
 
-    async documentToArticle(d: WithId<Document>): Promise<Article> {
+    private async documentToArticle(d: WithId<Document>): Promise<Article> {
         const u = (await this.getUserByUsername(d.publisher)) ?? new User()
         const a = new Article(<object>d)
         a.publisher = u
         return a
     }
 
-    articleToDocument(a: Article): Promise<object> {
+    private articleToDocument(a: Article): Promise<object> {
         const aObj = structuredClone(a) as any
         aObj.publisher = a.publisher.username
         return aObj
     }
 
-    async documentToImageMetadata(d: WithId<Document>): Promise<ImageMetadata> {
+    private async documentToImageMetadata(d: WithId<Document>): Promise<ImageMetadata> {
         const u = (await this.getUserByUsername(d.createdBy)) ?? new User()
         const format = ImageFormat[d.format as "jpg" | "png"]
         const im = new ImageMetadata(<object>d)
@@ -64,7 +64,7 @@ export default class MongoRepository implements IRepository {
         return im
     }
 
-    imageMetadataToDocument(im: ImageMetadata): Promise<object> {
+    private imageMetadataToDocument(im: ImageMetadata): Promise<object> {
         const imObj = structuredClone(im) as any
         imObj.createdBy = im.createdBy.username
         return imObj
@@ -130,11 +130,24 @@ export default class MongoRepository implements IRepository {
         return u
     }
 
-    async getAllNews(
+    async getNews(
+        title?: string,
+        publisher?: string,
         options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>
     ): Promise<ArrayResult<Article>> {
         const r: Article[] = []
-        const q: Filter<any> = {$or: [{articleType: ArticleType.news}, {articleType: ArticleType.news_external}]}
+        let q: Filter<any> = {
+            $or: [
+                { articleType: ArticleType.news },
+                { articleType: ArticleType.news_external }
+            ]
+        }
+        if (title) {
+            q.push({ title: new RegExp(`.*${title}.*`, "i") })
+        }
+        if (publisher) {
+            q.push({ publisher: publisher })
+        }
         const rC = await this.articles.countDocuments(q)
         const result = await this.fetchMongoDocuments(this.articles.find(q), options)
         for (const document of result) {
@@ -146,11 +159,32 @@ export default class MongoRepository implements IRepository {
         }
     }
 
-    async getAllResearch(
+    async getNewsById(id: string): Promise<Nullable<Article>> {
+        const n = await this.articles.findOne({ $and: [{ $or: [{ articleType: ArticleType.news }, { articleType: ArticleType.news_external }] }, { id: id }] })
+        if (n === null) {
+            return null
+        }
+        return await this.documentToArticle(n)
+    }
+
+    async getResearch(
+        title?: string,
+        publisher?: string,
         options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>
     ): Promise<ArrayResult<Article>> {
         const r: Article[] = []
-        const q: Filter<any> = {$or: [{articleType: ArticleType.research}, {articleType: ArticleType.research_external}]}
+        let q: Filter<any> = {
+            $or: [
+                { articleType: ArticleType.research },
+                { articleType: ArticleType.research_external }
+            ]
+        }
+        if (title) {
+            q.push({ title: new RegExp(`.*${title}.*`, "i") })
+        }
+        if (publisher) {
+            q.push({ publisher: publisher })
+        }
         const rC = await this.articles.countDocuments(q)
         const result = await this.fetchMongoDocuments(this.articles.find(q), options)
         for (const document of result) {
@@ -162,52 +196,12 @@ export default class MongoRepository implements IRepository {
         }
     }
 
-    async getAllNewsByUser(
-        username: string,
-        title?: string,
-        options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>
-    ) {
-        let q: Filter<any> = {
-            $or: [{ articleType: ArticleType.news }, { articleType: ArticleType.news_external }],
-            publisher: username,
+    async getResearchById(id: string): Promise<Nullable<Article>> {
+        const r = await this.articles.findOne({ $and: [{ $or: [{ articleType: ArticleType.research }, { articleType: ArticleType.research_external }] }, { id: id }] })
+        if (r === null) {
+            return null
         }
-
-        if (title) {
-            q.title = new RegExp(`.*${title}.*`, "i")
-        }
-
-        const r: Article[] = []
-        const rC = await this.articles.countDocuments(q)
-        const result = await this.fetchMongoDocuments(this.articles.find(q), options)
-        for (const document of result) {
-            r.push(await this.documentToArticle(document))
-        }
-
-        return { totalResults: rC, results: r }
-    }
-
-    async getAllResearchByUser(
-        username: string,
-        title?: string,
-        options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>
-    ) {
-        let q: Filter<any> = {
-            $or: [{ articleType: ArticleType.research }, { articleType: ArticleType.research_external }],
-            publisher: username,
-        }
-
-        if (title) {
-            q.title = new RegExp(`.*${title}.*`, "i")
-        }
-
-        const r: Article[] = []
-        const rC = await this.articles.countDocuments(q)
-        const result = await this.fetchMongoDocuments(this.articles.find(q), options)
-        for (const document of result) {
-            r.push(await this.documentToArticle(document))
-        }
-
-        return { totalResults: rC, results: r }
+        return await this.documentToArticle(r)
     }
 
     async getAllUsers(options?: ArrayResultOptions<SortOptions<User, UserSortFields>>): Promise<ArrayResult<User>> {
@@ -223,68 +217,12 @@ export default class MongoRepository implements IRepository {
         }
     }
 
-    async getNewsById(id: string): Promise<Nullable<Article>> {
-        const n = await this.articles.findOne({$and: [{$or: [{articleType: ArticleType.news},{articleType: ArticleType.news_external}]},{id: id}]})
-        if (n === null) {
-            return null
-        }
-        return await this.documentToArticle(n)
-    }
-
-    async getResearchById(id: string): Promise<Nullable<Article>> {
-        const r = await this.articles.findOne({$and: [{$or: [{articleType: ArticleType.research},{articleType: ArticleType.research_external}]},{id: id}]})
-        if (r === null) {
-            return null
-        }
-        return await this.documentToArticle(r)
-    }
-
     async getUserByUsername(username: string): Promise<Nullable<User>> {
         const u = await this.users.findOne({ username: username })
         if (u === null) {
             return null
         }
         return new User(<object>u)
-    }
-
-    async searchNewsByTitle(
-        title: string,
-        options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>
-    ): Promise<ArrayResult<Article>> {
-        const r: Article[] = []
-        const q: Filter<any> = {
-            $or: [{articleType: ArticleType.news}, {articleType: ArticleType.news_external}],
-            title: new RegExp(`.*${title}.*`, "i"),
-        }
-        const rC: number = await this.articles.countDocuments(q)
-        const result = await this.fetchMongoDocuments(this.articles.find(q), options)
-        for (const document of result) {
-            r.push(await this.documentToArticle(document))
-        }
-        return {
-            totalResults: rC,
-            results: r,
-        }
-    }
-
-    async searchResearchByTitle(
-        title: string,
-        options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>
-    ): Promise<ArrayResult<Article>> {
-        const r: Article[] = []
-        const q: Filter<any> = {
-            $or: [{articleType: ArticleType.research}, {articleType: ArticleType.research_external}],
-            title: new RegExp(`.*${title}.*`, "i"),
-        }
-        const rC: number = await this.articles.countDocuments(q)
-        const result = await this.fetchMongoDocuments(this.articles.find(q), options)
-        for (const document of result) {
-            r.push(await this.documentToArticle(document))
-        }
-        return {
-            totalResults: rC,
-            results: r,
-        }
     }
 
     async searchUserByUsername(
@@ -308,14 +246,14 @@ export default class MongoRepository implements IRepository {
         return (await this.pollenData.find().toArray()) as object[] as PollenData[]
     }
 
-    async deletePollenDataset(): Promise<any> {
-        await this.pollenData.deleteMany()
-    }
-
     async createPollenDataset(pollenData: PollenData[]): Promise<any> {
         await this.deletePollenDataset()
 
         await this.pollenData.insertMany(pollenData)
+    }
+
+    async deletePollenDataset(): Promise<any> {
+        await this.pollenData.deleteMany()
     }
 
     async createImageMetadata(im: ImageMetadata): Promise<ImageMetadata> {
@@ -331,7 +269,7 @@ export default class MongoRepository implements IRepository {
         return this.documentToImageMetadata(im)
     }
 
-    async getImageMetadataCreatedBy(
+    async getImageMetadata(
         username?: Nullable<string>,
         options?: ArrayResultOptions<SortOptions<ImageMetadata, ImageMetadataSortFields>>
     ): Promise<ArrayResult<ImageMetadata>> {
