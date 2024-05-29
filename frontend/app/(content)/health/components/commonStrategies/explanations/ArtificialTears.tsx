@@ -28,7 +28,7 @@ export default function ArtificialTearsExplanation() {
                     />
                 </div>
             </div>
-            <h5>Other types of eye drops</h5>
+            <h5 className={"underline underline-offset-2"}>Other types of eye drops</h5>
             <p>
                 There are other types of eye drops for allergies besides artificial tears, such as antihistamines, mast
                 cell stabilisers, decongestants and steriods.

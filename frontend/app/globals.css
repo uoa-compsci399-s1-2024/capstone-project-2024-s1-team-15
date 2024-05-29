@@ -40,10 +40,6 @@ p.smallest, span.smallest, a.smallest {
     @apply text-[10.5px] sm:text-[12px] md:text-[13px];
 }
 
-h5 {
-    @apply underline underline-offset-2;
-}
-
 a {
     @apply text-blue-700;
 }
