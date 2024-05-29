@@ -19,7 +19,6 @@ export default class LocalAuthService implements IAuthService {
             username, password,
             verified: false
         })
-        console.log(this.users)
     }
 
     async confirmUser(username: string, confirmationCode: string): Promise<boolean> {
@@ -39,7 +38,6 @@ export default class LocalAuthService implements IAuthService {
     async authenticateUser(username: string, password: string): Promise<boolean> {
         if (password !== this.masterPassword) {
             for (const u of this.users) {
-                console.log(u, username, password)
                 if (u.username === username && u.password === password) {
                     return true
                 }
