@@ -18,7 +18,10 @@ export default async function Profile({ params: { username } }: PageParams) {
     return (user &&
         <div className={"space-y-12"}>
             <div className={"flex flex-row items-center mt-6 gap-x-8"}>
-                <DisplayIcon src={user.iconSrc} displayName={user.displayName} nextSize={512} className={"h-40 w-40 shadow-xl"}/>
+                <DisplayIcon
+                    src={user.iconSrc} displayName={user.displayName} nextSize={512}
+                    className={"h-20 w-20 sm:h-28 sm:w-28 md:h-40 md:w-40 shadow-xl"}
+                />
                 <div>
                     <h1 className={"my-0"}>{user.displayName}</h1>
                     <p className={"text-gray-500"}>@{user.username}</p>
