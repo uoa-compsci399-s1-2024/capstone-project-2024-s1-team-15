@@ -79,7 +79,7 @@ const config: Config = {
                 "user": "#c9c9c9",
 
                 "background": "#fcfcfc",
-                "background-light": "rgba(250,250,250,0.8)",
+                "background-light": "rgba(252,252,252,0.8)",
             },
             borderWidth: {
                 DEFAULT: "1px",
