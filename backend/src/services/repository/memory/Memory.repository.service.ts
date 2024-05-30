@@ -206,11 +206,14 @@ export default class MemoryRepository implements IRepository {
         }
     }
 
-    async getAllUsers(options?: ArrayResultOptions<SortOptions<User, UserSortFields>>): Promise<ArrayResult<User>> {
-        let r = structuredClone(this.users)
+    async getUsers(username?: string, options?: ArrayResultOptions<SortOptions<User, UserSortFields>>): Promise<ArrayResult<User>> {
+        let u = structuredClone(this.users)
+        if (username) {
+            u = u.filter(u => u.username.toLowerCase().includes(username.toLowerCase()))
+        }
         return {
-            totalResults: r.length,
-            results: this.handleArrayResultOptions(r, options),
+            totalResults: u.length,
+            results: this.handleArrayResultOptions(u, options),
         }
     }
 
@@ -226,17 +229,6 @@ export default class MemoryRepository implements IRepository {
             if (u.email === email) return u
         }
         return null
-    }
-
-    async searchUserByUsername(
-        username: string,
-        options?: ArrayResultOptions<SortOptions<User, UserSortFields>>
-    ): Promise<ArrayResult<User>> {
-        let r = this.users.filter((a) => a.username.toLowerCase().includes(username.toLowerCase()))
-        return {
-            totalResults: r.length,
-            results: this.handleArrayResultOptions(r, options),
-        }
     }
 
     async createUser(u: User): Promise<User> {

@@ -208,10 +208,11 @@ export default class MongoRepository implements IRepository {
         return await this.documentToArticle(r)
     }
 
-    async getAllUsers(options?: ArrayResultOptions<SortOptions<User, UserSortFields>>): Promise<ArrayResult<User>> {
+    async getUsers(username?: string, options?: ArrayResultOptions<SortOptions<User, UserSortFields>>): Promise<ArrayResult<User>> {
         const r: User[] = []
-        const rC = await this.users.countDocuments()
-        const result = await this.fetchMongoDocuments(this.users.find(), options)
+        const q: Filter<any> = username? { username: new RegExp(`.*${username}.*`, "i") } : {}
+        const rC = await this.users.countDocuments(q)
+        const result = await this.fetchMongoDocuments(this.users.find(q), options)
         for (const document of result) {
             r.push(new User(<object>document))
         }
@@ -235,23 +236,6 @@ export default class MongoRepository implements IRepository {
             return null
         }
         return new User(<object>u)
-    }
-
-    async searchUserByUsername(
-        username: string,
-        options?: ArrayResultOptions<SortOptions<User, UserSortFields>>
-    ): Promise<ArrayResult<User>> {
-        const r: User[] = []
-        const q: Filter<any> = { username: new RegExp(`.*${username}.*`, "i") }
-        const rC = await this.users.countDocuments(q)
-        const result = await this.fetchMongoDocuments(this.users.find(q), options)
-        for (const document of result) {
-            r.push(new User(<object>document))
-        }
-        return {
-            totalResults: rC,
-            results: r,
-        }
     }
 
     async getPollenDataset(): Promise<PollenData[]> {

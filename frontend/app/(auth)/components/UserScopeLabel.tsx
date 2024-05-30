@@ -51,7 +51,7 @@ export default function UserScopeLabel({ scopes }: { scopes: UserScope[] }): Rea
 
     return (
         <div>
-            <p className={`uppercase text-[10px] font-medium tracking-wider bg-opacity-70 ${bgColor} ${textColor} px-2.5 py-1 rounded-full w-max`}>
+            <p className={`uppercase text-[10px] font-medium tracking-wider bg-opacity-70 ${bgColor} ${textColor} px-2.5 py-1 rounded-full w-max leading-none`}>
                 {highestScopeLabel}
             </p>
         </div>
