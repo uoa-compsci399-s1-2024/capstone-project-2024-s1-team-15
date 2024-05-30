@@ -72,12 +72,17 @@ export default function LoginForm({ onSuccess, id }: { onSuccess?: () => void; i
                     icon={icons.login}
                 />
             </form>
-            <Link className="mt-4 block hover:underline" href="/signup" onClick={() => onSuccess && onSuccess()}>
-                Need an account?
-            </Link>
-            <Link className="mt-2 block hover:underline" href="/forgot-password" onClick={() => onSuccess && onSuccess()}>
-                Forgot your password?
-            </Link>
+            <div className={"mt-4 ml-1 flex flex-row gap-x-2"}>
+                <Link className="block hover:underline smallest" href="/signup"
+                      onClick={() => onSuccess && onSuccess()}>
+                    Need an account?
+                </Link>
+                <p className={"smallest text-gray-500"}>·</p>
+                <Link className="block hover:underline smallest" href="/forgot-password"
+                      onClick={() => onSuccess && onSuccess()}>
+                    Forgot your password?
+                </Link>
+            </div>
         </>
     )
 }
