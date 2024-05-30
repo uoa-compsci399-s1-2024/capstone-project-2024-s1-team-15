@@ -9,6 +9,8 @@ import ConfirmModal from "@/app/components/modals/ConfirmModal"
 import { ModalRef } from "@/app/lib/hooks/useModal"
 import ButtonLink from "@/app/components/ButtonLink"
 import icons from "@/app/lib/icons"
+import Privileged from "@/app/components/Privileged"
+import { SCOPES } from "@/app/lib/consts"
 
 type ArticleCardProps = {
     articleJSON: string,
@@ -48,12 +50,14 @@ export default function ArticleCard({ articleJSON, disableModal = false }: Artic
                                 <p className={"smallest group-hover:underline"}>{article.content}</p>
                             </div>
                         </Link>
-                        <ButtonLink
-                            theme={"cms"}
-                            href={`/${article.articleType === ArticleType.news_external ? "news" : "research"}/${article.id}/edit`}
-                            text={"Edit / Delete External Link"}
-                            icon={icons.edit}
-                        />
+                        <Privileged requiredScopes={SCOPES.maintainer}>
+                            <ButtonLink
+                                theme={"cms"}
+                                href={`/${article.articleType === ArticleType.news_external ? "news" : "research"}/${article.id}/edit`}
+                                text={"Edit / Delete External Link"}
+                                icon={icons.edit}
+                            />
+                        </Privileged>
                     </div>
                 </ConfirmModal>
                 <button
