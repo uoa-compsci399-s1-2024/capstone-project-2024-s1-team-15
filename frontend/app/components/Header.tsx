@@ -55,7 +55,7 @@ export default function Header(): React.JSX.Element {
                 <MobileAuthModal onClose={() => setAuthIcon(defaultAuthIcon)} ref={mobileAuthModalRef}/>
             </div>
             <div
-                className={`fixed top-0 w-full flex items-center z-30 bg-gradient-to-b from-background to-background-light
+                className={`fixed top-0 w-full flex items-center z-20 bg-gradient-to-b from-background to-background-light
                 h-header-mobile justify-between
                 sm:h-header-tablet sm:px-1.5
                 md:h-header-desktop md:pl-3 md:pr-6 md:justify-normal
