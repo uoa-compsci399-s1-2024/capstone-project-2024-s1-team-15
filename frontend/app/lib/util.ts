@@ -8,6 +8,7 @@ export function getMetadata(title: string = ""): Metadata {
     const t = `${title !== "" ? title + " - " : ""}${WEBSITE_NAME}`
     return {
         title: t,
+        icons: "/icon.png",
     }
 }
 
