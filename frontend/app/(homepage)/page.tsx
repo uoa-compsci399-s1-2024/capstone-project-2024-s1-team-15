@@ -40,7 +40,11 @@ export default function Home() {
                 </div>
                 <div className="text-black flex flex-col items-center justify-center mt-[-20px]">
                     <h1 className="text-3xl">Welcome to</h1>
-                    <h1 className="text-8xl text-center">Aotearoa Airborne<br />Pollen Collective</h1>
+                    <h1 className="sm:text-8xl text-4xl text-center">
+                        Aotearoa Airborne
+                        <br />
+                        Pollen Collective
+                    </h1>
                     <p className="text-2xl text-center">Clearing the Air: Your Source for Pollen Awareness</p>
                 </div>
             </div>
