@@ -136,12 +136,12 @@ export default class MongoRepository implements IRepository {
         options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>
     ): Promise<ArrayResult<Article>> {
         const r: Article[] = []
-        let q: Filter<any> = {
+        let q: Filter<any> = [{
             $or: [
                 { articleType: ArticleType.news },
                 { articleType: ArticleType.news_external }
             ]
-        }
+        }]
         if (title) {
             q.push({ title: new RegExp(`.*${title}.*`, "i") })
         }
@@ -173,12 +173,12 @@ export default class MongoRepository implements IRepository {
         options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>
     ): Promise<ArrayResult<Article>> {
         const r: Article[] = []
-        let q: Filter<any> = {
+        let q: Filter<any> = [{
             $or: [
                 { articleType: ArticleType.research },
                 { articleType: ArticleType.research_external }
             ]
-        }
+        }]
         if (title) {
             q.push({ title: new RegExp(`.*${title}.*`, "i") })
         }
