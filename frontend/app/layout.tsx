@@ -20,6 +20,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     return (
         <html lang="en">
             <body className={`${inter.variable} font-sans max-w-screen min-h-screen flex flex-col overflow-x-hidden`}>
+            <div className={"-mr-[calc(100vw-100%)]"}>
                 <AuthLayout>
                     {/* Header */}
                     <header className={`w-screen
@@ -56,6 +57,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                         </div>
                     </footer>
                 </AuthLayout>
+            </div>
             </body>
         </html>
     )
