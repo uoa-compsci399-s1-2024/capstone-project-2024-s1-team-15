@@ -26,14 +26,14 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                         h-header-mobile pb-2
                         sm:h-header-tablet sm:pb-4
                         md:h-header-desktop md:pb-6
-                        z-40
+                        z-30
                     `}>
                         <Header/>
                     </header>
 
                     <div className="relative">
                         {/* Flower Nav - Only shown on desktop, desktop wide, desktop ultra-wide viewports */}
-                        <nav className="fixed right-0 hidden lg:block z-30">
+                        <nav className="fixed right-0 hidden lg:block z-20">
                             <FlowerNav/>
                         </nav>
 
