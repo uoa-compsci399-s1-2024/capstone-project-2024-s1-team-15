@@ -50,7 +50,7 @@ export default function SignupConfirm() {
     return (
         <div>
             <h1 className={"page-title"}>Sign up</h1>
-            <p className={"text-green-500 my-4"}>
+            <p className={"text-green-500 my-4 smaller"}>
                 We&apos;ve sent a confirmation code to your email address. Please check your inbox (or your junk folder).
             </p>
             <form className={"space-y-4"} action={submitConfirmSignup}>
@@ -63,6 +63,7 @@ export default function SignupConfirm() {
                     text={pending ? "Confirming..." : "Confirm"}
                     type={"submit"}
                     icon={icons.check}
+                    title={!isValidCode ? "The confirmation code is not valid." : undefined}
                 />
                 {error && <p className={"form-error ml-1"}>
                     {error}

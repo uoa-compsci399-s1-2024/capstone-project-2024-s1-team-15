@@ -42,8 +42,14 @@ export default function ForgotPasswordForm({ id, onSuccess }: { id?: string; onS
         if (state.error) setForgotPasswordEmailSent(false)
     }, [state.error])
 
-    if (forgotPasswordEmailSent)
-        return <p className="form-success mb-4">Reset password email sent. Please check your inbox (or junk folder).</p>
+    if (forgotPasswordEmailSent) {
+        return (
+            <p className="text-green-500 my-4 smaller">
+                We&apos;ve sent a confirmation code to your email address.&nbsp;
+                Please check your inbox (or your junk folder).
+            </p>
+        )
+    }
 
     return (
         <form className="flex flex-col items-start space-y-6 w-full" action={formAction} id={formId}>
@@ -66,7 +72,7 @@ export default function ForgotPasswordForm({ id, onSuccess }: { id?: string; onS
             <Button
                 disabled={pending}
                 type={"submit"}
-                text={pending ? "Sending email..." : "Send reset password email"}
+                text={pending ? "Sending email..." : "Send Reset Password Email"}
                 icon={icons.send}
             />
         </form>

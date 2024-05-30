@@ -6,6 +6,7 @@ import { register } from "@/app/services/auth"
 import Button from "@/app/components/Button"
 import icons from "@/app/lib/icons"
 import { useRouter } from "next/navigation"
+import { PASSWORD_REGEX } from "@/app/lib/consts";
 
 type FormState = {
     error?: string
@@ -40,8 +41,7 @@ export default function SignupForm({ onSuccess }: { onSuccess?: () => void; id?:
             }
         }
         const password: string = formData.get("password")
-        const passwordRegex = /^(?=.*[0-9])(?=.*[a-zA-Z\W])(?!.* ).{6,32}$/
-        if (!password || !password.match(passwordRegex)) {
+        if (!password || !password.match(PASSWORD_REGEX)) {
             return {
                 error: `Your password must be between 6-32 characters, 
                     include at least a numeric character, and not include any spaces.`
@@ -50,7 +50,7 @@ export default function SignupForm({ onSuccess }: { onSuccess?: () => void; id?:
         const confirmPassword: string = formData.get("confirm-password")
         if (password !== confirmPassword) {
             return {
-                error: "Confirm password does not match password field."
+                error: "Confirm password does not match password."
             }
         }
         setPending(true)
