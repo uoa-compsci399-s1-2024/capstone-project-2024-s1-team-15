@@ -7,7 +7,7 @@ better inform the general public about the airborn pollen around us in New Zeala
 client that delivers information efficiently and beautifully to the AAPC's end users, as well as providing the researchers
 behind the AAPC an intuitive Content Management System (CMS) for them to control the content they provide to their users.
 
-## Team Members
+## Development Team
 
 - **Hunter Chen** - Tech Lead / Full-stack Developer
 - **Logan Park** - Project Manager
@@ -16,15 +16,15 @@ behind the AAPC an intuitive Content Management System (CMS) for them to control
 - **Stanley Wu** - Designer / Front-End Developer
 - **Samuel Kim** - UI/UX Designer / Front-End Developer
 
-## Project clients
+## Project Clients
 
 - Amy Chan: <a.chan@auckland.ac.nz>
 - Katherine Holt: <k.holt@massey.ac.nz>
 - Stuti Misra: <s.misra@auckland.ac.nz>
 
-## Project description
+## Clients' Description
 
-We are a newly established collective that is interested in airborne pollen around us and how climate change may be
+> We are a newly established collective that is interested in airborne pollen around us and how climate change may be
 affecting the pollen that we are seeing, and its impact on health.
 The pollen collective brings together scientists and health professionals interested in pollen and the environment from
 around New Zealand.
@@ -37,11 +37,9 @@ pollen data for the day but this may be in a 'freemium' type view
 
 ## Project management
 
-We used [GitHub Projects](https://github.com/orgs/uoa-compsci399-s1-2024/projects/18) because it was easier to organise issues by milestones. We could also stay in sync with other teammates because the issues could be assigned and moved into the correct column: Todo, In Progress, Review or Done. We could also see our progress  through the total number of issues (using kanban or table view) and helped in picking which issues to do next.
+This project was developed collaboratively with the help of [GitHub Projects](https://github.com/orgs/uoa-compsci399-s1-2024/projects/18), which helped us organize issues by milestones, and clearly laid out a Kanban-style view of our current progress, as well as how our fellow team members were getting along. In addition, GitHub Projects also assisted our team in knowing what issues to prioritize on, and in picking our next tasks.
 
-<img height="200" src="https://private-user-images.githubusercontent.com/78939786/334974133-1d34e2cf-fc0b-4e8f-89ed-a62164738d86.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTcwMjkxMjMsIm5iZiI6MTcxNzAyODgyMywicGF0aCI6Ii83ODkzOTc4Ni8zMzQ5NzQxMzMtMWQzNGUyY2YtZmMwYi00ZThmLTg5ZWQtYTYyMTY0NzM4ZDg2LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDA1MzAlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwNTMwVDAwMjcwM1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWQyOGFmZTQ4ZWIzN2Y4ZmU3ODA3NjYyZGJhZDJjODU2ZGQxNmVkODljOTBlNWRmOTA2ZmFmMDNjMTdkM2VhZTImWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.-IV5xIxOwBKzjehF64QJardYRqYGs9z6mwmrttxReeM"> <img height="200" src="https://private-user-images.githubusercontent.com/78939786/334975394-99aac357-3844-4b2b-87d6-ca7f919aca35.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTcwMTk0NjYsIm5iZiI6MTcxNzAxOTE2NiwicGF0aCI6Ii83ODkzOTc4Ni8zMzQ5NzUzOTQtOTlhYWMzNTctMzg0NC00YjJiLTg3ZDYtY2E3ZjkxOWFjYTM1LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDA1MjklMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwNTI5VDIxNDYwNlomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTEwNmQ4NDNjMzU3ZjFhYTJjMDNiM2I0OGJmMjM3OGU3NTYxNjgwYmFkMTI1Y2U5YTRlM2JmYjM4Yzk3M2E5ZjkmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.F82GMJp2Fq6_dWx6IT0wz5tb3I9aasomswJcuPiszD0">
-
-## Project technologies
+## Project Technology Stack
 
 [![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/docs/)
 [![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/en)
@@ -51,45 +49,66 @@ We used [GitHub Projects](https://github.com/orgs/uoa-compsci399-s1-2024/project
 [![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)](https://aws.amazon.com/)
 [![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
 
-Our frontend app will utilize Next.js's powerful server-side rendering features to supercharge the user experience, as well as TailwindCSS's
-unique approach to styling to provide an efficient, and aesthetically pleasing website.
+Our frontend app utilizes Next.js's powerful server-side rendering features to supercharge the user experience, as well as TailwindCSS's
+revolutionary approach to styling to provide an efficient yet aesthetically pleasing website.
 
-The backend will be implemented using Express.js, with the NoSQL database being hosted on MongoDB, and authentication / CDN
-services being delegated to Amazon Web Services (AWS).
+The backend is implemented with Express.js, with the NoSQL database being hosted on MongoDB Atlas, and authentication / CDN
+services being delegated to Amazon Web Services (AWS Cognito & AWS S3).
 
-Both apps will be written using TypeScript to ensure type safety and maintainability for future maintainers of the website.
+The entire project is written with TypeScript using strict, type-safe code to ensure type safety and maintainability for future maintainers of the website.
 
-### Libraries
 
-*called packages in javascript projects*
+# Project Structure
 
-Visit the `package.json` files in the [root (`/`)](https://github.com/uoa-compsci399-s1-2024/capstone-project-2024-s1-team-15/blob/main/package.json), [`/frontend`](https://github.com/uoa-compsci399-s1-2024/capstone-project-2024-s1-team-15/blob/main/frontend/package.json) or [`/backend`](https://github.com/uoa-compsci399-s1-2024/capstone-project-2024-s1-team-15/tree/main/backend/package.json) folder to see which packages we used and their versions.
+This repository is a monorepo. Three modules are hosted on this repository - backend, frontend and types.
 
-## Project setup
+### Prerequisites
 
-To run the project locally, try the following steps:
+- Node.js 20^
+- npm 10.2.4^
 
-1. Clone this repository: `git clone https://github.com/uoa-compsci399-s1-2024/capstone-project-2024-s1-team-15.git`
-2. Install node (v20.11.1) and npm (10.2.4)
-  *NOTE* the project may work on other versions as well
-3. Open terminal in the root folder of the repository
-4. Install all dependencies: `npm i`
-5. Run project: `npm run dev`
+Project dependencies are specified in `package.json` files within each module (frontend, backend, types), and is
+managed by npm.
 
-Alternatively, read through the individual `README.md`s of the [`/backend`](https://github.com/uoa-compsci399-s1-2024/capstone-project-2024-s1-team-15/blob/main/backend/README.md) and [`/frontend`](https://github.com/uoa-compsci399-s1-2024/capstone-project-2024-s1-team-15/blob/main/frontend/README.md) to see how to run the frontend and backend seperately. The frontend does depend on the backend running so the website may not run as expected if backend is not running as well.
+## Frontend
+Make sure your working directory is in the frontend module's root directory `/frontend`.
 
-## Git Setup
+To start the development server:
 
-### Branches
+1. Install all dependencies using `npm i`.
+2. Start the Next.js development server using `npm run dev`.
+3. The development server should be started on `localhost:3001`.
 
-- **feature branches**: whenever we work on a new feature, we can make a seperate branch so that we can see what code changes this feature includes. These changes can be double checked by other teammates before being merged to `dev` branch using a pull request.
+By default, the app will send API requests defined within `@/app/services` to `localhost:3000`. To configure this, you can change the values defined in `@/app/lib/consts.ts`.
 
-- `dev`: this branch is automatically deployed to [dev.aapc-nz.org](https://dev.aapc-nz.org/) so we can develop and test improvements before sharing with clients
-- `main`: this branch is automatically deployed to [aapc-nz.org](https://aapc-nz.org/) and is shared with clients
+## Backend
+Make sure your working directory is in the backend module's root directory `/backend`.
 
-## Usage examples
+To start the development server:
 
-### Visitors (general public)
+1. Install all dependencies using `npm i`.
+2. Optionally, specify a `.env` environment variables file. By default, the backend will use the `LOCAL` environment and load local services that do not require additional environment variables. Exporting `ENV=DEV` or `ENV=PROD` in `.env` will force the app to run in development or production environment, which uses external services that require additional credentials. Error messages will be helpful to help you determine which services are missing required environment variables.
+3. Start the development server using `npm run dev`.
+4. The development server should be started on `localhost:3000`.
+
+## Types
+This is a static package including data type definitions used by both the frontend and backend services.
+
+To build this package:
+1. Install all dependencies using `npm i`.
+2. Build the package using `npm run build`.
+3. The compiled package should be in `./dist/`.
+
+## Git Structure
+
+- **other branches**: New features are implemented in their own branches. These changes are then merged to `dev` through pull requests.
+
+- `dev`: This branch is automatically deployed to [dev.aapc-nz.org](https://dev.aapc-nz.org/) with development environment credentials, and merged to `main` through pull requests.
+- `main`: This branch is automatically deployed to [aapc-nz.org](https://aapc-nz.org/) with production environment credentials.
+
+# Public Usage
+
+## Site Visitors
 
 Visitors can learn new concepts from the website. They have the ability to:
 
@@ -102,24 +121,36 @@ Visitors can learn new concepts from the website. They have the ability to:
 - [**About**](https://www.aapc-nz.org/about): learn about who is in the AAPC, what they do and who supports them.
 - [**Contact**](https://www.aapc-nz.org/contact): reach out to the AAPC with any questions, compliments, concerns, criticisms or requests for available pollen data.
 
-### Admins (project clients) & maintainers
+
+## Authentication / User Management
+
+Registered users are able to:
+
+- Change display name
+- Change display icon
+- Manage uploaded images
+- Change password
+- Deactivate account
+
+All users can register for an account on the website. As of currently, the site does not offer content unique to
+signed-in users in comparison to anonymous site visitors.
+
+By default, all newly registered users will have the basic `User` role. Users with the `Admin` role can assign
+a `Maintainer` (or an `Admin`) role to any user, which enables them to manage site content as outlined below:
+
+## Admins (Clients) & Site Maintainers
 
 In addition to above, admins and maintainers have the ability to:
 
-- create and delete pollen datasets
-- create, edit and delete research projects
-- create, edit and delete external research articles
-- create, edit and delete blog posts
-- create, edit and delete external media articles
-- manage their account:
-  - change password
-  - change email
-  - change display name
-  - deactivate their account
+- Create and delete pollen datasets.
+- Publish, edit and delete research articles.
+- Publish, edit and delete external research articles.
+- Publish, edit and delete news blog posts.
+- Publish, edit and delete external news articles.
 
 ## Website URL
 
-You can visit the website here: <https://aapc-nz.org/>
+Our website is hosted at <https://aapc-nz.org/>.
 
 ## Future Plans
 
