@@ -5,8 +5,6 @@ declare global {
             PORT?: number
             MONGO_URI?: string
             JWT_SECRET?: string
-            COGNITO_CLIENT_ID?: string
-            COGNITO_USERPOOL_ID?: string
             BREVO_CLIENT_EMAIL?: string
             BREVO_CLIENT_PASSWORD?: string
             GOOGLE_RECAPTCHA_SECRET_KEY?: string
@@ -14,6 +12,8 @@ declare global {
             AWS_SECRET_ACCESS_KEY?: string
             AWS_SESSION_TOKEN?: string
             AWS_REGION?: string
+            AWS_COGNITO_CLIENT_ID?: string
+            AWS_COGNITO_USERPOOL_ID?: string
         }
     }
 }

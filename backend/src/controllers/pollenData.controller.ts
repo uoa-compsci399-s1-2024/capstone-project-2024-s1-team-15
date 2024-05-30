@@ -11,14 +11,12 @@ export default class PollenDataController {
     static createPollenData: RequestHandler = async (req, res, next) => {
         const pollenData = req.body
         await DB.createPollenDataset(pollenData)
-
         res.sendStatus(201)
         next()
     }
 
     static deletePollenData: RequestHandler = async (req, res, next) => {
         await DB.deletePollenDataset()
-
         res.sendStatus(204)
         next()
     }

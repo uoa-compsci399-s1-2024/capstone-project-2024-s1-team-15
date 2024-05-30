@@ -221,6 +221,13 @@ export default class MemoryRepository implements IRepository {
         return null
     }
 
+    async getUserByEmail(email: string): Promise<Nullable<User>> {
+        for (const u of this.users) {
+            if (u.email === email) return u
+        }
+        return null
+    }
+
     async searchUserByUsername(
         username: string,
         options?: ArrayResultOptions<SortOptions<User, UserSortFields>>
