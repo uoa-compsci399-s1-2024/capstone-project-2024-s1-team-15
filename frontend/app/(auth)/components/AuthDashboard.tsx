@@ -8,55 +8,45 @@ import { UserScopeLabel } from "@/app/(auth)/components"
 import { LoginModal, ChangePasswordModal } from "@/app/components/modals"
 import Button from "@/app/components/Button"
 import { ModalRef } from "@/app/lib/hooks/useModal"
+import ButtonLink from "@/app/components/ButtonLink"
+import LinkUser from "@/app/components/LinkUser"
 
-export default function AuthDashboard({ dashboardLocation }: { dashboardLocation: string }): React.JSX.Element {
+type AuthDashboardProps = {
+    dashboardLocation: string,
+    onRedirect?: () => void
+}
+
+export default function AuthDashboard({ dashboardLocation, onRedirect }: AuthDashboardProps ): React.JSX.Element {
     const { user, token, clearSession } = useAuth()
     let scopes = getScopesFromToken(token)
     const loginRef = useRef<ModalRef>(null)
     const changePasswordModalRef = useRef<ModalRef>(null)
 
-    if (token && !scopes) {
-        clearSession()
-    }
-
-    const showLoginModal = () => {
-        if (loginRef.current) {
-            loginRef.current.showModal()
-        }
-    }
-
-    const showChangePasswordModal = () => {
-        if (changePasswordModalRef.current) {
-            changePasswordModalRef.current.showModal()
-        }
-    }
-
     return (
         <div>
             {user ? (
                 <div className={`flex items-center justify-start leading-none
-                    flex-col space-y-4
-                    md:flex-row md:space-x-4 md:space-y-0`}>
-                    <div className={`flex items-center justify-center
-                        flex-col space-y-2
-                        md:flex-row md:space-x-4 md:space-y-0
-                    `}>
-                        <p>
-                            Logged in as <b className={"font-medium"}>{user.displayName}</b>
-                        </p>
+                    flex-col md:flex-row gap-x-4 gap-y-2
+                `}>
+                    <div className={"flex flex-row items-center gap-x-3"}>
+                        <LinkUser user={user} size={"large"}/>
                         {scopes && <UserScopeLabel scopes={scopes}/>}
                     </div>
                     <div className={`flex justify-center gap-x-4`}>
-                        <Button
-                            text={"Change Password"}
+                        <ButtonLink
+                            text={"My Account"}
                             icon={icons.user}
-                            onClick={showChangePasswordModal}
+                            href={"/my-account"}
+                            onClick={() => onRedirect && onRedirect()}
                         />
                         <Button
                             text={"Log out"}
                             theme={"secondary"}
                             icon={icons.logout}
-                            onClick={clearSession}
+                            onClick={() => {
+                                clearSession()
+                                onRedirect && onRedirect()
+                            }}
                         />
                     </div>
                 </div>
@@ -70,7 +60,9 @@ export default function AuthDashboard({ dashboardLocation }: { dashboardLocation
                         text={"Log in"}
                         theme={"secondary"}
                         icon={icons.login}
-                        onClick={showLoginModal}
+                        onClick={() => {
+                            loginRef.current && loginRef.current.showModal()
+                        }}
                     />
                 </div>
             )}

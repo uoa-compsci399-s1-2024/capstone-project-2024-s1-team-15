@@ -1,7 +1,7 @@
 "use client"
 
 import ContentEditor from "@/app/(cms)/components/ContentEditor"
-import { Article, ArticleType, IArticle } from "@aapc/types"
+import { Article, ArticleType, IArticle, User } from "@aapc/types"
 import React, { useEffect, useMemo, useState } from "react"
 import ArticlePage from "@/app/components/ArticlePage"
 import { ArticleOut, Nullable } from "@/app/lib/types"
@@ -11,16 +11,15 @@ import { useAuth } from "@/app/lib/hooks"
 import { useRouter } from "next/navigation"
 import Button from "@/app/components/Button";
 import icons from "@/app/lib/icons";
+import DeleteArticleButton from "@/app/(cms)/(articles)/components/DeleteArticleButton";
+import ButtonLink from "@/app/components/ButtonLink";
+import { DEFAULT_FORM_DIALOG_DURATION } from "@/app/lib/consts";
 
-type ArticleFormProps = PublishArticleFormProps | EditArticleFormProps
-
-type PublishArticleFormProps = {
+type ArticleFormProps = {
     actionType: "publish"
     articleType: ArticleType
     articleJSONString?: string
-}
-
-type EditArticleFormProps = {
+} | {
     actionType: "edit"
     articleType: ArticleType
     articleJSONString: string
@@ -28,12 +27,15 @@ type EditArticleFormProps = {
 
 export default function ArticleForm({ actionType, articleType, articleJSONString }: ArticleFormProps) {
     const router = useRouter()
-    const { token } = useAuth()
+    const { token, user } = useAuth()
     const [title, setTitle] = useState("")
     const [subtitle, setSubtitle] = useState( "")
     const [initialEditorContent, setInitialEditorContent] = useState("")
     const [editorContent, setEditorContent] = useState("")
+
     const [error, setError] = useState<Nullable<string>>(null)
+    const [success, setSuccess] = useState<boolean>(false)
+    const [_, setCurrentTimeout] = useState<Nullable<NodeJS.Timeout>>(null)
 
     const article = useMemo(
         () => articleJSONString ? new Article(JSON.parse(articleJSONString)) : null,
@@ -49,35 +51,46 @@ export default function ArticleForm({ actionType, articleType, articleJSONString
         }
     }, [article])
 
+    const handleSubmitSuccess = () => {
+        setError(null)
+        setSuccess(true)
+        setCurrentTimeout(c => {
+            if (c) clearTimeout(c)
+            return setTimeout(
+                () => setSuccess(false),
+                DEFAULT_FORM_DIALOG_DURATION
+            )
+        })
+    }
+
     const submitArticle = () => {
+        if (!title || title === "") {
+            setError("You must enter a title.")
+            return
+        }
+
         const a: ArticleOut = {
             title: title,
             subtitle: subtitle,
             content: editorContent,
-            articleType: articleType,
-            media: [],
+            articleType: articleType
         }
+
         switch (articleType) {
             case ArticleType.news: {
                 switch (actionType) {
                     case "publish": {
                         publishNews(a, { token }).then(r => {
                             if (r.success) {
-                                setError(null)
-                                router.push(`/news/${r.result.id}`)
-                            } else {
-                                setError(r.message)
-                            }
+                                handleSubmitSuccess()
+                                setTimeout(() => router.push(`/news/${r.result.id}`), 2500)
+                            } else setError(r.message)
                         })
                     } break
                     case "edit": {
                         editNews((article as IArticle).id, a, { token }).then(r => {
-                            if (r.success) {
-                                setError(null)
-                                router.push(`/news/${r.result.id}`)
-                            } else {
-                                setError(r.message)
-                            }
+                            if (r.success) handleSubmitSuccess()
+                            else setError(r.message)
                         })
                     } break
                 }
@@ -87,57 +100,50 @@ export default function ArticleForm({ actionType, articleType, articleJSONString
                     case "publish": {
                         publishResearch(a, { token }).then(r => {
                             if (r.success) {
-                                setError(null)
-                                router.push(`/research/${r.result.id}`)
-                            } else {
-                                setError(r.message)
-                            }
+                                handleSubmitSuccess()
+                                setTimeout(() => router.push(`/research/${r.result.id}`), 2500)
+                            } else setError(r.message)
                         })
                     } break
                     case "edit": {
                         editResearch((article as IArticle).id, a, { token }).then(r => {
-                            if (r.success) {
-                                setError(null)
-                                router.push(`/research/${r.result.id}`)
-                            } else {
-                                setError(r.message)
-                            }
+                            if (r.success) handleSubmitSuccess()
+                            else setError(r.message)
                         })
-                    } break
+                    }
                 }
-
-            } break
+            }
         }
     }
-
     const updateTitle = () => {
-        const e: HTMLTextAreaElement = document.getElementById("title-input")! as HTMLTextAreaElement
+        const e: HTMLInputElement = document.getElementById("title") as HTMLInputElement
         setTitle(e.value)
     }
-
     const updateSubtitle = () => {
-        const e: HTMLTextAreaElement = document.getElementById("subtitle-input")! as HTMLTextAreaElement
+        const e: HTMLInputElement = document.getElementById("subtitle") as HTMLInputElement
         setSubtitle(e.value)
     }
-
     return (
         <div className={"space-y-6"}>
             <div>
-                <p className={"form-label"}>Title</p>
+                <label className={"form-label"} htmlFor={"title"}>Title</label>
                 <input
-                    id={"title-input"}
+                    id={"title"}
+                    name={"title"}
                     className={"form-input"}
                     onChange={updateTitle}
                     placeholder={"Enter title here... (required)"}
                     defaultValue={title}
+                    required={true}
                 />
             </div>
 
             <div>
-                <p className={"form-label"}>Subtitle</p>
+                <label className={"form-label"} htmlFor={"subtitle"}>Subtitle</label>
                 <input
-                    id={"subtitle-input"}
-                    className={"form-input pb-1"}
+                    id={"subtitle"}
+                    name={"subtitle"}
+                    className={"form-input"}
                     onChange={updateSubtitle}
                     placeholder={"Enter subtitle here... (optional)"}
                     defaultValue={subtitle}
@@ -149,22 +155,53 @@ export default function ArticleForm({ actionType, articleType, articleJSONString
                 <ContentEditor setEditorContent={setEditorContent} initialContent={initialEditorContent}/>
             </div>
 
-            <div>
+            <div className={"flex flex-row gap-x-6"}>
+                {actionType === "edit" && article &&
+                    <ButtonLink
+                        href={`/${article.articleType === ArticleType.news
+                            ? "news"
+                            : "research"
+                            }/${article.id}
+                        `}
+                        text={"Back"}
+                        icon={icons.back}
+                        theme={"secondary"}
+                        leftIcon
+                    />
+                }
+
                 <Button
                     onClick={submitArticle}
-                    text={`${ actionType === "edit" ? "Edit" : "Publish"} ${articleType === ArticleType.news ? "News" : "Research"}`}
-                    icon={icons.add}
+                    theme={"cms-green"}
+                    text={`${ actionType === "edit" ? "Edit" : "Publish"}`}
+                    icon={actionType === "publish" ? icons.add : icons.edit}
                 />
+
+                {actionType === "edit" &&
+                    <DeleteArticleButton articleJSON={articleJSONString} onError={e => setError(e)}/>
+                }
             </div>
 
-            { error && <span>{error}</span> }
+            {error && <p className={"form-error"}>{error}</p>}
+            {success && <p className={"form-success"}>
+                {actionType === "edit"
+                    ? "Article has been successfully edited."
+                    : "Article has been successfully published. Redirecting to article page..."
+                }
+                </p>
+            }
 
             <div>
                 <p className={"form-label"}>Article Preview</p>
                 <div className={"p-6 rounded-2xl border-dotted border-2 border-black border-opacity-30"}>
                     <ArticlePage
-                        article={new Article({ title: title, subtitle: subtitle, content: editorContent })}
-                        preview
+                        article={new Article({ ...article,
+                            title: title,
+                            subtitle: subtitle,
+                            content: editorContent
+                        })}
+                        user={user || new User()}
+                        preview={true}
                     />
                 </div>
             </div>

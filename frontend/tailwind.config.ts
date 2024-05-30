@@ -50,6 +50,7 @@ const config: Config = {
                     css: {
                         fontSize: "1.1rem",
                         lineHeight: "1.65rem",
+                        maxWidth: "100ch",
                         img: {
                             borderRadius: "0.5rem",
                             marginTop: "0",
@@ -78,6 +79,7 @@ const config: Config = {
                 "user": "#c9c9c9",
 
                 "background": "#fafafa",
+                "background-light": "rgba(250,250,250,0.8)",
             },
             borderWidth: {
                 DEFAULT: "1px",

@@ -30,6 +30,12 @@ export const MAX_IMAGE_UPLOAD_SIZE = 15 * 1000 * 1000  // 15 MB
 
 export const SUPPORTED_IMAGE_UPLOAD_TYPES = ["image/png", "image/jpg", "image/jpeg"]
 
+export const DEFAULT_FORM_DIALOG_DURATION = 7000  // 7 seconds
+
+export const DEFAULT_RESULTS_PER_PAGE = 10
+
+export const DEFAULT_MAILTO_ADDRESS = 'aapctest27394962@gmail.com'
+
 export const ROUTES = {
     LOGIN: "/login",
     FORGOT_PASSWORD: "/forgot-password",

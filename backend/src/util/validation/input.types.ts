@@ -53,6 +53,7 @@ export interface IPaginatedQIn<T extends string> {
 
 interface IArticlePaginatedQIn extends IPaginatedQIn<ArticleSortFields> {
     t?: string
+    publisher?: string
 }
 
 interface IUserPaginatedQIn extends IPaginatedQIn<UserSortFields> {
@@ -308,11 +309,13 @@ export class ResetPasswordIn extends Validator<IResetPasswordIn> implements IRes
 
 export class ArticlePaginatedQIn extends ValidatorWithPaginatedQIn<IArticlePaginatedQIn, ArticleSortFields> implements IArticlePaginatedQIn {
     t?: string
+    publisher?: string
 
     constructor(obj: any) {
         super(obj, "publishedAt", true)
 
         this.t = obj.t && String(obj.t)
+        this.publisher = obj.publisher && String(obj.publisher)
 
         if (this.errors.length > 0) {
             throw new ValidationError(this.errors)

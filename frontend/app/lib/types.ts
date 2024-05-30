@@ -33,3 +33,9 @@ export type ArticleOut = {
     articleType: ArticleType
     media?: string[]
 }
+
+export type UserOut = {
+    displayName?: string
+    email?: string
+    iconSrc?: Nullable<string>
+}

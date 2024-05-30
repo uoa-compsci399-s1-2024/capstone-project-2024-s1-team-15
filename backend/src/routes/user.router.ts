@@ -10,10 +10,8 @@ export default class UserRouter {
     static router(): Router {
         const router = express.Router()
 
-        // scope: currentUser
-        router.get("/:username", Scope.currentUser,
-            expressAsyncHandler(UserController.getUserByUsername)
-        )
+        // scope: anonymous
+        router.get("/:username", expressAsyncHandler(UserController.getUserByUsername))
 
         // scope: currentUser
         router.put("/:username", Scope.currentUser,
