@@ -23,7 +23,7 @@ export default class ResearchController {
         const id: string = String(req.params.id)
         const a = await DB.getResearchById(id)
         if (a === null) throw new NotFoundError(`Research article with id ${req.params.id} does not exist.`)
-        res.status(200).json(a).send()
+        res.status(200).json(a)
         next()
     }
 
@@ -34,7 +34,7 @@ export default class ResearchController {
         const n = body.toNewArticle(publisher)
         await DB.createResearch(n)
         res.location(`/content/research/${n.id}`)
-        res.status(201).json(n).send()
+        res.status(201).json(n)
         next()
     }
 
@@ -50,7 +50,7 @@ export default class ResearchController {
             if (e instanceof TypeError) throw new BadRequestError(e.message)
             throw e
         }
-        res.status(200).json(n).send()
+        res.status(200).json(n)
         next()
     }
 
@@ -59,7 +59,7 @@ export default class ResearchController {
         if ((await DB.getResearchById(id)) === null)
             throw new NotFoundError(`Research article with id ${id} does not exist.`)
         await DB.deleteResearch(id)
-        res.status(204).send()
+        res.sendStatus(204)
         next()
     }
 }
