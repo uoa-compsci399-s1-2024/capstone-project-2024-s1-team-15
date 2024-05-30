@@ -67,10 +67,16 @@ Visit the `package.json` files in the [root (`/`)](https://github.com/uoa-compsc
 
 ## Project setup
 
-- you will need node and npm installed (what versions?)
-- then you can run `npm run dev` in the root folder `/` to run the project locally
+To run the project locally, try the following steps:
 
-Alternatively, read through the individual readme's of the [`/backend`](https://github.com/uoa-compsci399-s1-2024/capstone-project-2024-s1-team-15/blob/main/backend/README.md) and [`/frontend`](https://github.com/uoa-compsci399-s1-2024/capstone-project-2024-s1-team-15/blob/main/frontend/README.md) to see how to run the frontend and backend seperately. The frontend does depend on the backend functioning so the website may not run as expected if backend is not running as well.
+1. Clone this repository: `git clone https://github.com/uoa-compsci399-s1-2024/capstone-project-2024-s1-team-15.git`
+2. Install node (v20.11.1) and npm (10.2.4)
+  *NOTE* the project may work on other versions as well
+3. Open terminal in the root folder of the repository
+4. Install all dependencies: `npm i`
+5. Run project: `npm run dev`
+
+Alternatively, read through the individual `README.md`s of the [`/backend`](https://github.com/uoa-compsci399-s1-2024/capstone-project-2024-s1-team-15/blob/main/backend/README.md) and [`/frontend`](https://github.com/uoa-compsci399-s1-2024/capstone-project-2024-s1-team-15/blob/main/frontend/README.md) to see how to run the frontend and backend seperately. The frontend does depend on the backend running so the website may not run as expected if backend is not running as well.
 
 ## Git Setup
 
