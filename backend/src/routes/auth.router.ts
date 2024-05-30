@@ -11,8 +11,28 @@ export default class AuthRouter {
         const router = express.Router()
 
         // scope: anonymous
+        router.post("/register",
+            expressAsyncHandler(AuthController.register)
+        )
+
+        // scope: anonymous
+        router.post("/register/confirm",
+            expressAsyncHandler(AuthController.confirmRegister)
+        )
+
+        // scope: anonymous
         router.post("/login",
             expressAsyncHandler(AuthController.login)
+        )
+
+        // scope: anonymous
+        router.post("/forgot-password",
+            expressAsyncHandler(AuthController.initiateResetPassword)
+        )
+
+        // scope: anonymous
+        router.post("/password",
+            expressAsyncHandler(AuthController.resetPassword)
         )
 
         // scope: user
@@ -20,26 +40,15 @@ export default class AuthRouter {
             expressAsyncHandler(AuthController.refreshToken)
         )
 
-        // scope: anonymous
-        router.post("/register",
-            expressAsyncHandler(AuthController.register)
-        )
-
         // scope: currentUser
-        router.post("/deactivate/:username", Scope.currentUser,
-            expressAsyncHandler(AuthController.deactivate)
-        )
-
-        // scope: currentUser
-        router.put("/password/:username", Scope.currentUser,
+        router.put("/password", Scope.has(SCOPES.user),
             expressAsyncHandler(AuthController.changePassword)
         )
 
-        // scope: anonymous
-        router.post("/forgot-password", expressAsyncHandler(AuthController.sendResetPasswordEmail))
-
-        // scope: anonymous
-        router.post("/password", expressAsyncHandler(AuthController.resetPassword))
+        // scope: currentUser
+        router.post("/deactivate", Scope.has(SCOPES.user),
+            expressAsyncHandler(AuthController.deactivate)
+        )
 
         return router
     }

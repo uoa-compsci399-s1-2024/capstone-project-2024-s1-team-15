@@ -5,10 +5,9 @@ import { NotFoundError } from "@/errors/HTTPErrors";
 import { STATIC_FILE_DIRECTORY } from "@/util/const";
 
 export default class StaticController {
-    static getStaticContent: RequestHandler = async (req, res) => {
+    static getStaticContent: RequestHandler = async (req, res, next) => {
         const fileName = String(req.params.name)
         const filePath = path.join(__dirname, `../${STATIC_FILE_DIRECTORY}/${fileName}`)
-
         if (!fs.existsSync(filePath)) {
             const permanentFilePath = path.join(__dirname, `../${STATIC_FILE_DIRECTORY}/permanent/${fileName}`)
             if (!fs.existsSync(permanentFilePath)) {
@@ -18,5 +17,6 @@ export default class StaticController {
         } else {
             res.sendFile(filePath)
         }
+        next()
     }
 }

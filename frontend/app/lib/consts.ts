@@ -36,6 +36,8 @@ export const DEFAULT_RESULTS_PER_PAGE = 10
 
 export const DEFAULT_MAILTO_ADDRESS = 'aapctest27394962@gmail.com'
 
+export const PASSWORD_REGEX = /^(?=.*[0-9])(?=.*[a-zA-Z\W])(?!.* ).{6,32}$/
+
 export const ROUTES = {
     LOGIN: "/login",
     FORGOT_PASSWORD: "/forgot-password",

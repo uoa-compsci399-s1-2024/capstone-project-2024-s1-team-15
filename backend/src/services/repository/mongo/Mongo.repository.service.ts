@@ -137,16 +137,18 @@ export default class MongoRepository implements IRepository {
     ): Promise<ArrayResult<Article>> {
         const r: Article[] = []
         let q: Filter<any> = {
-            $or: [
-                { articleType: ArticleType.news },
-                { articleType: ArticleType.news_external }
-            ]
+            $and: [{
+                $or: [
+                    { articleType: ArticleType.news },
+                    { articleType: ArticleType.news_external }
+                ]
+            }]
         }
         if (title) {
-            q.push({ title: new RegExp(`.*${title}.*`, "i") })
+            q.$and && q.$and.push({ title: new RegExp(`.*${title}.*`, "i") })
         }
         if (publisher) {
-            q.push({ publisher: publisher })
+            q.$and && q.$and.push({ publisher: publisher })
         }
         const rC = await this.articles.countDocuments(q)
         const result = await this.fetchMongoDocuments(this.articles.find(q), options)
@@ -174,16 +176,18 @@ export default class MongoRepository implements IRepository {
     ): Promise<ArrayResult<Article>> {
         const r: Article[] = []
         let q: Filter<any> = {
-            $or: [
-                { articleType: ArticleType.research },
-                { articleType: ArticleType.research_external }
-            ]
+            $and: [{
+                $or: [
+                    { articleType: ArticleType.research },
+                    { articleType: ArticleType.research_external }
+                ]
+            }]
         }
         if (title) {
-            q.push({ title: new RegExp(`.*${title}.*`, "i") })
+            q.$and && q.$and.push({ title: new RegExp(`.*${title}.*`, "i") })
         }
         if (publisher) {
-            q.push({ publisher: publisher })
+            q.$and && q.$and.push({ publisher: publisher })
         }
         const rC = await this.articles.countDocuments(q)
         const result = await this.fetchMongoDocuments(this.articles.find(q), options)
@@ -219,6 +223,14 @@ export default class MongoRepository implements IRepository {
 
     async getUserByUsername(username: string): Promise<Nullable<User>> {
         const u = await this.users.findOne({ username: username })
+        if (u === null) {
+            return null
+        }
+        return new User(<object>u)
+    }
+
+    async getUserByEmail(email: string): Promise<Nullable<User>> {
+        const u = await this.users.findOne({ email: email })
         if (u === null) {
             return null
         }

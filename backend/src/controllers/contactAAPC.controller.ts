@@ -25,7 +25,6 @@ export default class ContactAAPCController {
             if (!recaptchaVerificationResult.success)
                 throw new ForbiddenError("Recaptcha verification failed, try again.")
         }
-
         await MAILER.sendNotificationForContactForm(contactFormInputs)
         res.sendStatus(200)
         next()

@@ -78,7 +78,7 @@ const config: Config = {
                 "premium": "#ffd78f",
                 "user": "#c9c9c9",
 
-                "background": "#fafafa",
+                "background": "#fcfcfc",
                 "background-light": "rgba(250,250,250,0.8)",
             },
             borderWidth: {
