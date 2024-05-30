@@ -136,17 +136,19 @@ export default class MongoRepository implements IRepository {
         options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>
     ): Promise<ArrayResult<Article>> {
         const r: Article[] = []
-        let q: Filter<any> = [{
-            $or: [
-                { articleType: ArticleType.news },
-                { articleType: ArticleType.news_external }
-            ]
-        }]
+        let q: Filter<any> = {
+            $and: [{
+                $or: [
+                    { articleType: ArticleType.news },
+                    { articleType: ArticleType.news_external }
+                ]
+            }]
+        }
         if (title) {
-            q.push({ title: new RegExp(`.*${title}.*`, "i") })
+            q.$and && q.$and.push({ title: new RegExp(`.*${title}.*`, "i") })
         }
         if (publisher) {
-            q.push({ publisher: publisher })
+            q.$and && q.$and.push({ publisher: publisher })
         }
         const rC = await this.articles.countDocuments(q)
         const result = await this.fetchMongoDocuments(this.articles.find(q), options)
@@ -173,17 +175,19 @@ export default class MongoRepository implements IRepository {
         options?: ArrayResultOptions<SortOptions<Article, ArticleSortFields>>
     ): Promise<ArrayResult<Article>> {
         const r: Article[] = []
-        let q: Filter<any> = [{
-            $or: [
-                { articleType: ArticleType.research },
-                { articleType: ArticleType.research_external }
-            ]
-        }]
+        let q: Filter<any> = {
+            $and: [{
+                $or: [
+                    { articleType: ArticleType.research },
+                    { articleType: ArticleType.research_external }
+                ]
+            }]
+        }
         if (title) {
-            q.push({ title: new RegExp(`.*${title}.*`, "i") })
+            q.$and && q.$and.push({ title: new RegExp(`.*${title}.*`, "i") })
         }
         if (publisher) {
-            q.push({ publisher: publisher })
+            q.$and && q.$and.push({ publisher: publisher })
         }
         const rC = await this.articles.countDocuments(q)
         const result = await this.fetchMongoDocuments(this.articles.find(q), options)
