@@ -1,4 +1,4 @@
-import { AuthCredential, AuthResponse, Result } from "@/app/lib/types"
+import { AuthCredential, AuthResponse, RegisterParams, Result } from "@/app/lib/types"
 import { API_URI } from "@/app/lib/consts"
 import { fail, success } from "@/app/lib/util"
 import { User } from "@aapc/types"
@@ -7,16 +7,10 @@ import { FetchOptions, getHeaders } from "./lib/util"
 export async function login(credentials: AuthCredential): Promise<Result<AuthResponse>> {
     const res = await fetch(API_URI + "/auth/login", {
         method: "post",
-        body: JSON.stringify({
-            username: credentials.username,
-            password: credentials.password
-        }),
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-        }
+        body: JSON.stringify(credentials),
+        headers: getHeaders()
     })
-    if (res.status !== 200) {
+    if (res.status >= 400) {
         return fail((await res.json()).message)
     } else {
         const data = await res.json()
@@ -27,12 +21,38 @@ export async function login(credentials: AuthCredential): Promise<Result<AuthRes
     }
 }
 
+export async function register(credentials: RegisterParams): Promise<Result<null>> {
+    const res = await fetch(API_URI + "/auth/register", {
+        method: "post",
+        body: JSON.stringify(credentials),
+        headers: getHeaders()
+    })
+    console.log(res)
+    if (res.status >= 400) {
+        return fail((await res.json()).message)
+    }
+    return success(null)
+}
+
+export async function confirmRegister(params: { username: string, confirmationCode: string }): Promise<Result<null>> {
+    const res = await fetch(API_URI + "/auth/register/confirm", {
+        method: "post",
+        body: JSON.stringify(params),
+        headers: getHeaders()
+    })
+    console.log(res)
+    if (res.status >= 400) {
+        return fail((await res.json()).message)
+    }
+    return success(null)
+}
+
 export async function refreshToken(fetchOptions?: FetchOptions): Promise<Result<AuthResponse>> {
     const res = await fetch(API_URI + "/auth/refresh-token", {
         method: "post",
         headers: getHeaders(fetchOptions)
     })
-    if (res.status !== 200) {
+    if (res.status >= 400) {
         return fail((await res.json()).message)
     } else {
         const data = await res.json()
@@ -52,7 +72,7 @@ export async function changePassword(
         body: JSON.stringify(params),
         headers: getHeaders(fetchOptions),
     })
-    if (res.status !== 200) {
+    if (res.status >= 400) {
         return fail((await res.json()).message)
     } else {
         return success(null)
@@ -65,11 +85,9 @@ export async function sendResetPasswordEmail(email: string, fetchOptions?: Fetch
         body: JSON.stringify({ email }),
         headers: getHeaders(fetchOptions),
     })
-
-    if (res.status !== 200) {
+    if (res.status >= 400) {
         return fail((await res.json()).message)
     }
-
     return success(null)
 }
 
@@ -82,10 +100,8 @@ export async function resetPassword(
         body: JSON.stringify(params),
         headers: getHeaders(fetchOptions),
     })
-
-    if (res.status !== 200) {
+    if (res.status >= 400) {
         return fail((await res.json()).message)
     }
-
     return success(null)
 }

@@ -10,6 +10,11 @@ export type AuthResponse = {
     token: string
 }
 
+export type RegisterParams = {
+    email: string
+    displayName: string
+} & AuthCredential
+
 export type SuccessResult<T> = {
     success: true
     result: T

@@ -72,7 +72,10 @@ export default function LoginForm({ onSuccess, id }: { onSuccess?: () => void; i
                     icon={icons.login}
                 />
             </form>
-            <Link className="mt-4 inline-block" href="/forgot-password" onClick={() => onSuccess && onSuccess()}>
+            <Link className="mt-4 block hover:underline" href="/signup" onClick={() => onSuccess && onSuccess()}>
+                Need an account?
+            </Link>
+            <Link className="mt-2 block hover:underline" href="/forgot-password" onClick={() => onSuccess && onSuccess()}>
                 Forgot your password?
             </Link>
         </>
