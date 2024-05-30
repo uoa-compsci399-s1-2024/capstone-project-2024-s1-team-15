@@ -18,7 +18,7 @@ export default function Petal({ page, selected }: Props) {
             {page && (
                 <Link href={page.url} className="relative pointer-events-auto text-black inline-block">
                     <p
-                        className={`z-10 absolute top-1/2 left-[35%] -translate-x-1/2 -translate-y-1/2 font-bold text-2xl ${selected ? "opacity-100" : "opacity-20"}`}>
+                        className={`z-10 absolute top-1/2 left-[35%] -translate-x-1/2 -translate-y-1/2 font-bold text-2xl ${selected ? "opacity-100" : "opacity-35"}`}>
                         {page.name}
                     </p>
 

@@ -7,7 +7,6 @@ export default function ExplanationDialog({ onClose, children: content }: any) {
         if (!ref.current) return
 
         ref.current.showModal()
-        document.documentElement.style.overflowY = "hidden"
     }, [content, ref])
 
     return (
@@ -20,7 +19,6 @@ export default function ExplanationDialog({ onClose, children: content }: any) {
                 const { left, right, top, bottom } = ref.current.getBoundingClientRect()
 
                 if (e.clientX < left || e.clientX > right || e.clientY < top || e.clientY > bottom) {
-                    document.documentElement.style.overflowY = ""
                     ref.current.close()
                     onClose(e)
                 }
