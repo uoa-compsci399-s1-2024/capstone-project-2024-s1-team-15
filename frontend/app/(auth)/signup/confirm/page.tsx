@@ -1,11 +1,11 @@
 "use client"
 
 import React, { ChangeEvent, useEffect, useState } from "react"
-import { useRouter } from "next/navigation";
-import { Nullable } from "@/app/lib/types";
-import Button from "@/app/components/Button";
-import icons from "@/app/lib/icons";
-import { confirmRegister } from "@/app/services/auth";
+import { useRouter } from "next/navigation"
+import { Nullable } from "@/app/lib/types"
+import Button from "@/app/components/Button"
+import icons from "@/app/lib/icons"
+import { confirmRegister } from "@/app/services/auth"
 
 export default function SignupConfirm() {
     const [username, setUsername] = useState<Nullable<string>>(null)
@@ -20,6 +20,7 @@ export default function SignupConfirm() {
         const username = params.get("u")
         if (!username) router.push(`/signup`)
         setUsername(username)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const submitConfirmSignup = async (formData: FormData) => {
@@ -57,7 +58,7 @@ export default function SignupConfirm() {
         <div>
             <h1 className={"page-title"}>Sign up</h1>
             <p className={"text-green-500 my-4"}>
-                We've sent a confirmation code to your email address. Please check your inbox (or your junk folder).
+                We&apos;ve sent a confirmation code to your email address. Please check your inbox (or your junk folder).
             </p>
             <form className={"space-y-4"} action={submitConfirmSignup}>
                 <div>
