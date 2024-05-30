@@ -11,7 +11,7 @@ export default function Home() {
             
             {/* Full-width screen layout */}
             <div className="hidden lg:block">
-                <div className="fixed inset-0 z-[-1] pl-11 pt-20 ml-4 mt-10">
+                <div className="fixed z-[-1]">
                     <Image src={yellowback} alt="backgroundimg" className="pl-40 pt-5" />
                 </div>
                 <div className="fixed inset-0 z-10 pl-96 ml-60">
