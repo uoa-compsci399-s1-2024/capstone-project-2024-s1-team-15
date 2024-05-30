@@ -9,3 +9,7 @@ export async function revalidateNews() {
 export async function revalidateResearch() {
     revalidateTag("research")
 }
+
+export async function revalidateUser() {
+    revalidateTag("user")
+}

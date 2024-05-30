@@ -16,10 +16,10 @@ export default class AuthController {
     static register: RequestHandler = async (req, res, next) => {
         const body = validate(RegisterIn, req.body)
         if (await DB.getUserByUsername(body.username)) {
-            return new BadRequestError("This username is already in use by another user.")
+            throw new BadRequestError("This username is already in use by another user.")
         }
         if (await DB.getUserByEmail(body.email)) {
-            return new BadRequestError("This email is already in use by another user.")
+            throw new BadRequestError("This email is already in use by another user.")
         }
         await AUTH.signup(body.username, body.password, body.email)
         await DB.createUser(new User({
