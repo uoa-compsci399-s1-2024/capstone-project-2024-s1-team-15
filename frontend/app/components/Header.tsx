@@ -79,7 +79,7 @@ export default function Header(): React.JSX.Element {
                 <div className={"md:flex-grow"}>
                     <Link href={"/"} className="text-black p-4">
                     <span
-                        className={"font-bold text-2xl sm:text-4xl md:text-5xl text-black tracking-tight select-none"}>
+                        className={"font-semibold text-2xl sm:text-4xl md:text-5xl text-black tracking-tight select-none"}>
                         AAPC
                     </span>
                     </Link>

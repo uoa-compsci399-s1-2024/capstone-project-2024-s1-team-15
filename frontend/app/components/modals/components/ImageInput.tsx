@@ -152,7 +152,7 @@ function DragDropImage({ onImageReceived, onError }: ImageInputProps) {
                     <IoCloudUploadOutline size={"100%"}/>
                 </div>
                 <div className={"text-center"}>
-                    <p className={"text-xs font-bold"}>
+                    <p className={"text-xs font-semibold"}>
                         {isHovering ? "...drop an image here!" : "...or, drag and drop an image here"}
                     </p>
                     {error

@@ -37,7 +37,7 @@ function Slider({ slides, onSelectedSlideIndexChange }: Props) {
 }
 
 export function Slide({ slideContent }: any) {
-    return <div dangerouslySetInnerHTML={{ __html: slideContent }}></div>
+    return <div className={"prose"} dangerouslySetInnerHTML={{ __html: slideContent }}></div>
 }
 
 export default Slider

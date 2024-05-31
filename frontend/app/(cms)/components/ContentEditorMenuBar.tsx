@@ -12,7 +12,7 @@ const boldButton = (editor: Editor) => (
         title={"Bold (Ctrl+B)"}
         onClick={() => editor.chain().focus().toggleBold().run()}
         className={(editor.isActive("bold") ? "active" : "") + " ce-button"}>
-        <b className={"font-bold"}>B</b>
+        <b className={"font-semibold"}>B</b>
     </button>
 )
 
