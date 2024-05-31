@@ -8,6 +8,7 @@ export default async function AllNewsPage() {
     return (
         <>
             <h1 className="page-title">All News</h1>
+            <p className="prose-sm mb-4">Explore media features on AAPC and pollen research.</p>
             <DisplayAllArticles type="news"/>
         </>
     )
