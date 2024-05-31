@@ -8,7 +8,7 @@ export default function AllResearchPage() {
     return (
         <>
             <h1 className="page-title">All Research</h1>
-            <p className="mb-4 mx-auto w-full sm:mb-6 md:mb-6 md:w-max; max-w-screen-xl prose">Stay informed with AAPC: Access our latest projects, ongoing research, and a curated selection of published studies in the field of pollen.</p>
+            <p className="prose-sm mb-4">Stay informed with AAPC: Access our latest projects, ongoing research, and a curated selection of published studies in the field of pollen.</p>
             <DisplayAllArticles type="research" />
         </>
     )
