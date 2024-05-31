@@ -271,7 +271,7 @@ export default class MongoRepository implements IRepository {
     ): Promise<ArrayResult<ImageMetadata>> {
         const a: ImageMetadata[] = []
         let rC: number = 0
-        const q: Filter<any> = username !== undefined ? { username: username } : {}
+        const q: Filter<any> = username !== undefined ? { createdBy: username } : {}
         if (username !== null) {
             rC = await this.imageMetadata.countDocuments(q)
             const result = await this.fetchMongoDocuments(this.imageMetadata.find(q), options)
