@@ -13,3 +13,7 @@ export async function revalidateResearch() {
 export async function revalidateUser() {
     revalidateTag("user")
 }
+
+export async function revalidateImage() {
+    revalidateTag("image")
+}
