@@ -91,7 +91,7 @@ hr {
 }
 
 .form-input {
-    @apply border-2 resize-none focus:border-yellow-300 hover:border-purple-300 h-11 w-full p-1 px-5 bg-slate-100 rounded-2xl shadow-inner align-middle;
+    @apply border-2 resize-none focus:border-primary hover:border-accent-dark h-11 w-full p-1 px-5 bg-slate-100 rounded-2xl shadow-inner align-middle;
 }
 
 .form-label {

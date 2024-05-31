@@ -13,7 +13,7 @@ export default function SearchBar({ onSearchInputChange }: { onSearchInputChange
             <input
                 type="text"
                 placeholder="Search..."
-                className="w-full pl-12 pr-3 py-2 text-gray-500 bg-transparent outline-none border-2 focus:border-yellow-300 hover:border-purple-300 rounded-lg sm:max-w-xs"
+                className="w-full pl-12 pr-3 py-2 text-gray-500 bg-transparent outline-none border-2 focus:border-primary hover:border-accent-dark rounded-lg sm:max-w-xs"
                 onChange={e => onSearchInputChange(e.target.value)}
             />
         </div>
