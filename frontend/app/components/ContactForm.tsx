@@ -70,7 +70,7 @@ export default function ContactForm() {
                         maxLength={50}
                         required
                         placeholder="Full Name"
-                        className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-300"
+                        className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-300 hover:border-purple-100"
                         onChange={({ target }) => setNameInput(target.value)}
                     />
                 </div>
@@ -84,7 +84,7 @@ export default function ContactForm() {
                         maxLength={50}
                         required
                         placeholder="Your Email"
-                        className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-300"
+                        className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-300 hover:border-purple-100"
                         onChange={({ target }) => setEmailInput(target.value)}
                     />
                 </div>
@@ -97,7 +97,7 @@ export default function ContactForm() {
                         maxLength={3500}
                         required
                         placeholder="Hi there! Please write your message to us here, and we will get back to you soon."
-                        className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-300 h-32"
+                        className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-300 hover:border-purple-100 h-32"
                         onChange={({ target }) => setMessageInput(target.value)}></textarea>
                 </div>
 
