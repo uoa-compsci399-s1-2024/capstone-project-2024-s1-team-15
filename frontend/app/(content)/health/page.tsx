@@ -23,7 +23,7 @@ export default function HealthPage() {
                         ears. Like any other allergy, allergic rhinitis is an inappropriate immune system response to an
                         allergen - most commonly:
                     </p>
-                    <ul>
+                    <ul className={"marker:text-current"}>
                         <li>
                             <p>
                                 house dust mite
