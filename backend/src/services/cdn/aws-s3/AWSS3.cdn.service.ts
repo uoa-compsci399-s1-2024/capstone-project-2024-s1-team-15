@@ -1,5 +1,5 @@
 import ICDNService from "@/services/cdn/cdn.service"
-import { S3Client, PutObjectCommand, DeleteObjectCommand } from "@aws-sdk/client-s3"
+import { S3Client, PutObjectCommand, DeleteObjectCommand, ListBucketsCommand } from "@aws-sdk/client-s3"
 import { ImageFormat } from "@aapc/types"
 
 export default class AWSS3CDNService implements ICDNService {
@@ -12,6 +12,9 @@ export default class AWSS3CDNService implements ICDNService {
         this.bucketName = bucketName
         console.log(this.bucketName)
         this.s3 = new S3Client({ region: this.bucketRegion })
+        this.s3.send(new ListBucketsCommand()).then(r => {
+            console.log(r)
+        })
     }
 
     async putImage(image: Buffer, id: string, imageFormat: ImageFormat): Promise<string> {
