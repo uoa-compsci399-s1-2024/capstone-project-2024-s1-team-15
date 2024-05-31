@@ -21,15 +21,14 @@ jobs:
           echo PORT=3000 >> .env
           echo MONGO_URI="${{ secrets.MONGO_URI_DEV }}" >> .env
           echo JWT_SECRET=${{ secrets.JWT_SECRET_DEV }} >> .env
-          echo AWS_COGNITO_CLIENT_ID=${{ secrets.AWS_COGNITO_CLIENT_ID_DEV }} >> .env
-          echo AWS_COGNITO_USERPOOL_ID=${{ secrets.AWS_COGNITO_USERPOOL_ID_DEV }} >> .env
           echo BREVO_CLIENT_EMAIL=${{ secrets.BREVO_CLIENT_EMAIL }} >> .env
           echo BREVO_CLIENT_PASSWORD=${{ secrets.BREVO_CLIENT_PASSWORD }} >> .env
           echo GOOGLE_RECAPTCHA_SECRET_KEY=${{ secrets.GOOGLE_RECAPTCHA_SECRET_KEY }} >> .env
-          echo AWS_SESSION_TOKEN=${{ secrets.AWS_SESSION_TOKEN }} >> .env
+          echo AWS_COGNITO_CLIENT_ID=${{ secrets.AWS_COGNITO_CLIENT_ID_DEV }} >> .env
+          echo AWS_COGNITO_USERPOOL_ID=${{ secrets.AWS_COGNITO_USERPOOL_ID_DEV }} >> .env
+          echo AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }} >> .env
           echo AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} >> .env
           echo AWS_REGION=${{ secrets.AWS_REGION }} >> .env
-          echo AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }} >> .env
       - name: Install Vercel CLI
         working-directory: ./backend
         run: |
