@@ -8,6 +8,7 @@ on:
       - dev
     paths:
       - 'frontend/**'
+      - '.github/workflows/frontend-dev.yml'
 
 jobs:
   deploy:
