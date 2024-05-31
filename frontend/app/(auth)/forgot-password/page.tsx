@@ -10,8 +10,7 @@ export default function ForgotPasswordPage() {
 
     return (
         <>
-            <h1>{emailToResetPasswordFor ? "Reset password" : "Forgot password"}</h1>
-
+            <h1 className={"page-title"}>{emailToResetPasswordFor ? "Reset password" : "Forgot password"}</h1>
             {!resetSuccess && (
                 <ForgotPasswordForm onSuccess={(sentToEmail: string) => setEmailToResetPasswordFor(sentToEmail)} />
             )}

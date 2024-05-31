@@ -10,6 +10,8 @@ import Button from "@/app/components/Button"
 import { ModalRef } from "@/app/lib/hooks/useModal"
 import ButtonLink from "@/app/components/ButtonLink"
 import LinkUser from "@/app/components/LinkUser"
+import Privileged from "@/app/components/Privileged";
+import { SCOPES } from "@/app/lib/consts";
 
 type AuthDashboardProps = {
     dashboardLocation: string,
@@ -33,6 +35,15 @@ export default function AuthDashboard({ dashboardLocation, onRedirect }: AuthDas
                         {scopes && <UserScopeLabel scopes={scopes}/>}
                     </div>
                     <div className={`flex justify-center gap-x-4`}>
+                        <Privileged requiredScopes={SCOPES.admin}>
+                            <ButtonLink
+                                text={"Manage Users"}
+                                theme={"cms"}
+                                icon={icons.users}
+                                href={"/manage-users"}
+                                onClick={() => onRedirect && onRedirect()}
+                            />
+                        </Privileged>
                         <ButtonLink
                             text={"My Account"}
                             icon={icons.user}

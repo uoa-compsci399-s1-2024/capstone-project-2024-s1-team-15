@@ -11,8 +11,8 @@ interface PaginatorProps {
 }
 
 export default function Paginator({ paginator, setPage }: PaginatorProps) {
-    const resultStartIndex = (paginator.currentPage - 1) * paginator.resultsPerPage + 1
     const resultEndIndex = Math.min(paginator.currentPage * paginator.resultsPerPage, paginator.totalResults)
+    const resultStartIndex = Math.min((paginator.currentPage - 1) * paginator.resultsPerPage + 1)
 
     const handlePrevious = () => {
         if (paginator.currentPage > 1) {
@@ -38,7 +38,7 @@ export default function Paginator({ paginator, setPage }: PaginatorProps) {
                 />
                 <div className={"flex flex-col md:flex-row gap-x-1.5 text-center uppercase text-gray-500"}>
                     <p className={"block smallest"}>
-                        Page <b className={"font-semibold"}>{paginator.currentPage}</b>
+                        Page <b className={"font-medium"}>{paginator.currentPage}</b>
                     </p>
                     <p className={"hidden md:block smallest select-none"}>
                         ·
@@ -51,7 +51,7 @@ export default function Paginator({ paginator, setPage }: PaginatorProps) {
                     onClick={handleNext}
                     text={"Next"}
                     icon={icons.forward}
-                    disabled={paginator.currentPage === paginator.lastPage}
+                    disabled={paginator.currentPage >= paginator.lastPage}
                 />
             </div>
         </div>

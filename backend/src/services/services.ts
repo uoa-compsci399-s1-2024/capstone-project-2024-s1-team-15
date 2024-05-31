@@ -8,11 +8,10 @@ import dotenv from "dotenv"
 import IMailer from "./mailer/mailer.service"
 import ConsoleMailer from "./mailer/Console.mailer.service"
 import BrevoMailer from "./mailer/Brevo.mailer.service"
-import ICDNService from "@/services/cdn/cdn.service";
-import AWSS3CDNService from "@/services/cdn/aws-s3/AWSS3.cdn.service";
-import LocalCDNService from "@/services/cdn/local/Local.cdn.service";
-import ProcessEnv = NodeJS.ProcessEnv;
-import * as process from "process";
+import ICDNService from "@/services/cdn/cdn.service"
+import AWSS3CDNService from "@/services/cdn/aws-s3/AWSS3.cdn.service"
+import LocalCDNService from "@/services/cdn/local/Local.cdn.service"
+import ProcessEnv = NodeJS.ProcessEnv
 
 dotenv.config()
 
@@ -27,11 +26,10 @@ switch (process.env.ENV) {
         console.log(`Environment: ${process.env.ENV}`)
 
         const requiredEnvVariables: (keyof ProcessEnv)[] = [
-            "MONGO_URI",
-            "JWT_SECRET",
-            "COGNITO_CLIENT_ID", "COGNITO_USERPOOL_ID",
+            "MONGO_URI", "JWT_SECRET",
             "BREVO_CLIENT_EMAIL", "BREVO_CLIENT_PASSWORD",
-            "AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY", "AWS_SESSION_TOKEN", "AWS_REGION"
+            "AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY", "AWS_REGION",
+            "AWS_COGNITO_CLIENT_ID", "AWS_COGNITO_USERPOOL_ID",
         ]
 
         const missingEnvVariables: (keyof ProcessEnv)[] = requiredEnvVariables.filter(
@@ -50,8 +48,8 @@ switch (process.env.ENV) {
 
         AUTH = new AuthContext(
             new AWSCognitoAuthService(
-                <string>process.env.COGNITO_CLIENT_ID,
-                <string>process.env.COGNITO_USERPOOL_ID
+                <string>process.env.AWS_COGNITO_CLIENT_ID,
+                <string>process.env.AWS_COGNITO_USERPOOL_ID
             ),
             <string>process.env.JWT_SECRET
         )

@@ -14,10 +14,8 @@ export default class UserController {
             maxResults: query.pp,
             sort: [{ field: query.sortBy, descending: query.desc }],
         }
-        const u =
-            query.un === undefined ? await DB.getAllUsers(options) : await DB.searchUserByUsername(query.un, options)
-        res.status(200)
-            .json(getPaginator(User, req, u, query.p, query.pp))
+        const u = await DB.getUsers(query.un, options)
+        res.status(200).json(getPaginator(User, req, u, query.p, query.pp))
         next()
     }
 
@@ -77,7 +75,7 @@ export default class UserController {
         if ((await DB.getUserByUsername(username)) === null)
             throw new NotFoundError(`User with username ${username} does not exist.`)
         await DB.deleteUser(username)
-        res.status(204).send()
+        res.sendStatus(204)
         next()
     }
 }

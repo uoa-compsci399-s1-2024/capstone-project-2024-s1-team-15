@@ -7,7 +7,6 @@ import icons from "@/app/lib/icons"
 import Button from "@/app/components/Button"
 import EditDisplayIconForm from "@/app/(content)/my-account/components/EditDisplayIconForm"
 import EditDisplayNameForm from "@/app/(content)/my-account/components/EditDisplayNameForm"
-import EditEmailForm from "@/app/(content)/my-account/components/EditEmailForm"
 import { ChangePasswordModal } from "@/app/components/modals"
 import { ModalRef } from "@/app/lib/hooks/useModal"
 import ManageImages from "@/app/(content)/my-account/components/ManageImages"
@@ -30,8 +29,11 @@ export default function Page(): Nullable<React.JSX.Element> {
                     <label className={"form-label"}>Username (Cannot be changed)</label>
                     <input className={"form-input max-w-96 text-gray-400 select-none cursor-not-allowed"} readOnly value={user.username}/>
                 </div>
+                <div className={"max-w-full flex flex-col"}>
+                    <label className={"form-label"}>Email (Cannot be changed)</label>
+                    <input className={"form-input max-w-96 text-gray-400 select-none cursor-not-allowed"} readOnly value={user.email}/>
+                </div>
                 <EditDisplayNameForm displayName={user.displayName}/>
-                <EditEmailForm email={user.email}/>
                 <EditDisplayIconForm currentSrc={user.iconSrc}/>
                 <ManageImages/>
                 <div>

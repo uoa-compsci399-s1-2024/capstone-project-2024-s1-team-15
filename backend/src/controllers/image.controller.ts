@@ -13,14 +13,12 @@ import { ArrayResultOptions, ImageMetadataSortFields, Nullable, SortOptions } fr
 export default class ImageController {
     static getImageMetadata: RequestHandler = async (req, res, next) => {
         const id = String(req.params.id)
-
         const im = await DB.getImageMetadataById(id)
         const isAdmin = Scope.scopeContainsAny(res.locals.userScopes, SCOPES.admin)
         if (im === null || (im.createdBy.username !== res.locals.username && !isAdmin)) {
             throw new NotFoundError(`Image with id ${id} does not exist.`)
         }
-
-        res.status(200).json(im).send()
+        res.status(200).json(im)
         next()
     }
 
@@ -57,12 +55,8 @@ export default class ImageController {
             maxResults: query.pp,
             sort: [{ field: query.sortBy, descending: query.desc }],
         }
-
         let im = await DB.getImageMetadata(getCreatedBy, options)
-
-        res.status(200)
-            .json(getPaginator(ImageMetadata, req, im, query.p, query.pp))
-            .send()
+        res.status(200).json(getPaginator(ImageMetadata, req, im, query.p, query.pp))
         next()
     }
 
@@ -119,29 +113,25 @@ export default class ImageController {
             alt: query.alt ? query.alt : null,
             origin: query.origin ? query.origin : null
         }))
-
         res.location(`/image/${im.id}`)
-        res.status(201).json(im).send()
+        res.status(201).json(im)
         next()
     }
 
     static deleteImage: RequestHandler = async (req, res, next) => {
         const id: string = String(req.params.id)
-
         const im = await DB.getImageMetadataById(id)
         const isAdmin = Scope.scopeContainsAny(res.locals.userScopes, SCOPES.admin)
         if (im === null || (im.createdBy.username !== res.locals.username && !isAdmin)) {
             throw new NotFoundError(`Image with id ${id} does not exist.`)
         }
-
         try {
             await CDN.deleteImage(`${im.id}.${im.format}`)
         } catch (e) {
             throw Error("Failed retrieving AWS resources.")
         }
         await DB.deleteImageMetadata(id)
-
-        res.status(204).send()
+        res.sendStatus(204)
         next()
     }
 }

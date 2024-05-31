@@ -22,8 +22,8 @@ jobs:
           echo PORT=3000 >> .env
           echo MONGO_URI="${{ secrets.MONGO_URI_PROD }}" >> .env
           echo JWT_SECRET=${{ secrets.JWT_SECRET_PROD }} >> .env
-          echo COGNITO_CLIENT_ID=${{ secrets.COGNITO_CLIENT_ID }} >> .env
-          echo COGNITO_USERPOOL_ID=${{ secrets.COGNITO_USERPOOL_ID }} >> .env
+          echo AWS_COGNITO_CLIENT_ID=${{ secrets.AWS_COGNITO_CLIENT_ID_PROD }} >> .env
+          echo AWS_COGNITO_USERPOOL_ID=${{ secrets.AWS_COGNITO_USERPOOL_ID_PROD }} >> .env
           echo BREVO_CLIENT_EMAIL=${{ secrets.BREVO_CLIENT_EMAIL }} >> .env
           echo BREVO_CLIENT_PASSWORD=${{ secrets.BREVO_CLIENT_PASSWORD }} >> .env
           echo GOOGLE_RECAPTCHA_SECRET_KEY=${{ secrets.GOOGLE_RECAPTCHA_SECRET_KEY }} >> .env

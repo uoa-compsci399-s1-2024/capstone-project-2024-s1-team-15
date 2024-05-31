@@ -16,14 +16,14 @@ export default function HealthPage() {
         <PageTemplate>
             <PageTemplate.PageName name={"Health"} />
             <PageTemplate.PageExplanation>
-                <div>
+                <div className={"prose"}>
                     <p>
                         Hay fever is the common name to describe allergic rhinitis and involves a recurrent runny,
                         stuffy, itchy nose, and frequent sneezing. It can also affect your eyes, sinuses, throat and
                         ears. Like any other allergy, allergic rhinitis is an inappropriate immune system response to an
                         allergen - most commonly:
                     </p>
-                    <ul className="default">
+                    <ul>
                         <li>
                             <p>
                                 house dust mite
@@ -32,26 +32,27 @@ export default function HealthPage() {
                         </li>
                         <li>
                             <p>
-                                animal hair <span className="text-gray-600">- do you have pets?</span>
+                                animal hair - do you have pets?
                             </p>
                         </li>
                         <li>
-                            <p>mould</p>
+                            <p>
+                                mould
+                            </p>
                         </li>
                         <li>
                             <p>
-                                pollen from grasses, weeds or trees <br />
+                                pollen from grasses, weeds or trees
                                 <LearnMoreLink sourceUrl="./pollen" />
                             </p>
                         </li>
                     </ul>
-                    <br />
                     <p>
                         The allergen comes into contact with the sensitive, moist lining in your nose and sinuses and
                         sets off the allergic response.{" "}
                     </p>
+                    <SourceLink sourceUrl="https://www.asthmafoundation.org.nz/your-health/other-respiratory-conditions/allergies" />
                 </div>
-                <SourceLink sourceUrl="https://www.asthmafoundation.org.nz/your-health/other-respiratory-conditions/allergies" />
             </PageTemplate.PageExplanation>
 
             <PageTemplate.HighlightSection title={<h3>Common Symptoms</h3>}>
