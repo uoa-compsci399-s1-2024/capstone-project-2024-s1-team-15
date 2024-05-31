@@ -11,6 +11,8 @@ export default class AWSS3CDNService implements ICDNService {
         this.bucketRegion = "us-east-1"
         this.bucketName = bucketName
         this.s3 = new S3Client({ region: this.bucketRegion })
+        console.log(this.bucketName)
+        this.s3.config.credentials().then(r => console.log(r))
     }
 
     async putImage(image: Buffer, id: string, imageFormat: ImageFormat): Promise<string> {
