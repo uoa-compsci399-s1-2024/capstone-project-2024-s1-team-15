@@ -1,4 +1,4 @@
-import IMailer, { ContactFormInputs } from "./mailer.service"
+import IMailer from "@/services/mailer/mailer.service"
 import { createTransport, Transporter } from "nodemailer"
 
 export default class BrevoMailer implements IMailer {
@@ -12,9 +12,7 @@ export default class BrevoMailer implements IMailer {
         })
     }
 
-    async sendNotificationForContactForm({ email, name, message }: ContactFormInputs) {
-        if (!email) throw Error("user email not provided")
-
+    async sendEmailMessage(email: string, name: string, message: string): Promise<void> {
         const emailObject = {
             to: "aapctest27394962@gmail.com",
             from: email,
@@ -31,14 +29,6 @@ export default class BrevoMailer implements IMailer {
             <p>You can reply to their email: <a href="mailto:${email}">${email}</a></p>
             `,
         }
-
-        try {
-            const info = await this.brevoTransport.sendMail(emailObject)
-            console.log(JSON.stringify(info))
-        } catch (e: any) {
-            throw Error(
-                `An error occurred and the AAPC were not sent your message. Here are the error details: ${e.message}`
-            )
-        }
+        await this.brevoTransport.sendMail(emailObject)
     }
 }

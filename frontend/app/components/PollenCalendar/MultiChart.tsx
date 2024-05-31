@@ -74,7 +74,7 @@ const MultiChart = memo(function MultiChart({
         plugins: {
             legend: {
                 labels: {
-                    filter: (item, data) =>
+                    filter: (item, _) =>
                         item.datasetIndex != undefined &&
                         ((item.datasetIndex >= 0 && item.datasetIndex < pollenTypes.length) ||
                             (showsDailyTotal && item.text === "Total Pollen")),

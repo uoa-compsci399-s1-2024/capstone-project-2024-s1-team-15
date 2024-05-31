@@ -7,7 +7,7 @@ import { PUBLIC_FRONT_END_PAGES as pages } from "@/app/lib/consts"
 import React, { useEffect, useState } from "react"
 
 const degreesInCircle = 360
-const numTimesEachPageShows = 2 //times in flower
+const numTimesEachPageShows = 2 // times in flower
 const numPages = pages.length
 
 const angleDifference = degreesInCircle / (numTimesEachPageShows * numPages)

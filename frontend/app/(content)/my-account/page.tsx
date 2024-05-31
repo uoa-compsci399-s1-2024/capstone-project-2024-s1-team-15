@@ -49,6 +49,8 @@ export default function Page(): Nullable<React.JSX.Element> {
                                 onClick={() => changePasswordModalRef.current && changePasswordModalRef.current.showModal()}
                             />
                             <Button
+                                disabled={true}  // TODO: allow deactivating account
+                                title={"Not Implemented Yet"}
                                 text={"Deactivate Account"}
                                 theme={"red"} icon={icons.deactivate}
                                 className={"min-w-[232px]"}

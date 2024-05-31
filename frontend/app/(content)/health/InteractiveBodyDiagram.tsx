@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useState } from "react"
 import HumanCartoon from "./images/humanCartoon.svg"
 import Image from "next/image"
 import commonSymptoms from "./commonSymptoms"
@@ -8,7 +8,6 @@ import ExplanationDialog from "./ExplanationDialog"
 
 export default function InteractiveBodyDiagram() {
     const [selectedBodyPart, setSelectedBodyPart] = useState<string | null>(null)
-    const bodyPartExplanationDialogRef = useRef<null | HTMLDialogElement>(null)
 
     return (
         <div>

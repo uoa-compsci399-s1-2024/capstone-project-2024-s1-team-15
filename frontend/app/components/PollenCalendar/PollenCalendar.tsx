@@ -4,11 +4,11 @@ import { PollenData } from "@aapc/types"
 import icons from "@/app/lib/icons"
 import { formatPollenData, FormattedPollenData } from "@/app/(cms)/pollen/components/util/formatData"
 import Button from "@/app/components/Button"
-import PollenTypeInput from "@/app/components/pollen/PollenTypeInput"
-import DateInput from "@/app/components/pollen/DateInput"
+import PollenTypeInput from "@/app/components/PollenCalendar/PollenTypeInput"
+import DateInput from "@/app/components/PollenCalendar/DateInput"
 
 import dynamic from "next/dynamic"
-const MultiChart = dynamic(() => import("@/app/components/pollen/MultiChart"), { ssr: false })
+const MultiChart = dynamic(() => import("@/app/components/PollenCalendar/MultiChart"), { ssr: false })
 
 import { dateFormat } from "."
 import { makeTimestampForDateMidday } from "./util"

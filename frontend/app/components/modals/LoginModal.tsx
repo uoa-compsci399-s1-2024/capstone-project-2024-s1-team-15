@@ -1,7 +1,7 @@
 import { LoginForm } from "@/app/(auth)/components"
 import React, { ForwardedRef, forwardRef } from "react"
 import useModal, { ModalRef } from "@/app/lib/hooks/useModal"
-import FormModal from "@/app/components/modals/components/FormModal"
+import FormModal from "@/app/components/modals/FormModal"
 
 type LoginModalProps = {
     modalId: string

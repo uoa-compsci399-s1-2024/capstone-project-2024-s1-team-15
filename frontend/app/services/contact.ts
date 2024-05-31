@@ -11,7 +11,7 @@ export type ContactPayload = {
 }
 
 export async function contact(payload: ContactPayload, fetchOptions?: FetchOptions): Promise<Result<null>> {
-    const response = await fetch(`${API_URI}/contact-aapc`, {
+    const response = await fetch(`${API_URI}/contact`, {
         method: "post",
         body: JSON.stringify(payload),
         headers: getHeaders(fetchOptions),

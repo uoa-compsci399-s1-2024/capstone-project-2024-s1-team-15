@@ -9,11 +9,11 @@ import {
     UserSortFields
 } from "@/util/types/types"
 import IRepository from "@/services/repository/repository.service"
-import users from "@/services/repository/memory/data/users.json"
-import news from "@/services/repository/memory/data/news.json"
-import researches from "@/services/repository/memory/data/researches.json"
-import imageMetadata from "@/services/repository/memory/data/imageMetadata.json"
-import pollenData from "@/services/repository/memory/data/pollenData.json"
+import users from "@/services/repository/local/data/users.json"
+import news from "@/services/repository/local/data/news.json"
+import researches from "@/services/repository/local/data/researches.json"
+import imageMetadata from "@/services/repository/local/data/imageMetadata.json"
+import pollenData from "@/services/repository/local/data/pollenData.json"
 
 export default class MemoryRepository implements IRepository {
     private readonly users: User[]

@@ -9,7 +9,7 @@ import icons from "@/app/lib/icons"
 import { deletePollenData, getPollenData } from "@/app/services/pollen"
 import PageTemplate from "@/app/components/PageContentTemplate"
 import Slider, { Slide } from "@/app/components/slider/Slider"
-import { PollenCalendar } from "@/app/components/pollen"
+import PollenCalendar from "@/app/components/PollenCalendar"
 import ButtonLink from "@/app/components/ButtonLink"
 import Privileged from "@/app/components/Privileged"
 

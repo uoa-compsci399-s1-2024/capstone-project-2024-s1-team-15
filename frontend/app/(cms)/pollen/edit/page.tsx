@@ -3,7 +3,7 @@
 import React, { useEffect, useState, useRef } from "react"
 import { PollenData } from "@aapc/types"
 import { parseSpreadsheet } from "./util/parseExcel"
-import { PollenCalendar } from "@/app/components/pollen"
+import PollenCalendar from "@/app/components/PollenCalendar"
 import parseAssumptions from "./util/parseAssumptions"
 import { createPollenData } from "@/app/services/pollen"
 import { useAuth } from "@/app/lib/hooks"

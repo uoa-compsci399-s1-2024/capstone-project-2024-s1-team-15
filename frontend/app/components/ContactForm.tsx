@@ -5,7 +5,7 @@ import { DEFAULT_FORM_DIALOG_DURATION } from "../lib/consts"
 import ReCAPTCHA from "react-google-recaptcha"
 import Button from "@/app/components/Button"
 import icons from "@/app/lib/icons"
-import { contact, ContactPayload } from "@/app/services/lib/contact";
+import { contact, ContactPayload } from "@/app/services/contact";
 import { Nullable } from "@/app/lib/types";
 
 export default function ContactForm() {

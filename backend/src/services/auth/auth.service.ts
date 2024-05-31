@@ -1,6 +1,7 @@
 import { sign, verify } from "jsonwebtoken"
 import { Nullable } from "@/util/types/types"
 import { IUser, UserScope } from "@aapc/types"
+import { LOCAL_JWT_SECRET } from "@/util/const";
 
 export type JWTPayload = {
     username: string
@@ -11,7 +12,7 @@ export default class AuthContext {
     private readonly authServiceProvider: IAuthService
     private readonly jwtSecret: string
 
-    constructor(authServiceProvider: IAuthService, jwtSecret: string = "local") {
+    constructor(authServiceProvider: IAuthService, jwtSecret: string = LOCAL_JWT_SECRET) {
         this.authServiceProvider = authServiceProvider
         this.jwtSecret = jwtSecret
     }

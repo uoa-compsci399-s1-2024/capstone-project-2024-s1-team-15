@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import Button from "@/app/components/FlexibleHeightButton"
+import Button from "@/app/components/Button"
 import icons from "@/app/lib/icons"
 
 type Props = {
@@ -22,6 +22,7 @@ function Slider({ slides, onSelectedSlideIndexChange }: Props) {
                 onClick={() => setSelectedSlideIndex(c => c - 1)}
                 icon={icons.back}
                 leftIcon
+                fullHeight
             />
 
             {slides[selectedSlideIndex]}
@@ -31,6 +32,7 @@ function Slider({ slides, onSelectedSlideIndexChange }: Props) {
                 disabled={selectedSlideIndex === (slides.length - 1)}
                 onClick={() => setSelectedSlideIndex(c => c + 1)}
                 icon={icons.forward}
+                fullHeight
             />
         </div>
     )

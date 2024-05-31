@@ -31,20 +31,20 @@ npm i
 npm run dev
 ```
 
-The default port is configured to `3000`. The environment is `LOCAL` by default, and will use the `MemoryRepository`.
+The default port is configured to `3000`. The environment is `LOCAL` by default, and will use local services.
 
 Ping the Express API through [http://localhost:3000](http://localhost:3000). You should see the following response:
 
 ```json
 {
-    "message": "ok"
+    "message": "ok",
     "environment": "local"
 }
 ```
 
 # Deployment Rules
 
--   Any changes pushed to github on **any** branch will be deployed to Vercel Development Preview. This is not public.
+-   Any changes pushed to GitHub on **any** branch will be deployed to Vercel Development Preview. This is not public.
 -   Any changes pushed on the `dev` branch will be deployed to the **development**
     environment ([https://dev-api.aapc-nz.org](https://dev-api.aapc-nz.org)).
 -   Any changes pushed on the `main` branch will be deployed to the **production**
@@ -56,13 +56,53 @@ Ping the Express API through [http://localhost:3000](http://localhost:3000). You
 
 When running the backend locally, the `ENV` will be `LOCAL` and use the `MemoryRepository` with data from the local JSON
 files.
+- **CDN**: Uses the local `LocalCDNService` which stores files into `@/src/static`, and is cleared every restart.
+- **Auth**: Uses the local `LocalAuthService` which simulates behaviour from a real auth provider. The default master password is `admin` and email verification code `123456`.
+- **Mailer**: Uses the local `ConsoleMailerService` which outputs incoming contact messages on the console.
 
 ### `DEV`
 
 On [https://dev-api.aapc-nz.org](https://dev-api.aapc-nz.org) (the **development** environment), the `ENV` will be `DEV`
-and use the `MongoRepository` with data from the **Development** MongoDB Atlas cluster.
+and use the `MongoRepository` with data from the **Development** MongoDB Atlas cluster (`aapc-dev`).
+
+- **CDN**: Uses `AWSS3CDNServices` which stores files into the `dev-aapc-media` AWS S3 bucket.
+- **Auth**: Uses `AWSCognitoAuthService` which interacts with the `aapc-users` userpool on AWS Cognito to provide authentication.
+- **Mailer**: Uses `BrevoMailerService` which sends an email with the incoming contact message to an email address specified in `util/consts.ts`.
 
 ### `PROD`
 
 On [https://api.aapc-nz.org](https://api.aapc-nz.org) (the **production** environment), the `ENV` will be `PROD` and use
-the `MongoRepository` with data from the **Production** MongoDB Atlas cluster.
+the `MongoRepository` with data from the **Production** MongoDB Atlas cluster (`aapc-prod`).
+
+- **CDN**: Uses `AWSS3CDNServices` which stores files into the `aapc-media` AWS S3 bucket.
+- **Auth**: Uses `AWSCognitoAuthService` which interacts with the `aapc-users-prod` userpool on AWS Cognito to provide
+  authentication.
+- **Mailer**: Uses `BrevoMailerService` which sends an email with the incoming contact message to an email address
+  specified in `util/consts.ts`.
+
+# Environment Variables
+
+By default, if a `.env` file that specifies `ENV` to be either `DEV` or `PROD` is not found, the app will fall back to using the `LOCAL` environment.
+
+If an `.env` file is loaded and either `ENV=DEV` or `ENV=PROD`, the following environment variables must be specified:
+
+- `MONGO_URI` - for accessing the database
+
+
+- `BREVO_CLIENT_EMAIL` - for the mailer service
+- `BREVO_CLIENT_PASSWORD`
+
+
+- `AWS_ACCESS_KEY_ID` - credentials for an IAM User (not Role) on AWS with S3 Access
+- `AWS_SECRET_ACCESS_KEY`
+- `AWS_REGION`
+
+
+- `JWT_SECRET` - A cryptographically secure secret token to sign JWT payloads used for authentication
+
+
+- `AWS_COGNITO_USERPOOL_ID` - The AWS Cognito userpool ID for auth
+- `AWS_COGNITO_CLIENT_ID` - The ID of a registered client on the above AWS Cognito userpool (**without** a secret token)
+
+
+- `GOOGLE_RECAPTCHA_SECRET_KEY` - The secret key of Google's reCAPTCHA service

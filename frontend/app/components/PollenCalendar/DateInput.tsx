@@ -1,7 +1,7 @@
 import dayjs from "dayjs"
 import { useState } from "react"
-import { dateFormat } from "."
-import { makeTimestampForDateMidday } from "./util"
+import { dateFormat } from "@/app/components/PollenCalendar/index"
+import { makeTimestampForDateMidday } from "@/app/components/PollenCalendar/util"
 
 export default function DateInput({
     lowerLimit,
