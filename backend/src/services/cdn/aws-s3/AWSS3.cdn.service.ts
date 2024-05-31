@@ -1,7 +1,6 @@
 import ICDNService from "@/services/cdn/cdn.service"
 import { S3Client, PutObjectCommand, DeleteObjectCommand } from "@aws-sdk/client-s3"
 import { ImageFormat } from "@aapc/types"
-import * as process from "process";
 
 export default class AWSS3CDNService implements ICDNService {
     private readonly bucketName: string
@@ -12,9 +11,6 @@ export default class AWSS3CDNService implements ICDNService {
         this.bucketRegion = "us-east-1"
         this.bucketName = bucketName
         this.s3 = new S3Client({ region: this.bucketRegion })
-        console.log(process.env.AWS_ACCESS_KEY_ID)
-        console.log(process.env.AWS_SECRET_ACCESS_KEY)
-        this.s3.config.credentials().then(r => console.log(r))
     }
 
     async putImage(image: Buffer, id: string, imageFormat: ImageFormat): Promise<string> {
