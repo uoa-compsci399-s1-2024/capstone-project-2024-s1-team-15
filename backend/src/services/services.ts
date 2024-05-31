@@ -12,6 +12,7 @@ import ICDNService from "@/services/cdn/cdn.service"
 import AWSS3CDNService from "@/services/cdn/aws-s3/AWSS3.cdn.service"
 import LocalCDNService from "@/services/cdn/local/Local.cdn.service"
 import ProcessEnv = NodeJS.ProcessEnv
+import * as process from "process";
 
 dotenv.config()
 
@@ -67,6 +68,10 @@ switch (process.env.ENV) {
             ? 'dev-aapc-media'
             : 'aapc-media'
         )
+
+        console.log(process.env.AWS_ACCESS_KEY_ID)
+        console.log(process.env.AWS_SECRET_ACCESS_KEY)
+
         break
     }
     default: {
