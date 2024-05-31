@@ -6,6 +6,10 @@ body {
     @apply bg-background;
 }
 
+p {
+    @apply text-[#000000DF];
+}
+
 h1 {
     @apply text-[26px] sm:text-[30px] md:text-[36px] font-semibold tracking-tight mb-8 mt-12;
 }

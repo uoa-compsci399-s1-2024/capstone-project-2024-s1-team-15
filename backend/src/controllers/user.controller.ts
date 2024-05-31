@@ -14,8 +14,7 @@ export default class UserController {
             maxResults: query.pp,
             sort: [{ field: query.sortBy, descending: query.desc }],
         }
-        const u =
-            query.un === undefined ? await DB.getAllUsers(options) : await DB.searchUserByUsername(query.un, options)
+        const u = await DB.getUsers(query.un, options)
         res.status(200).json(getPaginator(User, req, u, query.p, query.pp))
         next()
     }

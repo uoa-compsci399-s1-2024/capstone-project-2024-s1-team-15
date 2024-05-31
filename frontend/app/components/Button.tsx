@@ -101,6 +101,7 @@ export default function Button(
                 disabled:cursor-not-allowed
                 disabled:text-gray-400 disabled:group-hover:text-gray-400
                 h-[33px] sm:h-[35px] md:h-[37px]
+                disabled:border-opacity-30
             `}>
                 {text &&
                     <p className={"text-[12px] sm:text-[13px] md:text-[14px]"}>
