@@ -102,7 +102,7 @@ export default function FlowerNav() {
 
     return (
         flowerRotationStyle && (
-            <div className="w-nav overflow-hidden">
+            <div className="w-nav overflow-hidden drop-shadow-xl">
                 <div
                     style={flowerRotationStyle}
                     className={`relative w-[32rem] h-[32rem] rotate-0 text-[1.8rem] transition-transform duration-[800ms]  ease-figma-gentle list-none p-0 m-0 `}>
