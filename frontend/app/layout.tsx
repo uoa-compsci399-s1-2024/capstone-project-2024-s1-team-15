@@ -19,8 +19,7 @@ export const metadata: Metadata = getMetadata()
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     return (
         <html lang="en">
-            <body className={`${inter.variable} font-sans max-w-screen min-h-screen flex flex-col overflow-x-hidden`}>
-            <div className={"-mr-[calc(100vw-100%)]"}>
+            <body className={`${inter.variable} font-sans max-w-screen min-h-screen flex flex-col overflow-x-hidden -mr-[calc(100vw-100%)]`}>
                 <AuthLayout>
                     {/* Header */}
                     <header className={`w-screen
@@ -32,7 +31,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                         <Header/>
                     </header>
 
-                    <div className={"relative"}>
+                    <div className={""}>
                         {/* Flower Nav - Only shown on desktop, desktop wide, desktop ultra-wide viewports */}
                         <nav className="fixed right-0 hidden lg:block z-10">
                             <FlowerNav/>
@@ -57,7 +56,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                         </div>
                     </footer>
                 </AuthLayout>
-            </div>
             </body>
         </html>
     )
