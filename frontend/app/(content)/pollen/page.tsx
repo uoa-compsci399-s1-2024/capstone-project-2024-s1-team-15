@@ -113,12 +113,14 @@ export default function Pollen() {
         <PageTemplate>
             <PageTemplate.PageName name={"Pollen"} />
             <PageTemplate.PageExplanation>
-                <p>
-                    Pollen is a powdery substance produced by most types of flowers of seed plants for the purpose of
-                    sexual reproduction. It consists of pollen grains, which produce male gametes. There are several
-                    different types of pollen. The most common include grass, oak and ragweed. For each plant/tree, the
-                    shape of the pollen can be slightly different and affect the body in different ways.
-                </p>
+                <div className={"prose"}>
+                    <p>
+                        Pollen is a powdery substance produced by most types of flowers of seed plants for the purpose of
+                        sexual reproduction. It consists of pollen grains, which produce male gametes. There are several
+                        different types of pollen. The most common include grass, oak and ragweed. For each plant/tree, the
+                        shape of the pollen can be slightly different and affect the body in different ways.
+                    </p>
+                </div>
             </PageTemplate.PageExplanation>
             <PageTemplate.HighlightSection
                 title={
@@ -179,7 +181,7 @@ export default function Pollen() {
             <PageTemplate.RemainingPageContent>
                 <h2 className={"mt-16 drop-shadow-lg"}>Pollen Calendar</h2>
                 <p
-                    className={`bg-accent-light pb-4 pt-8 
+                    className={`bg-accent-light pb-4 pt-8 prose max-w-max
                     -ml-pc pl-[calc(theme(spacing.pc)+0.625rem)] pr-pc -mt-8 rounded-r-[2rem]
                     sm:-ml-pc-sm sm:pl-[calc(theme(spacing.pc-sm)+0.75rem)] sm:pr-pc-sm sm:-mt-9 sm:rounded-r-[3rem]
                     md:-ml-pc-md md:pl-[calc(theme(spacing.pc-md)+0.875rem)] md:pr-pc-md md:-mt-10 md:rounded-r-[4rem]

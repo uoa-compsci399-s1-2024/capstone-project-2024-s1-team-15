@@ -11,23 +11,23 @@ p {
 }
 
 h1 {
-    @apply text-[26px] sm:text-[30px] md:text-[36px] font-bold tracking-tight mb-8 mt-12;
+    @apply text-[26px] sm:text-[30px] md:text-[36px] font-semibold tracking-tight mb-8 mt-12;
 }
 
 h2 {
-    @apply text-[23px] sm:text-[26px] md:text-[32px] font-bold tracking-tight my-4;
+    @apply text-[23px] sm:text-[26px] md:text-[32px] font-semibold tracking-tight my-4;
 }
 
 h3 {
-    @apply text-[20px] sm:text-[22px] lg:text-[26px] font-bold tracking-tight my-2;
+    @apply text-[20px] sm:text-[22px] lg:text-[26px] font-semibold tracking-tight my-2;
 }
 
 h4 {
-    @apply text-[18px] sm:text-[19.5px] md:text-[23px] font-bold tracking-tight;
+    @apply text-[18px] sm:text-[19.5px] md:text-[23px] font-medium tracking-tight;
 }
 
 h5 {
-    @apply text-[16px] sm:text-[17.5px] md:text-[20px] font-bold;
+    @apply text-[16px] sm:text-[17.5px] md:text-[20px] font-medium;
 }
 
 p,
@@ -61,7 +61,7 @@ ul.default {
 }
 
 .page-title {
-    @apply block text-white font-bold bg-primary rounded-full shadow-lg
+    @apply block text-white font-semibold bg-primary rounded-full shadow-lg
     text-xl py-1.5 mt-2 mb-4 mx-auto w-full text-center
     sm:text-2xl sm:py-2 sm:mb-6
     md:text-3xl md:px-9 md:py-3 md:mt-6 md:mb-6 md:mx-0 md:w-max;

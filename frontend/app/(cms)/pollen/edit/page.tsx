@@ -108,7 +108,7 @@ export default function EditPollen() {
                 {error &&
                     (error.errors ? (
                         <div className={"mt-2"}>
-                            <p className="form-error font-bold"> {error.message} </p>
+                            <p className="form-error font-semibold"> {error.message} </p>
                             <ul className="list-disc pl-4 mt-5">
                                 {error.errors.map((msg) => {
                                     return (
@@ -127,7 +127,7 @@ export default function EditPollen() {
 
             {inputFile && pollenDataset && (
                 <div className="mt-10">
-                    <h3 className="font-bold text-2xl my-2">Preview generated</h3>
+                    <h3 className="font-semibold text-2xl my-2">Preview generated</h3>
                     <PollenCalendar pollenData={pollenDataset}></PollenCalendar>
                     <div className={"mt-4 flex flex-row gap-x-6"}>
                         <ButtonLink
@@ -159,7 +159,7 @@ export default function EditPollen() {
 
             {error && (
                 <section className="mt-20">
-                    <h2 className="text-2xl font-bold mb-5">Parser Assumptions ️</h2>
+                    <h2 className="text-2xl font-semibold mb-5">Parser Assumptions ️</h2>
                     <p>
                         The parsing algorithm that attempts to understand your Excel spreadsheet operates under these
                         assumptions:

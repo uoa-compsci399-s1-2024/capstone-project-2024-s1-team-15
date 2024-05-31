@@ -38,7 +38,7 @@ export default function Paginator({ paginator, setPage }: PaginatorProps) {
                 />
                 <div className={"flex flex-col md:flex-row gap-x-1.5 text-center uppercase text-gray-500"}>
                     <p className={"block smallest"}>
-                        Page <b className={"font-semibold"}>{paginator.currentPage}</b>
+                        Page <b className={"font-medium"}>{paginator.currentPage}</b>
                     </p>
                     <p className={"hidden md:block smallest select-none"}>
                         ·
