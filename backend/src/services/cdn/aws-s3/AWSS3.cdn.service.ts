@@ -10,6 +10,7 @@ export default class AWSS3CDNService implements ICDNService {
     constructor(bucketName: string) {
         this.bucketRegion = "us-east-1"
         this.bucketName = bucketName
+        console.log(this.bucketName)
         this.s3 = new S3Client({ region: this.bucketRegion })
     }
 
