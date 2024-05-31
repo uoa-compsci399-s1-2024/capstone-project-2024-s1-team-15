@@ -30,13 +30,9 @@ export default interface IRepository {
     deleteResearch(id: string): Promise<void>
 
     // User CRUD Methods
-    getAllUsers(options?: ArrayResultOptions<SortOptions<User, UserSortFields>>): Promise<ArrayResult<User>>
+    getUsers(username?: string, options?: ArrayResultOptions<SortOptions<User, UserSortFields>>): Promise<ArrayResult<User>>
     getUserByUsername(username: string): Promise<Nullable<User>>
     getUserByEmail(email: string): Promise<Nullable<User>>
-    searchUserByUsername(
-        username: string,
-        options?: ArrayResultOptions<SortOptions<User, UserSortFields>>
-    ): Promise<ArrayResult<User>>
     createUser(u: User): Promise<User>
     editUser(username: string, u: User): Promise<User>
     deleteUser(username: string): Promise<void>
