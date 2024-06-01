@@ -12,7 +12,7 @@ export default function InteractiveBodyDiagram() {
 
     return (
         <div>
-            <div className={`h-96 w-fit opacity-gradient relative group`}>
+            <div className={`h-96 w-fit opacity-gradient relative group overflow-hidden`}>
                 <p className={`absolute group-hover:opacity-0 ${selectedBodyPart ? "opacity-0" : ""} transition-all`}>
                     Hover on me!
                 </p>
