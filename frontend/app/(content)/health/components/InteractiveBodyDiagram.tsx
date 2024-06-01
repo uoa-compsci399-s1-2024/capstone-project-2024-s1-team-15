@@ -1,28 +1,27 @@
 "use client"
 
-import React, { useRef, useState } from "react"
+import React, { createRef, RefObject, useRef, useState } from "react"
 import Image from "next/image"
 import { Nullable } from "@/app/lib/types"
 import { ModalRef } from "@/app/lib/hooks/useModal"
 import symptoms from "@/app/(content)/health/content/commonSymptoms"
-import DialogModal from "@/app/(content)/health/components/DialogModal"
+import DialogModal from "@/app/components/modals/DialogModal"
 import HumanCartoon from "@/app/public/health/humanCartoon.svg"
 
 export default function InteractiveBodyDiagram() {
     const [selectedBodyPart, setSelectedBodyPart] = useState<Nullable<string>>(null)
-    const dialogModalRefs = symptoms.map(s => {
-        return {
-            id: s.title,
-            ref: useRef<ModalRef>(null)
-        }
-    })
+    const dialogRefs: React.MutableRefObject<RefObject<ModalRef>[]> = useRef([])
+    dialogRefs.current = symptoms.map((_, i) => dialogRefs.current[i] ?? createRef<ModalRef>())
 
     return (
         <>
-            {symptoms.map(s =>
-                <DialogModal id={s.title} ref={dialogModalRefs.find(r => r.id === s.title)?.ref} onClose={() => {
-                    setSelectedBodyPart(null)
-                }}>
+            {symptoms.map((s, i) =>
+                <DialogModal
+                    id={s.title}
+                    key={s.title}
+                    ref={dialogRefs.current[i]}
+                    onClose={() => setSelectedBodyPart(null)}
+                >
                     <div className={"prose"}>
                         {s.content}
                     </div>
@@ -37,15 +36,15 @@ export default function InteractiveBodyDiagram() {
                 </p>
                 <div
                     className={`w-fit h-full group-hover:scale-[450%] ${selectedBodyPart ? "scale-[450%]" : ""} origin-[50%_8%] relative -top-2 transition-all`}>
-                    {symptoms.map((s) => s.positions.map(p =>
+                    {symptoms.map((s, i) => s.positions.map(p =>
                         <ClickableBodyPart
                             position={p}
                             onClick={() => {
-                                const modalRef = dialogModalRefs.find(r => r.id === s.title)?.ref
-                                if (modalRef) modalRef.current && modalRef.current.showModal()
+                                dialogRefs.current && dialogRefs.current[i].current?.showModal()
                                 setSelectedBodyPart(s.title)
                             }}
                             selected={selectedBodyPart === s.title}
+                            key={s.title}
                         />
                     ))}
                     <Image src={HumanCartoon} alt="Human cartoon" className="w-full h-full"/>
