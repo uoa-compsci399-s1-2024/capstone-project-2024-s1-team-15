@@ -57,47 +57,27 @@ services being delegated to Amazon Web Services (AWS Cognito & AWS S3).
 
 The entire project is written with TypeScript using strict, type-safe code to ensure type safety and maintainability for future maintainers of the website.
 
-
-# Project Structure
+## Project Structure
 
 This repository is a monorepo. Three modules are hosted on this repository - backend, frontend and types.
 
-### Prerequisites
+## Project setup
 
 - Node.js 20^
 - npm 10.2.4^
 
-Project dependencies are specified in `package.json` files within each module (frontend, backend, types), and is
-managed by npm.
+Project dependencies are specified in `package.json` files within each module ([main](https://github.com/uoa-compsci399-s1-2024/capstone-project-2024-s1-team-15/blob/main/package.json), [frontend](https://github.com/uoa-compsci399-s1-2024/capstone-project-2024-s1-team-15/blob/main/frontend/package.json), [backend](https://github.com/uoa-compsci399-s1-2024/capstone-project-2024-s1-team-15/tree/main/backend/package.json), [types](https://github.com/uoa-compsci399-s1-2024/capstone-project-2024-s1-team-15/tree/main/types/package.json)) to see which packages we used and their versions.
 
-## Frontend
-Make sure your working directory is in the frontend module's root directory `/frontend`.
+To run the project locally, try the following steps:
 
-To start the development server:
+1. Clone this repository: `git clone https://github.com/uoa-compsci399-s1-2024/capstone-project-2024-s1-team-15.git`
+2. Install node (20.^) and npm (10.2.4^)
+  *NOTE* the project may work on previous versions as well
+3. Open terminal in the root folder of the repository
+4. Install all dependencies: `npm i`
+5. Run project: `npm run dev`
 
-1. Install all dependencies using `npm i`.
-2. Start the Next.js development server using `npm run dev`.
-3. The development server should be started on `localhost:3001`.
-
-By default, the app will send API requests defined within `@/app/services` to `localhost:3000`. To configure this, you can change the values defined in `@/app/lib/consts.ts`.
-
-## Backend
-Make sure your working directory is in the backend module's root directory `/backend`.
-
-To start the development server:
-
-1. Install all dependencies using `npm i`.
-2. Optionally, specify a `.env` environment variables file. By default, the backend will use the `LOCAL` environment and load local services that do not require additional environment variables. Exporting `ENV=DEV` or `ENV=PROD` in `.env` will force the app to run in development or production environment, which uses external services that require additional credentials. Error messages will be helpful to help you determine which services are missing required environment variables.
-3. Start the development server using `npm run dev`.
-4. The development server should be started on `localhost:3000`.
-
-## Types
-This is a static package including data type definitions used by both the frontend and backend services.
-
-To build this package:
-1. Install all dependencies using `npm i`.
-2. Build the package using `npm run build`.
-3. The compiled package should be in `./dist/`.
+Alternatively, read through the individual `README.md`s of the [backend](https://github.com/uoa-compsci399-s1-2024/capstone-project-2024-s1-team-15/blob/main/backend/README.md) and [frontend](https://github.com/uoa-compsci399-s1-2024/capstone-project-2024-s1-team-15/blob/main/frontend/README.md) to see how to run the frontend and backend seperately. The frontend does depend on the backend running so the website may not run as expected if backend is not running as well.
 
 ## Git Structure
 
@@ -120,7 +100,6 @@ Visitors can learn new concepts from the website. They have the ability to:
    <br>*NOTE*: currently, may 2024, all the news articles were created by developers.
 - [**About**](https://www.aapc-nz.org/about): learn about who is in the AAPC, what they do and who supports them.
 - [**Contact**](https://www.aapc-nz.org/contact): reach out to the AAPC with any questions, compliments, concerns, criticisms or requests for available pollen data.
-
 
 ## Authentication / User Management
 
