@@ -1,6 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
-import PetalImageFile from "./PetalImage.svg"
+import PetalImageFile from "../../public/PetalImage.svg"
 
 import { Page } from "@/app/lib/types"
 
