@@ -21,11 +21,9 @@ export default class AWSS3CDNService implements ICDNService {
                 ContentType: `image/${imageFormat}`.replace("jpg", "jpeg"),
                 Body: image
             })
-
             await this.s3.send(command)
             return `https://${command.input.Bucket}.s3.${this.bucketRegion}.amazonaws.com/${command.input.Key}`
         } catch (e) {
-            console.log("AWS S3: ", e)
             throw e
         }
     }
@@ -36,12 +34,10 @@ export default class AWSS3CDNService implements ICDNService {
                 Bucket: this.bucketName,
                 Key: key
             })
-
             await this.s3.send(command)
             return true
         } catch (e) {
-            console.log("AWS S3: ", e)
-            return false
+            throw e
         }
     }
 }

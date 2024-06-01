@@ -2,14 +2,14 @@ import "./globals.css"
 import React from "react"
 import type { Metadata } from "next"
 import Header from "@/app/components/Header"
-import FlowerNav from "@/app/components/flowerNav"
+import FlowerNav from "@/app/components/FlowerNav"
 import localFont from "next/font/local"
 import { getMetadata } from "@/app/lib/util"
 import { AuthLayout } from "@/app/(auth)/components"
 import Copyright from "@/app/components/Copyright"
 
 const inter = localFont({
-    src: "./public/Inter.ttf",
+    src: "./public/fonts/Inter.ttf",
     display: "swap",
     variable: "--font-inter",
 })
@@ -19,8 +19,7 @@ export const metadata: Metadata = getMetadata()
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     return (
         <html lang="en">
-            <body className={`${inter.variable} font-sans max-w-screen min-h-screen flex flex-col overflow-x-hidden`}>
-            <div className={"-mr-[calc(100vw-100%)]"}>
+            <body className={`${inter.variable} font-sans max-w-screen min-h-screen flex flex-col overflow-x-hidden -mr-[calc(100vw-100%)]`}>
                 <AuthLayout>
                     {/* Header */}
                     <header className={`w-screen
@@ -32,7 +31,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                         <Header/>
                     </header>
 
-                    <div className={"relative"}>
+                    <div className={""}>
                         {/* Flower Nav - Only shown on desktop, desktop wide, desktop ultra-wide viewports */}
                         <nav className="fixed right-0 hidden lg:block z-10">
                             <FlowerNav/>
@@ -57,7 +56,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                         </div>
                     </footer>
                 </AuthLayout>
-            </div>
             </body>
         </html>
     )

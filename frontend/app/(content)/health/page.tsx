@@ -1,17 +1,14 @@
 "use client"
 
-import React, { useState } from "react"
+import React from "react"
 import PageTemplate from "@/app/components/PageContentTemplate"
 
-import StrategyCard from "./components/commonStrategies/StrategyCard"
-import InteractiveBodyDiagram from "./InteractiveBodyDiagram"
+import StrategyCard from "@/app/(content)/health/components/StrategyCard"
+import InteractiveBodyDiagram from "./components/InteractiveBodyDiagram"
 import SourceLink, { LearnMoreLink } from "@/app/components/SourceLink"
-import strategies from "./components/commonStrategies/commonStrategies"
-import ExplanationDialog from "./ExplanationDialog"
+import strategies from "@/app/(content)/health/content/commonStrategies"
 
 export default function HealthPage() {
-    const [selectedTechnique, selectTechnique] = useState<null | string>(null)
-
     return (
         <PageTemplate>
             <PageTemplate.PageName name={"Health"} />
@@ -23,7 +20,7 @@ export default function HealthPage() {
                         ears. Like any other allergy, allergic rhinitis is an inappropriate immune system response to an
                         allergen - most commonly:
                     </p>
-                    <ul>
+                    <ul className={"marker:text-current"}>
                         <li>
                             <p>
                                 house dust mite
@@ -75,21 +72,10 @@ export default function HealthPage() {
                     </div>
                 </div>
                 <div className="flex gap-x-4 flex-wrap w-full gap-y-16 justify-center">
-                    {Object.entries(strategies).map(([name, { image, explanation }]) => (
-                        <StrategyCard
-                            key={name}
-                            image={image}
-                            name={name}
-                            explanation={explanation}
-                            onClick={() => selectTechnique(name)}
-                        />
+                    {strategies.map(s => (
+                        <StrategyCard strategy={s} key={s.title}/>
                     ))}
                 </div>
-                {selectedTechnique && (
-                    <ExplanationDialog onClose={() => selectTechnique(null)}>
-                        {strategies[selectedTechnique as keyof typeof strategies].explanation}
-                    </ExplanationDialog>
-                )}
 
                 <p className="mt-8">
                     For more in-depth tips on dealing with Hayfever, take a look at this article:{" "}
@@ -98,6 +84,7 @@ export default function HealthPage() {
                         target="_blank">
                         Seven tips to combat seasonal allergies
                     </a>
+                    .
                 </p>
             </PageTemplate.RemainingPageContent>
         </PageTemplate>

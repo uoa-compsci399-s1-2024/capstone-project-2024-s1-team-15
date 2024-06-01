@@ -1,5 +1,6 @@
 import { PUBLIC_FRONT_END_PAGES, ROUTES } from "@/../../frontend/app/lib/consts"
-import Page from "../../frontend/app/type/PageType"
+
+import Page from "../../frontend/app/lib/types";
 
 let uiUri
 

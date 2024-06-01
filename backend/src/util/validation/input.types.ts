@@ -70,6 +70,13 @@ interface IAddImageQIn {
     alt?: string
 }
 
+interface IContactIn {
+    email: string
+    name: string
+    message: string
+    recaptchaToken: string
+}
+
 // Concrete Implementations
 
 export class NewArticleIn extends Validator<IArticleIn> implements IArticleIn {
@@ -331,7 +338,7 @@ export class UserPaginatedQIn extends ValidatorWithPaginatedQIn<IUserPaginatedQI
 
     constructor(obj: any) {
         super(obj, "registeredAt", true)
-6
+
         this.un = obj.un && String(obj.un)
 
         if (this.errors.length > 0) {
@@ -363,6 +370,26 @@ export class AddImageQIn extends Validator<IAddImageQIn> implements IAddImageQIn
 
         this.origin = obj.origin && String(obj.origin)
         this.alt = obj.alt && String(obj.alt)
+
+        if (this.errors.length > 0) {
+            throw new ValidationError(this.errors)
+        }
+    }
+}
+
+export class ContactIn extends Validator<IContactIn> implements IContactIn {
+    email: string
+    message: string
+    name: string
+    recaptchaToken: string
+
+    constructor(obj: any) {
+        super("body")
+
+        this.email = String(this.checkMissing(obj, "email"))
+        this.message = String(this.checkMissing(obj, "message"))
+        this.name = String(this.checkMissing(obj, "name"))
+        this.recaptchaToken = String(this.checkMissing(obj, "recaptchaToken"))
 
         if (this.errors.length > 0) {
             throw new ValidationError(this.errors)

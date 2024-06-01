@@ -40,12 +40,12 @@ export default class AuthRouter {
             expressAsyncHandler(AuthController.refreshToken)
         )
 
-        // scope: currentUser
-        router.put("/password", Scope.has(SCOPES.user),
+        // scope: user
+        router.patch("/password", Scope.has(SCOPES.user),
             expressAsyncHandler(AuthController.changePassword)
         )
 
-        // scope: currentUser
+        // scope: user
         router.post("/deactivate", Scope.has(SCOPES.user),
             expressAsyncHandler(AuthController.deactivate)
         )

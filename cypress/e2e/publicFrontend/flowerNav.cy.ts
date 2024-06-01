@@ -1,6 +1,6 @@
 import { PUBLIC_FRONTEND_URLS } from "../consts"
-import Page from "../../../frontend/app/type/PageType"
 import { compareSnapshots } from "cypress-visual-regression/dist/plugin"
+import { Page } from "../../../frontend/app/lib/types"
 
 const getTransformRotationAngle = (cssTransformMatrix, absoluteValue) => {
     const cssTransformMatrixIndexes = cssTransformMatrix.split("(")[1].split(")")[0].split(",")
