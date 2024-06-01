@@ -1,18 +1,14 @@
-# Types for AAPC Website
+# Aotearoa Airborne Pollen Collective (AAPC) - Types
 
-In order for the backend and frontend to use the same types so that communication is more reliable between the two systems.
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 
-## Adding a new type
+This package contains static type definitions for useful data structures found in both the frontend and backend apps. It is automatically published to npm when changes are made in the `dev` branch.
 
-Here is the method to add a new type to the `@aapc/types` package:
+You can install this package using `npm`:
 
-1. make your type inside a file in the `src` folder
-2. export your type from `main.ts`
-3. increase the version in `package.json`
-4. re-publish the package to [npm registry](https://www.npmjs.com/package/@aapc/types)
+```bash
+npm install @aapc/types
+```
 
-    currently, this happens when changes are made to the types and pushed to `dev` branch
-
-<br />
-
-Alternatively, simply run `npm run build` and copy the `dist` folder to wherever the type is to be used. E.g. for the frontend, copy `dist` and paste in `frontend/node_modules/@aapc/types/`. Removal of the `node_modules` folder will require doing this step again so publish using the steps above to avoid that scenario.
+When merging changes in this package to `dev`, it should be noted that the version specified in [package.json](package.json)
+needs to be bumped manually, or else publishing to npm would fail.

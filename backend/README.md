@@ -1,5 +1,6 @@
 # Aotearoa Airborne Pollen Collective (AAPC) - Backend
 
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
 ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
 ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
@@ -11,7 +12,7 @@ CDN services being delegated to Amazon Web Services (AWS).
 
 # Starting the Local Server
 
-Change directory to the backend (only if you are currently in the root directory):
+Make sure your working directory is in the backend root directory.
 
 ```bash
 cd backend

@@ -10,7 +10,7 @@ unique approach to styling to provide an efficient, and aesthetically pleasing w
 
 # Starting the Local Server
 
-Change directory to the frontend (only if you are currently in the root directory):
+Make sure your working directory is in the frontend root directory.
 
 ```bash
 cd frontend
