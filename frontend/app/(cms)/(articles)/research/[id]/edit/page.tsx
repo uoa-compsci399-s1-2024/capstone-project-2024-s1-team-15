@@ -2,10 +2,10 @@ import React from "react"
 import { ArticleType } from "@aapc/types"
 import { notFound } from "next/navigation"
 import { getResearchById } from "@/app/services/research"
-import ArticleForm from "@/app/(cms)/(articles)/components/ArticleForm"
+import ArticleForm from "@/app/(cms)/(articles)/components/forms/ArticleForm"
 import { Metadata } from "next"
 import { getMetadata } from "@/app/lib/util"
-import ExternalArticleForm from "../../../components/ExternalArticleForm"
+import ExternalArticleForm from "../../../components/forms/ExternalArticleForm"
 import ArticleCard from "@/app/(content)/(articles)/components/ArticleCard";
 
 export const metadata: Metadata = getMetadata("Edit Research")

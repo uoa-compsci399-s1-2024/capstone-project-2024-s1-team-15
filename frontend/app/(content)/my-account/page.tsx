@@ -5,8 +5,8 @@ import { useAuth } from "@/app/lib/hooks"
 import { Nullable } from "@/app/lib/types"
 import icons from "@/app/lib/icons"
 import Button from "@/app/components/Button"
-import EditDisplayIconForm from "@/app/(content)/my-account/components/EditDisplayIconForm"
-import EditDisplayNameForm from "@/app/(content)/my-account/components/EditDisplayNameForm"
+import EditDisplayIconForm from "@/app/(content)/my-account/components/forms/EditDisplayIconForm"
+import EditDisplayNameForm from "@/app/(content)/my-account/components/forms/EditDisplayNameForm"
 import { ChangePasswordModal } from "@/app/components/modals"
 import { ModalRef } from "@/app/lib/hooks/useModal"
 import ManageImages from "@/app/(content)/my-account/components/ManageImages"
@@ -49,6 +49,8 @@ export default function Page(): Nullable<React.JSX.Element> {
                                 onClick={() => changePasswordModalRef.current && changePasswordModalRef.current.showModal()}
                             />
                             <Button
+                                disabled={true}  // TODO: allow deactivating account
+                                title={"Not Implemented Yet"}
                                 text={"Deactivate Account"}
                                 theme={"red"} icon={icons.deactivate}
                                 className={"min-w-[232px]"}

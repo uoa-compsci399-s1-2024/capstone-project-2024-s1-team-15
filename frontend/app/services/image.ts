@@ -3,6 +3,7 @@ import { Result } from "@/app/lib/types"
 import { IImageMetadata, ImageMetadata, IPaginator, Paginator } from "@aapc/types"
 import { API_URI } from "@/app/lib/consts"
 import { fail, success } from "@/app/lib/util"
+import { revalidateImage } from "@/app/services/lib/revalidator";
 
 export async function getImagesByUser(
     username: string,
@@ -16,6 +17,7 @@ export async function getImagesByUser(
         {
             method: "get",
             headers: getHeaders(fetchOptions),
+            next: { tags: ["image"] }
         }
     )
     if (response.status >= 400) {
@@ -40,6 +42,7 @@ export async function uploadImage(image: File, fetchOptions?: FetchOptions): Pro
     if (response.status >= 400) {
         return fail((await response.json()).message)
     }
+    await revalidateImage()
     return success(new ImageMetadata(await response.json()))
 }
 
@@ -51,5 +54,6 @@ export async function deleteImage(id: string, fetchOptions?: FetchOptions): Prom
     if (response.status !== 204) {
         return fail((await response.json()).message)
     }
+    await revalidateImage()
     return success(null)
 }

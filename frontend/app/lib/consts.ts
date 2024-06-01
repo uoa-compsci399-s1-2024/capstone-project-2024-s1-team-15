@@ -1,6 +1,6 @@
 import dotenv from "dotenv"
-import Page from "@/app/type/PageType"
 import { UserScope } from "@aapc/types"
+import { Page } from "@/app/lib/types"
 
 dotenv.config()
 

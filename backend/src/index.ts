@@ -3,12 +3,12 @@ import dotenv from "dotenv"
 import NewsRouter from "@/routes/news.router"
 import ResearchRouter from "@/routes/research.router"
 import AuthRouter from "@/routes/auth.router"
-import errorHandler from "@/middleware/ErrorHandler"
 import UserRouter from "@/routes/user.router"
-import PollenDataRouter from "./routes/pollenData.router"
-import ContactAAPCRouter from "./routes/contactAAPC.router"
+import PollenDataRouter from "@/routes/pollenData.router"
+import ContactRouter from "@/routes/contact.router"
 import ImageRouter from "@/routes/image.router"
 import StaticRouter from "@/routes/static.router"
+import errorHandler from "@/middleware/ErrorHandler"
 
 dotenv.config()
 
@@ -32,7 +32,7 @@ app.use(NewsRouter.url, NewsRouter.router())
 app.use(ResearchRouter.url, ResearchRouter.router())
 app.use(UserRouter.url, UserRouter.router())
 app.use(PollenDataRouter.url, PollenDataRouter.router())
-app.use(ContactAAPCRouter.url, ContactAAPCRouter.router())
+app.use(ContactRouter.url, ContactRouter.router())
 app.use(AuthRouter.url, AuthRouter.router())
 app.use(ImageRouter.url, ImageRouter.router())
 app.use(StaticRouter.url, StaticRouter.router())

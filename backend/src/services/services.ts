@@ -1,16 +1,16 @@
-import AWSCognitoAuthService from "@/services/auth/aws-cognito/AWSCognito.auth.service"
-import LocalAuthService from "@/services/auth/local/Local.auth.service"
-import AuthContext from "@/services/auth/auth.service"
-import MongoRepository from "@/services/repository/mongo/Mongo.repository.service"
-import MemoryRepository from "@/services/repository/memory/Memory.repository.service"
-import IRepository from "@/services/repository/repository.service"
 import dotenv from "dotenv"
-import IMailer from "./mailer/mailer.service"
-import ConsoleMailer from "./mailer/Console.mailer.service"
-import BrevoMailer from "./mailer/Brevo.mailer.service"
+import AuthContext from "@/services/auth/auth.service"
+import LocalAuthService from "@/services/auth/local/Local.auth.service"
+import AWSCognitoAuthService from "@/services/auth/aws-cognito/AWSCognito.auth.service"
+import IRepository from "@/services/repository/repository.service"
+import MemoryRepository from "@/services/repository/local/Memory.repository.service"
+import MongoRepository from "@/services/repository/mongo/Mongo.repository.service"
+import IMailer from "@/services/mailer/mailer.service"
+import ConsoleMailer from "@/services/mailer/local/Console.mailer.service"
+import BrevoMailer from "@/services/mailer/brevo/Brevo.mailer.service"
 import ICDNService from "@/services/cdn/cdn.service"
-import AWSS3CDNService from "@/services/cdn/aws-s3/AWSS3.cdn.service"
 import LocalCDNService from "@/services/cdn/local/Local.cdn.service"
+import AWSS3CDNService from "@/services/cdn/aws-s3/AWSS3.cdn.service"
 import ProcessEnv = NodeJS.ProcessEnv
 
 dotenv.config()
@@ -30,20 +30,14 @@ switch (process.env.ENV) {
             "BREVO_CLIENT_EMAIL", "BREVO_CLIENT_PASSWORD",
             "AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY", "AWS_REGION",
             "AWS_COGNITO_CLIENT_ID", "AWS_COGNITO_USERPOOL_ID",
+            "GOOGLE_RECAPTCHA_SECRET_KEY"
         ]
 
         const missingEnvVariables: (keyof ProcessEnv)[] = requiredEnvVariables.filter(
             ev => !process.env[ev]
         )
-
         if (missingEnvVariables.length > 0) {
             throw new Error("Missing required environment variables: " + missingEnvVariables.join(", "))
-        }
-
-        if (!process.env.GOOGLE_RECAPTCHA_SECRET_KEY) {
-            console.error(
-                `Google reCAPTCHA is is disabled as GOOGLE_RECAPTCHA_SECRET_KEY is missing from environment variables.`
-            )
         }
 
         AUTH = new AuthContext(
@@ -67,14 +61,13 @@ switch (process.env.ENV) {
             ? 'dev-aapc-media'
             : 'aapc-media'
         )
-        break
-    }
+    } break
     default: {
         console.log(`Environment: LOCAL`)
+
         AUTH = new AuthContext(new LocalAuthService())
         DB = new MemoryRepository()
         MAILER = new ConsoleMailer()
         CDN = new LocalCDNService()
-        break
     }
 }

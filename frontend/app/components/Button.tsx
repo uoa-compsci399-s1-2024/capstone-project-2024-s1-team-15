@@ -21,11 +21,12 @@ export type ButtonProps = {
     disabled?: boolean
     type?: "button" | "submit" | "reset"
     leftIcon?: boolean
+    fullHeight?: boolean
     title?: string
 }
 
 export default function Button(
-    { onClick, className, theme = "primary", text, icon, disabled = false, type = "button", leftIcon = false, title }: ButtonProps
+    { onClick, className, theme = "primary", text, icon, disabled = false, type = "button", leftIcon = false, fullHeight = false, title }: ButtonProps
 ) {
     let colorClass: string
 
@@ -86,7 +87,7 @@ export default function Button(
     }
 
     return (
-        <div className={`group shrink-0 grow-0 w-max h-max rounded-full ${!(theme === "overlay") && 'bg-white'}
+        <div className={`group shrink-0 grow-0 w-max ${fullHeight? "" : "h-max"} rounded-full ${!(theme === "overlay") && 'bg-white'}
             ${disabled ? 'shadow-none hover:shadow-none' : 'shadow-md hover:shadow-lg'} transition
         `}>
             <button
@@ -94,13 +95,13 @@ export default function Button(
                 disabled={disabled}
                 onClick={onClick}
                 title={title}
-                className={`${colorClass} ${className} font-medium w-auto rounded-full gap-x-3 shadow-none
-                flex ${leftIcon? "flex-row-reverse" : "flex-row"} items-center ${alignmentClass} flex-grow
+                className={`${colorClass} ${className} font-medium ${fullHeight? "" : "w-auto"} rounded-full gap-x-3
+                shadow-none flex ${leftIcon? "flex-row-reverse" : "flex-row"} items-center ${alignmentClass} flex-grow
                 group-hover:text-white ${theme === "overlay"? 'group-hover:bg-opacity-30' : 'group-hover:bg-opacity-100'}
                 group-hover:shadow-none transition
                 disabled:cursor-not-allowed
                 disabled:text-gray-400 disabled:group-hover:text-gray-400
-                h-[33px] sm:h-[35px] md:h-[37px]
+                ${fullHeight ? "h-full w-[33px] sm:w-[35px] md:w-[37px]" : "h-[33px] sm:h-[35px] md:h-[37px]"}
                 disabled:border-opacity-30
             `}>
                 {text &&
@@ -109,7 +110,7 @@ export default function Button(
                     </p>
                 }
                 {icon &&
-                    <div className={`h-full aspect-square grow-0
+                    <div className={`${fullHeight? "object-contain" : "h-full"} aspect-square grow-0
                         ${disabled 
                             ? 'group-hover:rotate-0' 
                             : leftIcon

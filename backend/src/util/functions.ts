@@ -3,7 +3,7 @@ import { ValidationError } from "@/errors/ValidationError"
 import { BadRequestError } from "@/errors/HTTPErrors"
 import { Paginator } from "@aapc/types"
 import { Request } from "express"
-import { ArrayResult, FailureResult, SuccessResult } from "@/util/types/types"
+import { ArrayResult } from "@/util/types/types"
 
 export function getRandomID(length: number = DEFAULT_ID_LENGTH) {
     let result = ""
@@ -48,19 +48,4 @@ export function getPaginator<T extends {}>(
         paginator.prevPageLocation = url.href
     }
     return paginator
-}
-
-
-export function success<T>(result: T): SuccessResult<T> {
-    return {
-        success: true,
-        result
-    }
-}
-
-export function fail(message?: string): FailureResult {
-    return {
-        success: false,
-        message: message ?? ""
-    }
 }

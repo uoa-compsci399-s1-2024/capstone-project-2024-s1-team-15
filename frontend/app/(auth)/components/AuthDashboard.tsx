@@ -34,7 +34,7 @@ export default function AuthDashboard({ dashboardLocation, onRedirect }: AuthDas
                         <LinkUser user={user} size={"large"}/>
                         {scopes && <UserScopeLabel scopes={scopes}/>}
                     </div>
-                    <div className={`flex justify-center gap-x-4`}>
+                    <div className={`flex lg:flex-row justify-center items-center flex-col gap-x-4 gap-y-2`}>
                         <Privileged requiredScopes={SCOPES.admin}>
                             <ButtonLink
                                 text={"Manage Users"}
@@ -44,21 +44,23 @@ export default function AuthDashboard({ dashboardLocation, onRedirect }: AuthDas
                                 onClick={() => onRedirect && onRedirect()}
                             />
                         </Privileged>
-                        <ButtonLink
-                            text={"My Account"}
-                            icon={icons.user}
-                            href={"/my-account"}
-                            onClick={() => onRedirect && onRedirect()}
-                        />
-                        <Button
-                            text={"Log out"}
-                            theme={"secondary"}
-                            icon={icons.logout}
-                            onClick={() => {
-                                clearSession()
-                                onRedirect && onRedirect()
-                            }}
-                        />
+                        <div className={`flex justify-center gap-x-4`}>
+                            <ButtonLink
+                                text={"My Account"}
+                                icon={icons.user}
+                                href={"/my-account"}
+                                onClick={() => onRedirect && onRedirect()}
+                            />
+                            <Button
+                                text={"Log out"}
+                                theme={"secondary"}
+                                icon={icons.logout}
+                                onClick={() => {
+                                    clearSession()
+                                    onRedirect && onRedirect()
+                                }}
+                            />
+                        </div>
                     </div>
                 </div>
             ) : (

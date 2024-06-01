@@ -1,7 +1,7 @@
 import { ChangePasswordForm } from "@/app/(auth)/components"
 import { ForwardedRef, forwardRef } from "react"
 import useModal, { ModalRef } from "@/app/lib/hooks/useModal";
-import FormModal from "@/app/components/modals/components/FormModal";
+import FormModal from "@/app/components/modals/FormModal";
 
 type ChangePasswordModalProps = {
     modalId: string

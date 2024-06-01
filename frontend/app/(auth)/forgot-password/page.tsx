@@ -1,8 +1,8 @@
 "use client"
 
 import { useState } from "react"
-import ForgotPasswordForm from "../components/ForgotPasswordForm"
-import ResetPasswordForm from "../components/ResetPasswordForm"
+import ForgotPasswordForm from "../components/forms/ForgotPasswordForm"
+import ResetPasswordForm from "../components/forms/ResetPasswordForm"
 
 export default function ForgotPasswordPage() {
     const [emailToResetPasswordFor, setEmailToResetPasswordFor] = useState<null | string>(null)

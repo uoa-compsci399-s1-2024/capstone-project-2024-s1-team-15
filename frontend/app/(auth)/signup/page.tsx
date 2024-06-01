@@ -1,5 +1,5 @@
 import React from "react"
-import SignupForm from "@/app/(auth)/components/SignupForm"
+import SignupForm from "@/app/(auth)/components/forms/SignupForm"
 
 export default function Signup() {
     return (
