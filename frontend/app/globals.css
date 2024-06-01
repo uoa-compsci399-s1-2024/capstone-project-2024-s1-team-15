@@ -48,8 +48,8 @@ figcaption {
     @apply text-gray-400 text-sm text-center;
 }
 
-ul.default {
-    @apply list-disc pl-8 mt-2;
+ul {
+    @apply marker:text-current;
 }
 
 *:focus {

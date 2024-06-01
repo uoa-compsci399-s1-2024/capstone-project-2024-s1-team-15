@@ -1,6 +1,6 @@
 import { LearnMoreLink } from "@/app/components/SourceLink"
 import Image from "next/image"
-import ArtificialTearsExplanationImage from "../../../public/health/artificialTears.png"
+import ArtificialTearsExplanationImage from "@/app/public/health/artificialTears.png"
 
 /* eslint-disable react/no-unescaped-entities */
 export default function ArtificialTearsExplanation() {
