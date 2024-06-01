@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation"
 import Petal from "./Petal"
 import { PUBLIC_FRONT_END_PAGES as pages } from "@/app/lib/consts"
 import React, { useEffect, useState } from "react"
-import Page from "@/app/lib/types";
+import { Page } from "@/app/lib/types";
 
 const degreesInCircle = 360
 const numTimesEachPageShows = 2 // times in flower
