@@ -1,9 +1,9 @@
 "use client"
 
 import { useState } from "react"
-import HumanCartoon from "./images/humanCartoon.svg"
+import HumanCartoon from "../../../public/health/humanCartoon.svg"
 import Image from "next/image"
-import commonSymptoms from "./commonSymptoms"
+import commonSymptoms from "@/app/(content)/health/content/commonSymptoms"
 import ExplanationDialog from "./ExplanationDialog"
 
 export default function InteractiveBodyDiagram() {

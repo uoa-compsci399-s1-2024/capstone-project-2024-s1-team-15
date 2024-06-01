@@ -1,7 +1,8 @@
 import Image from "next/image"
 import Link from "next/link"
 import PetalImageFile from "./PetalImage.svg"
-import Page from "@/app/type/PageType"
+
+import Page from "@/app/lib/types";
 
 type Props = {
     page: Page

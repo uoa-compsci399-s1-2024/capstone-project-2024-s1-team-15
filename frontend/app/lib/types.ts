@@ -44,3 +44,8 @@ export type UserOut = {
     email?: string
     iconSrc?: Nullable<string>
 }
+
+export type Page = {
+    name: string
+    url: string
+}

@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import ContactForm from "@/app/components/ContactForm";
-import pollenImg from "@/app/public/pollenimg.svg";
+import pollenImg from "@/app/public/homepage/pollenimg.svg";
 import { DEFAULT_MAILTO_ADDRESS } from "@/app/lib/consts";
 
 export default function Contact() {

@@ -2,14 +2,14 @@ import "./globals.css"
 import React from "react"
 import type { Metadata } from "next"
 import Header from "@/app/components/Header"
-import FlowerNav from "@/app/components/flowerNav"
+import FlowerNav from "@/app/components/FlowerNav"
 import localFont from "next/font/local"
 import { getMetadata } from "@/app/lib/util"
 import { AuthLayout } from "@/app/(auth)/components"
 import Copyright from "@/app/components/Copyright"
 
 const inter = localFont({
-    src: "./public/Inter.ttf",
+    src: "./public/fonts/Inter.ttf",
     display: "swap",
     variable: "--font-inter",
 })

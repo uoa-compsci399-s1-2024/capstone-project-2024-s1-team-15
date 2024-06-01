@@ -3,11 +3,11 @@
 import React, { useState } from "react"
 import PageTemplate from "@/app/components/PageContentTemplate"
 
-import StrategyCard from "./components/commonStrategies/StrategyCard"
-import InteractiveBodyDiagram from "./InteractiveBodyDiagram"
+import StrategyCard from "@/app/(content)/health/components/StrategyCard"
+import InteractiveBodyDiagram from "./components/InteractiveBodyDiagram"
 import SourceLink, { LearnMoreLink } from "@/app/components/SourceLink"
-import strategies from "./components/commonStrategies/commonStrategies"
-import ExplanationDialog from "./ExplanationDialog"
+import strategies from "@/app/(content)/health/content/commonStrategies"
+import ExplanationDialog from "./components/ExplanationDialog"
 
 export default function HealthPage() {
     const [selectedTechnique, selectTechnique] = useState<null | string>(null)

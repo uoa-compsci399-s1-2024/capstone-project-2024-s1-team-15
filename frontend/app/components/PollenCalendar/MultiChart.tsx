@@ -1,7 +1,7 @@
 "use client"
 
 import dayjs from "dayjs"
-import { FormattedPollenData } from "../../(cms)/pollen/components/util/formatData"
+import { FormattedPollenData } from "../../lib/pollenData/formatData"
 import { memo } from "react"
 import { dateFormat } from "."
 

@@ -6,8 +6,8 @@ import { Article, ArticleType } from "@aapc/types"
 import { Nullable } from "@/app/lib/types"
 import icons from "@/app/lib/icons"
 import Button from "@/app/components/Button"
-import ExternalArticleForm from "@/app/(cms)/(articles)/components/ExternalArticleForm"
-import ArticleForm from "@/app/(cms)/(articles)/components/ArticleForm"
+import ExternalArticleForm from "@/app/(cms)/(articles)/components/forms/ExternalArticleForm"
+import ArticleForm from "@/app/(cms)/(articles)/components/forms/ArticleForm"
 
 export default function CreateResearchPage() {
     const [exampleArticle, setExampleArticle] = useState<Nullable<Article>>(null)

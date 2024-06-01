@@ -1,8 +1,8 @@
 import React from "react";
 import Image from "next/image";
-import yellowback from "../public/homepageback.svg";
-import yellowblob from "../public/yellowblob.svg";
-import pollenimg from "../public/pollenimg.svg";
+import yellowback from "../public/homepage/homepageback.svg";
+import yellowblob from "../public/homepage/yellowblob.svg";
+import pollenimg from "../public/homepage/pollenimg.svg";
 import MessageFromQuery from "@/app/components/MessageFromQuery";
 
 export default function Home() {
