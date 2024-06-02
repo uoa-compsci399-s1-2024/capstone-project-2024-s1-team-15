@@ -1,6 +1,6 @@
 {
     "name": "aapc-website",
-    "version": "1.0.1",
+    "version": "1.0.0",
     "description": "Project by **Team Bit by Bit** (Team 15, S1 2024)",
     "scripts": {
         "install": "cd frontend && npm ci && cd ../backend && npm ci",
