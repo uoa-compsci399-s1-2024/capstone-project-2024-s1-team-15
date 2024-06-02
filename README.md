@@ -9,12 +9,12 @@ behind the AAPC an intuitive Content Management System (CMS) for them to control
 
 ## Development Team
 
-- **Hunter Chen** @HuzzNZ - Tech Lead / Full-stack Developer
-- **Logan Park** @junjunjun1 - Project Manager
-- **Arnav Shekaran** @arnard76 - Designer / Full-stack Developer
-- **Gautham Gunasheelan** @Gautham-27 - Designer / Full-stack Developer
-- **Stanley Wu** @sharukyen - Designer / Frontend Developer
-- **Samuel Kim** @saamuelkim - UI/UX Designer / Frontend Developer
+- **Hunter Chen** [@HuzzNZ](https://www.github.com/HuzzNZ) - Tech Lead / Full-stack Developer
+- **Logan Park** [@junjunjun1](https://www.github.com/junjunjun1) - Project Manager
+- **Arnav Shekaran** [@arnard76](https://www.github.com/arnard76) - Designer / Full-stack Developer
+- **Gautham Gunasheelan** [@Gautham-27](https://www.github.com/Gautham-27) - Designer / Full-stack Developer
+- **Stanley Wu** [@sharukyen](https://www.github.com/sharukyen) - Designer / Frontend Developer
+- **Samuel Kim** [@saamuelkim](https://www.github.com/saamuelkim) - Designer / Frontend Developer
 
 ## Project Clients
 
