@@ -41,7 +41,7 @@ export default class AuthRouter {
         )
 
         // scope: user
-        router.patch("/password", Scope.has(SCOPES.user),
+        router.put("/password", Scope.has(SCOPES.user),
             expressAsyncHandler(AuthController.changePassword)
         )
 
