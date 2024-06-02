@@ -3,18 +3,18 @@
 Project by **Team Bit by Bit** (Team 15, S1 2024)
 
 Our project will enable the Aotearoa Airborne Pollen Collective (AAPC) to establish an online presence in order to
-better inform the general public about the airborn pollen around us in New Zealand. We aim to develop a robust frontend
+better inform the general public about the airborne pollen around us in New Zealand. We aim to develop a robust frontend
 client that delivers information efficiently and beautifully to the AAPC's end users, as well as providing the researchers
 behind the AAPC an intuitive Content Management System (CMS) for them to control the content they provide to their users.
 
 ## Development Team
 
-- **Hunter Chen** - Tech Lead / Full-stack Developer
-- **Logan Park** - Project Manager
-- **Arnav Shekaran** - Designer / Developer
-- **Gautham Gunasheelan** - Designer / Backend Developer
-- **Stanley Wu** - Designer / Frontend Developer
-- **Samuel Kim** - UI/UX Designer / Frontend Developer
+- **Hunter Chen** @HuzzNZ - Tech Lead / Full-stack Developer
+- **Logan Park** @junjunjun1 - Project Manager
+- **Arnav Shekaran** @arnard76 - Designer / Full-stack Developer
+- **Gautham Gunasheelan** @Gautham-27 - Designer / Full-stack Developer
+- **Stanley Wu** @sharukyen - Designer / Frontend Developer
+- **Samuel Kim** @saamuelkim - UI/UX Designer / Frontend Developer
 
 ## Project Clients
 
@@ -73,9 +73,9 @@ Types is a static package hosted on `npm`. There is no need to run it.
 
 Project dependencies are specified in `package.json` files within each module (frontend, backend, types), and is
 managed by npm:
-- [Frontend package.json](frontend/package-lock.json)
-- [Backend package.json](backend/package-lock.json)
-- [Types package.json](types/package-lock.json)
+- [Frontend package.json](frontend/package.json)
+- [Backend package.json](backend/package.json)
+- [Types package.json](types/package.json)
 
 ## Frontend
 Make sure your working directory is in the frontend module's root directory `/frontend`.
