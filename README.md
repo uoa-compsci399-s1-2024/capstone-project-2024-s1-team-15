@@ -9,12 +9,12 @@ behind the AAPC an intuitive Content Management System (CMS) for them to control
 
 ## Development Team
 
-- **Hunter Chen** - Tech Lead / Full-stack Developer
-- **Logan Park** - Project Manager
-- **Arnav Shekaran** - Designer / Developer
-- **Gautham Gunasheelan** - Designer / Full-stack Developer
-- **Stanley Wu** - Designer / Frontend Developer
-- **Samuel Kim** - UI/UX Designer / Frontend Developer
+- **Hunter Chen** @HuzzNZ - Tech Lead / Full-stack Developer
+- **Logan Park** @junjunjun1 - Project Manager
+- **Arnav Shekaran** @arnard76 - Designer / Full-stack Developer
+- **Gautham Gunasheelan** @Gautham-27 - Designer / Full-stack Developer
+- **Stanley Wu** @sharukyen - Designer / Frontend Developer
+- **Samuel Kim** @saamuelkim - UI/UX Designer / Frontend Developer
 
 ## Project Clients
 
@@ -73,9 +73,9 @@ Types is a static package hosted on `npm`. There is no need to run it.
 
 Project dependencies are specified in `package.json` files within each module (frontend, backend, types), and is
 managed by npm:
-- [Frontend package.json](frontend/package-lock.json)
-- [Backend package.json](backend/package-lock.json)
-- [Types package.json](types/package-lock.json)
+- [Frontend package.json](frontend/package.json)
+- [Backend package.json](backend/package.json)
+- [Types package.json](types/package.json)
 
 ## Frontend
 Make sure your working directory is in the frontend module's root directory `/frontend`.
