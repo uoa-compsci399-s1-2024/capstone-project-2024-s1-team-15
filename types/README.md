@@ -4,6 +4,8 @@
 
 This package contains static type definitions for useful data structures found in both the frontend and backend apps. It is automatically published to npm when changes are made in the `dev` branch.
 
+You can find the type definitions on the [Wiki page](https://github.com/uoa-compsci399-s1-2024/capstone-project-2024-s1-team-15/wiki) of this repository.
+
 You can install this package using `npm`:
 
 ```bash

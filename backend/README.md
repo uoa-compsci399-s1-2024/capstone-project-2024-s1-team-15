@@ -10,6 +10,10 @@ Our backend app will be implemented using Express.js, with the NoSQL database be
 authentication /
 CDN services being delegated to Amazon Web Services (AWS).
 
+# Documentation
+
+You can find the API documentation on the [Wiki page](https://github.com/uoa-compsci399-s1-2024/capstone-project-2024-s1-team-15/wiki) of this repository.
+
 # Starting the Local Server
 
 Make sure your working directory is in the backend root directory.
