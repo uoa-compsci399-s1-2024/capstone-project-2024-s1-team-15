@@ -3,7 +3,7 @@
 Project by **Team Bit by Bit** (Team 15, S1 2024)
 
 Our project will enable the Aotearoa Airborne Pollen Collective (AAPC) to establish an online presence in order to
-better inform the general public about the airborn pollen around us in New Zealand. We aim to develop a robust frontend
+better inform the general public about the airborne pollen around us in New Zealand. We aim to develop a robust frontend
 client that delivers information efficiently and beautifully to the AAPC's end users, as well as providing the researchers
 behind the AAPC an intuitive Content Management System (CMS) for them to control the content they provide to their users.
 
@@ -12,7 +12,7 @@ behind the AAPC an intuitive Content Management System (CMS) for them to control
 - **Hunter Chen** - Tech Lead / Full-stack Developer
 - **Logan Park** - Project Manager
 - **Arnav Shekaran** - Designer / Developer
-- **Gautham Gunasheelan** - Designer / Backend Developer
+- **Gautham Gunasheelan** - Designer / Full-stack Developer
 - **Stanley Wu** - Designer / Frontend Developer
 - **Samuel Kim** - UI/UX Designer / Frontend Developer
 
