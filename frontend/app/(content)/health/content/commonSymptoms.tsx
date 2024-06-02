@@ -19,8 +19,8 @@ const symptoms: Symptom[] = [
                     <SourceLink sourceUrl="https://www.allergy.org.nz/conditions/allergy-conditions/hay-fever/"/>
                 </p>
                 <ul className={"marker:text-current"}>
-                    <li>Could be itchy, red or watery</li>
-                    <li>Dark circles under the eyes</li>
+                    <li><p>Could be itchy, red or watery</p></li>
+                    <li><p>Dark circles under the eyes</p></li>
                 </ul>
                 <p>
                     Allergy-causing substances like pollen and dander may cause dilatation of blood vessels in the
@@ -42,10 +42,10 @@ const symptoms: Symptom[] = [
                     <SourceLink sourceUrl="https://www.allergy.org.nz/conditions/allergy-conditions/hay-fever/"/>
                 </p>
                 <ul className={"marker:text-current"}>
-                    <li>frequent earaches</li>
-                    <li>fullness in the ear</li>
-                    <li>ear infections</li>
-                    <li>hearing loss</li>
+                    <li><p>frequent earaches</p></li>
+                    <li><p>fullness in the ear</p></li>
+                    <li><p>ear infections</p></li>
+                    <li><p>hearing loss</p></li>
                 </ul>
             </>
         )
@@ -61,14 +61,14 @@ const symptoms: Symptom[] = [
                     <SourceLink sourceUrl="https://www.allergy.org.nz/conditions/allergy-conditions/hay-fever/"/>
                 </p>
                 <ul className={"marker:text-current"}>
-                    <li>
+                    <li><p>
                         watery, runny nose or stuffy nose. This can be all the time, or during certain times of the year
-                    </li>
-                    <li>blocked nose so you have to breathe through the mouth; snoring</li>
-                    <li>sneezing a lot, especially in the morning</li>
-                    <li>nosebleeds</li>
-                    <li>headaches because of pressure from inside the nose</li>
-                    <li>nasal voice because of blocked nasal passages</li>
+                    </p></li>
+                    <li><p>blocked nose so you have to breathe through the mouth; snoring</p></li>
+                    <li><p>sneezing a lot, especially in the morning</p></li>
+                    <li><p>nosebleeds</p></li>
+                    <li><p>headaches because of pressure from inside the nose</p></li>
+                    <li><p>nasal voice because of blocked nasal passages</p></li>
                 </ul>
                 <p>
                     For some people, exposure to allergens can trigger an immune response (your body&apos;s natural
@@ -90,7 +90,7 @@ const symptoms: Symptom[] = [
                     <SourceLink sourceUrl="https://www.allergy.org.nz/conditions/allergy-conditions/hay-fever/"/>
                 </p>
                 <ul className={"marker:text-current"}>
-                    <li>blocked nose so you have to breathe through the mouth, which leads to snoring</li>
+                    <li><p>blocked nose so you have to breathe through the mouth, which leads to snoring</p></li>
                 </ul>
             </>
         )
@@ -106,8 +106,8 @@ const symptoms: Symptom[] = [
                     <SourceLink sourceUrl="https://www.allergy.org.nz/conditions/allergy-conditions/hay-fever/"/>
                 </p>
                 <ul className={"marker:text-current"}>
-                    <li>often having to clear the throat</li>
-                    <li>itching in the back of the throat</li>
+                    <li><p>often having to clear the throat</p></li>
+                    <li><p>itching in the back of the throat</p></li>
                 </ul>
                 <p>
                     Pollen inhalation can provoke allergic reactions, causing throat irritation, itching, and soreness.
