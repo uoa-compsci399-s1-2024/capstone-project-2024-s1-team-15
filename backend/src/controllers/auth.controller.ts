@@ -11,6 +11,8 @@ import {
 } from "@/util/validation/input.types"
 import { validate } from "@/util/functions"
 import { User, UserScope } from "@aapc/types"
+import FirebaseAuthService from "@/services/auth/firebase-auth"
+import { Nullable } from "@/util/types/types"
 
 export default class AuthController {
     static register: RequestHandler = async (req, res, next) => {
@@ -21,7 +23,7 @@ export default class AuthController {
         if (await DB.getUserByEmail(body.email)) {
             throw new BadRequestError("This email is already in use by another user.")
         }
-        await AUTH.signup(body.username, body.password, body.email)
+        await AUTH.signup(body[AUTH.authServiceProvider.authKey], body.password, body.email)
         await DB.createUser(new User({
             username: body.username,
             email: body.email,
@@ -37,10 +39,24 @@ export default class AuthController {
 
     static confirmRegister: RequestHandler = async (req, res, next) => {
         const body = validate(ConfirmRegisterIn, req.body)
-        const u = await DB.getUserByUsername(body.username)
-        if (!u) throw new NotFoundError(`User with username '${body.username}' not found.`)
-        if (!await AUTH.confirmSignup(body.username, body.confirmationCode)) {
-            throw new UnauthorizedError("Confirmation code provided is not correct.")
+        let u: Nullable<User>
+
+        if (AUTH.authServiceProvider instanceof FirebaseAuthService) {
+            const confirmResult = await AUTH.confirmSignup("", body.confirmationCode)
+            if (!confirmResult) {
+                throw new UnauthorizedError("Confirmation code provided is not correct.")
+            }
+
+            const email = confirmResult as string
+            u = await DB.getUserByEmail(email)
+            if (!u) throw new NotFoundError(`User with email '${email}' not found.`)
+        } else {
+            u = await DB.getUserByUsername(body.username as string)
+            if (!u) throw new NotFoundError(`User with username '${body.username}' not found.`)
+            const confirmResult = await AUTH.confirmSignup(u.username, body.confirmationCode)
+            if (!confirmResult) {
+                throw new UnauthorizedError("Confirmation code provided is not correct.")
+            }
         }
         u.verified = true
         await DB.editUser(u.username, u)
@@ -74,7 +90,9 @@ export default class AuthController {
 
     static deactivate: RequestHandler = async (req, res, next) => {
         const body = validate(LoginIn, req.body)
-        if (!await AUTH.deactivate(body.username, body.password)) {
+        const user = await DB.getUserByUsername(body.username)
+        if (user === null) throw new UnauthorizedError("Username and/or password incorrect.")
+        if (!(await AUTH.deactivate(user[AUTH.authServiceProvider.authKey] as string, body.password))) {
             throw new UnauthorizedError("Username and/or password incorrect.")
         }
         await DB.deleteUser(body.username)
@@ -87,8 +105,8 @@ export default class AuthController {
         if (body.newPassword === body.currentPassword) {
             throw new BadRequestError("New password cannot be the same as current password.")
         }
-        const username = res.locals.username
-        if (!await AUTH.changePassword(username, body.currentPassword, body.newPassword)) {
+        const authKey = res.locals[AUTH.authServiceProvider.authKey]
+        if (!(await AUTH.changePassword(authKey, body.currentPassword, body.newPassword))) {
             throw new UnauthorizedError("The current password provided is incorrect.")
         }
         res.sendStatus(204)
@@ -99,7 +117,7 @@ export default class AuthController {
         const body = validate(InitiateResetPasswordIn, req.body)
         const u = await DB.getUserByEmail(body.email)
         if (!u || !u.verified) throw new NotFoundError("No user exists with this email.")
-        await AUTH.initiateResetPassword(u.username)
+        await AUTH.initiateResetPassword(u[AUTH.authServiceProvider.authKey])
         res.sendStatus(204)
         next()
     }
@@ -108,7 +126,7 @@ export default class AuthController {
         const body = validate(ResetPasswordIn, req.body)
         const u = await DB.getUserByEmail(body.email)
         if (!u) throw new NotFoundError("No user exists with this email.")
-        if (!await AUTH.resetPassword(u.username, body.verificationCode, body.newPassword)) {
+        if (!(await AUTH.resetPassword(u[AUTH.authServiceProvider.authKey], body.verificationCode, body.newPassword))) {
             throw new UnauthorizedError("Verification code provided is not correct.")
         }
         res.sendStatus(200)

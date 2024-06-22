@@ -64,7 +64,7 @@ export async function refreshToken(fetchOptions?: FetchOptions): Promise<Result<
 }
 
 export async function changePassword(
-    params: { username: string; currentPassword: string; newPassword: string },
+    params: { username: string, email:string, currentPassword: string; newPassword: string },
     fetchOptions?: FetchOptions
 ): Promise<Result<null>> {
     const res = await fetch(`${API_URI}/auth/password`, {

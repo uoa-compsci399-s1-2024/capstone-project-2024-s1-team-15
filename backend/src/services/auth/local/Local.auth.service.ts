@@ -8,6 +8,7 @@ type LocalAuthUser = {
 
 export default class LocalAuthService implements IAuthService {
     private readonly users: LocalAuthUser[] = []
+    readonly authKey= "username" 
     private readonly masterPassword = "admin"
     private readonly masterCode = "123456"
 
