@@ -1,3 +1,7 @@
+// COPIED from frontend/app/(auth)/components/forms/ResetPasswordForm.tsx
+// firebase includes the user's email encryped within the confirmation code
+// so removed any reference to user email in this form
+
 "use client"
 
 import React, { useState } from "react"
@@ -6,7 +10,6 @@ import { useRouter } from "next/navigation"
 import { resetPassword } from "@/app/services/auth"
 import { PASSWORD_REGEX } from "@/app/lib/consts"
 import { useAuth } from "@/app/lib/hooks"
-import ConfirmationCodeInput from "@/app/components/ConfirmationCodeInput"
 import Button from "@/app/components/Button"
 import icons from "@/app/lib/icons"
 
