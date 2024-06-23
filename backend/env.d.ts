@@ -12,6 +12,7 @@ declare global {
             AWS_SECRET_ACCESS_KEY?: string
             AWS_SESSION_TOKEN?: string
             AWS_REGION?: string
+            FIREBASE_CONFIG?: string
             AWS_COGNITO_CLIENT_ID?: string
             AWS_COGNITO_USERPOOL_ID?: string
         }

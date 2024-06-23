@@ -33,6 +33,7 @@ export default function ChangePasswordForm({ id }: { id?: string }): React.JSX.E
         let changePasswordResults = await changePassword(
             {
                 username: user.username,
+                email: user.email,
                 currentPassword,
                 newPassword,
             },

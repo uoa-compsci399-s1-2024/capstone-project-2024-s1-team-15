@@ -39,7 +39,7 @@ export default class Scope {
             if (!Scope.scopeContainsAny(jwtPayload.scopes, scopes)) {
                 throw Scope.forbidden
             } else {
-                res.locals.username = jwtPayload.username
+                res.locals[AUTH.authServiceProvider.authKey] = jwtPayload[AUTH.authServiceProvider.authKey]
                 res.locals.userScopes = jwtPayload.scopes
                 next()
             }
@@ -48,7 +48,7 @@ export default class Scope {
 
     static currentUser: RequestHandler = (req, res, next) => {
         const jwtPayload = Scope.getPayload(req)
-        if (jwtPayload.username !== req.params.username && !Scope.scopeContainsAny(jwtPayload.scopes, SCOPES.admin)) {
+        if (jwtPayload[AUTH.authServiceProvider.authKey] !== req.params[AUTH.authServiceProvider.authKey] && !Scope.scopeContainsAny(jwtPayload.scopes, SCOPES.admin)) {
             throw Scope.forbidden
         } else {
             next()

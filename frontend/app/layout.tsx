@@ -1,5 +1,5 @@
 import "./globals.css"
-import React from "react"
+import React, { Suspense } from "react"
 import type { Metadata } from "next"
 import Header from "@/app/components/Header"
 import FlowerNav from "@/app/components/FlowerNav"
@@ -45,7 +45,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                             xl:ml-auto
                             2xl:mx-auto
                         `}>
-                            {children}
+                            <Suspense>
+                                {children}
+                            </Suspense>
                         </main>
                     </div>
 

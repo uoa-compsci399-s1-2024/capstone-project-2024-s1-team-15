@@ -63,7 +63,8 @@ export default function SignupForm({ onSuccess }: { onSuccess?: () => void; id?:
             setSuccess(true)
             const formElement = document.getElementById(formId) as HTMLFormElement
             formElement.reset()
-            router.push(`/signup/confirm?u=${encodeURIComponent(username)}`)
+            router.push(`/signup/confirm-message`)
+            // router.push(`/signup/confirm?u=${encodeURIComponent(username)}`)
         } else {
             setPending(false)
             return { error: r.message }

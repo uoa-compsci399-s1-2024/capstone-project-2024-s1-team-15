@@ -110,4 +110,7 @@ If an `.env` file is loaded and either `ENV=DEV` or `ENV=PROD`, the following en
 - `AWS_COGNITO_CLIENT_ID` - The ID of a registered client on the above AWS Cognito userpool (**without** a secret token)
 
 
+- `FIREBASE_CONFIG` - This can be found on the [firebase console](https://console.firebase.google.com/) (sign-in using the admin google account)
+
+
 - `GOOGLE_RECAPTCHA_SECRET_KEY` - The secret key of Google's reCAPTCHA service

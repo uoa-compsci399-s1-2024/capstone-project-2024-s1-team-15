@@ -27,7 +27,6 @@ export async function register(credentials: RegisterParams): Promise<Result<null
         body: JSON.stringify(credentials),
         headers: getHeaders()
     })
-    console.log(res)
     if (res.status >= 400) {
         return fail((await res.json()).message)
     }
@@ -40,7 +39,6 @@ export async function confirmRegister(params: { username: string, confirmationCo
         body: JSON.stringify(params),
         headers: getHeaders()
     })
-    console.log(res)
     if (res.status >= 400) {
         return fail((await res.json()).message)
     }
@@ -64,7 +62,7 @@ export async function refreshToken(fetchOptions?: FetchOptions): Promise<Result<
 }
 
 export async function changePassword(
-    params: { username: string; currentPassword: string; newPassword: string },
+    params: { username: string; email:string; currentPassword: string; newPassword: string },
     fetchOptions?: FetchOptions
 ): Promise<Result<null>> {
     const res = await fetch(`${API_URI}/auth/password`, {

@@ -26,6 +26,7 @@ jobs:
           echo GOOGLE_RECAPTCHA_SECRET_KEY=${{ secrets.GOOGLE_RECAPTCHA_SECRET_KEY }} >> .env
           echo AWS_COGNITO_CLIENT_ID=${{ secrets.AWS_COGNITO_CLIENT_ID_DEV }} >> .env
           echo AWS_COGNITO_USERPOOL_ID=${{ secrets.AWS_COGNITO_USERPOOL_ID_DEV }} >> .env
+          echo FIREBASE_CONFIG=${{ secrets.FIREBASE_CONFIG_DEV }} >> .env
           echo AWS_ACCESS_KEY_ID="${{ secrets.AWS_ACCESS_KEY_ID }}" >> .env
           echo AWS_SECRET_ACCESS_KEY="${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> .env
           echo AWS_REGION=${{ secrets.AWS_REGION }} >> .env

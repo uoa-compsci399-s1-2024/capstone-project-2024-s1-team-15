@@ -3,6 +3,8 @@ import { getRandomID } from "../functions"
 import { ValidationError } from "@/errors/ValidationError"
 import Validator, { ValidatorWithPaginatedQIn } from "@/util/validation/validator"
 import { ArticleSortFields, ImageMetadataSortFields, UserSortFields } from "@/util/types/types";
+import { AUTH } from "@/services/services"
+import FirebaseAuthService from "@/services/auth/firebase-auth";
 
 // Interfaces for inputs
 
@@ -23,10 +25,10 @@ interface ILoginIn {
     password: string
 }
 
-interface IRegisterIn extends ILoginIn, Omit<INewUserIn, "scopes"> {}
+interface IRegisterIn extends Omit<INewUserIn, "scopes">, Omit<ILoginIn, "email" | "username"> {}
 
 interface IConfirmRegisterIn {
-    username: string
+    username?: string
     confirmationCode: string
 }
 
@@ -256,12 +258,12 @@ export class RegisterIn extends Validator<IRegisterIn> implements IRegisterIn {
 
 export class ConfirmRegisterIn extends Validator<IConfirmRegisterIn> implements IConfirmRegisterIn {
     confirmationCode: string
-    username: string
+    username?: string
 
     constructor(obj: any) {
         super("body")
-
-        this.username = String(this.checkMissing(obj, "username"))
+        if(!(AUTH.authServiceProvider instanceof FirebaseAuthService))     
+            this.username = String(this.checkMissing(obj, "username"))
         this.confirmationCode = String(this.checkMissing(obj, "confirmationCode"))
 
         if (this.errors.length > 0) {
