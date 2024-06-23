@@ -44,12 +44,8 @@ switch (process.env.ENV) {
         }
 
         const firebaseConfig = JSON.parse(process.env.FIREBASE_CONFIG as string)
-        const firebaseApp = initializeApp(firebaseConfig)
 
-        // import { getAnalytics } from "firebase/analytics"
-        // const analytics = getAnalytics(app)
-
-        AUTH = new AuthContext(new FirebaseAuthService(firebaseApp), <string>process.env.JWT_SECRET)
+        AUTH = new AuthContext(new FirebaseAuthService(firebaseConfig), <string>process.env.JWT_SECRET)
         
         DB = new MongoRepository(
             <string>process.env.MONGO_URI

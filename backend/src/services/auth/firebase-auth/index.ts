@@ -15,13 +15,14 @@ import {
 } from "firebase/auth"
 
 import { IAuthService } from "@/services/auth/auth.service"
-import { FirebaseApp } from "firebase/app"
+import { FirebaseOptions, initializeApp } from "firebase/app"
 
 export default class FirebaseAuthService implements IAuthService {
     private readonly auth: Auth
     readonly authKey = "email"
 
-    constructor(app: FirebaseApp) {
+    constructor(config: FirebaseOptions) {
+        const app = initializeApp(config) 
         this.auth = getAuth(app)
     }
 
