@@ -38,7 +38,6 @@ export default class AuthController {
     }
 
     static confirmRegister: RequestHandler = async (req, res, next) => {
-        console.log(req.body)
         const body = validate(ConfirmRegisterIn, req.body)
         let u: Nullable<User>
 
@@ -49,7 +48,6 @@ export default class AuthController {
             }
 
             const email = confirmResult as string
-            console.log({email})
             u = await DB.getUserByEmail(email)
             if (!u) throw new NotFoundError(`User with email '${email}' not found.`)
         } else {
@@ -60,7 +58,6 @@ export default class AuthController {
                 throw new UnauthorizedError("Confirmation code provided is not correct.")
             }
         }
-        console.log({u})
         u.verified = true
         await DB.editUser(u.username, u)
         res.sendStatus(204)

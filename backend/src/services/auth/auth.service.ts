@@ -1,7 +1,7 @@
 import { sign, verify } from "jsonwebtoken"
 import { Nullable } from "@/util/types/types"
 import { IUser, UserScope } from "@aapc/types"
-import { LOCAL_JWT_SECRET } from "@/util/const"
+import { LOCAL_JWT_SECRET } from "@/util/const";
 
 export type JWTPayload = {
     username?: string

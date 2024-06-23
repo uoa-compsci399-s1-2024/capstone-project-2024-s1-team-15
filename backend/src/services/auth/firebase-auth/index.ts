@@ -41,7 +41,6 @@ export default class FirebaseAuthService implements IAuthService {
     async confirmUser(_: string, confirmationCode: string): Promise<string> {
         const email = await verifyPasswordResetCode(this.auth, confirmationCode)
         await applyActionCode(this.auth, confirmationCode)
-        console.log({ email })
         return email
     }
 
