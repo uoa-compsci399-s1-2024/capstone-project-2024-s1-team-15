@@ -33,6 +33,7 @@ switch (process.env.ENV) {
             "BREVO_CLIENT_EMAIL", "BREVO_CLIENT_PASSWORD",
             "AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY", "AWS_REGION",
             // "AWS_COGNITO_CLIENT_ID", "AWS_COGNITO_USERPOOL_ID",
+            "FIREBASE_CONFIG", 
             "GOOGLE_RECAPTCHA_SECRET_KEY"
         ]
 
