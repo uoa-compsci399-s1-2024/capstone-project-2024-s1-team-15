@@ -13,7 +13,7 @@ behind the AAPC an intuitive Content Management System (CMS) for them to control
 - **Logan Park** [@junjunjun1](https://www.github.com/junjunjun1) - Project Manager
 - **Arnav Shekaran** [@arnard76](https://www.github.com/arnard76) - Designer / Full-stack Developer
 - **Gautham Gunasheelan** [@Gautham-27](https://www.github.com/Gautham-27) - Designer / Full-stack Developer
-- **Stanley Wu** [@sharukyen](https://www.github.com/sharukyen) - Designer / Frontend Developer
+- **Stanley Wu** [@OriginalSequence](https://github.com/OriginalSequence) - Designer / Frontend Developer
 - **Samuel Kim** [@saamuelkim](https://www.github.com/saamuelkim) - Designer / Frontend Developer
 
 ## Project Clients
